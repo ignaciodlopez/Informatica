@@ -80,6 +80,8 @@ a {
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .topbar-nav {
@@ -559,6 +561,10 @@ main .section:nth-child(odd) {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.card-grid.two-col-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .components-grid {
   grid-template-columns: repeat(5, 1fr);
 }
@@ -737,8 +743,187 @@ blockquote {
   color: var(--text);
 }
 
+/* ── HOME HERO ────────────────────────────────────────────── */
+.home-hero {
+  background: var(--primary);
+  padding: 5rem 0 4rem;
+  text-align: center;
+}
+
+.home-hero .eyebrow {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.home-hero h1 {
+  color: #ffffff;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  margin: 0.4rem 0 1rem;
+}
+
+.home-hero .lead {
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ── HOME CLASES GRID ─────────────────────────────────────── */
+.home-class-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.home-class-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.25rem 1.5rem 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  position: relative;
+}
+
+.home-class-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.home-class-num {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.home-class-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.home-class-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0 0 0.25rem;
+}
+
+.home-class-body h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.home-class-body p {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.home-class-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.home-class-tags li {
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+
+.home-class-arrow {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  color: var(--primary);
+  opacity: 0.5;
+  align-self: center;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.home-class-card:hover .home-class-arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* ── NAVEGACIÓN ENTRE CLASES ──────────────────────────────── */
+.class-nav {
+  background: var(--primary);
+  padding: 1.25rem 0;
+}
+
+.class-nav-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.class-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.2s;
+  color: #fff;
+  text-decoration: none;
+  min-width: 200px;
+}
+
+.class-nav-link:not(.disabled):hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.class-nav-link.disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.class-nav-link.next {
+  text-align: right;
+  margin-left: auto;
+}
+
+.class-nav-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.class-nav-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
 .footer {
-  margin-top: 1rem;
+  margin-top: 0;
   padding: 1.6rem 0 2.5rem;
   background: linear-gradient(180deg, #1e2937 0%, #18212d 100%);
 }
@@ -852,6 +1037,7 @@ blockquote {
   /* Grillas a 1 columna */
   .process-grid,
   .card-grid.three,
+  .card-grid.two-col-grid,
   .agenda-panel,
   .two-col,
   .list-panel,

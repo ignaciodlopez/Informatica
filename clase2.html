@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 1 · Clase 2</title>
+  <meta
+    name="description"
+    content="Clase 2 de Taller de Informática I: sistemas operativos, Windows, escritorio y operaciones con ventanas."
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#so">Sistema Operativo</a>
+        <a href="#so-populares">SOs populares</a>
+        <a href="#windows">Windows</a>
+        <a href="#escritorio">Escritorio</a>
+        <a href="#ventanas">Ventanas</a>
+        <a href="#operaciones">Operaciones</a>
+        <a href="#resumen">Resumen</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 1</p>
+        <h1>Sistemas Operativos y Windows</h1>
+        <p class="lead">
+          Una guía visual para comprender qué es un <strong>sistema operativo</strong>,
+          cuáles son los más utilizados, cómo está organizado el
+          <strong>escritorio de Windows</strong> y cómo trabajar con ventanas
+          de manera eficiente.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#so">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 2</li>
+          <li>Sistemas Operativos</li>
+          <li>Escritorio y ventanas</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Conocer las funcionalidades de los sistemas operativos</h2>
+        <p>
+          Identificar qué es un sistema operativo, sus funciones esenciales,
+          los más populares del mercado y cómo se organiza el entorno de trabajo
+          en Windows.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Hardware</span>
+          <span>SO</span>
+          <span>Usuario</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Enfoque de la clase</span>
+          <p>
+            El sistema operativo es el puente entre el hardware y las personas.
+            Sin él, ningún programa ni acción del usuario podría llevarse a cabo.
+            Comprender su rol es fundamental para entender cómo funciona cualquier
+            computadora moderna.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SISTEMA OPERATIVO -->
+    <section class="section" id="so">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Concepto central</p>
+          <h2>¿Qué es un Sistema Operativo?</h2>
+          <p>
+            Es el conjunto de programas que permite la administración de los recursos
+            de una computadora. Estos programas comienzan a trabajar apenas se enciende
+            el equipo, ya que gestionan el hardware desde los niveles más básicos y
+            permiten además la interacción con el usuario.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Interfaz al usuario</h3>
+            <p>
+              Provee el entorno visual e interactivo a través del cual el usuario
+              puede comunicarse con la computadora y ejecutar acciones de forma intuitiva.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Administración de recursos</h3>
+            <p>
+              Coordina el uso del procesador, la memoria y el almacenamiento para
+              que todos los programas funcionen correctamente y de manera ordenada.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Administración de archivos</h3>
+            <p>
+              Organiza, lee, escribe y protege los archivos y carpetas almacenados
+              en el equipo, manteniendo el orden del sistema de almacenamiento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Administración de tareas</h3>
+            <p>
+              Permite ejecutar varios programas al mismo tiempo (multitarea),
+              distribuyendo los recursos del sistema entre ellos de forma eficiente.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Soporte y utilidades</h3>
+            <p>
+              Ofrece herramientas de diagnóstico, configuración, seguridad y
+              mantenimiento que ayudan a mantener el sistema en buen estado de
+              funcionamiento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>En resumen</h3>
+            <p>
+              Sin sistema operativo, el hardware de una computadora no tendría cómo
+              recibir instrucciones ni cómo comunicarse con el usuario o con los
+              programas de aplicación.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SISTEMAS OPERATIVOS POPULARES -->
+    <section class="section alt" id="so-populares">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Panorama del mercado</p>
+          <h2>Sistemas Operativos más populares</h2>
+          <p>
+            A lo largo de la historia de la informática surgieron distintos sistemas
+            operativos. Algunos fueron diseñados para uso profesional, otros para el
+            consumidor común. La diferencia más visible es si tienen entorno gráfico o no.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">SO sin entorno gráfico</p>
+            <h3>MS-DOS</h3>
+            <p>
+              Microsoft Disk Operating System. Fue uno de los primeros sistemas
+              operativos ampliamente utilizados en PCs. El usuario debía escribir
+              comandos de texto para ejecutar cualquier acción, sin iconos ni ventanas.
+            </p>
+            <ul>
+              <li>Interfaz de línea de comandos</li>
+              <li>Base de muchos sistemas modernos</li>
+              <li>Precursor de Windows</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">SO con entorno gráfico</p>
+            <h3>Microsoft Windows</h3>
+            <p>
+              El sistema operativo de interfaz gráfica más extendido en computadoras
+              personales y entornos de trabajo. Evolucionó desde versiones simples
+              hasta Windows 11, con mejoras constantes en usabilidad y seguridad.
+            </p>
+            <ul>
+              <li>Interfaz gráfica intuitiva</li>
+              <li>Compatible con la gran mayoría del software</li>
+              <li>Usado en hogares, empresas y educación</li>
+            </ul>
+          </article>
+
+          <article class="info-card" style="--accent-card: var(--warm); border-top: 4px solid var(--warm);">
+            <p class="card-label">SO con entorno gráfico</p>
+            <h3>Linux</h3>
+            <p>
+              Sistema operativo de código abierto, disponible en múltiples distribuciones
+              (Ubuntu, Fedora, Debian, entre otras). Muy apreciado en servidores,
+              programación y entornos donde se requiere personalización y control.
+            </p>
+            <ul>
+              <li>Gratuito y de código abierto</li>
+              <li>Alta estabilidad y seguridad</li>
+              <li>Diversas distribuciones según el uso</li>
+            </ul>
+          </article>
+
+          <article class="info-card" style="--accent-card: var(--rose); border-top: 4px solid var(--rose);">
+            <p class="card-label">SO con entorno gráfico</p>
+            <h3>Apple Macintosh (macOS)</h3>
+            <p>
+              Sistema operativo de Apple para sus computadoras Mac. Es reconocido por
+              su diseño cuidado, integración con dispositivos Apple y uso en entornos
+              creativos como diseño, música y video.
+            </p>
+            <ul>
+              <li>Exclusivo para hardware Apple</li>
+              <li>Interfaz pulida y coherente</li>
+              <li>Popular en industrias creativas</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Nota</span>
+          <p>
+            Los escritorios de los distintos sistemas operativos fueron evolucionando con
+            el tiempo. En el caso de Windows, el avance fue desde versiones básicas hasta
+            la actualidad con Windows 10 y 11.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WINDOWS -->
+    <section class="section" id="windows">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Foco de la clase</p>
+          <h2>Windows: el sistema operativo más utilizado</h2>
+          <p>
+            Windows es un sistema operativo de interfaz gráfica que facilita la ejecución
+            de los comandos ya que es muy intuitivo. Permite que cualquier usuario,
+            sin necesidad de conocimientos técnicos profundos, pueda operar una computadora
+            de manera eficaz.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>¿Por qué gráfico?</h3>
+            <p>
+              A diferencia de los sistemas basados en texto como MS-DOS, Windows permite
+              interactuar mediante iconos, menús, ventanas y el mouse. Esto reduce la
+              curva de aprendizaje y hace accesible la computadora a una mayor cantidad
+              de personas.
+            </p>
+            <ul>
+              <li>Iconos en lugar de comandos</li>
+              <li>Navegación con el mouse</li>
+              <li>Ventanas para cada programa</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>¿Qué hace al encender la PC?</h3>
+            <p>
+              En cuanto se inicia el equipo, Windows carga sus componentes básicos,
+              verifica el hardware disponible, lanza los servicios del sistema y
+              presenta al usuario el <strong>escritorio</strong>: el punto de partida
+              para toda actividad en la computadora.
+            </p>
+            <ul>
+              <li>Arranque automático del sistema</li>
+              <li>Detección del hardware</li>
+              <li>Presentación del escritorio</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESCRITORIO -->
+    <section class="section alt" id="escritorio">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Entorno de trabajo</p>
+          <h2>El Escritorio de Windows</h2>
+          <p>
+            Cada vez que ingresamos a una PC aparece un elemento conocido como el
+            <strong>escritorio</strong>. Se llama así porque puede contener todos aquellos
+            objetos que habitualmente tenemos en un escritorio físico: carpetas, documentos,
+            un reloj, una calculadora, fotos de fondo y más. El escritorio virtual puede
+            personalizarse con la apariencia y funcionalidad de acuerdo a las necesidades
+            de cada usuario.
+          </p>
+        </div>
+
+        <div class="list-panel">
+          <div>
+            <h3>Botón de Inicio</h3>
+            <p>
+              Muestra al hacer clic un menú con los programas, aplicaciones y recursos
+              del sistema para que el usuario administre correctamente su computadora.
+            </p>
+          </div>
+          <div>
+            <h3>Barra de Tareas</h3>
+            <p>
+              Muestra las aplicaciones o ventanas abiertas, el reloj del sistema y pueden
+              aparecer otros indicadores como la impresora o el volumen del sonido.
+            </p>
+          </div>
+          <div>
+            <h3>Carpetas</h3>
+            <p>
+              Son los almacenes lógicos donde se guardan todo tipo de archivos y otras
+              carpetas. Permiten organizar la información de manera jerárquica.
+            </p>
+          </div>
+          <div>
+            <h3>Archivos</h3>
+            <p>
+              Conjunto de datos almacenados en la PC. Pueden ser documentos, imágenes,
+              videos, programas u otros tipos de información digital. Una carpeta especial
+              es <em>Mis Documentos</em>.
+            </p>
+          </div>
+          <div>
+            <h3>Papelera de reciclaje</h3>
+            <p>
+              Área de almacenamiento para guardar los objetos eliminados. Permite
+              recuperar archivos borrados por error antes de que se eliminen definitivamente.
+            </p>
+          </div>
+          <div>
+            <h3>Iconos</h3>
+            <p>
+              Representación gráfica de los archivos, programas y accesos directos
+              en el escritorio y en las ventanas. Facilitan el reconocimiento visual
+              de cada elemento.
+            </p>
+          </div>
+          <div>
+            <h3>Acceso directo</h3>
+            <p>
+              Icono que proporciona acceso rápido a los documentos y aplicaciones más
+              utilizados. Se caracteriza porque tiene una pequeña flecha en el ángulo
+              inferior izquierdo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAS VENTANAS -->
+    <section class="section" id="ventanas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Unidad básica de trabajo</p>
+          <h2>Las Ventanas</h2>
+          <p>
+            Cada vez que ejecutamos un programa, abrimos un archivo o carpeta su
+            contenido se muestra dentro de una <strong>ventana</strong>. Por lo tanto,
+            las ventanas son las unidades básicas de trabajo en Windows. La
+            <strong>multitarea</strong> permite trabajar con varias aplicaciones a la
+            vez, es decir, varias ventanas abiertas simultáneamente, mostrándose las
+            mismas en la barra de tareas.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Concepto</p>
+            <h3>¿Qué es una ventana?</h3>
+            <p>
+              Es el contenedor visual que representa a un programa o archivo abierto.
+              Cada ventana tiene su propia barra de título, área de contenido y botones
+              de control. Pueden superponerse, redimensionarse y moverse libremente
+              por la pantalla.
+            </p>
+            <ul>
+              <li>Representa un programa o archivo abierto</li>
+              <li>Contiene barra de título y botones de control</li>
+              <li>Aparece en la barra de tareas cuando está activa</li>
+            </ul>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Multitarea</p>
+            <h3>Trabajar con varias ventanas</h3>
+            <p>
+              Windows permite tener múltiples ventanas abiertas al mismo tiempo.
+              Esto posibilita, por ejemplo, escribir un documento mientras se consulta
+              un navegador, o copiar datos de una planilla a otra. Cada ventana
+              activa aparece en la barra de tareas.
+            </p>
+            <ul>
+              <li>Múltiples programas activos a la vez</li>
+              <li>Cambio rápido entre ventanas</li>
+              <li>Mayor productividad del usuario</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPERACIONES CON VENTANAS -->
+    <section class="section alt" id="operaciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Control del entorno</p>
+          <h2>Operaciones con Ventanas</h2>
+          <p>
+            En el borde superior de toda ventana, dentro de la barra de título, se
+            encuentran los <strong>botones de control</strong>. Permiten manejar el
+            tamaño, la visibilidad y la posición de cada ventana en la pantalla.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Minimizar</h3>
+            <p>
+              Reduce la ventana a un botón en la barra de tareas, dejándola
+              momentáneamente inactiva. La aplicación continúa ejecutándose
+              en segundo plano y puede recuperarse fácilmente.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Maximizar / Restaurar</h3>
+            <p>
+              <strong>Maximizar</strong> aumenta la ventana hasta ocupar la pantalla
+              completa, útil cuando se trabaja con muchos elementos. <strong>Restaurar</strong>
+              la devuelve al tamaño y posición anterior.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Cerrar</h3>
+            <p>
+              Da cierre a la aplicación y hace desaparecer la ventana. Si el programa
+              tiene cambios sin guardar, generalmente pregunta si desea guardarlos
+              antes de cerrarse.
+            </p>
+          </article>
+
+          <article class="simple-card">
+            <h3>Cambiar tamaño</h3>
+            <p>
+              Windows permite modificar manualmente el tamaño de una ventana cuando
+              está en modo normal (no maximizada). Se puede cambiar horizontal, vertical
+              o diagonalmente, señalando uno de los bordes y <em>arrastrando</em>
+              el puntero del mouse.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Mover ventanas</h3>
+            <p>
+              Las ventanas pueden moverse dentro de la pantalla. La manera de hacerlo
+              es arrastrando desde la <strong>barra de título</strong> y soltándola en
+              el lugar deseado. Esto permite organizar el espacio de trabajo a gusto.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Señales visuales</h3>
+            <p>
+              Al posicionar el puntero sobre un borde de ventana, el cursor se transforma
+              en una <strong>doble flecha</strong> indicando que es posible redimensionarla
+              en esa dirección.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Ideas clave para llevar</h2>
+          <p>
+            Un repaso de los conceptos más importantes de la Clase 2, con preguntas
+            para abrir el debate en clase.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Término</th>
+                  <th>Definición breve</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sistema Operativo</td>
+                  <td>Conjunto de programas que administra los recursos del equipo</td>
+                </tr>
+                <tr>
+                  <td>MS-DOS</td>
+                  <td>SO sin entorno gráfico, basado en comandos de texto</td>
+                </tr>
+                <tr>
+                  <td>Windows</td>
+                  <td>SO gráfico, intuitivo, el más extendido en PCs</td>
+                </tr>
+                <tr>
+                  <td>Escritorio</td>
+                  <td>Pantalla principal de Windows al iniciar el equipo</td>
+                </tr>
+                <tr>
+                  <td>Ventana</td>
+                  <td>Contenedor visual de un programa o archivo abierto</td>
+                </tr>
+                <tr>
+                  <td>Multitarea</td>
+                  <td>Posibilidad de tener varios programas abiertos a la vez</td>
+                </tr>
+                <tr>
+                  <td>Icono</td>
+                  <td>Representación gráfica de archivos, carpetas o programas</td>
+                </tr>
+                <tr>
+                  <td>Acceso directo</td>
+                  <td>Icono con flecha que accede rápidamente a un recurso</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Ideas clave</h3>
+            <ul>
+              <li>El sistema operativo es el puente entre el hardware y el usuario.</li>
+              <li>Cumple cinco funciones: interfaz, recursos, archivos, tareas y soporte.</li>
+              <li>Windows organiza el trabajo en un escritorio con objetos gráficos.</li>
+              <li>Las ventanas son la unidad básica de trabajo en Windows.</li>
+              <li>Minimizar, maximizar, cerrar, mover y redimensionar son operaciones fundamentales.</li>
+            </ul>
+
+            <div class="mini-questions">
+              <h4>Para abrir el intercambio en clase</h4>
+              <ul>
+                <li>¿Qué pasaría si una computadora no tuviera sistema operativo?</li>
+                <li>¿En qué situaciones preferirías minimizar una ventana en vez de cerrarla?</li>
+                <li>¿Por qué creen que Windows se convirtió en el sistema más popular?</li>
+              </ul>
+            </div>
+
+            <blockquote>
+              "El sistema operativo no es sólo un programa más: es el que hace posible
+              que todos los demás funcionen."
+            </blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase1.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 1 · Introducción a la Informática</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 3 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 1 · Clase 2</p>
+      <p>Ignacio D. López</p>
+    </div>
+  </footer>
+</body>
+</html>

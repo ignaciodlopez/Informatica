@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^python -c \"\nimport sys\ntry:\n    import pdfplumber\n    with pdfplumber\\.open\\(r'c:\\\\Users\\\\Nacho\\\\Desktop\\\\Práctica\\\\Informatica\\\\Contenido\\\\Unidad 1 -  Introducción a la Informática y Sistemas operativos\\\\Unidad 1 - Clase 2 - Introduccion\\.pdf'\\) as pdf:\n        for i, page in enumerate\\(pdf\\.pages\\):\n            print\\(f'--- PÁGINA \\{i\\+1\\} ---'\\)\n            print\\(page\\.extract_text\\(\\)\\)\nexcept ImportError:\n    print\\('pdfplumber no instalado'\\)\n\"\n$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

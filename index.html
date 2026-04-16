@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Taller de Informática I | Unidad 1 · Clase 1</title>
+  <title>Taller de Informática I · Inicio</title>
   <meta
     name="description"
-    content="Landing visual para la Clase 1 de Taller de Informática I: introducción a la informática, hardware, software y componentes de una computadora."
+    content="Página de inicio de Taller de Informática I. Seleccioná la unidad y la clase que querés estudiar."
   />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -14,597 +14,76 @@
   <div class="topbar">
     <div class="wrap topbar-content">
       <p class="topbar-brand">Taller de Informática I</p>
-      <nav class="topbar-nav" aria-label="Navegación por secciones">
-        <a href="#inicio">Inicio</a>
-        <a href="#conceptos">Conceptos</a>
-        <a href="#hardware-software">Hardware</a>
-        <a href="#aplicaciones">Aplicación real</a>
-        <a href="#software">Software</a>
-        <a href="#computadoras">Computadoras</a>
-        <a href="#componentes">Componentes</a>
-        <a href="#memoria">Memoria</a>
-        <a href="#perifericos">Periféricos</a>
-        <a href="#resumen">Resumen</a>
-        <a href="#videos">Videos</a>
+      <nav class="topbar-nav" aria-label="Navegación principal">
+        <a href="#unidad1">Unidad 1</a>
       </nav>
     </div>
   </div>
 
-  <header class="hero" id="inicio">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow">Taller de Informática I · Unidad 1</p>
-        <h1>Introducción a la Informática</h1>
-        <p class="lead">
-          Una guía visual para comprender cómo se procesa la información,
-          qué diferencia al <strong>hardware</strong> del <strong>software</strong>,
-          cómo intervienen la memoria y los periféricos, y por qué estos conceptos
-          son la base de todo sistema informático actual.
-        </p>
-
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#conceptos">Ver contenidos</a>
-          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
-        </div>
-
-        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
-          <li>Clase 1</li>
-          <li>Hardware y software</li>
-          <li>CPU, memoria y periféricos</li>
-        </ul>
-      </div>
-
-      <aside class="hero-card">
-        <p class="card-label">Objetivo de la clase</p>
-        <h2>Reconocer los conceptos clave de la informática</h2>
-        <p>
-          Identificar hardware, software, memoria, periféricos y unidades de
-          almacenamiento para construir una base sólida desde la primera clase.
-        </p>
-
-        <div class="mini-flow" aria-hidden="true">
-          <span>Datos</span>
-          <span>Proceso</span>
-          <span>Información</span>
-        </div>
-
-        <div class="hero-note">
-          <span>Enfoque de la clase</span>
-          <p>
-            Una primera aproximación para que los alumnos entiendan cómo se conectan
-            los conceptos y no sólo los memoricen por separado.
-
-            La propuesta no es solamente definir conceptos, sino empezar a mirar la
-            computadora como un sistema completo: recibe datos, los procesa, almacena
-            resultados y los convierte en información útil para actuar.
-          </p>
-        </div>
-      </aside>
+  <header class="home-hero">
+    <div class="wrap">
+      <p class="eyebrow">Bienvenido/a</p>
+      <h1>Taller de Informática I</h1>
+      <p class="lead">
+        Seleccioná la unidad y la clase que querés estudiar.
+        Cada clase es una guía visual completa con conceptos, ejemplos y recursos.
+      </p>
     </div>
   </header>
 
   <main>
-    <section class="section" id="conceptos">
+    <section class="section" id="unidad1">
       <div class="wrap">
         <div class="section-head">
-          <p class="eyebrow">Punto de partida</p>
-          <h2>De los datos a la información</h2>
+          <p class="eyebrow">Módulo I</p>
+          <h2>Unidad 1 · Introducción a la Informática y Sistemas Operativos</h2>
           <p>
-            En empresas, instituciones y proyectos personales, los datos por sí
-            solos no alcanzan: deben ser interpretados, relacionados y procesados
-            para convertirse en información útil para tomar decisiones. Esa es,
-            en esencia, una de las tareas centrales de la informática.
+            Fundamentos conceptuales para interactuar y resolver situaciones problemáticas
+            utilizando el recurso informático como herramienta de trabajo y comunicación.
           </p>
         </div>
 
-        <div class="process-grid">
-          <article class="process-card">
-            <h3>1. Entrada</h3>
-            <p>
-              Se ingresan datos mediante dispositivos como teclado, mouse,
-              escáner, sensores o formularios digitales. En esta etapa la máquina
-              recibe la materia prima con la que va a trabajar.
-            </p>
-          </article>
-          <article class="process-card">
-            <h3>2. Procesamiento</h3>
-            <p>
-              La computadora analiza, compara, ordena y transforma esos datos
-              siguiendo instrucciones precisas. Aquí intervienen la CPU, la memoria
-              y el software del sistema o de aplicación.
-            </p>
-          </article>
-          <article class="process-card">
-            <h3>3. Salida</h3>
-            <p>
-              Los resultados se presentan como informes, gráficos, mensajes,
-              pantallas o archivos listos para usar. Lo importante es que esa
-              salida ya tiene significado para quien la interpreta.
-            </p>
-          </article>
-        </div>
+        <div class="home-class-grid">
 
-        <div class="card-grid three">
-          <article class="simple-card">
-            <h3>Dato</h3>
-            <p>
-              Es un valor aislado, sin contexto suficiente. Por ejemplo: “25”,
-              “Ausente” o “10/04/2026”. Por sí solo no siempre permite tomar una
-              decisión.
-            </p>
-          </article>
-          <article class="simple-card featured">
-            <h3>Información</h3>
-            <p>
-              Surge cuando los datos se organizan, comparan o interpretan. Por
-              ejemplo: “25 estudiantes asistieron a clase” ya comunica algo útil.
-            </p>
-          </article>
-          <article class="simple-card">
-            <h3>Sistema computacional</h3>
-            <p>
-              Es el conjunto de elementos físicos y lógicos que permiten captar,
-              procesar, almacenar y comunicar información de manera automática.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="hardware-software">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Base del sistema</p>
-          <h2>Hardware y software: dos partes de un mismo todo</h2>
-          <p>
-            Cuando hablamos de una computadora, no nos referimos sólo a una caja,
-            una pantalla o un programa. Todo sistema informático funciona gracias a
-            la interacción constante entre componentes físicos y conjuntos de
-            instrucciones.
-          </p>
-        </div>
-
-        <div class="two-col">
-          <article class="info-card accent-blue">
-            <p class="card-label">Hardware</p>
-            <h3>Lo físico y tangible</h3>
-            <p>
-              Son los componentes materiales del sistema informático: disco duro,
-              placa madre, monitor, memoria, teclado, mouse y más. Se pueden tocar,
-              conectar, reemplazar y clasificar según la función que cumplen.
-            </p>
-            <ul>
-              <li><strong>Entrada:</strong> teclado, mouse, escáner, micrófono</li>
-              <li><strong>Salida:</strong> monitor, impresora, parlantes</li>
-              <li><strong>Almacenamiento:</strong> disco, SSD, pendrive</li>
-            </ul>
-          </article>
-
-          <article class="info-card accent-green">
-            <p class="card-label">Software</p>
-            <h3>Las instrucciones que hacen funcionar al equipo</h3>
-            <p>
-              Incluye programas, aplicaciones y sistemas que le indican al
-              hardware qué tareas debe realizar. Sin software, una computadora
-              sería sólo un conjunto de piezas sin utilidad práctica.
-            </p>
-            <ul>
-              <li>Administra recursos del sistema</li>
-              <li>Facilita el trabajo del usuario</li>
-              <li>Conecta al usuario con la información</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="aplicaciones">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Aplicación real</p>
-          <h2>¿Dónde aparece la informática en la vida cotidiana?</h2>
-          <p>
-            La informática está presente en casi todas las actividades actuales:
-            cuando pagamos con tarjeta, usamos el campus virtual, hacemos una videollamada
-            o consultamos una historia clínica digital. Comprender sus bases ayuda
-            a interpretar mejor el mundo tecnológico en el que vivimos.
-          </p>
-        </div>
-
-        <div class="card-grid three">
-          <article class="simple-card">
-            <h3>Educación</h3>
-            <p>
-              Plataformas virtuales, documentos compartidos, aulas híbridas y sistemas
-              de gestión académica dependen del procesamiento y organización de datos.
-            </p>
-          </article>
-          <article class="simple-card">
-            <h3>Trabajo y empresas</h3>
-            <p>
-              Facturación, control de stock, liquidación de sueldos, reportes y toma
-              de decisiones utilizan sistemas informáticos de forma permanente.
-            </p>
-          </article>
-          <article class="simple-card">
-            <h3>Vida cotidiana</h3>
-            <p>
-              Celulares, cajeros automáticos, redes sociales, mapas, compras online y
-              plataformas de streaming son ejemplos cercanos del uso diario de la informática.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="software">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Clasificación</p>
-          <h2>Tipos de software</h2>
-          <p>
-            No todo programa cumple la misma función. Algunos se encargan de que el
-            equipo funcione correctamente y otros están pensados para resolver tareas
-            concretas del usuario.
-          </p>
-        </div>
-
-        <div class="card-grid three">
-          <article class="simple-card">
-            <h3>Software de sistema</h3>
-            <p>
-              Administra y coordina los recursos de la computadora, como el sistema
-              operativo, los controladores y las utilidades básicas del equipo.
-            </p>
-            <ul>
-              <li>Ejemplo: Windows, Linux, drivers</li>
-              <li>Hace posible que el resto del sistema opere con normalidad</li>
-            </ul>
-          </article>
-          <article class="simple-card">
-            <h3>Software de aplicación</h3>
-            <p>
-              Resuelve tareas concretas del usuario: procesadores de texto,
-              planillas, navegadores, editores, reproductores y plataformas de diseño.
-            </p>
-            <ul>
-              <li>Ejemplo: Word, Excel, Chrome, Canva</li>
-              <li>Está orientado a una necesidad específica</li>
-            </ul>
-          </article>
-          <article class="simple-card">
-            <h3>¿Por qué importa?</h3>
-            <p>
-              Porque sin software el hardware no puede ejecutar acciones útiles,
-              y sin hardware el software no tendría dónde funcionar. La informática
-              aparece precisamente en ese vínculo entre ambos mundos.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="computadoras">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Tecnología</p>
-          <h2>Tipos de computadoras</h2>
-          <p>
-            Aunque hoy predominan las computadoras digitales, es importante
-            conocer las diferencias con otros modelos históricos y técnicos para
-            entender cómo evolucionó el campo de la computación.
-          </p>
-        </div>
-
-        <div class="card-grid three">
-          <article class="simple-card">
-            <h3>Analógicas</h3>
-            <p>
-              Trabajan con magnitudes físicas como tensión o presión. Fueron útiles
-              para representar fenómenos continuos y resolver ciertos cálculos técnicos.
-            </p>
-          </article>
-          <article class="simple-card featured">
-            <h3>Digitales</h3>
-            <p>
-              Operan con valores binarios (0 y 1). Son las más utilizadas en la
-              actualidad por su velocidad, precisión, capacidad de almacenamiento y
-              facilidad para ejecutar múltiples tareas.
-            </p>
-          </article>
-          <article class="simple-card">
-            <h3>Híbridas</h3>
-            <p>
-              Combinan elementos analógicos y digitales para resolver problemas
-              complejos en ámbitos específicos, especialmente cuando se requiere
-              representar señales físicas y al mismo tiempo procesarlas digitalmente.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="componentes">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Arquitectura básica</p>
-          <h2>Componentes esenciales de una computadora</h2>
-          <p>
-            Cada componente cumple un papel específico. Entender su función ayuda a
-            interpretar mejor por qué un equipo puede ser más rápido, más estable o
-            más adecuado para ciertas tareas que otro.
-          </p>
-        </div>
-
-        <div class="card-grid components-grid">
-          <article class="simple-card">
-            <img class="card-img" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Intel_i9-14900KF_CPU.jpg?width=400" alt="CPU – procesador Intel" loading="lazy">
-            <h3>CPU</h3>
-            <p>
-              Es la unidad central de proceso. Controla el funcionamiento general del
-              equipo y ejecuta instrucciones. En ella se distinguen la unidad de control
-              y la unidad aritmética y lógica.
-            </p>
-          </article>
-          <article class="simple-card">
-            <img class="card-img" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Swissbit_2GB_PC2-5300U-555.jpg?width=400" alt="Módulo de Memoria RAM" loading="lazy">
-            <h3>Memoria RAM</h3>
-            <p>
-              Almacena temporalmente los programas y datos en uso. Es rápida y volátil:
-              se vacía al apagar la PC. Cuanta más RAM, más cómodo suele ser el trabajo
-              con varias tareas al mismo tiempo.
-            </p>
-          </article>
-          <article class="simple-card">
-            <img class="card-img" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/EPROM_Intel_C1702A.jpg?width=400" alt="Chip EPROM – Memoria ROM" loading="lazy">
-            <h3>Memoria ROM</h3>
-            <p>
-              Guarda información permanente necesaria para el arranque y tareas básicas
-              del sistema. Su contenido no se modifica como el de una memoria de uso común.
-            </p>
-          </article>
-          <article class="simple-card">
-            <img class="card-img" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Wireless_computer_keyboard_with_mouse_an_USB_receiver.jpg?width=400" alt="Teclado y ratón – periféricos" loading="lazy">
-            <h3>Periféricos</h3>
-            <p>
-              Permiten interactuar con el exterior: entrada, salida, comunicación,
-              almacenamiento o uso mixto. Son la vía por la que el usuario se relaciona
-              con la computadora.
-            </p>
-          </article>
-          <article class="simple-card">
-            <img class="card-img" src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Hard_disk_platters_and_head.jpg?width=400" alt="Discos duros – unidades de almacenamiento" loading="lazy">
-            <h3>Unidades de almacenamiento</h3>
-            <p>
-              Conservan información de forma permanente: discos, SSD, tarjetas de memoria,
-              CDs o pendrives. A diferencia de la RAM, mantienen los datos incluso al apagar.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="memoria">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Memoria</p>
-          <h2>RAM y ROM: parecidas en nombre, distintas en función</h2>
-          <p>
-            Una confusión frecuente al comenzar informática es pensar que toda memoria
-            cumple el mismo papel. En realidad, cada una responde a necesidades diferentes.
-          </p>
-        </div>
-
-        <div class="two-col">
-          <article class="simple-card">
-            <h3>Memoria RAM</h3>
-            <p>
-              Es temporal y de trabajo. Guarda los programas abiertos y los datos que se
-              están usando en ese momento. Por eso, si se corta la energía, esa información
-              se pierde.
-            </p>
-            <ul>
-              <li>Es rápida</li>
-              <li>Es volátil</li>
-              <li>Se usa durante la ejecución de tareas</li>
-            </ul>
-          </article>
-          <article class="simple-card">
-            <h3>Memoria ROM</h3>
-            <p>
-              Contiene información permanente, necesaria para iniciar y verificar el
-              funcionamiento básico del equipo. Está más asociada al arranque que al uso
-              diario de aplicaciones.
-            </p>
-            <ul>
-              <li>No pierde su contenido al apagar</li>
-              <li>Contiene instrucciones esenciales</li>
-              <li>Participa en el inicio del sistema</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="perifericos">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Periféricos</p>
-          <h2>Cinco grupos que conviene distinguir</h2>
-          <p>
-            Los periféricos amplían las capacidades de la PC. Gracias a ellos la computadora
-            puede recibir información, mostrar resultados, conectarse con otros equipos o
-            guardar datos para utilizarlos más adelante.
-          </p>
-        </div>
-
-        <div class="list-panel">
-          <div>
-            <h3>Entrada</h3>
-            <p>Ingresan datos desde el exterior hacia la computadora.</p>
-          </div>
-          <div>
-            <h3>Salida</h3>
-            <p>Muestran o entregan al usuario la información procesada.</p>
-          </div>
-          <div>
-            <h3>Entrada/Salida</h3>
-            <p>Permiten enviar y recibir información, como una pantalla táctil.</p>
-          </div>
-          <div>
-            <h3>Comunicación</h3>
-            <p>Hacen posible la conexión entre dispositivos y redes.</p>
-          </div>
-          <div>
-            <h3>Almacenamiento</h3>
-            <p>Guardan datos para su uso posterior, temporal o permanente.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="almacenamiento">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Almacenamiento</p>
-          <h2>Tipos de dispositivos que usamos todos los días</h2>
-          <p>
-            El material de la clase distingue tres grandes grupos de medios de almacenamiento.
-            Conocerlos permite comparar velocidad, capacidad, durabilidad y usos más comunes.
-          </p>
-        </div>
-
-        <div class="card-grid three">
-          <article class="simple-card">
-            <h3>Medios ópticos</h3>
-            <p>
-              CDs, DVDs y Blu-ray. Fueron muy utilizados para distribuir música, películas,
-              programas y copias de seguridad.
-            </p>
-          </article>
-          <article class="simple-card">
-            <h3>Medios magnéticos</h3>
-            <p>
-              Discos rígidos, cintas magnéticas y antiguos diskettes. Guardan datos mediante
-              cambios magnéticos y siguen siendo relevantes en muchos entornos.
-            </p>
-          </article>
-          <article class="simple-card">
-            <h3>Medios electrónicos</h3>
-            <p>
-              SSD, pendrives y tarjetas de memoria. Son muy frecuentes hoy por su rapidez,
-              tamaño reducido y facilidad para transportar información.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="resumen">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Cierre de la clase</p>
-          <h2>Unidades de medida y conceptos para recordar</h2>
-          <p>
-            Cuando hablamos de almacenamiento también necesitamos una forma de medir
-            cantidades. Estas unidades permiten dimensionar archivos, memorias y discos.
-          </p>
-        </div>
-
-        <div class="summary-grid">
-          <article class="table-card">
-            <table>
-              <thead>
-                <tr>
-                  <th>Unidad</th>
-                  <th>Equivalencia</th>
-                  <th>Uso habitual</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Bit</td>
-                  <td>Unidad mínima</td>
-                  <td>Valor binario 0 o 1</td>
-                </tr>
-                <tr>
-                  <td>Byte</td>
-                  <td>8 bits</td>
-                  <td>Un carácter</td>
-                </tr>
-                <tr>
-                  <td>KB</td>
-                  <td>1.024 bytes</td>
-                  <td>Archivos pequeños</td>
-                </tr>
-                <tr>
-                  <td>MB</td>
-                  <td>1.024 KB</td>
-                  <td>Imágenes y documentos</td>
-                </tr>
-                <tr>
-                  <td>GB</td>
-                  <td>1.024 MB</td>
-                  <td>Capacidad de discos y memorias</td>
-                </tr>
-                <tr>
-                  <td>TB</td>
-                  <td>1.024 GB</td>
-                  <td>Grandes volúmenes de datos</td>
-                </tr>
-              </tbody>
-            </table>
-          </article>
-
-          <article class="takeaways">
-            <h3>Ideas clave</h3>
-            <ul>
-              <li>Los datos procesados se transforman en información.</li>
-              <li>El hardware es físico; el software son instrucciones y programas.</li>
-              <li>La CPU, la memoria y los periféricos forman la base del sistema.</li>
-              <li>RAM y ROM no cumplen la misma función.</li>
-              <li>Comprender el almacenamiento ayuda a interpretar capacidades reales.</li>
-            </ul>
-
-            <div class="mini-questions">
-              <h4>Para abrir el intercambio en clase</h4>
-              <ul>
-                <li>¿Qué dispositivos usamos todos los días sin pensar que son periféricos?</li>
-                <li>¿Por qué una computadora apagada pierde lo que había en RAM pero no en el disco?</li>
-                <li>¿Qué ejemplos de software de sistema y de aplicación usamos en la universidad?</li>
+          <a class="home-class-card" href="clase1.html">
+            <div class="home-class-num">01</div>
+            <div class="home-class-body">
+              <p class="home-class-label">Unidad 1 · Clase 1</p>
+              <h3>Introducción a la Informática</h3>
+              <p>
+                Datos e información, hardware y software, CPU, memoria RAM y ROM,
+                periféricos y unidades de almacenamiento.
+              </p>
+              <ul class="home-class-tags">
+                <li>Hardware</li>
+                <li>Software</li>
+                <li>CPU</li>
+                <li>Memoria</li>
+                <li>Periféricos</li>
               </ul>
             </div>
+            <span class="home-class-arrow">&#x2192;</span>
+          </a>
 
-            <blockquote>
-              “Entender cómo funciona una computadora no es sólo una cuestión técnica:
-              es aprender a pensar cómo se organiza la información en el mundo digital.”
-            </blockquote>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="section alt" id="videos">
-      <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Recursos multimedia</p>
-          <h2>Videos recomendados</h2>
-          <p>
-            Material audiovisual para reforzar y ampliar los conceptos vistos en clase.
-          </p>
-        </div>
-
-        <div class="video-grid">
-          <article class="video-card">
-            <div class="video-wrapper">
-              <iframe
-                src="https://www.youtube.com/embed/0zkX6nlpiSk"
-                title="Video recomendado – Informática"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                loading="lazy"
-              ></iframe>
+          <a class="home-class-card" href="clase2.html">
+            <div class="home-class-num">02</div>
+            <div class="home-class-body">
+              <p class="home-class-label">Unidad 1 · Clase 2</p>
+              <h3>Sistemas Operativos y Windows</h3>
+              <p>
+                Qué es un sistema operativo, sus funciones, los más populares,
+                el escritorio de Windows y las operaciones con ventanas.
+              </p>
+              <ul class="home-class-tags">
+                <li>Sistema Operativo</li>
+                <li>Windows</li>
+                <li>Escritorio</li>
+                <li>Ventanas</li>
+              </ul>
             </div>
-          </article>
+            <span class="home-class-arrow">&#x2192;</span>
+          </a>
+
         </div>
       </div>
     </section>
@@ -612,7 +91,7 @@
 
   <footer class="footer">
     <div class="wrap footer-content">
-      <p><strong>Taller de Informática I</strong> · Unidad 1 · Clase 1</p>
+      <p><strong>Taller de Informática I</strong> · Informática Aplicada</p>
       <p>Ignacio D. López</p>
     </div>
   </footer>
