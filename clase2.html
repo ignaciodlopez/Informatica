@@ -103,6 +103,7 @@
               Provee el entorno visual e interactivo a través del cual el usuario
               puede comunicarse con la computadora y ejecutar acciones de forma intuitiva.
             </p>
+            <p class="card-example"><strong>Ejemplo:</strong> El escritorio de Windows con sus íconos y menús es la interfaz que ofrece el sistema operativo al usuario.</p>
           </article>
           <article class="simple-card featured">
             <h3>Administración de recursos</h3>
@@ -110,6 +111,7 @@
               Coordina el uso del procesador, la memoria y el almacenamiento para
               que todos los programas funcionen correctamente y de manera ordenada.
             </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Cuando abrís Chrome y Word al mismo tiempo, el SO divide la RAM disponible entre ambos para que funcionen sin bloquearse.</p>
           </article>
           <article class="simple-card">
             <h3>Administración de archivos</h3>
@@ -117,6 +119,7 @@
               Organiza, lee, escribe y protege los archivos y carpetas almacenados
               en el equipo, manteniendo el orden del sistema de almacenamiento.
             </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Cuando guardás un documento en "Mis Documentos", el SO decide dónde lo almacena en el disco y cómo recuperarlo después.</p>
           </article>
           <article class="simple-card">
             <h3>Administración de tareas</h3>
@@ -124,6 +127,7 @@
               Permite ejecutar varios programas al mismo tiempo (multitarea),
               distribuyendo los recursos del sistema entre ellos de forma eficiente.
             </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Escuchar música mientras escribís un informe y descargás un archivo es posible gracias a que el SO gestiona todas esas tareas a la vez.</p>
           </article>
           <article class="simple-card">
             <h3>Soporte y utilidades</h3>
@@ -132,6 +136,7 @@
               mantenimiento que ayudan a mantener el sistema en buen estado de
               funcionamiento.
             </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Windows Defender (antivirus), el desfragmentador de disco y el administrador de tareas son utilidades incluidas en el SO.</p>
           </article>
           <article class="simple-card">
             <h3>En resumen</h3>
@@ -160,6 +165,7 @@
 
         <div class="card-grid two-col-grid">
           <article class="info-card accent-blue">
+            <img class="so-logo" src="img/msdos.svg" alt="Logo MS-DOS" />
             <p class="card-label">SO sin entorno gráfico</p>
             <h3>MS-DOS</h3>
             <p>
@@ -175,6 +181,7 @@
           </article>
 
           <article class="info-card accent-green">
+            <img class="so-logo" src="img/windows.svg" alt="Logo Windows" />
             <p class="card-label">SO con entorno gráfico</p>
             <h3>Microsoft Windows</h3>
             <p>
@@ -190,6 +197,7 @@
           </article>
 
           <article class="info-card" style="--accent-card: var(--warm); border-top: 4px solid var(--warm);">
+            <img class="so-logo" src="img/linux.png" alt="Logo Linux (Tux)" />
             <p class="card-label">SO con entorno gráfico</p>
             <h3>Linux</h3>
             <p>
@@ -205,6 +213,7 @@
           </article>
 
           <article class="info-card" style="--accent-card: var(--rose); border-top: 4px solid var(--rose);">
+            <img class="so-logo" src="img/macos.svg" alt="Logo macOS" />
             <p class="card-label">SO con entorno gráfico</p>
             <h3>Apple Macintosh (macOS)</h3>
             <p>
@@ -294,59 +303,146 @@
           </p>
         </div>
 
-        <div class="list-panel">
-          <div>
+        <div class="win-diagram">
+          <img src="img/windows11-desktop.png" alt="Captura real del escritorio de Windows 11 mostrando la barra de tareas centrada con el botón Inicio, íconos en el escritorio y el fondo Bloom característico." loading="lazy"/>
+        </div>
+
+        <div class="escritorio-grid">
+          <!-- Botón de Inicio: logo real de Windows (4 colores) -->
+          <article class="escritorio-card">
+            <div class="escritorio-icon" style="background:#f1f5f9;">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2"    y="2"    width="9.5" height="9.5" fill="#F25022"/>
+                <rect x="12.5" y="2"    width="9.5" height="9.5" fill="#7FBA00"/>
+                <rect x="2"    y="12.5" width="9.5" height="9.5" fill="#00A4EF"/>
+                <rect x="12.5" y="12.5" width="9.5" height="9.5" fill="#FFB900"/>
+              </svg>
+            </div>
             <h3>Botón de Inicio</h3>
-            <p>
-              Muestra al hacer clic un menú con los programas, aplicaciones y recursos
-              del sistema para que el usuario administre correctamente su computadora.
-            </p>
-          </div>
-          <div>
+            <p>Muestra al hacer clic un menú con los programas, aplicaciones y recursos del sistema para que el usuario administre correctamente su computadora.</p>
+          </article>
+
+          <!-- Barra de Tareas: pantalla con barra oscura abajo y logo Windows centrado -->
+          <article class="escritorio-card">
+            <div class="escritorio-icon" style="background:#dbeafe;">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="22" height="15" rx="1.5" fill="#bae6fd"/>
+                <rect x="1" y="17" width="22" height="6"  rx="1"   fill="#1e3a8a"/>
+                <!-- Logo Windows (micro) centrado en la barra -->
+                <rect x="9.2"  y="19.1" width="1.3" height="1.3" fill="#F25022"/>
+                <rect x="10.8" y="19.1" width="1.3" height="1.3" fill="#7FBA00"/>
+                <rect x="9.2"  y="20.7" width="1.3" height="1.3" fill="#00A4EF"/>
+                <rect x="10.8" y="20.7" width="1.3" height="1.3" fill="#FFB900"/>
+                <!-- Iconos de apps ancladas -->
+                <rect x="13.5" y="19.2" width="2" height="2" rx="0.4" fill="white" opacity="0.5"/>
+                <rect x="16.2" y="19.2" width="2" height="2" rx="0.4" fill="white" opacity="0.4"/>
+                <rect x="18.9" y="19.2" width="2" height="2" rx="0.4" fill="white" opacity="0.3"/>
+              </svg>
+            </div>
             <h3>Barra de Tareas</h3>
-            <p>
-              Muestra las aplicaciones o ventanas abiertas, el reloj del sistema y pueden
-              aparecer otros indicadores como la impresora o el volumen del sonido.
-            </p>
-          </div>
-          <div>
+            <p>Muestra las aplicaciones o ventanas abiertas, el reloj del sistema y pueden aparecer otros indicadores como la impresora o el volumen del sonido.</p>
+          </article>
+
+          <!-- Carpetas: carpeta Windows amarilla con solapa -->
+          <article class="escritorio-card">
+            <div class="escritorio-icon" style="background:#fefce8;">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cuerpo principal -->
+                <rect x="2" y="8" width="20" height="13" rx="2" fill="#f59e0b"/>
+                <!-- Solapa (tab) superior izquierda -->
+                <path d="M2 8V6.5A1.5 1.5 0 013.5 5H9l1.5 3z" fill="#d97706"/>
+                <!-- Panel frontal más claro -->
+                <path d="M2 12h20v7a2 2 0 01-2 2H4a2 2 0 01-2-2z" fill="#fbbf24"/>
+              </svg>
+            </div>
             <h3>Carpetas</h3>
-            <p>
-              Son los almacenes lógicos donde se guardan todo tipo de archivos y otras
-              carpetas. Permiten organizar la información de manera jerárquica.
-            </p>
-          </div>
-          <div>
+            <p>Son los almacenes lógicos donde se guardan todo tipo de archivos y otras carpetas. Permiten organizar la información de manera jerárquica.</p>
+          </article>
+
+          <!-- Archivos: documento con esquina doblada y líneas de texto -->
+          <article class="escritorio-card">
+            <div class="escritorio-icon" style="background:#ede9fe;">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 2h9l5 5v14a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1z" fill="#7c3aed"/>
+                <path d="M14 2l5 5h-4.5a.5.5 0 01-.5-.5V2z" fill="#4c1d95"/>
+                <line x1="7" y1="12" x2="17" y2="12" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+                <line x1="7" y1="15" x2="17" y2="15" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+                <line x1="7" y1="18" x2="13" y2="18" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+              </svg>
+            </div>
             <h3>Archivos</h3>
-            <p>
-              Conjunto de datos almacenados en la PC. Pueden ser documentos, imágenes,
-              videos, programas u otros tipos de información digital. Una carpeta especial
-              es <em>Mis Documentos</em>.
-            </p>
-          </div>
-          <div>
+            <p>Conjunto de datos almacenados en la PC. Pueden ser documentos, imágenes, videos, programas u otros tipos de información digital. Una carpeta especial es <em>Mis Documentos</em>.</p>
+          </article>
+
+          <!-- Papelera: tacho de basura con tapa, asa y rayas -->
+          <article class="escritorio-card">
+            <div class="escritorio-icon" style="background:#fee2e2;">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cuerpo del tacho (trapezoidal) -->
+                <path d="M5.5 10l1.5 11h10l1.5-11z" fill="#ef4444"/>
+                <!-- Tapa -->
+                <rect x="3.5" y="7" width="17" height="3" rx="1.5" fill="#dc2626"/>
+                <!-- Asa -->
+                <path d="M9.5 7V5a1 1 0 011-1h3a1 1 0 011 1v2" fill="none" stroke="#b91c1c" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Líneas verticales -->
+                <line x1="9.5" y1="13" x2="9"   y2="19" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+                <line x1="12"  y1="13" x2="12"   y2="19" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+                <line x1="14.5" y1="13" x2="15"  y2="19" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+              </svg>
+            </div>
             <h3>Papelera de reciclaje</h3>
-            <p>
-              Área de almacenamiento para guardar los objetos eliminados. Permite
-              recuperar archivos borrados por error antes de que se eliminen definitivamente.
-            </p>
-          </div>
-          <div>
-            <h3>Iconos</h3>
-            <p>
-              Representación gráfica de los archivos, programas y accesos directos
-              en el escritorio y en las ventanas. Facilitan el reconocimiento visual
-              de cada elemento.
-            </p>
-          </div>
-          <div>
+            <p>Área de almacenamiento para guardar los objetos eliminados. Permite recuperar archivos borrados por error antes de que se eliminen definitivamente.</p>
+          </article>
+
+          <!-- Íconos: cuadrícula de 4 mini íconos (carpeta, doc, app, ajustes) -->
+          <article class="escritorio-card">
+            <div class="escritorio-icon" style="background:#f0f9ff;">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Carpeta (amarilla) -->
+                <rect x="1" y="1" width="10" height="10" rx="2" fill="#fbbf24"/>
+                <path d="M1 5V4.5A1.5 1.5 0 012.5 3H5.5l1.5 2.5z" fill="#d97706"/>
+                <!-- Documento (violeta) -->
+                <rect x="13" y="1" width="10" height="10" rx="2" fill="#7c3aed"/>
+                <line x1="15" y1="7" x2="21" y2="7" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+                <line x1="15" y1="9" x2="19" y2="9" stroke="white" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+                <!-- App (verde) -->
+                <rect x="1" y="13" width="10" height="10" rx="2" fill="#10b981"/>
+                <circle cx="6" cy="18" r="2"   fill="white" opacity="0.35"/>
+                <circle cx="6" cy="18" r="0.9" fill="white" opacity="0.65"/>
+                <!-- Ajustes (azul) con círculo de engranaje -->
+                <rect x="13" y="13" width="10" height="10" rx="2" fill="#0284c7"/>
+                <circle cx="18" cy="18" r="2"   fill="white" opacity="0.2"/>
+                <circle cx="18" cy="18" r="1"   fill="white" opacity="0.55"/>
+                <circle cx="18" cy="15.3" r="0.7" fill="white" opacity="0.6"/>
+                <circle cx="20.4" cy="16.6" r="0.7" fill="white" opacity="0.6"/>
+                <circle cx="20.4" cy="19.4" r="0.7" fill="white" opacity="0.6"/>
+                <circle cx="18" cy="20.7" r="0.7" fill="white" opacity="0.6"/>
+                <circle cx="15.6" cy="19.4" r="0.7" fill="white" opacity="0.6"/>
+                <circle cx="15.6" cy="16.6" r="0.7" fill="white" opacity="0.6"/>
+              </svg>
+            </div>
+            <h3>Íconos</h3>
+            <p>Representación gráfica de los archivos, programas y accesos directos en el escritorio y en las ventanas. Facilitan el reconocimiento visual de cada elemento.</p>
+          </article>
+
+          <!-- Acceso directo: ícono con flecha de acceso directo en esquina inferior izquierda -->
+          <article class="escritorio-card">
+            <div class="escritorio-icon" style="background:#f0fdf4;">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Ícono base (app verde) -->
+                <rect x="3" y="2" width="14" height="14" rx="3" fill="#10b981"/>
+                <circle cx="10" cy="9" r="3"   fill="white" opacity="0.2"/>
+                <circle cx="10" cy="9" r="1.4" fill="white" opacity="0.5"/>
+                <!-- Badge de acceso directo (cuadrado blanco con flecha) -->
+                <rect x="1" y="15" width="9" height="9" rx="2" fill="white" stroke="#cbd5e1" stroke-width="0.75"/>
+                <!-- Flecha apuntando arriba-derecha (↗) -->
+                <line x1="3.5" y1="22.5" x2="8.5" y2="17.5" stroke="#374151" stroke-width="1.4" stroke-linecap="round"/>
+                <polyline points="5.5,17.5 8.5,17.5 8.5,20.5" fill="none" stroke="#374151" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <h3>Acceso directo</h3>
-            <p>
-              Icono que proporciona acceso rápido a los documentos y aplicaciones más
-              utilizados. Se caracteriza porque tiene una pequeña flecha en el ángulo
-              inferior izquierdo.
-            </p>
-          </div>
+            <p>Ícono que proporciona acceso rápido a los documentos y aplicaciones más utilizados. Se caracteriza porque tiene una pequeña flecha en el ángulo inferior izquierdo.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -423,6 +519,9 @@
               momentáneamente inactiva. La aplicación continúa ejecutándose
               en segundo plano y puede recuperarse fácilmente.
             </p>
+            <div class="card-example">
+              <strong>Ejemplo:</strong> Abrís el correo pero necesitás escribir en Word. Minimizás el correo para dejarlo en la barra de tareas y seguir trabajando.
+            </div>
           </article>
           <article class="simple-card featured">
             <h3>Maximizar / Restaurar</h3>
@@ -431,6 +530,9 @@
               completa, útil cuando se trabaja con muchos elementos. <strong>Restaurar</strong>
               la devuelve al tamaño y posición anterior.
             </p>
+            <div class="card-example">
+              <strong>Ejemplo:</strong> Estás leyendo un documento largo. Lo maximizás para ver más texto en pantalla a la vez sin tener que hacer scroll constantemente.
+            </div>
           </article>
           <article class="simple-card">
             <h3>Cerrar</h3>
@@ -439,6 +541,9 @@
               tiene cambios sin guardar, generalmente pregunta si desea guardarlos
               antes de cerrarse.
             </p>
+            <div class="card-example">
+              <strong>Ejemplo:</strong> Terminaste de navegar. Cerrás el navegador y el programa deja de ejecutarse, liberando memoria del sistema.
+            </div>
           </article>
 
           <article class="simple-card">
@@ -449,6 +554,9 @@
               o diagonalmente, señalando uno de los bordes y <em>arrastrando</em>
               el puntero del mouse.
             </p>
+            <div class="card-example">
+              <strong>Ejemplo:</strong> Querés ver dos ventanas lado a lado: reducís cada una arrastrando su borde lateral hacia el centro de la pantalla.
+            </div>
           </article>
           <article class="simple-card">
             <h3>Mover ventanas</h3>
@@ -457,6 +565,9 @@
               es arrastrando desde la <strong>barra de título</strong> y soltándola en
               el lugar deseado. Esto permite organizar el espacio de trabajo a gusto.
             </p>
+            <div class="card-example">
+              <strong>Ejemplo:</strong> Una ventana quedó en centro de la pantalla tapando otra. La arrastrás desde la barra de título hacia un costado para ver ambas a la vez.
+            </div>
           </article>
           <article class="simple-card">
             <h3>Señales visuales</h3>
@@ -465,6 +576,9 @@
               en una <strong>doble flecha</strong> indicando que es posible redimensionarla
               en esa dirección.
             </p>
+            <div class="card-example">
+              <strong>Ejemplo:</strong> Cuando ponés el puntero sobre el borde derecho de una ventana, el cursor cambia a ↔, indicando que podés arrastrar hacia la derecha o izquierda.
+            </div>
           </article>
         </div>
       </div>
@@ -489,40 +603,49 @@
                 <tr>
                   <th>Término</th>
                   <th>Definición breve</th>
+                  <th>Ejemplo</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Sistema Operativo</td>
                   <td>Conjunto de programas que administra los recursos del equipo</td>
+                  <td>Windows, Linux, macOS</td>
                 </tr>
                 <tr>
                   <td>MS-DOS</td>
                   <td>SO sin entorno gráfico, basado en comandos de texto</td>
+                  <td>Escribir <code>dir</code> para ver archivos</td>
                 </tr>
                 <tr>
                   <td>Windows</td>
                   <td>SO gráfico, intuitivo, el más extendido en PCs</td>
+                  <td>Windows 11 en una laptop</td>
                 </tr>
                 <tr>
                   <td>Escritorio</td>
                   <td>Pantalla principal de Windows al iniciar el equipo</td>
+                  <td>El fondo con íconos que aparece al encender la PC</td>
                 </tr>
                 <tr>
                   <td>Ventana</td>
                   <td>Contenedor visual de un programa o archivo abierto</td>
+                  <td>El Word abierto con un documento</td>
                 </tr>
                 <tr>
                   <td>Multitarea</td>
                   <td>Posibilidad de tener varios programas abiertos a la vez</td>
+                  <td>Word + navegador + reproductor de música</td>
                 </tr>
                 <tr>
-                  <td>Icono</td>
+                  <td>Ícono</td>
                   <td>Representación gráfica de archivos, carpetas o programas</td>
+                  <td>La carpeta amarilla de Mis Documentos</td>
                 </tr>
                 <tr>
                   <td>Acceso directo</td>
-                  <td>Icono con flecha que accede rápidamente a un recurso</td>
+                  <td>Ícono con flecha que accede rápidamente a un recurso</td>
+                  <td>Ícono de Chrome en el escritorio con ↗</td>
                 </tr>
               </tbody>
             </table>
