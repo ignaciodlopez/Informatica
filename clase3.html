@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 1 · Clase 3</title>
+  <meta
+    name="description"
+    content="Clase 3 de Taller de Informática I: manejo de archivos, carpetas, explorador de Windows y organización de la información."
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#archivos">Archivos</a>
+        <a href="#carpetas">Carpetas</a>
+        <a href="#explorador">Explorador</a>
+        <a href="#operaciones">Operaciones</a>
+        <a href="#busqueda">Búsqueda</a>
+        <a href="#organizacion">Organización</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 1</p>
+        <h1>Manejo de Archivos y Carpetas</h1>
+        <p class="lead">
+          Una guía visual para comprender cómo se organizan los <strong>archivos</strong>,
+          qué son las <strong>carpetas</strong>, cómo usar el
+          <strong>Explorador de Windows</strong> y cómo gestionar la información
+          de manera eficiente y ordenada.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#archivos">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 3</li>
+          <li>Archivos y Carpetas</li>
+          <li>Explorador de Windows</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Gestionar archivos y carpetas de forma eficiente</h2>
+        <p>
+          Identificar qué es un archivo, cómo se organizan en carpetas, cómo
+          utilizar el Explorador de Windows y realizar operaciones básicas para
+          mantener la información ordenada y accesible.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Crear</span>
+          <span>Organizar</span>
+          <span>Gestionar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Enfoque de la clase</span>
+          <p>
+            Saber organizar archivos no es sólo una cuestión técnica: es la base
+            para trabajar de manera productiva. Una buena estructura de carpetas
+            ahorra tiempo, evita pérdidas de información y facilita el trabajo
+            colaborativo y el acceso rápido a lo que se necesita.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ARCHIVOS -->
+    <section class="section" id="archivos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Concepto fundamental</p>
+          <h2>¿Qué es un archivo?</h2>
+          <p>
+            Un archivo es un conjunto de datos o información almacenados en la
+            computadora que pueden ser identificados por un nombre único. Los
+            archivos son la unidad básica de almacenamiento y pueden contener
+            texto, imágenes, sonido, video, programas o cualquier otro tipo de
+            información digital.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Nombre del archivo</h3>
+            <p>
+              Cada archivo tiene un nombre que lo identifica. Debe ser único dentro
+              de la misma carpeta y puede contener letras, números y algunos
+              caracteres especiales.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> "Tarea Final.docx", "Presupuesto 2026.xlsx", "foto_vacaciones.jpg"</p>
+          </article>
+          <article class="simple-card">
+            <h3>Extensión del archivo</h3>
+            <p>
+              Es un sufijo de 3 o 4 letras que aparece después del punto en el
+              nombre del archivo. Indica el tipo de archivo y qué programa se
+              necesita para abrirlo.
+            </p>
+            <p class="card-example"><strong>Ejemplos:</strong> .docx (Word), .pdf (documento portátil), .jpg (imagen), .mp3 (audio), .mp4 (video)</p>
+          </article>
+          <article class="simple-card">
+            <h3>Propiedades del archivo</h3>
+            <p>
+              Cada archivo tiene propiedades asociadas: tamaño, fecha de creación,
+              fecha de modificación, tipo y atributos de solo lectura u oculto.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Un documento de 250 KB creado el 10/04/2026 y modificado el 15/04/2026</p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 3rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Tipos comunes</p>
+            <h3>Archivos de documentos</h3>
+            <p>
+              Contienen texto, tablas, presentaciones y otro contenido de oficina.
+              Son los más utilizados en entornos educativos y laborales.
+            </p>
+            <ul>
+              <li><strong>.docx / .doc:</strong> Documentos de Microsoft Word</li>
+              <li><strong>.xlsx / .xls:</strong> Planillas de cálculo de Excel</li>
+              <li><strong>.pptx / .ppt:</strong> Presentaciones de PowerPoint</li>
+              <li><strong>.pdf:</strong> Formato de documento portátil</li>
+              <li><strong>.txt:</strong> Archivos de texto plano</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Tipos comunes</p>
+            <h3>Archivos multimedia</h3>
+            <p>
+              Almacenan contenido audiovisual: fotografías, música, videos y
+              gráficos que enriquecen la comunicación y el entretenimiento.
+            </p>
+            <ul>
+              <li><strong>.jpg / .jpeg / .png:</strong> Imágenes y fotografías</li>
+              <li><strong>.mp3 / .wav:</strong> Archivos de audio</li>
+              <li><strong>.mp4 / .avi / .mkv:</strong> Archivos de video</li>
+              <li><strong>.gif:</strong> Imágenes animadas</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARPETAS -->
+    <section class="section alt" id="carpetas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Organización</p>
+          <h2>Carpetas: los contenedores de archivos</h2>
+          <p>
+            Las carpetas (también llamadas directorios) son contenedores lógicos
+            que permiten organizar archivos y otras carpetas de forma jerárquica.
+            Funcionan como los cajones de un escritorio físico: agrupan elementos
+            relacionados para facilitar su búsqueda y acceso.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Concepto</p>
+            <h3>¿Qué es una carpeta?</h3>
+            <p>
+              Es un espacio de almacenamiento que puede contener archivos y otras
+              carpetas (subcarpetas). Permite crear una estructura organizada de
+              la información.
+            </p>
+            <ul>
+              <li>Agrupa archivos relacionados</li>
+              <li>Puede contener otras carpetas</li>
+              <li>Facilita la navegación y búsqueda</li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> Mis Documentos → Facultad → Informática → Clase 3</p>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Organización</p>
+            <h3>Carpetas del sistema</h3>
+            <p>
+              Windows crea carpetas especiales al instalar el sistema: Documentos,
+              Descargas, Imágenes, Videos, Música y Escritorio. Son puntos de
+              partida para organizar archivos personales. Las carpetas se organizan
+              en forma de árbol jerárquico.
+            </p>
+            <ul>
+              <li><strong>Mis Documentos:</strong> archivos de trabajo y estudio</li>
+              <li><strong>Descargas:</strong> archivos descargados de internet</li>
+              <li><strong>Escritorio:</strong> acceso rápido a archivos frecuentes</li>
+              <li><strong>Imágenes:</strong> fotos y gráficos</li>
+              <li><strong>Videos:</strong> archivos multimedia</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note">
+          <span>Ventajas de una buena organización</span>
+          <p>
+            Mantener las carpetas organizadas con nombres claros y una estructura
+            lógica reduce el tiempo de búsqueda, evita duplicados, facilita las
+            copias de seguridad y mejora la productividad general del trabajo diario.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPLORADOR DE WINDOWS -->
+    <section class="section" id="explorador">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Herramienta central</p>
+          <h2>Explorador de Windows</h2>
+          <p>
+            El Explorador de Windows (también conocido como Explorador de archivos)
+            es la aplicación que permite navegar, visualizar y gestionar todos los
+            archivos y carpetas del equipo. Es la herramienta fundamental para
+            interactuar con el sistema de archivos.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
+            <h3>Barra de direcciones</h3>
+            <p>
+              Muestra la ruta actual (ubicación) en la que te encontrás. Permite
+              escribir directamente una ruta para acceder rápidamente a cualquier
+              carpeta del sistema.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> C:\Users\Usuario\Documents\Facultad</p>
+          </article>
+          <article class="simple-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
+            <h3>Panel de navegación</h3>
+            <p>
+              Ubicado a la izquierda, muestra las carpetas principales y unidades
+              de almacenamiento. Permite moverse rápidamente entre distintas
+              ubicaciones sin escribir rutas.
+            </p>
+          </article>
+          <article class="simple-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
+            <h3>Panel de contenido</h3>
+            <p>
+              Área principal que muestra los archivos y carpetas contenidos en la
+              ubicación actual. Permite visualizar íconos, listas, detalles o
+              miniaturas según la preferencia del usuario.
+            </p>
+          </article>
+          <article class="simple-card" style="background: #faf5ff; border-top: 3px solid #8b5cf6;">
+            <h3>Cinta de opciones</h3>
+            <p>
+              Barra superior con botones y opciones organizadas por pestañas
+              (Archivo, Inicio, Compartir, Ver). Facilita el acceso a las
+              operaciones más comunes.
+            </p>
+          </article>
+          <article class="simple-card" style="background: #fefce8; border-top: 3px solid #eab308;">
+            <h3>Barra de búsqueda</h3>
+            <p>
+              Ubicada arriba a la derecha, permite buscar archivos y carpetas
+              dentro de la ubicación actual o en todo el equipo escribiendo
+              palabras clave o nombres.
+            </p>
+          </article>
+          <article class="simple-card" style="background: #eff6ff; border-top: 3px solid #3b82f6;">
+            <h3>Acceso rápido</h3>
+            <p>
+              Sección especial que muestra las carpetas y archivos usados
+              recientemente, facilitando el acceso a lo más frecuente sin navegar
+              por toda la estructura.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Consejo</span>
+          <p>
+            Podés abrir el Explorador de Windows de varias formas: haciendo clic
+            en el ícono de carpeta en la barra de tareas, presionando las teclas
+            Windows + E, o haciendo clic derecho en el botón Inicio y seleccionando
+            "Explorador de archivos".
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPERACIONES BÁSICAS -->
+    <section class="section alt" id="operaciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Tareas esenciales</p>
+          <h2>Operaciones básicas con archivos y carpetas</h2>
+          <p>
+            Trabajar con archivos implica realizar operaciones cotidianas que
+            permiten crear, mover, copiar, renombrar y eliminar información. Dominar
+            estas acciones es fundamental para mantener el orden y la productividad.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Crear</h3>
+            <p>
+              Permite generar nuevos archivos o carpetas. Se puede hacer desde el
+              menú contextual (clic derecho) o desde la cinta de opciones del
+              Explorador.
+            </p>
+            <div class="operation-steps">
+              <p><strong>Pasos:</strong></p>
+              <ol>
+                <li>Clic derecho en el espacio vacío</li>
+                <li>Seleccionar "Nuevo"</li>
+                <li>Elegir "Carpeta" o el tipo de archivo</li>
+                <li>Escribir el nombre y presionar Enter</li>
+              </ol>
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>Copiar y Pegar</h3>
+            <p>
+              Crea una copia exacta del archivo o carpeta en otra ubicación,
+              manteniendo el original intacto. Es útil para duplicar información
+              sin moverla de su lugar.
+            </p>
+            <div class="operation-steps">
+              <p><strong>Pasos:</strong></p>
+              <ol>
+                <li>Seleccionar el archivo o carpeta</li>
+                <li>Clic derecho → "Copiar" o Ctrl + C</li>
+                <li>Navegar a la ubicación destino</li>
+                <li>Clic derecho → "Pegar" o Ctrl + V</li>
+              </ol>
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>Cortar y Pegar</h3>
+            <p>
+              Mueve el archivo o carpeta desde su ubicación original hacia otra.
+              A diferencia de copiar, el elemento desaparece de su lugar inicial
+              y aparece en el nuevo.
+            </p>
+            <div class="operation-steps">
+              <p><strong>Pasos:</strong></p>
+              <ol>
+                <li>Seleccionar el archivo o carpeta</li>
+                <li>Clic derecho → "Cortar" o Ctrl + X</li>
+                <li>Navegar a la ubicación destino</li>
+                <li>Clic derecho → "Pegar" o Ctrl + V</li>
+              </ol>
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>Renombrar</h3>
+            <p>
+              Permite cambiar el nombre de un archivo o carpeta sin alterar su
+              contenido ni su ubicación. Útil para corregir errores o reorganizar
+              la información.
+            </p>
+            <div class="operation-steps">
+              <p><strong>Pasos:</strong></p>
+              <ol>
+                <li>Seleccionar el archivo o carpeta</li>
+                <li>Clic derecho → "Cambiar nombre" o F2</li>
+                <li>Escribir el nuevo nombre</li>
+                <li>Presionar Enter</li>
+              </ol>
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>Eliminar</h3>
+            <p>
+              Envía el archivo o carpeta a la Papelera de reciclaje. Desde allí
+              puede recuperarse si fue eliminado por error, o eliminarse
+              definitivamente.
+            </p>
+            <div class="operation-steps">
+              <p><strong>Pasos:</strong></p>
+              <ol>
+                <li>Seleccionar el archivo o carpeta</li>
+                <li>Presionar la tecla Suprimir o Delete</li>
+                <li>Confirmar la eliminación</li>
+                <li>(Se envía a la Papelera de reciclaje)</li>
+              </ol>
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>Seleccionar múltiples</h3>
+            <p>
+              Permite aplicar una operación (copiar, mover, eliminar) a varios
+              archivos o carpetas al mismo tiempo, ahorrando tiempo y esfuerzo.
+            </p>
+            <div class="operation-steps">
+              <p><strong>Métodos:</strong></p>
+              <ul>
+                <li><strong>Ctrl + clic:</strong> selecciona elementos sueltos</li>
+                <li><strong>Shift + clic:</strong> selecciona un rango continuo</li>
+                <li><strong>Ctrl + A:</strong> selecciona todos los elementos</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 2rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Atajo útil</p>
+            <h3>Arrastrar y soltar</h3>
+            <p>
+              Podés mover archivos y carpetas arrastrándolos con el mouse desde su
+              ubicación actual hacia la carpeta destino. Si mantenés presionada la
+              tecla Ctrl mientras arrastrás, se crea una copia en lugar de moverlo.
+            </p>
+            <ul>
+              <li><strong>Arrastrar solo:</strong> mueve el elemento</li>
+              <li><strong>Ctrl + arrastrar:</strong> copia el elemento</li>
+            </ul>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Cuidado</p>
+            <h3>Recuperar archivos eliminados</h3>
+            <p>
+              Cuando eliminás un archivo, va primero a la Papelera de reciclaje.
+              Para recuperarlo, abrí la Papelera, seleccioná el archivo y hacé clic
+              en "Restaurar". Si vaciás la Papelera, la recuperación es mucho más
+              difícil o imposible.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BÚSQUEDA DE ARCHIVOS -->
+    <section class="section" id="busqueda">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Encontrar información</p>
+          <h2>Búsqueda de archivos y carpetas</h2>
+          <p>
+            A medida que aumenta la cantidad de archivos en la computadora, encontrar
+            uno específico puede volverse complicado. Windows ofrece herramientas de
+            búsqueda que permiten localizar archivos rápidamente por nombre, tipo,
+            fecha o contenido.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Búsqueda en el Explorador</h3>
+            <p>
+              El cuadro de búsqueda ubicado en la esquina superior derecha del
+              Explorador permite buscar dentro de la carpeta actual. Basta con
+              escribir parte del nombre del archivo.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Si escribís "tarea" en la búsqueda, Windows mostrará todos los archivos que contengan esa palabra en su nombre.</p>
+          </article>
+          <article class="process-card">
+            <h3>2. Búsqueda desde el menú Inicio</h3>
+            <p>
+              Haciendo clic en el botón Inicio y escribiendo directamente, Windows
+              busca en todo el equipo: archivos, aplicaciones, configuraciones y
+              contenido web.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Escribir "presupuesto" en el menú Inicio busca ese archivo en todas las carpetas del usuario.</p>
+          </article>
+          <article class="process-card">
+            <h3>3. Filtros de búsqueda</h3>
+            <p>
+              Windows permite refinar las búsquedas por tipo de archivo, fecha de
+              modificación, tamaño o ubicación. Esto acelera la localización cuando
+              hay muchos resultados.
+            </p>
+            <ul>
+              <li><strong>Por extensión:</strong> tipo:.pdf</li>
+              <li><strong>Por fecha:</strong> modificado:ayer</li>
+              <li><strong>Por tamaño:</strong> tamaño:>10MB</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note">
+          <span>Consejo</span>
+          <p>
+            Si no recordás el nombre exacto del archivo, probá buscar palabras
+            clave relacionadas con su contenido. Windows indexa el contenido de
+            muchos tipos de archivos para facilitar la búsqueda.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORGANIZACIÓN -->
+    <section class="section alt" id="organizacion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Buenas prácticas</p>
+          <h2>Organización efectiva de archivos</h2>
+          <p>
+            Una buena organización no surge por casualidad: requiere planificar una
+            estructura lógica, usar nombres descriptivos y mantener el orden a lo
+            largo del tiempo. Esto facilita el trabajo individual y colaborativo.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card" style="--accent-card: #f59e0b; border-top: 4px solid #f59e0b;">
+            <p class="card-label">Buenas prácticas</p>
+            <h3>Organización efectiva</h3>
+            <ul>
+              <li><strong>Estructura jerárquica clara:</strong> Creá carpetas principales por tema o proyecto, y dentro de ellas subcarpetas más específicas.</li>
+              <li><strong>Nombres descriptivos:</strong> Usá nombres que describan claramente el contenido. Evitá "documento1" o "nueva carpeta".</li>
+              <li><strong>Consistencia en nombres:</strong> Establecé un criterio y mantenelo. Ejemplo: 2026-04-15_Reunion_Notas.docx</li>
+            </ul>
+            <p class="card-example"><strong>Estructura recomendada:</strong><br/>
+              Documentos → Facultad → Informática → Trabajos Prácticos<br/>
+              Documentos → Facultad → Informática → Apuntes
+            </p>
+          </article>
+          <article class="info-card" style="--accent-card: #8b5cf6; border-top: 4px solid #8b5cf6;">
+            <p class="card-label">Mantenimiento</p>
+            <h3>Cuidado y respaldo</h3>
+            <ul>
+              <li><strong>Evitar duplicados:</strong> Revisá periódicamente para eliminar archivos duplicados o versiones antiguas innecesarias.</li>
+              <li><strong>Copias de seguridad:</strong> Realizá backups regulares de tus archivos importantes en un disco externo o en la nube (OneDrive, Google Drive).</li>
+              <li><strong>Limpieza periódica:</strong> Dedicá tiempo cada cierto período para revisar y organizar. Eliminá lo que ya no sirve y archivá lo antiguo.</li>
+            </ul>
+            <blockquote style="margin-top: 1rem;">
+              "Un minuto dedicado a organizar puede ahorrarte horas de búsqueda en el futuro."
+            </blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RUTAS Y UBICACIONES -->
+    <section class="section" id="rutas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Concepto técnico</p>
+          <h2>Rutas de archivos y unidades</h2>
+          <p>
+            Cada archivo en la computadora tiene una dirección única llamada "ruta"
+            que indica exactamente dónde está ubicado. Comprender las rutas ayuda
+            a navegar el sistema de archivos con mayor precisión.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Estructura</p>
+            <h3>Partes de una ruta</h3>
+            <p>
+              Una ruta de archivo tiene tres componentes principales: la unidad
+              (disco), las carpetas intermedias y el nombre del archivo con su
+              extensión.
+            </p>
+            <p class="card-example"><strong>Ejemplo de ruta completa:</strong><br/>
+              <code>C:\Users\Nacho\Documents\Facultad\Informatica\Clase3.pdf</code>
+            </p>
+            <ul>
+              <li><strong>C:\</strong> → Unidad de disco principal</li>
+              <li><strong>Users\Nacho\Documents\</strong> → Carpetas intermedias</li>
+              <li><strong>Clase3.pdf</strong> → Nombre del archivo</li>
+            </ul>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Unidades</p>
+            <h3>Letras de unidad</h3>
+            <p>
+              Windows asigna letras a cada unidad de almacenamiento: C: para el
+              disco principal, D:, E:, F: para otros discos, pendrives o unidades
+              de red.
+            </p>
+            <ul>
+              <li><strong>C:\</strong> → Disco duro principal</li>
+              <li><strong>D:\</strong> → Unidad de DVD o segundo disco</li>
+              <li><strong>E:, F:, G:</strong> → Pendrives, discos externos</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Nota</span>
+          <p>
+            La barra invertida (\) separa las carpetas en Windows. En otros sistemas
+            operativos como Linux o macOS se usa la barra normal (/). Conocer la
+            estructura de rutas es útil cuando trabajás con comandos o configuraciones
+            avanzadas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Ideas clave para llevar</h2>
+          <p>
+            Un repaso de los conceptos más importantes de la Clase 3, con preguntas
+            para abrir el debate en clase.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Término</th>
+                  <th>Definición breve</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Archivo</td>
+                  <td>Conjunto de datos almacenados con un nombre único</td>
+                  <td>Tarea.docx, foto.jpg, musica.mp3</td>
+                </tr>
+                <tr>
+                  <td>Carpeta</td>
+                  <td>Contenedor que agrupa archivos y otras carpetas</td>
+                  <td>Mis Documentos, Descargas, Facultad</td>
+                </tr>
+                <tr>
+                  <td>Extensión</td>
+                  <td>Sufijo que indica el tipo de archivo</td>
+                  <td>.docx, .pdf, .jpg, .mp3, .xlsx</td>
+                </tr>
+                <tr>
+                  <td>Explorador de Windows</td>
+                  <td>Herramienta para navegar y gestionar archivos</td>
+                  <td>La ventana que muestra carpetas y archivos</td>
+                </tr>
+                <tr>
+                  <td>Copiar</td>
+                  <td>Duplicar un archivo en otra ubicación sin moverlo</td>
+                  <td>Copiar un documento de Descargas a Documentos</td>
+                </tr>
+                <tr>
+                  <td>Cortar</td>
+                  <td>Mover un archivo a otra ubicación (desaparece del original)</td>
+                  <td>Mover una foto del Escritorio a Imágenes</td>
+                </tr>
+                <tr>
+                  <td>Renombrar</td>
+                  <td>Cambiar el nombre de un archivo o carpeta</td>
+                  <td>De "Documento1" a "Informe_Final"</td>
+                </tr>
+                <tr>
+                  <td>Ruta</td>
+                  <td>Dirección completa de un archivo en el sistema</td>
+                  <td>C:\Users\Nacho\Documents\Clase3.pdf</td>
+                </tr>
+                <tr>
+                  <td>Papelera de reciclaje</td>
+                  <td>Área temporal donde van los archivos eliminados</td>
+                  <td>Permite recuperar archivos borrados por error</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Ideas clave</h3>
+            <ul>
+              <li>Los archivos son la unidad básica de almacenamiento en una computadora.</li>
+              <li>Las carpetas organizan archivos de forma jerárquica como un árbol.</li>
+              <li>El Explorador de Windows es la herramienta principal para gestionar archivos.</li>
+              <li>Las operaciones básicas son: crear, copiar, mover, renombrar y eliminar.</li>
+              <li>Una buena organización ahorra tiempo y evita pérdida de información.</li>
+              <li>La Papelera de reciclaje permite recuperar archivos eliminados.</li>
+            </ul>
+
+            <div class="mini-questions">
+              <h4>Para abrir el intercambio en clase</h4>
+              <ul>
+                <li>¿Qué criterio usarías para organizar tus carpetas de estudio?</li>
+                <li>¿Por qué es importante usar nombres descriptivos en los archivos?</li>
+                <li>¿Qué diferencia hay entre copiar y mover un archivo?</li>
+                <li>¿Cómo recuperarías un archivo que eliminaste por error?</li>
+              </ul>
+            </div>
+
+            <blockquote>
+              "La organización no es perfeccionismo: es una herramienta que facilita
+              el trabajo y reduce el estrés cuando necesitás encontrar algo rápido."
+            </blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual para reforzar y ampliar los conceptos vistos en clase.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/GGCVbwFHRZg"
+                title="Video recomendado – Manejo de Archivos"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/79u6_79nKW4"
+                title="Video recomendado – Organización de Carpetas"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase2.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 2 · Sistemas Operativos</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 4 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 1 · Clase 3</p>
+      <p>Ignacio D. López</p>
+    </div>
+  </footer>
+</body>
+</html>
