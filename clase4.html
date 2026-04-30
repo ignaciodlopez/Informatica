@@ -21,6 +21,26 @@
   <style>
     .topbar-nav { cursor: grab; }
     .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    .device-card { padding: 0; overflow: hidden; }
+    .device-img-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.25rem 1rem;
+    }
+    .device-img {
+      width: 140px;
+      height: auto;
+      display: block;
+    }
+    .device-card-body { padding: 1.25rem 1.4rem 1.4rem; }
+    .device-card-body h3 { margin-top: 0; }
+
+    [data-theme="dark"] .device-img-wrap {
+      background: rgba(255,255,255,0.04) !important;
+      border-color: rgba(255,255,255,0.08) !important;
+    }
   </style>
 </head>
 <body>
@@ -652,36 +672,51 @@
         </div>
 
         <div class="card-grid three">
-          <article class="simple-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
-            <h3>Módem</h3>
-            <p>
-              El <strong>módem</strong> (modulador-demodulador) es el dispositivo que
-              conecta la red doméstica u organizacional con la red del proveedor de
-              Internet (ISP). Convierte la señal digital de la computadora en una señal
-              apta para viajar por el medio físico contratado (cable coaxial, fibra
-              óptica, línea telefónica).
-            </p>
-            <p class="card-example"><strong>Analogía:</strong> Es la "puerta de entrada" entre tu casa y la red de la calle. Sin él, no hay conexión a Internet.</p>
+          <article class="simple-card device-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
+            <div class="device-img-wrap" style="background: rgba(2,132,199,0.08); border-bottom: 1px solid rgba(2,132,199,0.15);">
+              <img src="img/modem.jpg" alt="Foto de un módem" class="device-img" loading="lazy">
+            </div>
+            <div class="device-card-body">
+              <h3>Módem</h3>
+              <p>
+                El <strong>módem</strong> (modulador-demodulador) es el dispositivo que
+                conecta la red doméstica u organizacional con la red del proveedor de
+                Internet (ISP). Convierte la señal digital de la computadora en una señal
+                apta para viajar por el medio físico contratado (cable coaxial, fibra
+                óptica, línea telefónica).
+              </p>
+              <p class="card-example"><strong>Analogía:</strong> Es la "puerta de entrada" entre tu casa y la red de la calle. Sin él, no hay conexión a Internet.</p>
+            </div>
           </article>
-          <article class="simple-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
-            <h3>Router</h3>
-            <p>
-              El <strong>router</strong> (enrutador) distribuye la conexión a Internet
-              entre todos los dispositivos de la red local: computadoras, celulares,
-              tablets, smart TVs, etc. También asigna una dirección IP a cada
-              dispositivo y decide por qué camino enviar cada paquete de datos.
-            </p>
-            <p class="card-example"><strong>Analogía:</strong> Es el "cartero" de la red: recibe los paquetes y los entrega al dispositivo correcto dentro de tu casa u oficina.</p>
+          <article class="simple-card device-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
+            <div class="device-img-wrap" style="background: rgba(16,185,129,0.08); border-bottom: 1px solid rgba(16,185,129,0.15);">
+              <img src="img/router.jpg" alt="Foto de un router Wi-Fi" class="device-img" loading="lazy">
+            </div>
+            <div class="device-card-body">
+              <h3>Router</h3>
+              <p>
+                El <strong>router</strong> (enrutador) distribuye la conexión a Internet
+                entre todos los dispositivos de la red local: computadoras, celulares,
+                tablets, smart TVs, etc. También asigna una dirección IP a cada
+                dispositivo y decide por qué camino enviar cada paquete de datos.
+              </p>
+              <p class="card-example"><strong>Analogía:</strong> Es el "cartero" de la red: recibe los paquetes y los entrega al dispositivo correcto dentro de tu casa u oficina.</p>
+            </div>
           </article>
-          <article class="simple-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
-            <h3>Switch</h3>
-            <p>
-              El <strong>switch</strong> (conmutador) es un dispositivo que interconecta
-              varios equipos dentro de una red local mediante cables. A diferencia del
-              router, no gestiona la conexión a Internet: su función es distribuir el
-              tráfico entre los equipos de la misma red de forma eficiente.
-            </p>
-            <p class="card-example"><strong>Analogía:</strong> Es la "regleta de conexiones" de la red: permite conectar muchos equipos entre sí con cables dentro de una oficina.</p>
+          <article class="simple-card device-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
+            <div class="device-img-wrap" style="background: rgba(245,158,11,0.08); border-bottom: 1px solid rgba(245,158,11,0.15);">
+              <img src="img/switch.jpg" alt="Foto de un switch de red" class="device-img" loading="lazy">
+            </div>
+            <div class="device-card-body">
+              <h3>Switch</h3>
+              <p>
+                El <strong>switch</strong> (conmutador) es un dispositivo que interconecta
+                varios equipos dentro de una red local mediante cables. A diferencia del
+                router, no gestiona la conexión a Internet: su función es distribuir el
+                tráfico entre los equipos de la misma red de forma eficiente.
+              </p>
+              <p class="card-example"><strong>Analogía:</strong> Es la "regleta de conexiones" de la red: permite conectar muchos equipos entre sí con cables dentro de una oficina.</p>
+            </div>
           </article>
         </div>
 
