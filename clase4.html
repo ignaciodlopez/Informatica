@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 1 · Clase 4</title>
+  <meta
+    name="description"
+    content="Clase 4 de Taller de Informática I: redes informáticas, tipos de redes, Internet, protocolo TCP/IP, World Wide Web e intranets."
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#concepto">Concepto</a>
+        <a href="#tipos">Tipos</a>
+        <a href="#lan-wan">LAN / WAN</a>
+        <a href="#internet">Internet</a>
+        <a href="#tcpip">TCP/IP</a>
+        <a href="#www">WWW</a>
+        <a href="#intranet">Intranet</a>
+        <a href="#dispositivos">Dispositivos</a>
+        <a href="#velocidad">Velocidad</a>
+        <a href="#dns">DNS</a>
+        <a href="#nube">Nube</a>
+        <a href="#seguridad">Seguridad</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 1</p>
+        <h1>Redes Informáticas</h1>
+        <p class="lead">
+          Una guía visual para comprender qué son las <strong>redes informáticas</strong>,
+          cómo se clasifican, cómo funciona <strong>Internet</strong>, qué es el
+          <strong>protocolo TCP/IP</strong> y qué servicios ofrecen la Web y las intranets.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#concepto">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 4</li>
+          <li>Redes Informáticas</li>
+          <li>Internet y TCP/IP</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Comprender cómo se conectan las computadoras</h2>
+        <p>
+          Conocer los distintos tipos de redes informáticas, entender cómo
+          funciona Internet y sus principales servicios, e identificar los
+          protocolos que hacen posible la comunicación digital a escala mundial.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Red</span>
+          <span>Internet</span>
+          <span>Servicios</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Enfoque de la clase</span>
+          <p>
+            Las redes informáticas son la base de la comunicación digital moderna.
+            Comprender cómo funcionan nos permite entender por qué podemos acceder
+            a información de cualquier parte del mundo en segundos, compartir
+            archivos e impresoras, y colaborar en tiempo real con personas de
+            cualquier lugar.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- QUÉ ES UNA RED -->
+    <section class="section" id="concepto">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Concepto fundamental</p>
+          <h2>¿Qué es una red informática?</h2>
+          <p>
+            Una <strong>red informática</strong> está compuesta por un conjunto de equipos
+            informáticos conectados entre sí mediante distintos elementos de conexión, tales
+            como cables, tarjetas de red, dispositivos inalámbricos, etc. La función principal
+            de una red es permitir a los usuarios <strong>compartir recursos</strong>: software
+            (programas y datos) y hardware (impresoras, escáneres, etc.).
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Elementos de conexión</h3>
+            <p>
+              Las redes utilizan distintos medios para interconectar equipos según la
+              distancia y el entorno: cables de par trenzado, fibra óptica, señales
+              inalámbricas (Wi-Fi) y dispositivos intermedios como switches y routers.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> La red de un aula conecta todas las PCs con cables o Wi-Fi para compartir la impresora y el acceso a Internet.</p>
+          </article>
+          <article class="simple-card">
+            <h3>Recursos de software compartidos</h3>
+            <p>
+              Una red permite que varias computadoras accedan a los mismos programas
+              y datos sin necesidad de copiarlos en cada equipo. Esto facilita la
+              colaboración y el trabajo en equipo.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Un servidor de archivos guarda los documentos de toda una empresa para que cualquier empleado pueda accederlos.</p>
+          </article>
+          <article class="simple-card">
+            <h3>Recursos de hardware compartidos</h3>
+            <p>
+              Los dispositivos físicos como impresoras, escáneres o discos de
+              almacenamiento pueden ser compartidos entre todos los usuarios de la
+              red, reduciendo costos y aumentando la eficiencia.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Una sola impresora conectada a la red puede ser usada por todos los equipos de una oficina.</p>
+          </article>
+        </div>
+
+        <div class="hero-note">
+          <span>¿Por qué son importantes las redes?</span>
+          <p>
+            Las redes informáticas revolucionaron la manera en que trabajamos, estudiamos
+            y nos comunicamos. Sin ellas, no existiría Internet, el correo electrónico, las
+            videollamadas ni el acceso remoto a la información. Hoy prácticamente toda
+            actividad digital depende de una red.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPOS DE RED: CLIENTE/SERVIDOR E IGUAL A IGUAL -->
+    <section class="section alt" id="tipos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Clasificación por configuración</p>
+          <h2>Redes Cliente/Servidor e Igual a Igual</h2>
+          <p>
+            Dependiendo de cómo están configurados los equipos, una red puede organizarse
+            de dos formas: con roles fijos entre clientes y servidores, o con equipos que
+            cumplen ambos roles al mismo tiempo.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Modelo jerárquico</p>
+            <h3>Red Cliente/Servidor</h3>
+            <p>
+              En una red cliente/servidor existen dos tipos de equipos con roles bien
+              diferenciados. Las <strong>estaciones de trabajo</strong> (clientes) solicitan
+              información y servicios a los equipos <strong>servidores</strong>, que los
+              proveen de forma centralizada.
+            </p>
+            <ul>
+              <li><strong>Clientes:</strong> solicitan datos, impresión de documentos, correo electrónico, etc.</li>
+              <li><strong>Servidores:</strong> responden a las solicitudes y gestionan los recursos compartidos.</li>
+              <li><strong>Administrador de red:</strong> persona encargada de configurar, gestionar usuarios y garantizar la seguridad de la red.</li>
+            </ul>
+            <p>
+              Cuando hay muchos recursos, es habitual tener <strong>servidores dedicados</strong>:
+              uno de archivos, otro de impresoras, otro de correo, etc. Los servidores dedicados
+              son más eficientes que los que tienen múltiples tareas asignadas.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> La red de una empresa con 50 empleados: cada PC (cliente) se conecta a un servidor central que provee almacenamiento, correo electrónico e impresión.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Modelo descentralizado</p>
+            <h3>Red Igual a Igual (Peer to Peer)</h3>
+            <p>
+              En una red <strong>igual a igual</strong> (o <em>peer to peer</em>, P2P) todos
+              los equipos pueden ser cliente y servidor al mismo tiempo. No existen equipos
+              clientes exclusivos ni servidores dedicados.
+            </p>
+            <ul>
+              <li>Cada equipo decide qué recursos comparte con el resto.</li>
+              <li>No suele existir un administrador de red centralizado.</li>
+              <li>Es el usuario de cada PC quien decide qué compartir y qué no.</li>
+            </ul>
+            <p>
+              Este modelo es más sencillo de implementar y económico, pero menos seguro
+              y escalable que el modelo cliente/servidor. Es ideal para grupos pequeños.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Cuatro computadoras en una casa conectadas entre sí: cualquiera puede compartir sus archivos o impresora con las demás.</p>
+          </article>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 2.5rem;">
+          <article class="simple-card">
+            <h3>Servidor de archivos</h3>
+            <p>
+              Almacena y gestiona los archivos de todos los usuarios de la red. Permite
+              acceder, modificar y hacer copias de seguridad de documentos de forma
+              centralizada.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Servidor de impresión</h3>
+            <p>
+              Gestiona las solicitudes de impresión de todos los clientes y las distribuye
+              entre las impresoras disponibles, optimizando su uso.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Servidor de correo electrónico</h3>
+            <p>
+              Recibe, almacena y distribuye los mensajes de correo electrónico de todos
+              los usuarios de la red o de una organización.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAN Y WAN -->
+    <section class="section" id="lan-wan">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Clasificación por distancia</p>
+          <h2>Redes de Área Local y de Área Extensa</h2>
+          <p>
+            Según la distancia que separa a los equipos que forman la red, hablamos de
+            redes locales (LAN) o redes extensas (WAN). Esta distinción determina los
+            medios de conexión utilizados y la complejidad de la infraestructura.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Corta distancia</p>
+            <h3>LAN · Red de Área Local</h3>
+            <p>
+              En una <strong>red de área local</strong> (<em>Local Area Network</em>, LAN)
+              los equipos están conectados a poca distancia, generalmente dentro de un
+              mismo edificio o campus.
+            </p>
+            <ul>
+              <li>Límite geográfico: hasta unos pocos kilómetros.</li>
+              <li>Alta velocidad de transferencia de datos.</li>
+              <li>Bajo costo de implementación.</li>
+              <li>Fácil de administrar y mantener.</li>
+            </ul>
+            <p class="card-example">
+              <strong>Ejemplos:</strong> Los equipos de una oficina, un aula, un
+              supermercado, un hospital o un campus universitario.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Larga distancia</p>
+            <h3>WAN · Red de Área Extensa</h3>
+            <p>
+              Una <strong>red de área extensa</strong> (<em>Wide Area Network</em>, WAN)
+              conecta equipos separados por decenas, cientos o miles de kilómetros.
+              Puede interconectar múltiples LANs entre sí.
+            </p>
+            <ul>
+              <li>Alcance geográfico: ciudades, países o continentes.</li>
+              <li>Utiliza infraestructura de telecomunicaciones (fibra óptica, satélites).</li>
+              <li>Mayor complejidad y costo que una LAN.</li>
+              <li>Velocidad variable según el medio de conexión.</li>
+            </ul>
+            <p class="card-example">
+              <strong>Ejemplo:</strong> Una empresa con oficinas en Buenos Aires, Córdoba
+              y Rosario instala una LAN en cada sede e interconecta las tres formando una WAN.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Tipos intermedios: MAN</span>
+          <p>
+            Entre la LAN y la WAN existe un tipo intermedio: la <strong>MAN</strong>
+            (<em>Metropolitan Area Network</em>), que cubre una ciudad o área metropolitana.
+            Por ejemplo, la red que conecta todas las sucursales de un banco dentro de una
+            misma ciudad. Las MAN suelen usar fibra óptica y son administradas por
+            proveedores de telecomunicaciones.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERNET -->
+    <section class="section alt" id="internet">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La red de redes</p>
+          <h2>Internet</h2>
+          <p>
+            <strong>Internet</strong> es la red más grande del mundo: interconecta millones
+            de computadoras repartidas por todo el planeta. Es el resultado de conectar
+            entre sí prácticamente todas las redes existentes, por eso se la conoce como
+            "la red de redes".
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
+            <h3>Medios físicos</h3>
+            <p>
+              Internet usa distintos medios físicos para transmitir información a través
+              del mundo: líneas telefónicas, fibra óptica, enlaces vía satélite y
+              ondas terrestres (Wi-Fi, datos móviles).
+            </p>
+          </article>
+          <article class="simple-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
+            <h3>Backbone</h3>
+            <p>
+              El núcleo de Internet es el <strong>backbone</strong> (columna vertebral):
+              una serie de supercomputadoras conectadas por enlaces de altísima velocidad,
+              también llamadas <strong>superautopistas de la información</strong>.
+            </p>
+          </article>
+          <article class="simple-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
+            <h3>Nodos de conexión</h3>
+            <p>
+              Cuando la información viaja de un equipo a otro, pasa por computadoras
+              intermedias llamadas <strong>nodos de conexión</strong>, que controlan el
+              tráfico y determinan el camino más rápido.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Estructura jerárquica</p>
+            <h3>Cómo se organiza Internet</h3>
+            <p>
+              Internet tiene una estructura jerárquica en capas:
+            </p>
+            <ol style="padding-left: 1.25rem; margin-top: 0.5rem;">
+              <li><strong>Backbone:</strong> supercomputadoras de alta velocidad en ciudades clave del mundo.</li>
+              <li><strong>Redes nacionales y regionales:</strong> conectadas al backbone, cubren países o regiones.</li>
+              <li><strong>Proveedores de acceso a Internet (ISP):</strong> empresas que brindan conexión a usuarios finales.</li>
+              <li><strong>Usuarios finales:</strong> computadoras domésticas, empresas, instituciones.</li>
+            </ol>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Cómo viaja la información</p>
+            <h3>Paquetes de datos</h3>
+            <p>
+              Cuando una computadora envía un mensaje a otra por Internet, ese mensaje
+              se divide en pequeños fragmentos llamados <strong>paquetes</strong>. Cada
+              paquete puede viajar por un camino diferente y, al llegar al destino, son
+              recompuestos en el orden correcto para reconstruir el mensaje original.
+            </p>
+            <ul>
+              <li>Los paquetes viajan por el camino más rápido disponible.</li>
+              <li>Los nodos controlan el tráfico y redirigen los paquetes.</li>
+              <li>La mayoría de los paquetes pasan por el backbone.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="process-grid" style="margin-top: 2.5rem;">
+          <article class="process-card">
+            <h3>1. Proveedor de acceso (ISP)</h3>
+            <p>
+              Para conectarse a Internet, cualquier persona necesita contratar un servicio
+              a un <strong>proveedor de acceso a Internet</strong> (ISP, por sus siglas en
+              inglés). El servidor del ISP es el enlace entre la computadora del usuario e
+              Internet. Los ISP suelen ofrecer además correo electrónico, alojamiento web
+              y otros servicios.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Conexión y transmisión</h3>
+            <p>
+              Una vez conectado, los datos enviados o recibidos viajan en forma de paquetes
+              a través de los distintos nodos de la red hasta llegar al destino. No es
+              necesario pertenecer a una LAN o WAN para conectarse: cualquier PC puede
+              hacerlo directamente a través de su ISP.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Acceso a servicios</h3>
+            <p>
+              Internet es la infraestructura que permite acceder a servicios como la World
+              Wide Web, el correo electrónico, las videollamadas, los servicios en la nube
+              y las redes sociales. Todos estos servicios usan Internet como canal de
+              comunicación.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TCP/IP -->
+    <section class="section" id="tcpip">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El lenguaje de Internet</p>
+          <h2>El Protocolo TCP/IP</h2>
+          <p>
+            Para que dos equipos puedan comunicarse por una red, deben hablar el mismo
+            "idioma": usar un conjunto de normas que garanticen que los mensajes lleguen
+            correctamente. Ese conjunto de normas se llama <strong>protocolo</strong>.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Definición</p>
+            <h3>¿Qué es TCP/IP?</h3>
+            <p>
+              <strong>TCP/IP</strong> es el protocolo estándar de Internet. Combina dos
+              protocolos complementarios:
+            </p>
+            <ul>
+              <li>
+                <strong>TCP</strong> (<em>Transmission Control Protocol</em>): garantiza
+                que los paquetes lleguen correctamente y en orden. Si alguno se pierde,
+                lo solicita nuevamente.
+              </li>
+              <li>
+                <strong>IP</strong> (<em>Internet Protocol</em>): se encarga del
+                direccionamiento y el encaminamiento, es decir, saber a qué equipo va
+                dirigido cada paquete y por qué ruta enviarlo.
+              </li>
+            </ul>
+            <p>
+              Juntos, garantizan que el mensaje enviado por una computadora llegue
+              correctamente a la computadora de destino, sin importar el tipo de equipo
+              ni el sistema operativo.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Historia</p>
+            <h3>Origen de TCP/IP y ARPAnet</h3>
+            <p>
+              TCP/IP fue desarrollado en <strong>1973</strong> por el informático
+              estadounidense <strong>Vinton Cerf</strong> para un proyecto de la ARPA
+              (<em>Advanced Research Projects Agency</em>), agencia del Departamento de
+              Defensa de los Estados Unidos.
+            </p>
+            <p>
+              El objetivo original era interconectar computadoras de distintas
+              universidades e institutos de investigación. Así nació
+              <strong>ARPAnet</strong>, considerado el antecesor directo de Internet.
+            </p>
+            <p>
+              Hoy, TCP/IP permite que todas las computadoras del mundo conectadas a
+              Internet se comuniquen entre sí, con independencia de su tipo o sistema
+              operativo.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Dirección IP</span>
+          <p>
+            Cada equipo conectado a Internet tiene una <strong>dirección IP</strong>
+            (Internet Protocol): un identificador numérico único que permite que los
+            paquetes sepan a dónde dirigirse. Es como el número de una casa en la calle:
+            sin él, nadie podría entregarte un mensaje. Por ejemplo, una dirección IPv4
+            tiene el formato <code>192.168.1.1</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORLD WIDE WEB -->
+    <section class="section alt" id="www">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Servicio estrella de Internet</p>
+          <h2>La World Wide Web (WWW)</h2>
+          <p>
+            La <strong>World Wide Web</strong> (WWW o simplemente "la Web") es el servicio
+            de Internet que más transformó la forma en que accedemos a la información.
+            Sin embargo, es importante no confundirla con Internet: la Web es un servicio
+            que funciona <em>sobre</em> Internet.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
+            <h3>¿Qué es la Web?</h3>
+            <p>
+              La WWW permite buscar y acceder a una gran cantidad de
+              <strong>información multimedia</strong> (textos, imágenes, sonidos,
+              animaciones y videos) almacenada en servidores de páginas web
+              distribuidos por todo el mundo.
+            </p>
+          </article>
+          <article class="simple-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
+            <h3>Navegadores web</h3>
+            <p>
+              Para acceder a la Web los usuarios utilizan programas llamados
+              <strong>navegadores</strong> (o exploradores web). Los más conocidos son
+              Google Chrome, Mozilla Firefox, Microsoft Edge y Safari.
+            </p>
+          </article>
+          <article class="simple-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
+            <h3>Páginas web e hipervínculos</h3>
+            <p>
+              La información en la Web se presenta en <strong>páginas web</strong>
+              conectadas entre sí mediante <strong>hipervínculos</strong> (links). Al hacer
+              clic en un enlace, el navegador solicita al servidor correspondiente la
+              página enlazada.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Historia</p>
+            <h3>Origen de la WWW</h3>
+            <p>
+              La World Wide Web fue creada por el informático británico
+              <strong>Timothy Berners-Lee</strong> en 1989, mientras trabajaba en el
+              <strong>CERN</strong> (Organización Europea para la Investigación Nuclear).
+              Su objetivo inicial era facilitar el intercambio de información científica
+              entre investigadores de distintos países.
+            </p>
+            <p>
+              Su aparición fue el acontecimiento que más impulsó el uso masivo de
+              Internet, transformándolo de una herramienta académica y militar en un
+              recurso de uso cotidiano para toda la sociedad.
+            </p>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Internet ≠ Web</p>
+            <h3>Diferencia clave</h3>
+            <p>
+              Muchas personas usan "Internet" y "Web" como sinónimos, pero son conceptos
+              distintos:
+            </p>
+            <ul>
+              <li><strong>Internet:</strong> es la infraestructura física y lógica que conecta millones de redes en todo el mundo.</li>
+              <li><strong>Web (WWW):</strong> es un servicio que funciona sobre Internet, basado en páginas con hipervínculos.</li>
+            </ul>
+            <p>
+              Otros servicios que también usan Internet son: el correo electrónico
+              (e-mail), la transferencia de archivos (FTP), las videollamadas y la
+              mensajería instantánea.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRANETS -->
+    <section class="section" id="intranet">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Redes internas organizacionales</p>
+          <h2>Intranets</h2>
+          <p>
+            Una <strong>intranet</strong> es una red interna que ofrece a los usuarios de
+            una organización los mismos servicios que Internet (correo electrónico,
+            transferencia de archivos, páginas web, etc.) pero de forma privada y
+            controlada.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Concepto</p>
+            <h3>¿Qué es una intranet?</h3>
+            <p>
+              Una intranet replica los servicios de Internet dentro de una organización:
+              los empleados pueden acceder a páginas internas, enviar correos, compartir
+              archivos y más, sin necesidad de salir a Internet.
+            </p>
+            <ul>
+              <li>Usa los mismos protocolos que Internet (TCP/IP, HTTP).</li>
+              <li>El acceso está restringido a los miembros de la organización.</li>
+              <li>Puede ser pública o privada según si permite acceso externo.</li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> El portal interno de una universidad donde los alumnos acceden a notas, materiales de estudio y avisos institucionales.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Tipos</p>
+            <h3>Intranet pública vs. privada</h3>
+            <p>
+              Una intranet puede configurarse de dos maneras según el nivel de acceso que
+              permita desde el exterior:
+            </p>
+            <ul>
+              <li>
+                <strong>Intranet privada:</strong> solo se puede acceder desde equipos
+                físicamente dentro de la red de la organización. Es la más segura.
+              </li>
+              <li>
+                <strong>Intranet pública (o extranet):</strong> permite el acceso desde
+                Internet a usuarios autorizados (por ejemplo, empleados que trabajan desde
+                casa usando una VPN o usuario y contraseña).
+              </li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> El sistema de gestión académica de una institución al que los docentes acceden desde cualquier lugar con usuario y contraseña.</p>
+          </article>
+        </div>
+
+        <div class="hero-note">
+          <span>Intranet vs. Internet</span>
+          <p>
+            Aunque una intranet usa la misma tecnología que Internet, su contenido y
+            servicios son exclusivos de la organización. Es como tener un "Internet
+            privado" accesible solo para quienes pertenecen a esa red. Muchas empresas
+            grandes usan intranets para publicar manuales, noticias internas, formularios
+            y sistemas de gestión solo accesibles para sus empleados.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISPOSITIVOS DE RED -->
+    <section class="section alt" id="dispositivos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El hardware de la red</p>
+          <h2>Dispositivos de red: módem, router y switch</h2>
+          <p>
+            Cuando nos conectamos a Internet desde casa o en una oficina, hay varios
+            dispositivos trabajando en conjunto para que eso sea posible. Conocerlos
+            permite entender qué hace cada uno y qué hacer cuando algo falla.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
+            <h3>Módem</h3>
+            <p>
+              El <strong>módem</strong> (modulador-demodulador) es el dispositivo que
+              conecta la red doméstica u organizacional con la red del proveedor de
+              Internet (ISP). Convierte la señal digital de la computadora en una señal
+              apta para viajar por el medio físico contratado (cable coaxial, fibra
+              óptica, línea telefónica).
+            </p>
+            <p class="card-example"><strong>Analogía:</strong> Es la "puerta de entrada" entre tu casa y la red de la calle. Sin él, no hay conexión a Internet.</p>
+          </article>
+          <article class="simple-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
+            <h3>Router</h3>
+            <p>
+              El <strong>router</strong> (enrutador) distribuye la conexión a Internet
+              entre todos los dispositivos de la red local: computadoras, celulares,
+              tablets, smart TVs, etc. También asigna una dirección IP a cada
+              dispositivo y decide por qué camino enviar cada paquete de datos.
+            </p>
+            <p class="card-example"><strong>Analogía:</strong> Es el "cartero" de la red: recibe los paquetes y los entrega al dispositivo correcto dentro de tu casa u oficina.</p>
+          </article>
+          <article class="simple-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
+            <h3>Switch</h3>
+            <p>
+              El <strong>switch</strong> (conmutador) es un dispositivo que interconecta
+              varios equipos dentro de una red local mediante cables. A diferencia del
+              router, no gestiona la conexión a Internet: su función es distribuir el
+              tráfico entre los equipos de la misma red de forma eficiente.
+            </p>
+            <p class="card-example"><strong>Analogía:</strong> Es la "regleta de conexiones" de la red: permite conectar muchos equipos entre sí con cables dentro de una oficina.</p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Conexión por cable</p>
+            <h3>Cable Ethernet (RJ-45)</h3>
+            <p>
+              El cable Ethernet es el medio de conexión más habitual en redes locales.
+              Transmite datos a alta velocidad y con gran estabilidad. El conector que
+              se usa se llama <strong>RJ-45</strong> y se parece a un conector telefónico
+              más ancho.
+            </p>
+            <ul>
+              <li><strong>Velocidad:</strong> hasta 1 Gbps o más en cables modernos.</li>
+              <li><strong>Estabilidad:</strong> no se ve afectado por interferencias.</li>
+              <li><strong>Ideal para:</strong> computadoras de escritorio, smart TVs, consolas de juego.</li>
+            </ul>
+            <p class="card-example"><strong>Cuándo usarlo:</strong> Cuando necesitás la máxima velocidad y estabilidad, por ejemplo para videollamadas, juegos online o descargas grandes.</p>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Conexión inalámbrica</p>
+            <h3>Wi-Fi</h3>
+            <p>
+              El <strong>Wi-Fi</strong> permite conectarse a la red sin cables, usando
+              ondas de radio. El router emite una señal inalámbrica que los dispositivos
+              con adaptador Wi-Fi pueden detectar y usar para acceder a la red.
+            </p>
+            <ul>
+              <li><strong>Comodidad:</strong> permite moverse libremente sin cables.</li>
+              <li><strong>Velocidad:</strong> generalmente menor que el cable, variable según la distancia y obstáculos.</li>
+              <li><strong>Interferencias:</strong> paredes, microondas y otros dispositivos pueden afectar la señal.</li>
+              <li><strong>Ideal para:</strong> celulares, laptops, tablets.</li>
+            </ul>
+            <p class="card-example"><strong>Consejo:</strong> Cuanto más lejos estés del router y más paredes haya de por medio, más débil será la señal Wi-Fi.</p>
+          </article>
+        </div>
+
+        <div class="hero-note">
+          <span>Cable vs. Wi-Fi: ¿cuál conviene?</span>
+          <p>
+            El <strong>cable Ethernet</strong> siempre ofrece mayor velocidad, menor latencia
+            y más estabilidad que el Wi-Fi. Si podés conectarte por cable, es la mejor opción
+            para tareas que exigen rendimiento. El <strong>Wi-Fi</strong> es ideal cuando
+            necesitás movilidad o cuando el cableado no es práctico. En muchos hogares y
+            oficinas se usan ambos: cable para los equipos fijos y Wi-Fi para los móviles.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VELOCIDAD Y ANCHO DE BANDA -->
+    <section class="section" id="velocidad">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">¿Por qué a veces va lento?</p>
+          <h2>Velocidad de conexión y ancho de banda</h2>
+          <p>
+            La velocidad con la que viajan los datos por una red es uno de los factores
+            que más impacta en la experiencia del usuario. Entender qué la determina
+            ayuda a tomar mejores decisiones y a identificar problemas.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
+            <h3>Ancho de banda</h3>
+            <p>
+              El <strong>ancho de banda</strong> es la cantidad máxima de datos que puede
+              transmitirse por una conexión en un momento dado. Se mide en
+              <strong>bits por segundo</strong> (bps) y sus múltiplos: Kbps, Mbps, Gbps.
+            </p>
+            <p class="card-example"><strong>Analogía:</strong> Es como el ancho de una cañería: cuanto más ancha, más agua (datos) puede pasar al mismo tiempo.</p>
+          </article>
+          <article class="simple-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
+            <h3>Velocidad de descarga y subida</h3>
+            <p>
+              Las conexiones tienen dos velocidades: <strong>descarga</strong> (download),
+              que es la velocidad a la que recibís datos desde Internet, y
+              <strong>subida</strong> (upload), la velocidad a la que enviás datos.
+              Generalmente la descarga es más rápida que la subida.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Ver un video en YouTube usa principalmente la descarga. Subir un video a YouTube usa principalmente la subida.</p>
+          </article>
+          <article class="simple-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
+            <h3>Latencia (ping)</h3>
+            <p>
+              La <strong>latencia</strong> es el tiempo que tarda un paquete de datos en
+              ir desde tu equipo hasta un servidor y volver. Se mide en milisegundos (ms).
+              Una latencia baja es clave para videollamadas y juegos online.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Un ping de 10 ms es excelente; uno de 200 ms produce "lag" perceptible en videollamadas o juegos.</p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Referencia práctica</p>
+            <h3>¿Cuántos Mbps necesito?</h3>
+            <ul>
+              <li><strong>1–5 Mbps:</strong> navegación web y correo electrónico básico.</li>
+              <li><strong>5–25 Mbps:</strong> video en HD, videollamadas, redes sociales.</li>
+              <li><strong>25–100 Mbps:</strong> streaming en 4K, varios usuarios simultáneos.</li>
+              <li><strong>+100 Mbps:</strong> descargas grandes, trabajo remoto intensivo, muchos dispositivos.</li>
+            </ul>
+            <p class="card-example"><strong>Nota:</strong> El ancho de banda se comparte entre todos los dispositivos conectados. Si hay muchos al mismo tiempo, la velocidad disponible para cada uno se reduce.</p>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Redes móviles</p>
+            <h3>3G, 4G y 5G</h3>
+            <p>
+              Las redes móviles permiten conectarse a Internet desde cualquier lugar
+              usando la antena del celular. Cada generación mejoró la velocidad:
+            </p>
+            <ul>
+              <li><strong>3G:</strong> velocidad básica, suficiente para texto y navegación simple.</li>
+              <li><strong>4G / LTE:</strong> velocidades similares al Wi-Fi doméstico, permite streaming de video fluido.</li>
+              <li><strong>5G:</strong> velocidades muy altas y baja latencia, ideal para aplicaciones futuras como autos autónomos y ciudades inteligentes.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DNS Y DOMINIOS -->
+    <section class="section alt" id="dns">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La agenda telefónica de Internet</p>
+          <h2>DNS y nombres de dominio</h2>
+          <p>
+            Cada dispositivo en Internet tiene una dirección IP numérica. Pero nadie
+            recuerda números como <code>142.250.64.46</code>: por eso existe el
+            <strong>DNS</strong>, que traduce nombres fáciles de recordar en las
+            direcciones IP que las computadoras necesitan.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Concepto</p>
+            <h3>¿Qué es el DNS?</h3>
+            <p>
+              El <strong>DNS</strong> (<em>Domain Name System</em>, Sistema de Nombres de
+              Dominio) es el sistema que traduce los nombres de sitios web como
+              <code>google.com</code> o <code>wikipedia.org</code> a sus correspondientes
+              direcciones IP, que son las que realmente usa la red para localizar los
+              servidores.
+            </p>
+            <p>
+              Cuando escribís una dirección web en el navegador, tu computadora consulta
+              un servidor DNS, que le responde con la IP del servidor correspondiente.
+              Todo esto ocurre en fracciones de segundo, de forma invisible para el usuario.
+            </p>
+            <p class="card-example">
+              <strong>Analogía:</strong> El DNS funciona como la agenda de contactos del
+              teléfono: vos guardás el nombre "Mamá" y el teléfono traduce eso al número
+              real cuando llamás. Sin la agenda, tendrías que recordar todos los números de memoria.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Estructura</p>
+            <h3>¿Qué es un nombre de dominio?</h3>
+            <p>
+              Un <strong>nombre de dominio</strong> es la dirección legible que usamos para
+              identificar sitios web. Tiene una estructura jerárquica:
+            </p>
+            <ul>
+              <li><strong>www</strong> → subdominio (indica que es un sitio web)</li>
+              <li><strong>google</strong> → nombre del dominio (la "marca")</li>
+              <li><strong>.com</strong> → dominio de nivel superior (TLD)</li>
+            </ul>
+            <p>Existen distintos tipos de TLD:</p>
+            <ul>
+              <li><strong>.com:</strong> sitios comerciales</li>
+              <li><strong>.org:</strong> organizaciones sin fines de lucro</li>
+              <li><strong>.edu:</strong> instituciones educativas</li>
+              <li><strong>.gov:</strong> organismos gubernamentales</li>
+              <li><strong>.ar, .br, .es:</strong> dominios de países (Argentina, Brasil, España)</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note">
+          <span>¿Qué pasa cuando escribís una dirección web?</span>
+          <p>
+            1. Escribís <code>www.google.com</code> en el navegador. 2. Tu computadora
+            consulta al servidor DNS de tu proveedor de Internet. 3. El DNS responde con
+            la dirección IP del servidor de Google. 4. Tu navegador se conecta a esa IP y
+            descarga la página. Todo esto ocurre en menos de un segundo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LA NUBE -->
+    <section class="section" id="nube">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">¿Dónde están mis archivos?</p>
+          <h2>La nube (cloud computing)</h2>
+          <p>
+            Cuando guardás una foto en Google Drive o escuchás música en Spotify sin
+            descargarla, estás usando <strong>la nube</strong>. La nube es, en realidad,
+            una red de servidores remotos conectados a Internet donde se almacena y
+            procesa información.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card" style="background: #f0f9ff; border-top: 3px solid #0284c7;">
+            <h3>¿Qué es la nube?</h3>
+            <p>
+              "La nube" es una forma de llamar a los servicios que se ejecutan en
+              servidores remotos accesibles por Internet, en lugar de en la computadora
+              local. Los datos y programas no están en tu dispositivo: están en los
+              servidores de la empresa que provee el servicio.
+            </p>
+            <p class="card-example"><strong>Analogía:</strong> En vez de guardar tus fotos en un cajón de tu casa (disco duro local), las guardás en una caja de seguridad del banco (servidor remoto) accesible desde cualquier lugar.</p>
+          </article>
+          <article class="simple-card" style="background: #f0fdf4; border-top: 3px solid #10b981;">
+            <h3>Almacenamiento en la nube</h3>
+            <p>
+              Permite guardar archivos en servidores remotos y acceder a ellos desde
+              cualquier dispositivo con conexión a Internet. Los archivos están
+              sincronizados y disponibles siempre.
+            </p>
+            <p class="card-example"><strong>Ejemplos:</strong> Google Drive, OneDrive (Microsoft), iCloud (Apple), Dropbox.</p>
+          </article>
+          <article class="simple-card" style="background: #fff7ed; border-top: 3px solid #f59e0b;">
+            <h3>Aplicaciones en la nube</h3>
+            <p>
+              Son programas que funcionan directamente en el navegador sin necesidad de
+              instalarlos en la computadora. El procesamiento se realiza en los servidores
+              de la empresa, no en tu dispositivo.
+            </p>
+            <p class="card-example"><strong>Ejemplos:</strong> Google Docs, Gmail, Netflix, Spotify, Microsoft 365 online.</p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 2.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Ventajas</p>
+            <h3>¿Por qué usar la nube?</h3>
+            <ul>
+              <li><strong>Acceso desde cualquier lugar:</strong> podés ver tus archivos desde cualquier dispositivo con Internet.</li>
+              <li><strong>Respaldo automático:</strong> si se rompe tu computadora, tus archivos siguen seguros en la nube.</li>
+              <li><strong>Colaboración:</strong> varias personas pueden trabajar en el mismo documento al mismo tiempo.</li>
+              <li><strong>Sin necesidad de hardware propio:</strong> no hace falta comprar un disco externo costoso.</li>
+            </ul>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Consideraciones</p>
+            <h3>Limitaciones a tener en cuenta</h3>
+            <ul>
+              <li><strong>Requiere Internet:</strong> sin conexión, no podés acceder a tus archivos (salvo que estén sincronizados localmente).</li>
+              <li><strong>Privacidad:</strong> tus archivos están en servidores de terceros. Es importante usar contraseñas seguras y servicios confiables.</li>
+              <li><strong>Espacio gratuito limitado:</strong> la mayoría de los servicios ofrecen un espacio gratuito (15 GB en Google Drive) y cobran por más.</li>
+              <li><strong>Dependencia del proveedor:</strong> si el servicio cierra o falla, podría afectar el acceso a tus datos.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEGURIDAD EN REDES -->
+    <section class="section alt" id="seguridad">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Protegerse en el mundo digital</p>
+          <h2>Seguridad básica en redes</h2>
+          <p>
+            Conectarse a una red, especialmente a Internet, implica exponerse a riesgos.
+            Conocer las amenazas más comunes y las medidas básicas de protección es
+            fundamental para cuidar nuestra información y privacidad.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Amenazas comunes</p>
+            <h3>Riesgos al conectarse</h3>
+            <ul>
+              <li>
+                <strong>Redes Wi-Fi públicas inseguras:</strong> las redes abiertas de
+                cafés, aeropuertos o plazas pueden ser interceptadas por terceros. Nunca
+                realices operaciones bancarias o accedas a información sensible desde
+                una red pública no confiable.
+              </li>
+              <li>
+                <strong>Contraseñas débiles:</strong> una contraseña simple es fácil de
+                adivinar o descifrar. Usar siempre contraseñas largas y únicas para cada
+                servicio reduce el riesgo.
+              </li>
+              <li>
+                <strong>Phishing:</strong> correos o sitios web falsos que imitan a
+                empresas reales para robar contraseñas o datos bancarios.
+              </li>
+              <li>
+                <strong>Malware:</strong> programas maliciosos (virus, ransomware, spyware)
+                que pueden instalarse si descargás archivos de fuentes desconocidas.
+              </li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Buenas prácticas</p>
+            <h3>Cómo protegerse</h3>
+            <ul>
+              <li>
+                <strong>Contraseña segura en el Wi-Fi:</strong> siempre configurá una
+                contraseña robusta en tu router. Usá el protocolo de seguridad
+                <strong>WPA2 o WPA3</strong> (evitá WEP, que es obsoleto e inseguro).
+              </li>
+              <li>
+                <strong>No te conectes a redes desconocidas:</strong> si debés usar una
+                red pública, evitá ingresar contraseñas o hacer transacciones.
+              </li>
+              <li>
+                <strong>Mantené el software actualizado:</strong> las actualizaciones del
+                sistema operativo y del navegador corrigen vulnerabilidades de seguridad.
+              </li>
+              <li>
+                <strong>Verificá las URLs:</strong> antes de ingresar datos en un sitio,
+                comprobá que la dirección comience con <code>https://</code> (el candado
+                indica que la conexión está cifrada).
+              </li>
+              <li>
+                <strong>Usá contraseñas distintas:</strong> no uses la misma contraseña
+                en todos los servicios. Un gestor de contraseñas puede ayudarte.
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="process-grid" style="margin-top: 2.5rem;">
+          <article class="process-card">
+            <h3>HTTP vs. HTTPS</h3>
+            <p>
+              Cuando la dirección de un sitio comienza con <strong>HTTPS</strong>
+              (en vez de HTTP), significa que la conexión está <strong>cifrada</strong>:
+              los datos que enviás y recibís viajan codificados y no pueden ser leídos
+              por terceros. Siempre verificá el candado en la barra del navegador antes
+              de ingresar contraseñas o datos personales.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>Contraseña del router</h3>
+            <p>
+              Todos los routers vienen con una contraseña por defecto (como "admin" o
+              "1234"). Es fundamental cambiarla al instalar el dispositivo, ya que esas
+              contraseñas por defecto son públicas y cualquiera podría acceder a tu red
+              si no las cambiás.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>Privacidad en redes sociales</h3>
+            <p>
+              Al conectarte a Internet, generás datos sobre tu comportamiento, ubicación
+              y preferencias. Revisá la configuración de privacidad de tus cuentas y
+              aplicaciones, y sé cuidadoso con la información personal que compartís
+              públicamente en línea.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note">
+          <span>Regla de oro</span>
+          <p>
+            En Internet, si algo parece demasiado bueno para ser verdad, probablemente
+            no lo sea. Ante la duda sobre un enlace, un correo o un archivo, la mejor
+            decisión es no hacer clic y verificar primero. La seguridad digital empieza
+            por el sentido común.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Ideas clave para llevar</h2>
+          <p>
+            Un repaso de los conceptos más importantes de la Clase 4, con preguntas
+            para abrir el debate en clase.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Término</th>
+                  <th>Definición breve</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Red informática</td>
+                  <td>Conjunto de equipos conectados para compartir recursos</td>
+                  <td>La red de un aula o de una empresa</td>
+                </tr>
+                <tr>
+                  <td>Red cliente/servidor</td>
+                  <td>Red con roles diferenciados: clientes solicitan y servidores proveen</td>
+                  <td>La red de una empresa con servidor central</td>
+                </tr>
+                <tr>
+                  <td>Red igual a igual (P2P)</td>
+                  <td>Todos los equipos pueden ser cliente y servidor a la vez</td>
+                  <td>PCs de una casa compartiendo archivos</td>
+                </tr>
+                <tr>
+                  <td>LAN</td>
+                  <td>Red de área local, corta distancia</td>
+                  <td>Red de una oficina, campus, aula</td>
+                </tr>
+                <tr>
+                  <td>WAN</td>
+                  <td>Red de área extensa, grandes distancias</td>
+                  <td>Red entre oficinas de distintas ciudades</td>
+                </tr>
+                <tr>
+                  <td>Internet</td>
+                  <td>"La red de redes", conecta millones de computadoras en todo el mundo</td>
+                  <td>La red global que usamos a diario</td>
+                </tr>
+                <tr>
+                  <td>Backbone</td>
+                  <td>Columna vertebral de Internet: conexiones de altísima velocidad</td>
+                  <td>Fibra óptica intercontinental</td>
+                </tr>
+                <tr>
+                  <td>TCP/IP</td>
+                  <td>Protocolo estándar que regula la comunicación en Internet</td>
+                  <td>El "idioma" que hablan todas las computadoras en Internet</td>
+                </tr>
+                <tr>
+                  <td>WWW</td>
+                  <td>Sistema de páginas web interconectadas accesible por Internet</td>
+                  <td>Los sitios web que visitamos con el navegador</td>
+                </tr>
+                <tr>
+                  <td>Intranet</td>
+                  <td>Red interna que ofrece servicios similares a Internet</td>
+                  <td>Portal interno de una empresa o universidad</td>
+                </tr>
+                <tr>
+                  <td>Módem</td>
+                  <td>Conecta la red local con el proveedor de Internet</td>
+                  <td>El aparato que te da el ISP para conectarte</td>
+                </tr>
+                <tr>
+                  <td>Router</td>
+                  <td>Distribuye la conexión a Internet entre los dispositivos de la red</td>
+                  <td>El dispositivo Wi-Fi de casa u oficina</td>
+                </tr>
+                <tr>
+                  <td>Ancho de banda</td>
+                  <td>Capacidad máxima de transmisión de datos de una conexión</td>
+                  <td>Los Mbps de tu plan de Internet</td>
+                </tr>
+                <tr>
+                  <td>Latencia (ping)</td>
+                  <td>Tiempo que tarda un paquete en ir y volver entre dos puntos</td>
+                  <td>El "lag" en videollamadas o juegos online</td>
+                </tr>
+                <tr>
+                  <td>DNS</td>
+                  <td>Sistema que traduce nombres de dominio a direcciones IP</td>
+                  <td>Convierte "google.com" en la IP real del servidor</td>
+                </tr>
+                <tr>
+                  <td>Nombre de dominio</td>
+                  <td>Dirección legible de un sitio web</td>
+                  <td>google.com, wikipedia.org, unc.edu.ar</td>
+                </tr>
+                <tr>
+                  <td>La nube (cloud)</td>
+                  <td>Servidores remotos accesibles por Internet para almacenar y procesar datos</td>
+                  <td>Google Drive, OneDrive, Netflix, Spotify</td>
+                </tr>
+                <tr>
+                  <td>HTTPS</td>
+                  <td>Protocolo de comunicación web con cifrado de seguridad</td>
+                  <td>El candado en la barra del navegador</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Ideas clave</h3>
+            <ul>
+              <li>Una red permite compartir recursos de software y hardware entre equipos conectados.</li>
+              <li>Las redes cliente/servidor tienen roles fijos; las P2P son descentralizadas.</li>
+              <li>LAN = red local; WAN = red extensa entre ciudades o países.</li>
+              <li>Internet es la interconexión de todas las redes del mundo: la "red de redes".</li>
+              <li>TCP/IP es el protocolo que permite la comunicación entre cualquier equipo en Internet.</li>
+              <li>La WWW es un servicio que usa Internet, no es lo mismo que Internet.</li>
+              <li>El módem conecta con el ISP; el router distribuye la conexión dentro de la red local.</li>
+              <li>El cable Ethernet es más estable y rápido que el Wi-Fi; el Wi-Fi ofrece movilidad.</li>
+              <li>El ancho de banda mide la capacidad de la conexión; la latencia mide su velocidad de respuesta.</li>
+              <li>El DNS traduce nombres como "google.com" en direcciones IP que la red puede usar.</li>
+              <li>La nube son servidores remotos que almacenan datos y ejecutan aplicaciones vía Internet.</li>
+              <li>HTTPS cifra la comunicación web: siempre verificar el candado antes de ingresar datos.</li>
+            </ul>
+
+            <div class="mini-questions">
+              <h4>Para abrir el intercambio en clase</h4>
+              <ul>
+                <li>¿Qué diferencia hay entre Internet y la World Wide Web?</li>
+                <li>¿Por qué una empresa grande preferiría una red cliente/servidor en vez de una igual a igual?</li>
+                <li>¿Cuándo usarías cable Ethernet y cuándo Wi-Fi?</li>
+                <li>¿Qué riesgos tiene conectarse a una red Wi-Fi pública?</li>
+                <li>¿Qué ventajas y desventajas tiene guardar archivos en la nube?</li>
+                <li>¿Qué pasa si el backbone de Internet falla en una región?</li>
+              </ul>
+            </div>
+
+            <blockquote>
+              "La seguridad en Internet empieza por el sentido común: una buena contraseña,
+              verificar el candado en el navegador y desconfiar de lo que parece demasiado
+              bueno para ser verdad son los mejores escudos digitales."
+            </blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual para reforzar y ampliar los conceptos vistos en clase.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/pIHMiXXCNAA"
+                title="Video recomendado – Qué es una Red Informática"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/7_LPdttKXPc"
+                title="Video recomendado – Cómo funciona Internet"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase3.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 3 · Manejo de Archivos y Carpetas</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 5 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 1 · Clase 4</p>
+      <p>Ignacio D. López</p>
+    </div>
+  </footer>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
