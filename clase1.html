@@ -17,6 +17,7 @@
     gtag('config', 'G-B754967QP7');
   </script>
   <link rel="stylesheet" href="styles.css" />
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
 </head>
 <body>
   <div class="topbar">
@@ -35,6 +36,7 @@
         <a href="#resumen">Resumen</a>
         <a href="#videos">Videos</a>
       </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
     </div>
   </div>
 
@@ -639,5 +641,6 @@
       <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
     </div>
   </footer>
+  <script src="darkmode.js"></script>
 </body>
 </html>

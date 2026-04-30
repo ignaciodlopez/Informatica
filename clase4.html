@@ -17,6 +17,7 @@
     gtag('config', 'G-B754967QP7');
   </script>
   <link rel="stylesheet" href="styles.css" />
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
   <style>
     .topbar-nav { cursor: grab; }
     .topbar-nav.dragging { cursor: grabbing; user-select: none; }
@@ -43,6 +44,7 @@
         <a href="#resumen">Resumen</a>
         <a href="#videos">Videos</a>
       </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
     </div>
   </div>
 
@@ -801,6 +803,72 @@
             </ul>
           </article>
         </div>
+
+        <div class="section-head" style="margin-top: 3rem;">
+          <p class="eyebrow">Herramienta práctica</p>
+          <h3 style="font-size: 1.5rem;">¿Cómo medir la velocidad de tu conexión?</h3>
+          <p>
+            Conocer la velocidad real de tu conexión es útil para saber si estás
+            obteniendo lo que contrataste con tu proveedor, o para diagnosticar por qué
+            algo va lento. Existen herramientas gratuitas y muy fáciles de usar para medirla.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Opción 1</p>
+            <h3>Speedtest.net</h3>
+            <p>
+              Es el medidor de velocidad más popular del mundo. Mide la velocidad de
+              descarga, subida y la latencia (ping) de tu conexión en segundos.
+              Desarrollado por Ookla, es usado globalmente como referencia.
+            </p>
+            <ul>
+              <li><strong>Descarga</strong> → cuántos Mbps recibís de Internet.</li>
+              <li><strong>Subida</strong> → cuántos Mbps enviás hacia Internet.</li>
+              <li><strong>Ping</strong> → tiempo de respuesta en milisegundos.</li>
+            </ul>
+            <p style="margin-top: 1rem;">
+              <a href="https://www.speedtest.net" target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; background: #0284c7; color: white; padding: 0.4rem 1rem; border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                Ir a Speedtest.net →
+              </a>
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Opción 2</p>
+            <h3>Fast.com</h3>
+            <p>
+              Herramienta creada por <strong>Netflix</strong>, más minimalista. Apenas
+              abrís la página comienza a medir automáticamente la velocidad de descarga.
+              Al hacer clic en "Mostrar más información" también muestra la subida y
+              la latencia.
+            </p>
+            <ul>
+              <li>Interfaz muy simple: ideal para usuarios sin experiencia.</li>
+              <li>Mide la velocidad desde los servidores de Netflix, lo que refleja bien la experiencia real de streaming.</li>
+              <li>No requiere instalar nada ni hacer clic en "iniciar".</li>
+            </ul>
+            <p style="margin-top: 1rem;">
+              <a href="https://www.fast.com" target="_blank" rel="noopener noreferrer"
+                style="display: inline-block; background: #10b981; color: white; padding: 0.4rem 1rem; border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                Ir a Fast.com →
+              </a>
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Consejo</span>
+          <p>
+            Para obtener una medición más precisa, hacé el test conectado por cable
+            Ethernet en lugar de Wi-Fi, cerrá otras aplicaciones que usen Internet
+            y realizá la prueba en distintos momentos del día. La velocidad puede
+            variar según el horario, ya que en horas pico hay más usuarios usando
+            la red al mismo tiempo.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -1286,6 +1354,7 @@
       <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
     </div>
   </footer>
+  <script src="darkmode.js"></script>
   <script>
     const nav = document.querySelector('.topbar-nav');
     let isDown = false, startX, scrollLeft;
