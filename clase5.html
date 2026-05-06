@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 2 · Clase 5</title>
+  <meta
+    name="description"
+    content="Clase 5 de Taller de Informática I: conceptos de Internet, servicios, requerimientos de hardware y software, tipos de conexiones y comunicación en red."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.45rem;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 2px;
+      background: var(--color-border, #e2e8f0);
+    }
+    .timeline-item {
+      position: relative;
+      padding: 0 0 2rem 1.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.6rem;
+      top: 0.45rem;
+      width: 0.85rem;
+      height: 0.85rem;
+      border-radius: 50%;
+      background: var(--color-accent, #2563eb);
+      border: 2px solid var(--color-bg, #fff);
+      box-shadow: 0 0 0 2px var(--color-accent, #2563eb);
+    }
+    .timeline-year {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--color-accent, #2563eb);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-item h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+    }
+    .timeline-item p {
+      margin: 0;
+      font-size: 0.93rem;
+      color: var(--color-text-muted, #64748b);
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#que-es">¿Qué es Internet?</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#requisitos">Requisitos</a>
+        <a href="#conexion">Tipos de conexión</a>
+        <a href="#comunicacion">Comunicación</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 2</p>
+        <h1>Internet I: Conceptos y Conexiones</h1>
+        <p class="lead">
+          Una guía visual para comprender qué es <strong>Internet</strong>,
+          qué servicios ofrece, qué <strong>hardware y software</strong>
+          se necesitan para conectarse y cuáles son los principales
+          <strong>tipos de conexión</strong> disponibles.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#que-es">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 5</li>
+          <li>Servicios de Internet</li>
+          <li>Tipos de conexión</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Conocer los conceptos, servicios y conexiones de Internet</h2>
+        <p>
+          Identificar qué es Internet, cuáles son sus principales servicios
+          (navegación, correo, chat), qué hardware y software se requieren
+          para conectarse y qué tipos de conexión existen.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Servicios</span>
+          <span>Conexión</span>
+          <span>Comunicación</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            Internet es una red global de redes de computadoras cuya
+            finalidad es permitir el intercambio libre de información
+            entre todos sus usuarios, a través de múltiples servicios
+            y tipos de conexión.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ¿QUÉ ES INTERNET? -->
+    <section class="section" id="que-es">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Concepto central</p>
+          <h2>¿Qué es Internet?</h2>
+          <p>
+            Internet se puede definir como una <strong>red global de redes de computadoras</strong>,
+            cuya finalidad es permitir el intercambio libre de información entre todos sus usuarios.
+            También puede considerarse como una gran fuente de información que permite el envío de
+            todo tipo de archivos, la comunicación a través de mensajes, videoconferencias y hasta
+            operaciones comerciales y bancarias.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Red de redes</h3>
+            <p>
+              No existe un único servidor o empresa que sea Internet. Son miles de redes
+              privadas, públicas, académicas y gubernamentales interconectadas que
+              siguen las mismas reglas de comunicación.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> La red de tu casa, la red de tu escuela y la red de Google son redes distintas, todas conectadas entre sí formando Internet.</p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Fuente de información</h3>
+            <p>
+              A través de Internet se puede acceder a información de todo tipo:
+              noticias, enciclopedias, libros, videos, imágenes, música y contenidos
+              académicos de universidades de todo el mundo.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Wikipedia, YouTube y Google Scholar son fuentes de información accesibles a través de Internet.</p>
+          </article>
+          <article class="simple-card">
+            <h3>Medio de comunicación</h3>
+            <p>
+              Internet permite comunicarse mediante correo electrónico, chat,
+              videollamadas y redes sociales, conectando a personas de todo el
+              mundo de forma instantánea y gratuita.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> WhatsApp, Gmail y Zoom son herramientas de comunicación que funcionan sobre Internet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS DE INTERNET -->
+    <section class="section alt" id="servicios">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">¿Qué se puede hacer?</p>
+          <h2>Servicios de Internet</h2>
+          <p>
+            Internet se basa en servicios. Cada servicio tiene un propósito específico y
+            utiliza protocolos distintos para funcionar. Conocer los principales servicios
+            es fundamental para entender qué ofrece Internet más allá de la navegación web.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Exploración web</p>
+            <h3>Navegadores y Buscadores</h3>
+            <p>
+              Los <strong>navegadores</strong> son programas que permiten recorrer las páginas
+              que forman Internet. Los <strong>buscadores</strong> permiten buscar temas,
+              palabras e información y devuelven paquetes de referencias a lo buscado.
+            </p>
+            <ul>
+              <li><strong>Navegadores:</strong> Google Chrome, Firefox, Microsoft Edge, Safari.</li>
+              <li><strong>Buscadores:</strong> Google, Bing, Yahoo.</li>
+            </ul>
+            <p class="card-example"><strong>Diferencia clave:</strong> El navegador es el programa que abrís en tu PC; el buscador es el sitio (como Google) que usás dentro de él para encontrar información.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Comunicación</p>
+            <h3>Correo Electrónico (Email)</h3>
+            <p>
+              Programa que permite enviar y recibir mensajes y adjuntar documentos o archivos.
+              A cada usuario se le asigna una <strong>dirección de correo</strong> única,
+              caracterizada por el símbolo <strong>@</strong> (arroba).
+            </p>
+            <ul>
+              <li><strong>Ejemplo:</strong> jorgeluis@hotmail.com</li>
+              <li>Estructura: nombre de usuario + @ + servidor + dominio.</li>
+            </ul>
+            <p class="card-example"><strong>Proveedores:</strong> Gmail (Google), Hotmail/Outlook (Microsoft), Yahoo Mail.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Transferencia de archivos</p>
+            <h3>Downloads / FTP</h3>
+            <p>
+              FTP (File Transfer Protocol – Protocolo de Transferencia de Archivos)
+              son programas que permiten bajar y subir todo tipo de archivos y programas
+              desde servidores remotos a la computadora local.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Descargar un programa desde el sitio oficial del fabricante usa FTP o HTTP para transferir el archivo.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Conversación en tiempo real</p>
+            <h3>Chat</h3>
+            <p>
+              Conversación en tiempo real escrita entre un usuario y un gran número
+              de personas. Puede ser público (todos participan) o privado (solo
+              los invitados pueden hablar). Puede incluir video o audio (videochat, audiochat).
+            </p>
+            <ul>
+              <li>Muy presente en redes sociales: Facebook, Twitter, WhatsApp.</li>
+              <li>Protocolo habitual: IRC (Internet Relay Chat).</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-blue">
+            <p class="card-label">Discusión y noticias</p>
+            <h3>Newsgroups y Listas de correo</h3>
+            <p>
+              Los <strong>newsgroups</strong> son foros de discusión donde los mensajes
+              se publican como anuncios en servidores que intercambian artículos (red Usenet).
+              Las <strong>listas de correo</strong> permiten que un grupo intercambie mensajes
+              sobre un tema específico.
+            </p>
+            <p class="card-example"><strong>Diferencia:</strong> En la lista el mensaje llega al buzón de cada participante; en el newsgroup se publica en el foro y cada uno lo lee cuando quiere.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Comunicación audiovisual</p>
+            <h3>Teleconferencia</h3>
+            <p>
+              Permite comunicarse en tiempo real mediante audio y video, combinando
+              las funciones del correo electrónico y el chat. Conecta a personas
+              geográficamente distantes como si estuvieran en la misma sala.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Zoom, Google Meet y Microsoft Teams son herramientas de videoconferencia usadas en educación y trabajo.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Publicación web</p>
+            <h3>Blog (Weblog)</h3>
+            <p>
+              Programa que permite editar y publicar páginas web de manera sencilla.
+              Cualquier usuario habituado a un navegador puede escribir una suerte de
+              diario o relato cronológicamente ordenado en línea, con los mensajes
+              más recientes primero (cronología inversa).
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> WordPress y Blogger permiten publicar sin conocimientos de programación.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Trabajo colaborativo</p>
+            <h3>Wiki</h3>
+            <p>
+              El término <em>WikiWiki</em> significa "rápido" en lengua hawaiana.
+              Conjunto de páginas web editables por los visitantes desde un navegador,
+              sin necesidad de programar. Herramienta clave para el trabajo colaborativo en línea.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Wikipedia es la wiki más grande del mundo, con millones de artículos editados colaborativamente.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUERIMIENTOS -->
+    <section class="section" id="requisitos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Lo que se necesita</p>
+          <h2>Requerimientos de Hardware y Software</h2>
+          <p>
+            El hardware y software necesarios para conectarse a Internet involucran
+            <strong>4 elementos básicos</strong>. Los requerimientos específicos
+            variarán según el tipo de conexión que se elija.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Elemento 1 · Hardware</p>
+            <h3>Una computadora</h3>
+            <p>
+              El dispositivo desde el cual se accede a Internet. Puede ser una
+              computadora de escritorio, una notebook, una tablet o un teléfono
+              inteligente. Debe contar con una placa de red (NIC) integrada o
+              externa para poder establecer la conexión.
+            </p>
+            <p class="card-example"><strong>Nota:</strong> En las computadoras modernas, la placa de red cableada (Ethernet) y la inalámbrica (Wi-Fi) suelen venir integradas en la placa base.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Elemento 2 · Hardware</p>
+            <h3>Un módem</h3>
+            <p>
+              El módem (<strong>MOdulador-DEModulador</strong>) convierte la señal
+              digital de la computadora en una señal analógica que puede viajar
+              por la línea telefónica o el cable, y viceversa. Es el dispositivo
+              que conecta el hogar con el proveedor de Internet (ISP).
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> El aparato que te entrega la empresa de Internet (Fibertel, Claro, Personal) es el módem que recibe la señal de la red.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Elemento 3 · Infraestructura</p>
+            <h3>Una conexión a Internet</h3>
+            <p>
+              El contrato de servicio con un proveedor de Internet (ISP) que
+              brinda el acceso físico a la red. La velocidad y el tipo de conexión
+              dependerán de la tecnología disponible en la zona.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Contratar un servicio de banda ancha con Fibertel o Personal es contratar una conexión a Internet con un ISP.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Elemento 4 · Software</p>
+            <h3>Software especial</h3>
+            <p>
+              Programas que permiten utilizar los servicios de Internet:
+            </p>
+            <ul>
+              <li><strong>Sistema Operativo</strong> con pila TCP/IP integrada (Windows, Linux, macOS).</li>
+              <li><strong>Navegador web</strong> para acceder a la WWW (Chrome, Firefox, Edge).</li>
+              <li><strong>Cliente de correo</strong> para email (Outlook, Thunderbird, Gmail).</li>
+              <li><strong>Drivers</strong> de la placa de red para que el SO la reconozca.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPOS DE CONEXIÓN -->
+    <section class="section alt" id="conexion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Modos de acceso</p>
+          <h2>Tipos de Conexión a Internet</h2>
+          <p>
+            Las conexiones a Internet se diferencian por el medio físico que utilizan,
+            la velocidad que ofrecen y la tecnología involucrada. Se dividen en dos
+            grandes grupos: <strong>conexión telefónica</strong> y <strong>banda ancha</strong>.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Conexión tradicional</p>
+            <h3>Conexión Telefónica (Dial-up)</h3>
+            <p>
+              La primera y más difundida históricamente. Se realiza como si fuera
+              una llamada telefónica común. El módem convierte la señal digital de
+              la computadora en impulsos eléctricos (modulación) y viceversa (demodulación).
+            </p>
+            <ul>
+              <li>Velocidad máxima: <strong>56 Kb por segundo</strong>.</li>
+              <li>Ocupa la línea telefónica durante la conexión.</li>
+              <li>Costo proporcional a la duración de la llamada.</li>
+            </ul>
+            <p class="card-example"><strong>Desventaja:</strong> No se puede usar el teléfono mientras se está conectado a Internet.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Banda ancha</p>
+            <h3>Cable Módem</h3>
+            <p>
+              Utiliza el mismo cableado de las empresas de <strong>televisión por cable</strong>
+              para transmitir datos. El módem actúa como filtro y sincronizador.
+              Convierte a todos los usuarios de un barrio en integrantes de una red local compartida.
+            </p>
+            <ul>
+              <li>Velocidades de banda ancha (hasta 300 Mbps y más).</li>
+              <li>Topología Bus: todos comparten el mismo canal.</li>
+              <li>La velocidad puede caer si muchos vecinos se conectan a la vez.</li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> Fibertel usa infraestructura de cable para brindar Internet de banda ancha.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Banda ancha</p>
+            <h3>Tecnología DSL</h3>
+            <p>
+              DSL (<em>Digital Subscriber Line</em>) usa la <strong>línea de teléfono</strong>
+              pero transmite bits directamente en digital, sin modularlos en impulsos analógicos.
+              Permite usar el teléfono e Internet al mismo tiempo.
+            </p>
+            <ul>
+              <li>ADSL: velocidades de 1 a 20 Mbps.</li>
+              <li>La conexión entre el hogar y la central es privada (no compartida).</li>
+              <li>Velocidad más estable que el cable módem.</li>
+            </ul>
+            <p class="card-example"><strong>Ventaja:</strong> No ocupa la línea telefónica, se puede llamar y navegar al mismo tiempo.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Banda ancha experimental</p>
+            <h3>Cables Eléctricos (PLC)</h3>
+            <p>
+              Aprovecha las <strong>redes eléctricas</strong> existentes para transmitir
+              datos. Las líneas eléctricas llegan a más hogares que el cable o el teléfono,
+              lo que representa un enorme potencial de cobertura.
+            </p>
+            <ul>
+              <li>En fase experimental en algunos países y en Argentina.</li>
+              <li>Potencial: Internet disponible en cada enchufe del hogar.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-blue" style="grid-column: 1 / -1; max-width: 48rem; margin: 0 auto;">
+            <p class="card-label">Banda ancha inalámbrica</p>
+            <h3>Conexión Inalámbrica</h3>
+            <p>
+              En lugares sin infraestructura adecuada, se utiliza la <strong>conexión inalámbrica</strong>.
+              A través de una antena emisora se envía la señal, que se capta con una antena
+              receptora apropiada (generalmente en contacto visual) y un módem especial.
+              También incluye las redes Wi-Fi domésticas y redes móviles.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Las antenas de telefonía móvil que brindan 4G permiten acceder a Internet desde cualquier lugar con cobertura.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS DE COMUNICACIÓN -->
+    <section class="section" id="comunicacion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Comunicación en línea</p>
+          <h2>Servicios de Comunicación</h2>
+          <p>
+            Entre todos los servicios de Internet, los de comunicación son los más utilizados
+            cotidianamente. Permiten interactuar con otras personas de forma instantánea,
+            sin importar la distancia geográfica.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Correo Electrónico (Email)</h3>
+            <p>
+              Mensaje electrónico enviado de una computadora a otra. Requiere una
+              <strong>dirección de correo única</strong> que identifica al remitente.
+              La dirección usa el símbolo <strong>@</strong> para separar usuario y dominio.
+            </p>
+            <p>Estructura: <code>jorgeluis@gmail.com</code></p>
+            <ul>
+              <li><strong>jorgeluis</strong> → nombre de usuario.</li>
+              <li><strong>@</strong> → separa usuario de dominio.</li>
+              <li><strong>gmail.com</strong> → proveedor del servicio.</li>
+            </ul>
+          </article>
+
+          <article class="simple-card featured">
+            <h3>Chat</h3>
+            <p>
+              Conversación escrita simultánea entre dos o más personas conectadas
+              a la red. Puede ser público o privado, e incluir video o audio.
+              Las conexiones WebChat suelen usar el protocolo
+              <strong>IRC</strong> (Internet Relay Chat).
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> WhatsApp, Telegram, Messenger y los chats de las redes sociales son formas modernas de chat.</p>
+          </article>
+
+          <article class="simple-card">
+            <h3>Redes Sociales</h3>
+            <p>
+              Comunidades en línea que permiten interactuar con amigos, familiares
+              y colegas a través de un sitio web social. Ofrecen múltiples herramientas:
+              mensajes de texto, audio, imágenes, video, publicaciones y grupos.
+            </p>
+            <p class="card-example"><strong>Ejemplos:</strong> Facebook, Instagram, Twitter/X, TikTok, LinkedIn.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>¿Qué es Internet?</h3>
+            <p>
+              Una red global de redes de computadoras para el intercambio libre
+              de información. Permite navegar, comunicarse, transferir archivos
+              y realizar operaciones comerciales y bancarias.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Servicios principales</h3>
+            <p>
+              Navegadores, buscadores, correo electrónico, FTP (descargas),
+              chat, newsgroups, teleconferencia, blog y wiki. Cada uno
+              usa protocolos específicos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>4 elementos necesarios</h3>
+            <p>
+              Para conectarse se necesita: (1) una computadora, (2) un módem,
+              (3) una conexión contratada con un ISP y (4) software especial
+              (SO, navegador, drivers).
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Conexión telefónica</h3>
+            <p>
+              La más antigua: ocupa la línea telefónica, velocidad máxima de
+              56 Kb/s. El módem convierte señal digital a analógica para
+              que viaje por el cable telefónico.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Banda ancha</h3>
+            <p>
+              Conexiones más rápidas: cable módem (red de TV por cable),
+              DSL (línea de teléfono en digital), cables eléctricos
+              (experimental) e inalámbrica (antenas o Wi-Fi).
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Comunicación en red</h3>
+            <p>
+              Correo electrónico, chat y redes sociales son los principales
+              servicios de comunicación. El email usa el símbolo @ para
+              estructurar la dirección del usuario.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material complementario</p>
+          <h2>Videos recomendados</h2>
+          <p>Recursos audiovisuales para profundizar los temas de la clase.</p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="video-card">
+            <p class="card-label">Conceptos de Internet</p>
+            <h3>¿Cómo funciona Internet?</h3>
+            <p>Explicación visual de qué es Internet, cómo se conectan los dispositivos y qué son los protocolos.</p>
+            <div class="video-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/h8K49dD52WA"
+                title="Cómo funciona Internet"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <p class="card-label">Tipos de conexión</p>
+            <h3>Conexiones a Internet: tipos y diferencias</h3>
+            <p>Repaso de las principales tecnologías: dial-up, DSL, cable módem e inalámbrica.</p>
+            <div class="video-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/x3c1ih2NJEg"
+                title="Tipos de conexión a Internet"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase4.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 4 · Redes Informáticas</span>
+      </a>
+      <a class="class-nav-link next" href="clase6.html">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 6 · Internet II: Buscadores, Páginas Web y HTML</span>
+      </a>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 2 · Clase 5</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 2 · Clase 6</title>
+  <meta
+    name="description"
+    content="Clase 6 de Taller de Informática I: buscadores web y su funcionamiento, tipos de búsqueda avanzada, páginas web y lenguaje HTML."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    .search-tip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .search-tip {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      padding: 1.1rem 1.25rem;
+    }
+    .search-tip .tip-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .search-tip h3 {
+      margin: 0 0 0.4rem;
+      font-size: 0.97rem;
+      color: var(--text);
+    }
+    .search-tip p {
+      margin: 0 0 0.4rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .search-tip code {
+      background: var(--surface-soft);
+      padding: 0.1em 0.4em;
+      border-radius: 0.3em;
+      font-size: 0.85em;
+    }
+    .tp-list {
+      counter-reset: tp;
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .tp-list li {
+      counter-increment: tp;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      font-size: 0.93rem;
+    }
+    .browser-dl {
+      display: inline-block;
+      margin-top: 0.85rem;
+      padding: 0.4rem 1rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.18s;
+    }
+    .browser-dl:hover { opacity: 0.82; }
+
+    .tp-list li::before {
+      content: counter(tp);
+      min-width: 1.6rem;
+      height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#buscadores">Buscadores</a>
+        <a href="#como-funcionan">Funcionamiento</a>
+        <a href="#busqueda-avanzada">Búsqueda avanzada</a>
+        <a href="#populares">Buscadores populares</a>
+        <a href="#navegadores">Navegadores</a>
+        <a href="#paginas-web">Páginas web</a>
+        <a href="#html">HTML</a>
+        <a href="#tp">Trabajo práctico</a>
+        <a href="#resumen">Resumen</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 2</p>
+        <h1>Internet II: Buscadores, Páginas Web y HTML</h1>
+        <p class="lead">
+          Una guía visual para comprender cómo funcionan los
+          <strong>motores de búsqueda</strong>, cómo realizar búsquedas
+          avanzadas, qué es una <strong>página web</strong> y cuál es
+          el rol del lenguaje <strong>HTML</strong> en Internet.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#buscadores">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 6</li>
+          <li>Buscadores web</li>
+          <li>HTML y páginas web</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Conocer los buscadores, las páginas web y el lenguaje HTML</h2>
+        <p>
+          Entender cómo los motores de búsqueda localizan información en Internet,
+          aprender a realizar búsquedas avanzadas, comprender qué es una página
+          web y cuál es el lenguaje que la hace posible.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Buscar</span>
+          <span>Página web</span>
+          <span>HTML</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            Los buscadores no recorren Internet en tiempo real: mantienen
+            enormes bases de datos construidas previamente por programas
+            llamados "arañas" que rastrean la web de forma automatizada.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- BUSCADORES -->
+    <section class="section" id="buscadores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Herramientas de búsqueda</p>
+          <h2>¿Qué son los Buscadores?</h2>
+          <p>
+            Los <strong>motores de búsqueda</strong> son sitios diseñados para ayudar a los
+            usuarios a localizar información publicada en Internet. Todos los motores realizan
+            tres actividades fundamentales:
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>1. Explorar Internet</h3>
+            <p>
+              Recorren Internet de forma automatizada a través de programas
+              conocidos como <strong>"arañas"</strong> (<em>spiders</em>).
+              Estas arañas visitan páginas web, siguen los enlaces que encuentran
+              y van indexando el contenido de toda la red continuamente.
+            </p>
+            <p class="card-example"><strong>Dato:</strong> Una araña puede rastrear millones de páginas por día, siguiendo los links de unas páginas a otras sin intervención humana.</p>
+          </article>
+          <article class="simple-card featured">
+            <h3>2. Construir bases de datos</h3>
+            <p>
+              Con la información recolectada por las arañas, los buscadores
+              construyen <strong>grandes bases de datos</strong> que contienen
+              el contenido de las páginas, la ubicación de las palabras
+              clave y la relevancia de cada resultado.
+            </p>
+            <p class="card-example"><strong>Dato:</strong> Cuanto más grande sea la base de datos de un buscador, más probable es encontrar lo que uno busca.</p>
+          </article>
+          <article class="simple-card">
+            <h3>3. Presentar resultados</h3>
+            <p>
+              Cuando un usuario realiza una búsqueda, el motor consulta su
+              base de datos y presenta una <strong>lista de sitios</strong>
+              que contienen la información solicitada, ordenados por
+              relevancia.
+            </p>
+            <p class="card-example"><strong>Dato:</strong> El orden de los resultados y su relevancia es uno de los factores que diferencia a un buscador de otro.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONAN -->
+    <section class="section alt" id="como-funcionan">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Mecanismo interno</p>
+          <h2>¿Cómo funcionan los Buscadores?</h2>
+          <p>
+            La información que buscan los programas araña consiste en palabras
+            clave presentes en los documentos web y en su localización dentro
+            de las páginas (si aparecen en negrita, en títulos, etc., tienen
+            mayor peso). Los buscadores se distinguen entre sí por varios aspectos clave.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Factor 1</p>
+            <h3>Tamaño de la base de datos</h3>
+            <p>
+              Cuanto más grande sea la base de datos, más probable es encontrar
+              lo que se busca. Los buscadores con mayor cantidad de páginas
+              indexadas ofrecen resultados más completos y variados.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Google indexa miles de millones de páginas, lo que le permite responder búsquedas muy específicas que otros buscadores no encontrarían.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Factor 2</p>
+            <h3>Interfaz de usuario</h3>
+            <p>
+              La facilidad y lo intuitivo de la interfaz hace que los usuarios
+              prefieran un buscador sobre otro. Una interfaz simple y clara
+              facilita la búsqueda y la interpretación de los resultados.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> La interfaz minimalista de Google (solo un campo de búsqueda) fue uno de los factores de su éxito frente a portales más complejos.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Factor 3</p>
+            <h3>Formatos de búsqueda</h3>
+            <p>
+              La cantidad de formatos en los que se puede buscar amplía las
+              posibilidades del usuario. Los buscadores modernos permiten
+              buscar texto, imágenes, videos, mapas, noticias y más.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Google permite buscar imágenes por contenido visual (subiendo una foto), además de buscar por palabras.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Factor 4</p>
+            <h3>Orden y relevancia de resultados</h3>
+            <p>
+              El algoritmo que determina qué resultados aparecen primero es
+              fundamental. Considera factores como la popularidad de la página,
+              la cantidad de otros sitios que la enlazan y la calidad del contenido.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> El algoritmo PageRank de Google ordena los resultados según cuántos otros sitios relevantes enlazan a esa página.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BÚSQUEDA AVANZADA -->
+    <section class="section" id="busqueda-avanzada">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Técnicas de búsqueda</p>
+          <h2>Tipos de Búsqueda Avanzada</h2>
+          <p>
+            Todos los buscadores presentan la función de <strong>búsqueda avanzada</strong>,
+            que facilita afinar los resultados para obtener información más precisa y
+            relevante. Conocer estas herramientas permite aprovechar al máximo los
+            motores de búsqueda.
+          </p>
+        </div>
+
+        <div class="search-tip-grid">
+          <div class="search-tip">
+            <p class="tip-label">Técnica 1</p>
+            <h3>Frases exactas</h3>
+            <p>
+              Se utilizan <strong>comillas</strong> para buscar una frase exacta. El buscador
+              devuelve solo los resultados que contengan esas palabras juntas y en ese orden.
+            </p>
+            <p><code>"brecha digital"</code></p>
+            <p>Útil cuando se busca un término compuesto o una cita textual.</p>
+          </div>
+
+          <div class="search-tip">
+            <p class="tip-label">Técnica 2</p>
+            <h3>Excluir palabras</h3>
+            <p>
+              Utilizar el signo <strong>menos (−)</strong> antes de una palabra para
+              excluir resultados que la contengan. Permite filtrar contenido no deseado.
+            </p>
+            <p><code>jaguar -auto</code></p>
+            <p>Devuelve resultados sobre el animal jaguar, excluyendo la marca de autos.</p>
+          </div>
+
+          <div class="search-tip">
+            <p class="tip-label">Técnica 3</p>
+            <h3>Por tipo de archivo</h3>
+            <p>
+              Permite refinar la búsqueda para obtener solo un <strong>tipo determinado
+              de archivo</strong>: PDF, DOC, XLS, PPT, imágenes, videos, etc.
+            </p>
+            <p><code>manual informática filetype:pdf</code></p>
+            <p>Devuelve solo documentos PDF que contengan esos términos.</p>
+          </div>
+
+          <div class="search-tip">
+            <p class="tip-label">Técnica 4</p>
+            <h3>Por tipo de dominio</h3>
+            <p>
+              Restringe las búsquedas a la información publicada en
+              <strong>dominios específicos</strong>: .gov (gobierno), .edu (educación),
+              .org (organizaciones), etc.
+            </p>
+            <p><code>informática site:.edu.ar</code></p>
+            <p>Muestra solo resultados de sitios educativos argentinos.</p>
+          </div>
+
+          <div class="search-tip">
+            <p class="tip-label">Técnica 5</p>
+            <h3>Idioma específico</h3>
+            <p>
+              Restringe la búsqueda a sitios publicados en un
+              <strong>idioma determinado</strong>, filtrando resultados en otros idiomas
+              que podrían aparecer mezclados.
+            </p>
+            <p><code>Resultado: solo páginas en español</code></p>
+            <p>Configurable desde las opciones de búsqueda avanzada.</p>
+          </div>
+
+          <div class="search-tip">
+            <p class="tip-label">Técnica 6</p>
+            <h3>Definiciones</h3>
+            <p>
+              El motor de búsqueda funciona como <strong>diccionario</strong>,
+              devolviendo solo las páginas donde aparecen las definiciones
+              de los conceptos buscados.
+            </p>
+            <p><code>define: protocolo</code></p>
+            <p>Muestra la definición del término directamente en los resultados.</p>
+          </div>
+
+          <div class="search-tip">
+            <p class="tip-label">Técnica 7</p>
+            <h3>Dentro de un sitio</h3>
+            <p>
+              Identifica páginas que contienen la información solicitada
+              <strong>solo dentro de un sitio determinado</strong> por el usuario.
+            </p>
+            <p><code>Maradona site:fifa.com</code></p>
+            <p>Busca "Maradona" únicamente dentro del sitio de la FIFA.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSCADORES POPULARES -->
+    <section class="section alt" id="populares">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Los más usados</p>
+          <h2>Buscadores más populares</h2>
+          <p>
+            Si bien el funcionamiento de los motores de búsqueda es similar en todos
+            los casos, existen diferencias que apuntan a ofrecer el mejor servicio.
+            El objetivo radica en que la mayoría de los usuarios encuentre lo más
+            rápidamente posible lo que busca.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <img src="img/browsers/google.svg" alt="Logo Google" class="so-logo">
+            <h3>Google</h3>
+            <p>
+              El buscador más popular del mundo, con más del 90% del mercado global.
+              Utiliza el algoritmo <strong>PageRank</strong> y ofrece búsqueda de
+              texto, imágenes, videos, mapas, noticias y resultados potenciados con IA.
+            </p>
+            <p class="card-example"><strong>URL:</strong> www.google.com</p>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/bing.svg" alt="Logo Bing" class="so-logo">
+            <h3>Bing</h3>
+            <p>
+              Motor de búsqueda de <strong>Microsoft</strong>, integrado en Windows
+              y en el navegador Edge. Incorpora Copilot (IA) directamente en los
+              resultados y tiene fuerte presencia en el mercado occidental.
+            </p>
+            <p class="card-example"><strong>URL:</strong> www.bing.com</p>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/yahoo.png" alt="Logo Yahoo" class="so-logo">
+            <h3>Yahoo</h3>
+            <p>
+              Uno de los portales pioneros de Internet. Además del buscador
+              (que utiliza tecnología de Bing) ofrece noticias,
+              correo (Yahoo Mail) y contenido de entretenimiento.
+            </p>
+            <p class="card-example"><strong>URL:</strong> ar.yahoo.com</p>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/duckduckgo.png" alt="Logo DuckDuckGo" class="so-logo">
+            <h3>DuckDuckGo</h3>
+            <p>
+              Buscador enfocado en la <strong>privacidad</strong>: no rastrea
+              al usuario ni almacena su historial de búsquedas. Es la alternativa
+              preferida por quienes priorizan la protección de sus datos personales.
+            </p>
+            <p class="card-example"><strong>URL:</strong> duckduckgo.com</p>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/ecosia.ico" alt="Logo Ecosia" class="so-logo">
+            <h3>Ecosia</h3>
+            <p>
+              Buscador ecológico que destina parte de sus ingresos publicitarios
+              a <strong>plantar árboles</strong> en todo el mundo. Utiliza
+              resultados de Bing y muestra en tiempo real cuántos árboles
+              plantó con las búsquedas de sus usuarios.
+            </p>
+            <p class="card-example"><strong>URL:</strong> www.ecosia.org</p>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/brave.svg" alt="Logo Brave Search" class="so-logo">
+            <h3>Brave Search</h3>
+            <p>
+              Motor de búsqueda independiente del navegador <strong>Brave</strong>,
+              con índice propio (no depende de Google ni Bing). Prioriza la
+              privacidad y ofrece resultados sin seguimiento ni publicidad personalizada.
+            </p>
+            <p class="card-example"><strong>URL:</strong> search.brave.com</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVEGADORES -->
+    <section class="section" id="navegadores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Herramienta de acceso</p>
+          <h2>Navegadores Web</h2>
+          <p>
+            Un <strong>navegador web</strong> (<em>browser</em>) es el programa que permite
+            acceder y visualizar páginas web. No debe confundirse con un buscador:
+            el navegador es la <em>herramienta</em> con la que accedés a Internet,
+            mientras que el buscador es el <em>sitio web</em> que usás para encontrar información.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Qué hace un navegador?</p>
+            <h3>Función principal</h3>
+            <p>
+              El navegador descarga el código <strong>HTML</strong> de una página web
+              desde Internet y lo interpreta para mostrarte el resultado visual: textos,
+              imágenes, videos y botones. Sin un navegador, el HTML sería solo texto plano.
+            </p>
+            <p class="card-example"><strong>Analogía:</strong> El navegador es como un lector de PDF: el archivo existe en la nube, pero necesitás el programa para poder verlo correctamente.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Diferencia clave</p>
+            <h3>Navegador vs. Buscador</h3>
+            <p>
+              Es un error muy común confundir ambos conceptos:
+            </p>
+            <ul>
+              <li><strong>Navegador:</strong> programa instalado en tu computadora (Chrome, Firefox, Edge). Es la ventana desde la que accedés a Internet.</li>
+              <li><strong>Buscador:</strong> sitio web al que entrás desde el navegador (Google, Bing). Es un servicio para encontrar información.</li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> Usás <em>Chrome</em> (navegador) para entrar a <em>Google</em> (buscador) y buscar algo.</p>
+          </article>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1.5rem;">
+          <article class="simple-card featured">
+            <img src="img/browsers/chrome.svg" alt="Logo Google Chrome" class="so-logo">
+            <h3>Google Chrome</h3>
+            <p>
+              El navegador más usado del mundo. Desarrollado por Google,
+              ofrece alta velocidad, sincronización con la cuenta de Google
+              y una enorme biblioteca de extensiones.
+            </p>
+            <p class="card-example"><strong>Disponible en:</strong> Windows, macOS, Linux, Android, iOS</p>
+            <a class="browser-dl" href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer">⬇ Descargar Chrome</a>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/firefox.svg" alt="Logo Mozilla Firefox" class="so-logo">
+            <h3>Mozilla Firefox</h3>
+            <p>
+              Navegador de código abierto, conocido por su enfoque en
+              la <strong>privacidad</strong> y la personalización. No pertenece
+              a ninguna gran corporación tecnológica.
+            </p>
+            <p class="card-example"><strong>Disponible en:</strong> Windows, macOS, Linux, Android, iOS</p>
+            <a class="browser-dl" href="https://www.mozilla.org/es-ES/firefox/new/" target="_blank" rel="noopener noreferrer">⬇ Descargar Firefox</a>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/edge.svg" alt="Logo Microsoft Edge" class="so-logo">
+            <h3>Microsoft Edge</h3>
+            <p>
+              Navegador de Windows, integrado en el sistema operativo.
+              Basado en el mismo motor que Chrome (Chromium) e incorpora
+              <strong>Copilot</strong> (IA) de forma nativa.
+            </p>
+            <p class="card-example"><strong>Disponible en:</strong> Windows, macOS, Android, iOS</p>
+            <a class="browser-dl" href="https://www.microsoft.com/es-es/edge/download" target="_blank" rel="noopener noreferrer">⬇ Descargar Edge</a>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/safari.png" alt="Logo Safari" class="so-logo">
+            <h3>Safari</h3>
+            <p>
+              Navegador nativo de los dispositivos <strong>Apple</strong>
+              (iPhone, iPad, Mac). Optimizado para el ecosistema de Apple
+              y destacado por su eficiencia energética en dispositivos móviles.
+            </p>
+            <p class="card-example"><strong>Disponible en:</strong> macOS, iOS, iPadOS</p>
+            <a class="browser-dl" href="https://support.apple.com/es-es/101661" target="_blank" rel="noopener noreferrer">⬇ Más info Safari</a>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/brave.svg" alt="Logo Brave" class="so-logo">
+            <h3>Brave</h3>
+            <p>
+              Navegador centrado en la <strong>privacidad</strong>: bloquea
+              anuncios y rastreadores de forma predeterminada. Incluye su propio
+              motor de búsqueda (Brave Search) como opción.
+            </p>
+            <p class="card-example"><strong>Disponible en:</strong> Windows, macOS, Linux, Android, iOS</p>
+            <a class="browser-dl" href="https://brave.com/es/download/" target="_blank" rel="noopener noreferrer">⬇ Descargar Brave</a>
+          </article>
+          <article class="simple-card">
+            <img src="img/browsers/opera.svg" alt="Logo Opera" class="so-logo">
+            <h3>Opera</h3>
+            <p>
+              Navegador con funciones integradas como VPN gratuita,
+              bloqueador de anuncios y una barra lateral con acceso
+              rápido a redes sociales y mensajería.
+            </p>
+            <p class="card-example"><strong>Disponible en:</strong> Windows, macOS, Linux, Android, iOS</p>
+            <a class="browser-dl" href="https://www.opera.com/es/download" target="_blank" rel="noopener noreferrer">⬇ Descargar Opera</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PÁGINAS WEB -->
+    <section class="section" id="paginas-web">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La unidad básica de la Web</p>
+          <h2>¿Qué es una Página Web?</h2>
+          <p>
+            Una <strong>Página Web</strong> es un documento electrónico que contiene
+            información digital: textos, imágenes, gráficos, audio, video y otros
+            materiales dinámicos o estáticos. Está configurada para adaptarse a la red
+            informática mundial conocida como <strong>World Wide Web</strong> y se
+            encuentra contenida dentro de un <strong>sitio web</strong> (website).
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Contenido</p>
+            <h3>¿Qué puede contener una página web?</h3>
+            <p>
+              Una página web puede integrar múltiples tipos de contenido de forma
+              simultánea, combinando elementos estáticos y dinámicos para ofrecer
+              una experiencia completa al usuario.
+            </p>
+            <ul>
+              <li><strong>Textos:</strong> artículos, noticias, instrucciones.</li>
+              <li><strong>Imágenes:</strong> fotografías, ilustraciones, íconos.</li>
+              <li><strong>Gráficos:</strong> diagramas, infografías, mapas.</li>
+              <li><strong>Audio:</strong> música, podcasts, efectos de sonido.</li>
+              <li><strong>Video:</strong> clips, tutoriales, transmisiones en vivo.</li>
+              <li><strong>Formularios:</strong> campos interactivos para el usuario.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Organización</p>
+            <h3>Página web vs. Sitio web</h3>
+            <p>
+              Estos dos conceptos suelen confundirse, pero no son lo mismo:
+            </p>
+            <ul>
+              <li>
+                Una <strong>página web</strong> es un único documento accesible
+                a través de una dirección URL específica.
+              </li>
+              <li>
+                Un <strong>sitio web</strong> (website) es un conjunto de páginas
+                web relacionadas entre sí, alojadas bajo el mismo dominio.
+              </li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> "www.wikipedia.org" es un sitio web. El artículo sobre "Informática" dentro de Wikipedia es una página web individual.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Acceso</p>
+            <h3>La World Wide Web (WWW)</h3>
+            <p>
+              La World Wide Web es el sistema que permite acceder a las páginas
+              web a través de Internet. Fue inventada en 1991 por
+              <strong>Tim Berners-Lee</strong> y se basa en tres tecnologías:
+            </p>
+            <ul>
+              <li><strong>HTML:</strong> lenguaje para crear las páginas.</li>
+              <li><strong>HTTP:</strong> protocolo para transferir los datos.</li>
+              <li><strong>URL:</strong> sistema de direcciones para localizar los recursos.</li>
+            </ul>
+            <p class="card-example"><strong>Aclaración importante:</strong> La Web y el Internet no son lo mismo. Internet es la infraestructura; la Web es uno de los servicios que funciona sobre ella.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Propósito</p>
+            <h3>¿Para qué sirven las páginas web?</h3>
+            <p>
+              Las páginas web tienen diseños variados y atractivos para distintos
+              tipos de usuarios, buscando ser un medio:
+            </p>
+            <ul>
+              <li><strong>Entretenido:</strong> juegos, humor, redes sociales.</li>
+              <li><strong>Funcional:</strong> bancos online, tiendas, trámites.</li>
+              <li><strong>Educativo:</strong> enciclopedias, cursos, tutoriales.</li>
+              <li><strong>Ilustrativo:</strong> galerías, portfolios, museos virtuales.</li>
+              <li><strong>Productivo:</strong> herramientas, editores, correo web.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HTML -->
+    <section class="section alt" id="html">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El lenguaje de la Web</p>
+          <h2>Lenguaje HTML</h2>
+          <p>
+            El lenguaje bajo el cual funcionan las páginas web se llama
+            <strong>HTML</strong> (HyperText Markup Language). Es un formato de
+            programación que permite tener acceso a diferentes páginas web a través
+            de <strong>enlaces de hipertexto</strong> (también conocidos como links),
+            conectando documentos entre sí.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>¿Qué es el hipertexto?</h3>
+            <p>
+              El hipertexto es un sistema de escritura no lineal donde los documentos
+              se conectan entre sí mediante <strong>enlaces</strong>. Al hacer clic en
+              un link, el usuario puede navegar a otra sección de la misma página
+              o a una página completamente diferente.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Los links subrayados en azul que ves en una página web son enlaces de hipertexto escritos en HTML.</p>
+          </article>
+          <article class="simple-card featured">
+            <h3>¿Cómo funciona HTML?</h3>
+            <p>
+              HTML está compuesto por <strong>etiquetas o códigos</strong> que
+              estructuran el contenido. Para el usuario común no se manifiesta
+              directamente, porque los <strong>navegadores</strong> leen los documentos
+              HTML y los traducen en imágenes, textos y sonidos visibles.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Cuando abrís una página en Chrome, el navegador descarga el archivo HTML y lo interpreta para mostrarte el diseño visual.</p>
+          </article>
+          <article class="simple-card">
+            <h3>HTML y los navegadores</h3>
+            <p>
+              Los navegadores web (Chrome, Firefox, Edge, Safari) son los programas
+              que interpretan el código HTML. Cada navegador "lee" el HTML y lo
+              convierte en la presentación visual que ve el usuario, para que
+              pueda ser interpretado fácilmente.
+            </p>
+            <p class="card-example"><strong>Dato:</strong> Si abrís el "código fuente" de cualquier página web (Ctrl+U en Chrome), verás el HTML que el navegador está interpretando.</p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 3rem;">
+          <h3>¿Cómo se ve el código HTML?</h3>
+          <p>Un ejemplo simple de cómo se estructura una página web en HTML:</p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Código HTML</p>
+            <h3>Lo que escribe el programador</h3>
+            <pre style="background:var(--surface-soft);padding:1rem;border-radius:0.5rem;font-size:0.82rem;overflow-x:auto;margin:0.5rem 0 0;"><code>&lt;h1&gt;Bienvenidos&lt;/h1&gt;
+&lt;p&gt;Esta es mi primera página web.&lt;/p&gt;
+&lt;a href="http://www.google.com"&gt;
+  Ir a Google
+&lt;/a&gt;</code></pre>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Resultado en el navegador</p>
+            <h3>Lo que ve el usuario</h3>
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:0.5rem;padding:1rem;margin-top:0.5rem;">
+              <p style="font-size:1.2rem;font-weight:700;margin:0 0 0.5rem;">Bienvenidos</p>
+              <p style="margin:0 0 0.5rem;font-size:0.92rem;">Esta es mi primera página web.</p>
+              <a href="#" style="color:#2563eb;font-size:0.92rem;">Ir a Google</a>
+            </div>
+            <p style="font-size:0.82rem;color:var(--muted);margin-top:0.75rem;">El navegador interpreta las etiquetas y muestra el resultado visualmente.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRABAJO PRÁCTICO -->
+    <section class="section" id="tp">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Actividad de cierre</p>
+          <h2>Trabajo Práctico: Internet a fondo</h2>
+          <p>
+            Para cerrar la clase, respondé las siguientes consignas. Podés usar
+            los contenidos vistos en clase y ampliar con búsquedas en Internet.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Preguntas conceptuales</p>
+            <h3>Responder</h3>
+            <ol class="tp-list">
+              <li>¿Cómo explicarías qué es Internet?</li>
+              <li>Describí el hardware y software necesarios para el uso de Internet.</li>
+              <li>Mencioná los tipos de conexiones a Internet posibles.</li>
+              <li>¿Cuáles son los servicios que ofrece Internet a los usuarios?</li>
+              <li>¿Cómo se forma el nombre de un correo electrónico? Identificá cada una de las partes intervinientes.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Búsqueda e investigación</p>
+            <h3>Investigar y reflexionar</h3>
+            <ol class="tp-list" style="counter-reset: tp 5;">
+              <li>¿Qué es un buscador web y cómo funciona?</li>
+              <li>¿Cómo buscarías los sitios web que contengan exactamente la palabra <em>"Brecha digital"</em>?</li>
+              <li>Explicá qué es una página web y qué relación tiene con el concepto de HTML.</li>
+              <li>Ver el video de <strong>Tim Berners-Lee</strong> sobre la próxima web y hacer una síntesis de sus principales ideas. <a href="https://www.ted.com/talks/tim_berners_lee_on_the_next_web?language=es" target="_blank" rel="noopener noreferrer">Ver en TED →</a></li>
+              <li>Indagá sobre alguno de estos temas de tu interés: Salud y nuevas tecnologías · Software libre y propietario · Propiedad de la información (copyright / copyleft) · Criptografía · Hackers y Crackers · Virus · Inteligencia Artificial · Realidad Virtual.</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>¿Qué es un buscador?</h3>
+            <p>
+              Sitio que ayuda a localizar información en Internet. Usa "arañas"
+              para explorar la web, construye una base de datos y presenta
+              resultados ordenados por relevancia.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Búsqueda avanzada</h3>
+            <p>
+              Herramientas para afinar resultados: frases exactas (comillas),
+              excluir palabras (−), por tipo de archivo, por dominio, por idioma,
+              definiciones y búsqueda dentro de un sitio.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Navegadores web</h3>
+            <p>
+              Programas para acceder a Internet: Chrome, Firefox, Edge,
+              Safari, Brave y Opera. Son distintos a los buscadores: el
+              navegador es la herramienta, el buscador es el sitio web.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Buscadores populares</h3>
+            <p>
+              Google (el más usado), Bing (Microsoft), Yahoo, DuckDuckGo
+              (privacidad), Ecosia (ecológico) y Brave Search (independiente).
+              Se diferencian por privacidad, tamaño de índice y propósito.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Página web</h3>
+            <p>
+              Documento electrónico con información digital (texto, imágenes,
+              video, audio). Se aloja en sitios web y es accesible a través
+              de la World Wide Web.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>HTML</h3>
+            <p>
+              Lenguaje de programación de las páginas web. Usa etiquetas para
+              estructurar el contenido. Los navegadores leen el HTML y lo
+              traducen en la presentación visual que ve el usuario.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Hipertexto y links</h3>
+            <p>
+              HTML permite conectar documentos mediante enlaces de hipertexto
+              (links). Al hacer clic en un link se puede ir a otra parte de la
+              misma página o a una página completamente diferente.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase5.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 5 · Internet I: Conceptos y Conexiones</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 7 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 2 · Clase 6</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
