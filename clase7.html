@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Primer Parcial</title>
+  <meta
+    name="description"
+    content="Primer Parcial de Taller de Informática I: repaso completo de Unidad 1 y Unidad 2, con guía de estudio y consignas del examen."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Badge de parcial */
+    .parcial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    /* Tarjetas de tema del repaso */
+    .repaso-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .repaso-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .repaso-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    .repaso-card .rc-clase {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .repaso-card h3 {
+      font-size: 1rem;
+      margin: 0 0 0.6rem;
+    }
+    .repaso-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .repaso-card ul li {
+      font-size: 0.87rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .repaso-card ul li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .repaso-card .rc-link {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .repaso-card .rc-link:hover { text-decoration: underline; }
+
+    /* Consignas del parcial */
+    .consigna-list {
+      counter-reset: consigna;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .consigna-list li {
+      counter-increment: consigna;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .consigna-list li::before {
+      content: counter(consigna);
+      min-width: 1.8rem;
+      height: 1.8rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .consigna-list li p {
+      margin: 0;
+      font-size: 0.93rem;
+      line-height: 1.55;
+    }
+    .consigna-list li .c-pts {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    /* Tabla de puntaje */
+    .puntaje-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .puntaje-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .puntaje-table td {
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .puntaje-table tr:last-child td { border-bottom: none; }
+    .puntaje-table tr.total td {
+      font-weight: 700;
+      color: var(--text);
+      background: var(--surface-soft);
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#repaso-u1">Repaso U1</a>
+        <a href="#repaso-u2">Repaso U2</a>
+        <a href="#conceptos-clave">Conceptos clave</a>
+        <a href="#parcial">Modelo de parcial</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="parcial-badge">📋 Evaluación</div>
+        <p class="eyebrow">Taller de Informática I · Unidades 1 y 2</p>
+        <h1>Primer Parcial</h1>
+        <p class="lead">
+          Guía de repaso y consignas del primer parcial. Cubre los contenidos
+          de la <strong>Unidad 1</strong> (Informática, SO, Archivos y Redes) y
+          la <strong>Unidad 2</strong> (Internet, Buscadores, HTML y Navegadores).
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#repaso-u1">Empezar repaso</a>
+          <a class="btn btn-secondary" href="#parcial">Ver modelo de parcial</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos del parcial">
+          <li>Clases 1 a 6</li>
+          <li>Unidad 1 y 2</li>
+          <li>Repaso + Examen</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">¿Qué entra en el parcial?</p>
+        <h2>Contenidos evaluados</h2>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem;">
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 1:</strong> Informática, datos, hardware y software</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 2:</strong> Sistemas operativos, Windows</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 3:</strong> Archivos, carpetas, extensiones</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 4:</strong> Redes informáticas, tipos y protocolos</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 5:</strong> Internet, servicios y tipos de conexión</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 6:</strong> Buscadores, navegadores, páginas web, HTML</li>
+        </ul>
+        <div class="hero-note" style="margin-top:1rem;">
+          <span>Consejo</span>
+          <p>Repasá cada clase con los links al final de esta página. Prestat especial atención a las definiciones y diferencias entre conceptos similares.</p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- REPASO UNIDAD 1 -->
+    <section class="section" id="repaso-u1">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Unidad 1 · Clases 1 a 4</p>
+          <h2>Repaso: Introducción a la Informática y Redes</h2>
+          <p>
+            Revisá los temas más importantes de cada clase. Hacé clic en
+            "Ver clase completa" para repasar los detalles.
+          </p>
+        </div>
+
+        <div class="repaso-grid">
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 1 · Introducción</p>
+            <h3>Informática y componentes de la computadora</h3>
+            <ul>
+              <li>Diferencia entre dato e información</li>
+              <li>Definición de informática</li>
+              <li>Hardware vs. software</li>
+              <li>Tipos de software: de sistema, de aplicación, libre, propietario</li>
+              <li>Tipos de computadoras: PC, portátil, tablet, servidor, mainframe</li>
+              <li>Componentes: CPU, RAM, ROM, disco rígido, placa madre, periféricos</li>
+              <li>Periféricos de entrada, salida y entrada/salida</li>
+            </ul>
+            <a class="rc-link" href="clase1.html">Ver clase completa →</a>
+          </div>
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 2 · Sistemas Operativos</p>
+            <h3>Sistemas operativos y Windows</h3>
+            <ul>
+              <li>Definición y funciones de un sistema operativo</li>
+              <li>Gestión de hardware, memoria y procesos</li>
+              <li>Tipos de SO: Windows, macOS, Linux, Android</li>
+              <li>Interfaz gráfica vs. línea de comandos</li>
+              <li>El escritorio de Windows: barra de tareas, íconos, menú inicio</li>
+              <li>Multitarea y administración de ventanas</li>
+              <li>Diferencia entre SO de escritorio y móvil</li>
+            </ul>
+            <a class="rc-link" href="clase2.html">Ver clase completa →</a>
+          </div>
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 3 · Archivos</p>
+            <h3>Manejo de archivos y carpetas</h3>
+            <ul>
+              <li>Definición de archivo y sus partes: nombre + extensión</li>
+              <li>Extensiones más comunes: .txt, .doc, .jpg, .mp3, .exe, .pdf</li>
+              <li>Definición de carpeta (directorio) y su función</li>
+              <li>Organización en árbol de directorios</li>
+              <li>Operaciones: copiar, mover, renombrar, eliminar</li>
+              <li>Papelera de reciclaje</li>
+              <li>El Explorador de archivos de Windows</li>
+            </ul>
+            <a class="rc-link" href="clase3.html">Ver clase completa →</a>
+          </div>
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 4 · Redes</p>
+            <h3>Redes informáticas</h3>
+            <ul>
+              <li>Definición de red informática y sus beneficios</li>
+              <li>Tipos de red por alcance: LAN, WAN, MAN, PAN</li>
+              <li>Topologías: estrella, anillo, bus, malla</li>
+              <li>Dispositivos: switch, router, modem, hub, NIC</li>
+              <li>Protocolos: TCP/IP, HTTP, FTP, SMTP</li>
+              <li>Dirección IP y DNS</li>
+              <li>Redes cableadas vs. inalámbricas (Wi-Fi)</li>
+            </ul>
+            <a class="rc-link" href="clase4.html">Ver clase completa →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO UNIDAD 2 -->
+    <section class="section alt" id="repaso-u2">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Unidad 2 · Clases 5 y 6</p>
+          <h2>Repaso: Internet, Buscadores y Web</h2>
+          <p>
+            Los temas clave de las clases de Internet que también entran en el parcial.
+          </p>
+        </div>
+
+        <div class="repaso-grid">
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 5 · Internet I</p>
+            <h3>Internet: conceptos y conexiones</h3>
+            <ul>
+              <li>Definición de Internet y su origen (ARPANET)</li>
+              <li>Servicios: WWW, email, FTP, chat, videoconferencia, redes sociales</li>
+              <li>Requerimientos de HW: NIC, módem, router</li>
+              <li>Requerimientos de SW: sistema operativo, navegador, drivers</li>
+              <li>Tipos de conexión: telefónica (56Kb), cable módem, DSL</li>
+              <li>Conexión inalámbrica (Wi-Fi) y móvil</li>
+              <li>El correo electrónico: partes de una dirección (usuario @ dominio)</li>
+            </ul>
+            <a class="rc-link" href="clase5.html">Ver clase completa →</a>
+          </div>
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 6 · Internet II</p>
+            <h3>Buscadores, páginas web, navegadores y HTML</h3>
+            <ul>
+              <li>Qué es un buscador y cómo funciona (arañas, base de datos)</li>
+              <li>Factores que diferencian buscadores: tamaño, interfaz, relevancia</li>
+              <li>Técnicas de búsqueda avanzada: comillas, –, filetype:, site:</li>
+              <li>Buscadores populares: Google, Bing, DuckDuckGo, Ecosia</li>
+              <li>Diferencia entre navegador y buscador</li>
+              <li>Navegadores: Chrome, Firefox, Edge, Safari, Brave</li>
+              <li>Definición de página web y sitio web</li>
+              <li>HTML: lenguaje de marcado, etiquetas, cómo lo interpreta el navegador</li>
+            </ul>
+            <a class="rc-link" href="clase6.html">Ver clase completa →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCEPTOS CLAVE PARA NO CONFUNDIR -->
+    <section class="section" id="conceptos-clave">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Atención especial</p>
+          <h2>Conceptos que suelen confundirse</h2>
+          <p>
+            Diferencias importantes que es muy probable que aparezcan en el parcial.
+            Prestá especial atención a estas comparaciones.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Confusión frecuente 1</p>
+            <h3>Dato vs. Información</h3>
+            <p>No son lo mismo:</p>
+            <ul>
+              <li><strong>Dato:</strong> valor crudo, sin contexto. Ej: "25"</li>
+              <li><strong>Información:</strong> dato procesado con contexto y significado. Ej: "La temperatura hoy es 25°C"</li>
+            </ul>
+            <p class="card-example">La informática se encarga de transformar datos en información útil para el usuario.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Confusión frecuente 2</p>
+            <h3>Hardware vs. Software</h3>
+            <p>Son las dos partes de cualquier sistema informático:</p>
+            <ul>
+              <li><strong>Hardware:</strong> componentes físicos. Se puede tocar. Ej: teclado, disco rígido, CPU.</li>
+              <li><strong>Software:</strong> programas e instrucciones. No se puede tocar. Ej: Windows, Word, Chrome.</li>
+            </ul>
+            <p class="card-example">Sin hardware el software no puede ejecutarse; sin software el hardware no hace nada útil.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Confusión frecuente 3</p>
+            <h3>Sistema Operativo vs. Aplicación</h3>
+            <p>Dos tipos de software con roles muy distintos:</p>
+            <ul>
+              <li><strong>Sistema operativo:</strong> gestiona el hardware y es la base sobre la que corren los demás programas. Ej: Windows, Linux, macOS.</li>
+              <li><strong>Aplicación:</strong> programa que usa el SO para realizar una tarea específica. Ej: Word, Chrome, Spotify.</li>
+            </ul>
+            <p class="card-example">El SO es el intermediario entre el hardware y las aplicaciones.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Confusión frecuente 4</p>
+            <h3>LAN vs. WAN</h3>
+            <p>Tipos de red clasificados por su alcance geográfico:</p>
+            <ul>
+              <li><strong>LAN</strong> (Local Area Network): red de área local. Ej: la red de una escuela o una oficina.</li>
+              <li><strong>WAN</strong> (Wide Area Network): red de área amplia. Cubre países o continentes. Ej: Internet.</li>
+            </ul>
+            <p class="card-example">Existen también MAN (ciudad) y PAN (personal, muy corto alcance como Bluetooth).</p>
+          </article>
+
+          <article class="info-card accent-blue">
+            <p class="card-label">Confusión frecuente 5</p>
+            <h3>Internet vs. World Wide Web</h3>
+            <p>Son conceptos relacionados pero distintos:</p>
+            <ul>
+              <li><strong>Internet:</strong> la infraestructura física y lógica de redes interconectadas a nivel mundial.</li>
+              <li><strong>World Wide Web (WWW):</strong> uno de los servicios que funciona <em>sobre</em> Internet: el sistema de páginas web enlazadas.</li>
+            </ul>
+            <p class="card-example">El email, el FTP y el chat también usan Internet pero no son parte de la Web.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Confusión frecuente 6</p>
+            <h3>Navegador vs. Buscador</h3>
+            <p>Es uno de los errores más comunes:</p>
+            <ul>
+              <li><strong>Navegador:</strong> programa instalado en tu dispositivo que te permite acceder a Internet. Ej: Chrome, Firefox, Edge.</li>
+              <li><strong>Buscador:</strong> sitio web al que accedés desde el navegador para encontrar información. Ej: Google, Bing, DuckDuckGo.</li>
+            </ul>
+            <p class="card-example">Usás Chrome (navegador) para entrar a Google (buscador).</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Confusión frecuente 7</p>
+            <h3>Página web vs. Sitio web</h3>
+            <p>Dos niveles de la misma estructura:</p>
+            <ul>
+              <li><strong>Página web:</strong> un único documento HTML accesible por una URL. Ej: la página de inicio de Wikipedia.</li>
+              <li><strong>Sitio web:</strong> conjunto de páginas web relacionadas bajo el mismo dominio. Ej: todo Wikipedia.</li>
+            </ul>
+            <p class="card-example">Un sitio web contiene muchas páginas web enlazadas entre sí.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Confusión frecuente 8</p>
+            <h3>RAM vs. ROM</h3>
+            <p>Dos tipos de memoria con funciones opuestas:</p>
+            <ul>
+              <li><strong>RAM</strong> (Random Access Memory): memoria temporal, se borra al apagar. Almacena lo que está en uso ahora.</li>
+              <li><strong>ROM</strong> (Read Only Memory): memoria permanente, solo lectura. Contiene instrucciones básicas del sistema (BIOS).</li>
+            </ul>
+            <p class="card-example">Cuanta más RAM tiene un equipo, más programas puede tener abiertos al mismo tiempo sin volverse lento.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODELO DE PARCIAL -->
+    <section class="section alt" id="parcial">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Modelo orientativo</p>
+          <h2>Modelo de Parcial</h2>
+          <p>
+            Este es un <strong>modelo de referencia</strong>: las preguntas reales del examen
+            pueden variar. El parcial puede incluir preguntas de desarrollo,
+            múltiple choice o una combinación de ambos formatos.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Modelo · Parte 1</p>
+            <h3>Unidad 1: Informática y sistemas</h3>
+            <ol class="consigna-list">
+              <li>
+                <p>Definí <strong>informática</strong> e indicá cuál es la diferencia entre un <em>dato</em> y la <em>información</em>. Dá un ejemplo de cada uno.</p>
+              </li>
+              <li>
+                <p>Explicá la diferencia entre <strong>hardware</strong> y <strong>software</strong>. Mencioná al menos 3 ejemplos de cada uno.</p>
+              </li>
+              <li>
+                <p>¿Qué es un <strong>sistema operativo</strong>? ¿Cuáles son sus funciones principales? Nombrá 3 sistemas operativos de escritorio y 2 de dispositivos móviles.</p>
+              </li>
+              <li>
+                <p>Describí los siguientes componentes de una computadora e indicá si son hardware o software: <strong>CPU</strong>, <strong>RAM</strong>, <strong>disco rígido</strong>, <strong>sistema operativo</strong>, <strong>teclado</strong>.</p>
+              </li>
+              <li>
+                <p>¿Qué es un <strong>archivo</strong>? Explicá para qué sirve la extensión de un archivo y mencioná 5 extensiones comunes indicando el tipo de contenido que representan.</p>
+              </li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Modelo · Parte 2</p>
+            <h3>Unidades 1 y 2: Redes y Web</h3>
+            <ol class="consigna-list" style="counter-reset: consigna 5;">
+              <li>
+                <p>Definí <strong>red informática</strong> y explicá la diferencia entre una red <strong>LAN</strong> y una red <strong>WAN</strong>. Dá un ejemplo real de cada una.</p>
+              </li>
+              <li>
+                <p>Nombrá y describí brevemente 3 <strong>dispositivos de red</strong> (switch, router, módem, etc.) e indicá cuál es la función de cada uno.</p>
+              </li>
+              <li>
+                <p>¿Qué es <strong>Internet</strong>? ¿Cuál es la diferencia entre Internet y la <strong>World Wide Web</strong>? Mencioná 4 servicios que ofrece Internet.</p>
+              </li>
+              <li>
+                <p>Explicá qué es un <strong>buscador web</strong>, cómo funciona y cuál es la diferencia con un <strong>navegador</strong>. Dá un ejemplo de cada uno.</p>
+              </li>
+              <li>
+                <p>¿Qué es una <strong>página web</strong>? ¿En qué lenguaje están escritas? Explicá brevemente cómo un navegador interpreta ese lenguaje para mostrarte la página.</p>
+              </li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase6.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 6 · Internet II: Buscadores, Páginas Web y HTML</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 8 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Primer Parcial · Unidades 1 y 2</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
