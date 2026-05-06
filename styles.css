@@ -1115,13 +1115,22 @@ blockquote {
 @media (max-width: 640px) {
   /* Topbar apilado vertical */
   .topbar-content {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 0.4rem;
     padding: 0.55rem 0;
   }
 
+  .topbar-brand {
+    flex: 1 1 auto;
+  }
+
+  .darkmode-btn {
+    order: 2;
+    margin-left: auto;
+  }
+
   .topbar-nav {
+    order: 3;
     width: 100%;
     margin-left: 0;
   }
@@ -1129,7 +1138,7 @@ blockquote {
   /* Más espacio para el topbar alto */
   header[id],
   section[id] {
-    scroll-margin-top: 90px;
+    scroll-margin-top: 110px;
   }
 
   /* Grillas a 1 columna */
@@ -1417,6 +1426,11 @@ blockquote {
 
 [data-theme="dark"] .footer-content a {
   color: #d7e1eb;
+}
+
+[data-theme="dark"] .home-class-tags li {
+  background: rgba(99, 155, 210, 0.18);
+  color: #93c5fd;
 }
 
 /* Override inline style="background:#..." en cards */
