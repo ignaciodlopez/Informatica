@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 4 · Clase 9</title>
+  <meta
+    name="description"
+    content="Clase 9 de Taller de Informática I: procesador de textos Word, creación de documentos, selección de texto, formato de fuente y párrafo."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Tabla de atajos de teclado */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .shortcut-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .shortcut-table td {
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .shortcut-table tr:last-child td { border-bottom: none; }
+    .shortcut-table tr:hover td { background: var(--surface-soft); }
+    .shortcut-table kbd {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 0.3rem;
+      padding: 0.1em 0.45em;
+      font-size: 0.82em;
+      font-family: monospace;
+      color: var(--text);
+    }
+
+    /* Grid de formato */
+    .formato-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .formato-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+    }
+    .formato-item .fi-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .formato-item h3 {
+      font-size: 0.95rem;
+      margin: 0 0 0.35rem;
+    }
+    .formato-item p {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+    }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .actividad-block ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .actividad-block ul li strong {
+      color: var(--text);
+    }
+
+    /* Demo visual de formatos */
+    .demo-parrafo {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.9rem 1.1rem;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    /* ===== WORD WINDOW MOCKUP ===== */
+    .word-window {
+      margin-top: 2.5rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      position: relative;
+      border: 1px solid #1e3a6e;
+    }
+    .wm-titlebar {
+      background: #2b579a;
+      color: #fff;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .wm-titlebar-title { font-size: 0.73rem; opacity: 0.95; }
+    .wm-titlebar-controls { display: flex; gap: 0.35rem; }
+    .wm-titlebar-controls span {
+      width: 11px; height: 11px; border-radius: 50%;
+      display: inline-block; opacity: 0.85;
+    }
+    .wm-ctrl-min { background: #fbbf24; }
+    .wm-ctrl-max { background: #34d399; }
+    .wm-ctrl-close { background: #f87171; }
+    .wm-tabs {
+      background: #2b579a;
+      display: flex;
+      gap: 0;
+      padding: 0 0.5rem;
+    }
+    .wm-tab {
+      padding: 0.28rem 0.7rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      cursor: default;
+      border-radius: 3px 3px 0 0;
+      user-select: none;
+    }
+    .wm-tab.active {
+      background: #fff;
+      color: #2b579a;
+      font-weight: 700;
+    }
+    .wm-ribbon {
+      background: #fff;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 0.4rem 0.75rem 0.3rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-end;
+    }
+    .wm-rgroup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding-right: 1rem;
+      border-right: 1px solid #e5e7eb;
+    }
+    .wm-rgroup:last-child { border-right: none; padding-right: 0; }
+    .wm-rgroup-label {
+      font-size: 0.58rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 0.15rem;
+    }
+    .wm-rbtns { display: flex; gap: 0.2rem; align-items: center; flex-wrap: wrap; }
+    .wm-rbtn {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 0.18rem 0.38rem;
+      font-size: 0.7rem;
+      color: #374151;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .wm-rbtn.hi { background: #dbeafe; border-color: #93c5fd; }
+    .wm-rbtn b { font-weight: 900; font-size: 0.8rem; }
+    .wm-rbtn i { font-style: italic; }
+    .wm-rbtn u { text-decoration: underline; }
+    .wm-select {
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      padding: 0.15rem 0.35rem;
+      font-size: 0.68rem;
+      color: #374151;
+      background: #fff;
+    }
+    .wm-ruler {
+      background: #f3f4f6;
+      height: 1.1rem;
+      border-bottom: 1px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      padding: 0 3.5rem;
+      gap: 1.4rem;
+      font-size: 0.55rem;
+      color: #9ca3af;
+      position: relative;
+    }
+    .wm-ruler-margin { background: #d1d5db; width: 2.5rem; height: 100%; position: absolute; left: 0; top: 0; }
+    .wm-ruler-margin.right { left: auto; right: 0; }
+    .wm-body {
+      background: #e5e7eb;
+      display: flex;
+      gap: 0;
+      padding: 0.75rem 0.75rem 0.75rem 0.5rem;
+    }
+    .wm-page {
+      background: #fff;
+      flex: 1;
+      min-height: 130px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      color: #111;
+      line-height: 1.7;
+      position: relative;
+    }
+    .wm-page p { margin: 0 0 0.6rem; font-size: 0.78rem; }
+    .wm-cursor {
+      display: inline-block;
+      width: 1px; height: 0.85rem;
+      background: #111;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .wm-scrollbar {
+      width: 10px;
+      background: #d1d5db;
+      margin-left: 4px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .wm-scrollbar-thumb {
+      position: absolute;
+      top: 8%;
+      left: 0; right: 0;
+      height: 28%;
+      background: #9ca3af;
+      border-radius: 4px;
+    }
+    .wm-statusbar {
+      background: #2b579a;
+      color: rgba(255,255,255,0.85);
+      padding: 0.22rem 0.75rem;
+      font-size: 0.64rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* Leyenda numerada del mockup */
+    .wm-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .wm-legend-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.85rem;
+    }
+    .wm-num {
+      min-width: 1.5rem;
+      height: 1.5rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .wm-legend-item p { margin: 0; color: var(--muted); font-size: 0.83rem; line-height: 1.4; }
+    .wm-legend-item strong { color: var(--text); }
+
+    /* Callout badges superpuestos */
+    .wm-badge {
+      position: absolute;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+
+    /* ===== DEMO DE SELECCIÓN ===== */
+    .sel-demo {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      font-size: 0.88rem;
+      line-height: 1.8;
+    }
+    .sel-demo .sel { background: #3b82f6; color: #fff; border-radius: 2px; }
+    .sel-demo-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===== DEMO DE FUENTES ===== */
+    .font-demo-panel {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.75rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+    }
+    .font-demo-panel .fdp-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
+    .font-demo-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px dashed #f3f4f6;
+      flex-wrap: wrap;
+    }
+    .font-demo-row:last-child { border-bottom: none; }
+    .font-demo-tag {
+      font-size: 0.65rem;
+      background: #f3f4f6;
+      color: #6b7280;
+      padding: 0.1em 0.5em;
+      border-radius: 3px;
+      min-width: 6rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .font-demo-text { font-size: 0.88rem; }
+
+    /* ===== DEMO DE ALINEACIÓN ===== */
+    .align-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+    .align-demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .align-demo-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.3rem 0.6rem;
+      letter-spacing: 0.04em;
+    }
+    .align-demo-page {
+      padding: 0.75rem 0.85rem;
+      color: #374151;
+      font-size: 0.72rem;
+      line-height: 1.65;
+    }
+    .align-demo-page .filler {
+      background: #e5e7eb;
+      height: 0.55rem;
+      border-radius: 2px;
+      margin-bottom: 0.3rem;
+    }
+    .align-left .filler    { margin-right: auto; }
+    .align-center .filler  { margin: 0 auto 0.3rem; }
+    .align-right .filler   { margin-left: auto; }
+    .align-justify .filler { width: 100%; }
+
+    /* ===== DEMO DE SANGRÍA ===== */
+    .indent-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .indent-demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .indent-demo-box .idh {
+      background: #4f46e5;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.28rem 0.6rem;
+      letter-spacing: 0.04em;
+    }
+    .indent-demo-box .idp {
+      padding: 0.65rem 0.75rem;
+      font-size: 0.71rem;
+      color: #374151;
+      line-height: 1.6;
+      position: relative;
+    }
+    .indent-marker {
+      position: absolute;
+      top: 0; bottom: 0;
+      background: rgba(99,102,241,0.12);
+      border-left: 2px dashed #6366f1;
+    }
+
+    /* ===== CORRECTO VS INCORRECTO ===== */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.75rem;
+    }
+    @media (max-width: 600px) { .vs-grid { grid-template-columns: 1fr; } }
+    .vs-box {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .vs-header {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .vs-wrong .vs-header { background: #dc2626; color: #fff; }
+    .vs-right .vs-header { background: #16a34a; color: #fff; }
+    .vs-page {
+      background: #fff;
+      padding: 1rem 1.25rem;
+      min-height: 130px;
+      color: #111;
+      font-size: 0.77rem;
+      line-height: 1.5;
+    }
+    .vs-page .pilcrow { color: #9ca3af; font-size: 0.7rem; }
+    .vs-page .pilcrow-red { color: #dc2626; font-size: 0.7rem; }
+    .vs-caption {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.65rem;
+      line-height: 1.5;
+    }
+
+    /* ===== TECLADO VISUAL ===== */
+    .keyboard-wrap {
+      margin-top: 1.75rem;
+      background: #1e293b;
+      border-radius: 0.75rem;
+      padding: 0 1.5rem 1.25rem;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.06);
+      border: 2px solid #475569;
+    }
+    .keyboard-topbar {
+      background: #0f172a;
+      margin: 0 -1.5rem 1.25rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 0.6rem 0.6rem 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+    .keyboard-topbar-dots {
+      display: flex;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .keyboard-topbar-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .keyboard-topbar-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #64748b;
+      white-space: nowrap;
+    }
+    .keyboard-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+    .keyboard-row {
+      display: flex;
+      gap: 0.3rem;
+      margin-bottom: 0.3rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .key {
+      background: #334155;
+      color: #cbd5e1;
+      border: 1px solid #475569;
+      border-bottom: 3px solid #0f172a;
+      border-radius: 0.3rem;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.65rem;
+      font-family: monospace;
+      min-width: 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.1rem;
+      line-height: 1.2;
+    }
+    .key.hi {
+      background: #1d4ed8;
+      color: #fff;
+      border-color: #3b82f6;
+      border-bottom-color: #1e3a8a;
+    }
+    .key.ctrl-key {
+      background: #4f46e5;
+      color: #fff;
+      border-color: #6366f1;
+      border-bottom-color: #312e81;
+      min-width: 3rem;
+    }
+    .key.enter-key {
+      min-width: 4rem;
+      background: #0f766e;
+      color: #fff;
+      border-color: #14b8a6;
+      border-bottom-color: #042f2e;
+    }
+    .key .key-action { font-size: 0.55rem; color: #93c5fd; display: block; }
+    .keyboard-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid #334155;
+    }
+    .kl-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+    .kl-combo {
+      background: #334155;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      border-radius: 0.25rem;
+      padding: 0.1em 0.45em;
+      font-family: monospace;
+      font-size: 0.7rem;
+      white-space: nowrap;
+    }
+
+    /* ===== RESULTADO ESPERADO EN ACTIVIDADES ===== */
+    .act-resultado {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 0.85rem;
+    }
+    .act-resultado-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .act-resultado-label::before { content: "✓"; }
+    .act-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.4rem;
+      padding: 1rem 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    /* ===== DEMO INTERLINEADO ===== */
+    .linespace-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 640px) { .linespace-demo-grid { grid-template-columns: 1fr; } }
+    .linespace-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .linespace-box .lsh {
+      background: #059669;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.28rem 0.6rem;
+    }
+    .linespace-box .lsp {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.71rem;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#procesador">Procesador de textos</a>
+        <a href="#microsoft365">Microsoft 365</a>
+        <a href="#interfaz">Interfaz</a>
+        <a href="#texto">Ingreso de texto</a>
+        <a href="#seleccion">Selección</a>
+        <a href="#fuente">Formato de fuente</a>
+        <a href="#parrafo">Formato de párrafo</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 4</p>
+        <h1>Procesador de Textos Word</h1>
+        <p class="lead">
+          Una guía visual para aprender a crear documentos en
+          <strong>Microsoft Word</strong>: ingreso de texto, selección con mouse y teclado,
+          y aplicación de <strong>formatos de fuente y párrafo</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#procesador">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 9</li>
+          <li>Microsoft Word</li>
+          <li>Fuente y Párrafo</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Crear y formatear documentos de texto</h2>
+        <p>
+          Aprender a crear un documento de textos, cargar texto correctamente,
+          comprender el concepto de párrafo, seleccionar texto con el mouse
+          y el teclado, y aplicar formatos de fuente y párrafo.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Crear</span>
+          <span>Escribir</span>
+          <span>Formatear</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            En Word, un <strong>párrafo</strong> se crea presionando <kbd>Enter</kbd>.
+            No uses Enter al final de cada línea, solo al final de cada idea completa.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ¿QUÉ ES UN PROCESADOR DE TEXTOS? -->
+    <section class="section" id="procesador">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Concepto fundamental</p>
+          <h2>¿Qué es un Procesador de Textos?</h2>
+          <p>
+            Un <strong>procesador de textos</strong> es un software de aplicación
+            diseñado para crear, editar, dar formato e imprimir documentos de texto.
+            Es una de las herramientas más utilizadas en entornos académicos, laborales
+            y personales.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Microsoft Word</h3>
+            <p>
+              El procesador de textos más utilizado del mundo. Forma parte del
+              paquete <strong>Microsoft Office</strong> y permite crear desde una
+              carta simple hasta documentos complejos con tablas, imágenes y
+              formatos avanzados.
+            </p>
+            <p class="card-example"><strong>Formato de archivo:</strong> .docx (Word 2007 en adelante) y .doc (versiones anteriores).</p>
+          </article>
+          <article class="simple-card">
+            <h3>¿Para qué sirve?</h3>
+            <p>
+              Con Word podés crear: cartas, informes, trabajos académicos, currículums,
+              folletos, newsletters y cualquier documento que requiera texto con formato
+              profesional.
+            </p>
+            <p class="card-example"><strong>Ventaja principal:</strong> Permite editar, corregir y cambiar el formato del texto en cualquier momento antes de imprimir.</p>
+          </article>
+          <article class="simple-card">
+            <h3>Diferencia con un editor de texto</h3>
+            <p>
+              Un <strong>editor de texto</strong> simple (como el Bloc de Notas) solo
+              guarda texto sin formato. Un <strong>procesador de textos</strong> agrega
+              capacidades de formato: tipografías, colores, tamaños, alineaciones,
+              tablas, imágenes y más.
+            </p>
+            <p class="card-example"><strong>Ejemplo:</strong> Bloc de Notas (editor) vs. Microsoft Word (procesador).</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MICROSOFT 365 CON MAIL INSTITUCIONAL -->
+    <section class="section alt" id="microsoft365">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Acceso gratuito</p>
+          <h2>Microsoft 365 con tu correo institucional</h2>
+          <p>
+            Si tenés una cuenta de correo institucional (de tu universidad, colegio o trabajo),
+            muy probablemente ya tenés acceso <strong>gratuito</strong> a
+            <strong>Microsoft 365</strong> — el paquete que incluye Word, Excel, PowerPoint,
+            Teams, OneDrive y más. Solo hay que saber cómo activarlo.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Qué es Microsoft 365?</p>
+            <h3>El paquete Office en la nube</h3>
+            <p>
+              <strong>Microsoft 365</strong> (antes llamado Office 365) es la versión
+              moderna del paquete Office. A diferencia del Office tradicional que se
+              instalaba una sola vez, Microsoft 365 es un servicio con suscripción que
+              incluye:
+            </p>
+            <ul>
+              <li><strong>Word</strong> — procesador de textos</li>
+              <li><strong>Excel</strong> — planilla de cálculo</li>
+              <li><strong>PowerPoint</strong> — presentaciones</li>
+              <li><strong>Outlook</strong> — correo electrónico</li>
+              <li><strong>Teams</strong> — videoconferencias y chat</li>
+              <li><strong>OneDrive</strong> — almacenamiento en la nube (capacidad según institución)</li>
+              <li><strong>OneNote, Forms, Sway</strong> y más</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">¿Por qué es gratuito con el mail institucional?</p>
+            <h3>Licencias educativas</h3>
+            <p>
+              Microsoft ofrece licencias gratuitas a instituciones educativas a través
+              del programa <strong>Microsoft Education</strong>. La institución paga
+              la licencia colectiva y vos la usás sin costo adicional mientras seas
+              alumno o miembro del plantel.
+            </p>
+            <p style="margin-top:0.75rem;font-size:0.9rem;color:var(--muted);">
+              Esto significa que con tu mail
+              <strong style="color:var(--text);">@uai.edu.ar</strong>
+              (o el de tu institución) podés instalar las aplicaciones completas de Office
+              en hasta <strong style="color:var(--text);">5 dispositivos</strong>
+              y usar las versiones web sin límites.
+            </p>
+          </article>
+        </div>
+
+        <!-- PASOS -->
+        <div class="section-head" style="margin-top: 3rem;">
+          <p class="eyebrow">Paso a paso</p>
+          <h3>¿Cómo acceder a Microsoft 365 con tu mail institucional?</h3>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-purple">
+            <p class="card-label">Opción A · Versión web (sin instalar nada)</p>
+            <h3>Usar Office directamente en el navegador</h3>
+            <ol style="padding-left:1.2rem;margin:0.5rem 0 0;display:flex;flex-direction:column;gap:0.5rem;">
+              <li style="font-size:0.9rem;color:var(--muted);">Abrí tu navegador y entrá a <a href="https://www.office.com/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);font-weight:700;">office.com</a></li>
+              <li style="font-size:0.9rem;color:var(--muted);">Hacé clic en <strong style="color:var(--text);">"Iniciar sesión"</strong></li>
+              <li style="font-size:0.9rem;color:var(--muted);">Ingresá tu correo institucional: por ejemplo <strong style="color:var(--text);">ignaciodaniel.lopez@uai.edu.ar</strong></li>
+              <li style="font-size:0.9rem;color:var(--muted);">Microsoft detecta automáticamente que es una cuenta educativa y te redirige al portal de tu institución para que ingreses tu contraseña.</li>
+              <li style="font-size:0.9rem;color:var(--muted);">Una vez dentro, vas a ver todos los íconos de las apps de Microsoft 365 disponibles para usar desde el navegador.</li>
+            </ol>
+            <p class="card-example" style="margin-top:0.75rem;"><strong>Ventaja:</strong> No requiere instalación. Funciona en cualquier dispositivo con navegador.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Opción B · Instalar las apps en tu computadora</p>
+            <h3>Descarga e instalación completa</h3>
+            <ol style="padding-left:1.2rem;margin:0.5rem 0 0;display:flex;flex-direction:column;gap:0.5rem;">
+              <li style="font-size:0.9rem;color:var(--muted);">Iniciá sesión en <a href="https://www.office.com/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);font-weight:700;">office.com</a> con tu correo institucional (siguiendo los pasos de la Opción A).</li>
+              <li style="font-size:0.9rem;color:var(--muted);">En el menú principal, buscá el botón <strong style="color:var(--text);">"Instalar aplicaciones"</strong> (o "Instalar Office").</li>
+              <li style="font-size:0.9rem;color:var(--muted);">Descargá el instalador y ejecutalo. El proceso instala automáticamente Word, Excel, PowerPoint, Outlook y más.</li>
+              <li style="font-size:0.9rem;color:var(--muted);">Al abrir cualquier aplicación instalada, iniciá sesión con tu cuenta institucional para activar la licencia.</li>
+            </ol>
+            <p class="card-example" style="margin-top:0.75rem;"><strong>Disponible en:</strong> Windows y macOS. Hasta 5 dispositivos simultáneos con la misma cuenta.</p>
+          </article>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <h3>¿Qué pasa si no reconoce mi mail?</h3>
+            <p>
+              Puede que la institución use otro portal de acceso. En ese caso,
+              consultá con tu institución si tienen un link específico para acceder
+              a Microsoft 365 o si usan el portal de Office a través de otro proveedor.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>OneDrive: tu archivo siempre disponible</h3>
+            <p>
+              Con la cuenta institucional también accedés a <strong>OneDrive</strong>,
+              el almacenamiento en la nube de Microsoft. La capacidad disponible depende
+              del plan que tenga tu institución, pero te permite guardar tus documentos
+              de Word y abrirlos desde cualquier dispositivo sin pendrive ni email.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>¿Qué pasa cuando me gradúo?</h3>
+            <p>
+              La licencia está ligada a tu cuenta institucional. Cuando dejés de ser
+              alumno, la institución puede desactivar el acceso. Antes de graduarte,
+              asegurate de guardar tus archivos en otro lugar.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERFAZ DE WORD -->
+    <section class="section" id="interfaz">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El entorno de trabajo</p>
+          <h2>Interfaz de Microsoft Word</h2>
+          <p>
+            Antes de empezar a trabajar, es importante conocer los elementos principales
+            de la pantalla de Word para poder orientarse y encontrar las herramientas necesarias.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Elemento 1</p>
+            <h3>Barra de título</h3>
+            <p>
+              Ubicada en la parte superior de la ventana. Muestra el nombre del
+              documento activo y el nombre del programa (Microsoft Word). También
+              contiene los botones de minimizar, maximizar y cerrar la ventana.
+            </p>
+            <p class="card-example"><strong>Dato:</strong> Cuando el archivo no ha sido guardado, aparece "Documento1" como nombre provisional.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Elemento 2</p>
+            <h3>Cinta de opciones (Ribbon)</h3>
+            <p>
+              Es la barra de herramientas principal de Word. Está organizada en
+              <strong>fichas o pestañas</strong> (Inicio, Insertar, Diseño, etc.)
+              y cada pestaña contiene grupos de comandos relacionados.
+            </p>
+            <p class="card-example"><strong>Las fichas más usadas:</strong> Inicio (formato de texto), Insertar (imágenes y tablas), Diseño de página (márgenes y orientación).</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Elemento 3</p>
+            <h3>Área de trabajo (hoja)</h3>
+            <p>
+              Es la zona central donde se escribe el documento. Simula una
+              hoja en blanco donde el cursor parpadeante indica el punto de
+              inserción del texto.
+            </p>
+            <p class="card-example"><strong>Dato:</strong> La hoja por defecto tiene formato A4 con márgenes de 2,5 cm en todos los lados.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Elemento 4</p>
+            <h3>Barra de estado</h3>
+            <p>
+              Situada en la parte inferior de la ventana. Muestra información
+              útil del documento: número de páginas, cantidad de palabras, idioma
+              activo y el zoom de visualización.
+            </p>
+            <p class="card-example"><strong>Dato:</strong> Haciendo clic derecho en la barra de estado podés personalizar qué información se muestra.</p>
+          </article>
+        </div>
+
+        <!-- MOCKUP VENTANA WORD -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Vista general de la pantalla</p>
+          <div class="word-window" style="position:relative;">
+
+            <!-- 1 Barra de título -->
+            <div class="wm-titlebar">
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="font-size:0.85rem;">📄</span>
+                <span class="wm-titlebar-title">Documento1 - Word</span>
+              </div>
+              <div class="wm-titlebar-controls">
+                <span class="wm-ctrl-min"></span>
+                <span class="wm-ctrl-max"></span>
+                <span class="wm-ctrl-close"></span>
+              </div>
+            </div>
+
+            <!-- 2 Pestañas del Ribbon -->
+            <div class="wm-tabs">
+              <div class="wm-tab">Archivo</div>
+              <div class="wm-tab active">Inicio</div>
+              <div class="wm-tab">Insertar</div>
+              <div class="wm-tab">Diseño</div>
+              <div class="wm-tab">Disposición</div>
+              <div class="wm-tab">Referencias</div>
+              <div class="wm-tab">Vista</div>
+            </div>
+
+            <!-- 3 Cinta de opciones (Ribbon) -->
+            <div class="wm-ribbon">
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">📋 Pegar</div>
+                  <div style="display:flex;flex-direction:column;gap:0.15rem;">
+                    <div class="wm-rbtn">✂ Cortar</div>
+                    <div class="wm-rbtn">📄 Copiar</div>
+                  </div>
+                </div>
+                <div class="wm-rgroup-label">Portapapeles</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-select">Calibri</div>
+                  <div class="wm-select">11</div>
+                  <div class="wm-rbtn hi"><b>N</b></div>
+                  <div class="wm-rbtn"><i>K</i></div>
+                  <div class="wm-rbtn"><u>S</u></div>
+                  <div class="wm-rbtn" style="color:#e11d48;">A▾</div>
+                </div>
+                <div class="wm-rgroup-label">Fuente</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">≡</div>
+                  <div class="wm-rbtn hi">≡</div>
+                  <div class="wm-rbtn">≡</div>
+                  <div class="wm-rbtn">≡</div>
+                  <div class="wm-rbtn">↕</div>
+                  <div class="wm-rbtn">☰</div>
+                </div>
+                <div class="wm-rgroup-label">Párrafo</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">Normal</div>
+                  <div class="wm-rbtn">Sin esp.</div>
+                  <div class="wm-rbtn" style="font-size:1rem;font-weight:700;">T1</div>
+                </div>
+                <div class="wm-rgroup-label">Estilos</div>
+              </div>
+            </div>
+
+            <!-- 4 Regla -->
+            <div class="wm-ruler">
+              <div class="wm-ruler-margin"></div>
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+              <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+              <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+              <div class="wm-ruler-margin right"></div>
+            </div>
+
+            <!-- 5 Área de trabajo + 6 Barra de desplazamiento -->
+            <div class="wm-body">
+              <div class="wm-page">
+                <p><strong>Mi primer documento</strong></p>
+                <p>Este es un ejemplo de texto en Word. El texto fluye automáticamente
+                hasta el borde del margen sin necesidad de presionar Enter.</p>
+                <p>Acá empieza un segundo párrafo, creado con la tecla Enter al final
+                de la idea anterior.<span class="wm-cursor"></span></p>
+              </div>
+              <div class="wm-scrollbar"><div class="wm-scrollbar-thumb"></div></div>
+            </div>
+
+            <!-- 7 Barra de estado -->
+            <div class="wm-statusbar">
+              <span>Página 1 de 1</span>
+              <span>Palabras: 42</span>
+              <span>Español (Argentina)</span>
+              <span style="margin-left:auto;">100%</span>
+            </div>
+
+            <!-- Badges numerados -->
+            <div class="wm-badge" style="top:6px;right:90px;">1</div>
+            <div class="wm-badge" style="top:36px;left:80px;">2</div>
+            <div class="wm-badge" style="top:70px;left:200px;">3</div>
+            <div class="wm-badge" style="top:119px;left:8px;">4</div>
+            <div class="wm-badge" style="top:155px;left:8px;">5</div>
+            <div class="wm-badge" style="top:155px;right:6px;">6</div>
+            <div class="wm-badge" style="bottom:6px;left:8px;">7</div>
+          </div>
+
+          <!-- Leyenda -->
+          <div class="wm-legend">
+            <div class="wm-legend-item"><div class="wm-num">1</div><p><strong>Barra de título</strong> — muestra el nombre del archivo y los botones de ventana.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">2</div><p><strong>Pestañas del Ribbon</strong> — Archivo, Inicio, Insertar, Diseño, etc.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">3</div><p><strong>Cinta de opciones</strong> — herramientas del grupo Fuente y Párrafo.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">4</div><p><strong>Regla horizontal</strong> — muestra márgenes y sangrías del párrafo activo.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">5</div><p><strong>Área de trabajo</strong> — la hoja blanca donde se escribe el documento.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">6</div><p><strong>Barra de desplazamiento</strong> — para moverse arriba/abajo en el documento.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">7</div><p><strong>Barra de estado</strong> — páginas, palabras, idioma y zoom.</p></div>
+          </div>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 2.5rem;">
+          <article class="simple-card">
+            <h3>Pestaña Inicio</h3>
+            <p>
+              Contiene los grupos <strong>Portapapeles</strong> (copiar, cortar, pegar),
+              <strong>Fuente</strong> (tipo, tamaño, negrita, cursiva, subrayado, color)
+              y <strong>Párrafo</strong> (alineación, interlineado, sangría, listas).
+              Es la pestaña más importante para dar formato al texto.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Regla horizontal</h3>
+            <p>
+              Aparece debajo de la cinta de opciones. Sirve para visualizar y
+              ajustar los <strong>márgenes</strong> y las <strong>sangrías</strong>
+              del documento. También muestra tabulaciones configuradas en el párrafo activo.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Barra de desplazamiento</h3>
+            <p>
+              Situada a la derecha del área de trabajo. Permite
+              moverse <strong>arriba y abajo</strong> por el documento cuando
+              el contenido supera el tamaño de la pantalla.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INGRESO DE TEXTO Y PÁRRAFOS -->
+    <section class="section alt" id="texto">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Escribir en Word</p>
+          <h2>Ingreso de Texto y Párrafos</h2>
+          <p>
+            Entender cómo funciona el ingreso de texto en Word es fundamental para
+            crear documentos correctamente formateados desde el principio.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Concepto clave</p>
+            <h3>¿Qué es un párrafo en Word?</h3>
+            <p>
+              En Word, un <strong>párrafo</strong> es cualquier bloque de texto que
+              termina con la tecla <kbd>Enter</kbd>. Puede ser una sola oración, varias
+              oraciones o incluso una línea en blanco.
+            </p>
+            <ul>
+              <li><strong>Presionar Enter</strong> → crea un nuevo párrafo.</li>
+              <li><strong>Word ajusta automáticamente</strong> el texto al llegar al borde derecho de la hoja (salto de línea automático).</li>
+              <li>No hay que presionar Enter al final de cada línea, <strong>solo al final de cada párrafo</strong>.</li>
+            </ul>
+            <p class="card-example"><strong>Regla de oro:</strong> Usá Enter solamente cuando querés empezar una nueva idea o dejar una línea en blanco.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Teclas importantes</p>
+            <h3>Navegación básica con el teclado</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Tecla</th><th>Acción</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><kbd>Enter</kbd></td><td>Nuevo párrafo</td></tr>
+                <tr><td><kbd>Backspace</kbd></td><td>Borrar carácter anterior</td></tr>
+                <tr><td><kbd>Delete</kbd></td><td>Borrar carácter siguiente</td></tr>
+                <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Mover cursor de a un carácter</td></tr>
+                <tr><td><kbd>↑</kbd> <kbd>↓</kbd></td><td>Mover cursor de a una línea</td></tr>
+                <tr><td><kbd>Inicio</kbd></td><td>Ir al inicio de la línea</td></tr>
+                <tr><td><kbd>Fin</kbd></td><td>Ir al final de la línea</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>Inicio</kbd></td><td>Ir al inicio del documento</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>Fin</kbd></td><td>Ir al final del documento</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Guardar el documento</p>
+            <h3>Crear y guardar</h3>
+            <p>Es fundamental guardar el trabajo de forma regular para no perder cambios.</p>
+            <ul>
+              <li><strong>Nuevo documento:</strong> <kbd>Ctrl</kbd>+<kbd>N</kbd> o Archivo → Nuevo.</li>
+              <li><strong>Guardar:</strong> <kbd>Ctrl</kbd>+<kbd>G</kbd> (guarda sobre el mismo archivo).</li>
+              <li><strong>Guardar como:</strong> <kbd>F12</kbd> o Archivo → Guardar como (elige nombre y ubicación).</li>
+              <li><strong>Abrir:</strong> <kbd>Ctrl</kbd>+<kbd>A</kbd> o Archivo → Abrir.</li>
+            </ul>
+            <p class="card-example"><strong>Consejo:</strong> Guardá cada pocos minutos con Ctrl+G. Una vez guardado por primera vez con nombre, los siguientes Ctrl+G son instantáneos.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Errores comunes</p>
+            <h3>¿Qué no hay que hacer?</h3>
+            <ul>
+              <li>❌ <strong>No presionar Enter al final de cada línea.</strong> Word ajusta el texto automáticamente.</li>
+              <li>❌ <strong>No usar espacios para alinear texto.</strong> Para eso existen la alineación y las sangrías.</li>
+              <li>❌ <strong>No usar Enter varias veces para crear espacio.</strong> Hay opciones de espaciado entre párrafos.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> Activá los "caracteres no imprimibles" (¶) con Ctrl+* para ver dónde están los Enters y espacios ocultos.</p>
+          </article>
+        </div>
+
+        <!-- CORRECTO VS INCORRECTO -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">El error más común · comparación visual</p>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:0;">El símbolo <strong style="color:var(--text);">¶</strong> marca dónde está el Enter. Fijate la diferencia:</p>
+          <div class="vs-grid">
+            <div class="vs-box vs-wrong">
+              <div class="vs-header">✗ MAL — Enter al final de cada línea</div>
+              <div class="vs-page">
+                <div>La informática <span class="pilcrow-red">¶</span></div>
+                <div>es la ciencia que <span class="pilcrow-red">¶</span></div>
+                <div>estudia el procesamiento <span class="pilcrow-red">¶</span></div>
+                <div>automático de la <span class="pilcrow-red">¶</span></div>
+                <div>información. <span class="pilcrow-red">¶</span></div>
+                <div style="margin-top:0.4rem;">Se utiliza en entornos <span class="pilcrow-red">¶</span></div>
+                <div>académicos y laborales. <span class="pilcrow-red">¶</span></div>
+              </div>
+            </div>
+            <div class="vs-box vs-right">
+              <div class="vs-header">✓ BIEN — Enter solo al final del párrafo</div>
+              <div class="vs-page">
+                <div>La informática es la ciencia que estudia el procesamiento automático de la información. <span class="pilcrow">¶</span></div>
+                <div style="margin-top:0.5rem;">Se utiliza en entornos académicos y laborales de todo el mundo. <span class="pilcrow">¶</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="vs-caption">En el ejemplo <strong style="color:#dc2626;">INCORRECTO</strong>, si después cambias el tamaño de la fuente o los márgenes, las líneas quedan cortadas en lugares raros. En el ejemplo <strong style="color:#16a34a;">CORRECTO</strong>, Word ajusta el texto automáticamente sin importar el tamaño o el margen.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECCIÓN DE TEXTO -->
+    <section class="section" id="seleccion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Operación fundamental</p>
+          <h2>Selección de Texto</h2>
+          <p>
+            Antes de aplicar cualquier formato, es necesario <strong>seleccionar</strong>
+            el texto que queremos modificar. El texto seleccionado se muestra con un
+            fondo azul resaltado. Hay distintas formas de seleccionar con el mouse
+            y con el teclado.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Con el mouse</p>
+            <h3>Selección con el mouse</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Acción</th><th>Resultado</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Clic y arrastrar</td><td>Selecciona el texto recorrido</td></tr>
+                <tr><td>Doble clic sobre una palabra</td><td>Selecciona esa palabra completa</td></tr>
+                <tr><td>Triple clic</td><td>Selecciona el párrafo completo</td></tr>
+                <tr><td>Clic en el margen izquierdo</td><td>Selecciona una línea</td></tr>
+                <tr><td>Doble clic en el margen izq.</td><td>Selecciona un párrafo</td></tr>
+                <tr><td>Triple clic en el margen izq. o <kbd>Ctrl</kbd>+clic</td><td>Selecciona todo el documento</td></tr>
+                <tr><td><kbd>Shift</kbd>+clic</td><td>Extiende la selección hasta el punto de clic</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Con el teclado</p>
+            <h3>Selección con el teclado</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Combinación</th><th>Resultado</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><kbd>Shift</kbd>+<kbd>←</kbd> / <kbd>→</kbd></td><td>Selecciona de a un carácter</td></tr>
+                <tr><td><kbd>Shift</kbd>+<kbd>↑</kbd> / <kbd>↓</kbd></td><td>Selecciona de a una línea</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd></td><td>Selecciona la palabra anterior</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>→</kbd></td><td>Selecciona la palabra siguiente</td></tr>
+                <tr><td><kbd>Shift</kbd>+<kbd>Inicio</kbd></td><td>Selecciona hasta el inicio de la línea</td></tr>
+                <tr><td><kbd>Shift</kbd>+<kbd>Fin</kbd></td><td>Selecciona hasta el final de la línea</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>E</kbd></td><td>Selecciona todo el documento</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- TECLADO VISUAL -->
+        <div class="keyboard-wrap">
+          <div class="keyboard-topbar">
+            <span class="keyboard-topbar-label">Atajos de teclado más usados</span>
+            <div class="keyboard-topbar-dots">
+              <span class="keyboard-topbar-dot" style="background:#f87171;"></span>
+              <span class="keyboard-topbar-dot" style="background:#fbbf24;"></span>
+              <span class="keyboard-topbar-dot" style="background:#34d399;"></span>
+            </div>
+          </div>
+
+          <div class="keyboard-row">
+            <div class="key">Q</div>
+            <div class="key hi">W<span class="key-action">Ctrl+W cierra</span></div>
+            <div class="key hi">E<span class="key-action">Ctrl+E selec. todo</span></div>
+            <div class="key">R</div>
+            <div class="key">T</div>
+            <div class="key">Y<span class="key-action">Ctrl+Y rehacer</span></div>
+            <div class="key">U</div>
+            <div class="key">I</div>
+            <div class="key">O</div>
+            <div class="key">P</div>
+          </div>
+          <div class="keyboard-row">
+            <div class="key hi">A<span class="key-action">Ctrl+A abrir</span></div>
+            <div class="key hi">S<span class="key-action">Ctrl+S subrayar</span></div>
+            <div class="key hi">D<span class="key-action">Ctrl+D alinear der.</span></div>
+            <div class="key">F</div>
+            <div class="key hi">G<span class="key-action">Ctrl+G guardar</span></div>
+            <div class="key">H</div>
+            <div class="key hi">J<span class="key-action">Ctrl+J justificar</span></div>
+            <div class="key hi">K<span class="key-action">Ctrl+K cursiva</span></div>
+            <div class="key">L</div>
+          </div>
+          <div class="keyboard-row">
+            <div class="key hi">Z<span class="key-action">Ctrl+Z deshacer</span></div>
+            <div class="key">X</div>
+            <div class="key hi">C<span class="key-action">Ctrl+C copiar</span></div>
+            <div class="key hi">V<span class="key-action">Ctrl+V pegar</span></div>
+            <div class="key">B</div>
+            <div class="key hi">N<span class="key-action">Ctrl+N negrita</span></div>
+            <div class="key">M</div>
+          </div>
+          <div class="keyboard-row" style="margin-top:0.4rem;">
+            <div class="key ctrl-key">Ctrl</div>
+            <div class="key" style="min-width:8rem;">Espacio</div>
+            <div class="key enter-key">Enter<span class="key-action">nuevo párrafo</span></div>
+          </div>
+
+          <div class="keyboard-legend">
+            <div class="kl-item"><span class="kl-combo">Ctrl+N</span> Negrita</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+K</span> Cursiva</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+S</span> Subrayado</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+J</span> Justificado</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+D</span> Alinear derecha</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+T</span> Centrar</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+E</span> Seleccionar todo</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+G</span> Guardar</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+Z</span> Deshacer</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+Y</span> Rehacer</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+C</span> Copiar</div>
+            <div class="kl-item"><span class="kl-combo">Ctrl+V</span> Pegar</div>
+          </div>
+        </div>
+
+        <!-- DEMO DE SELECCIÓN -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve en pantalla</p>
+          <div class="sel-demo">
+            <div class="sel-demo-label">Doble clic → selecciona una palabra</div>
+            <p>La informática es la ciencia que estudia el procesamiento automático de la <span class="sel">información</span> mediante el uso de computadoras y sistemas digitales.</p>
+
+            <div class="sel-demo-label" style="margin-top:1rem;">Triple clic → selecciona el párrafo completo</div>
+            <p><span class="sel">Un procesador de textos permite crear, editar y dar formato a documentos digitales. Es una de las herramientas más utilizadas en entornos académicos y laborales de todo el mundo.</span></p>
+
+            <div class="sel-demo-label" style="margin-top:1rem;">Ctrl + E → selecciona todo el documento</div>
+            <p><span class="sel">Mi primer documento en Word.</span></p>
+            <p><span class="sel">Este es el segundo párrafo. El texto fluye automáticamente dentro de los márgenes sin necesidad de presionar Enter al final de cada línea.</span></p>
+            <p><span class="sel">Tercer párrafo del documento de ejemplo.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMATO DE FUENTE -->
+    <section class="section alt" id="fuente">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Grupo Fuente</p>
+          <h2>Formato de Fuente</h2>
+          <p>
+            El <strong>grupo Fuente</strong> de la pestaña Inicio contiene todas las
+            opciones para cambiar la apariencia visual de los caracteres del texto.
+            Para aplicar cualquier formato, primero hay que <strong>seleccionar el texto</strong>
+            y luego elegir la opción deseada.
+          </p>
+        </div>
+
+        <div class="formato-grid">
+          <div class="formato-item">
+            <p class="fi-label">Tipo de fuente</p>
+            <h3>Tipografía</h3>
+            <p>Define el diseño visual de los caracteres. Ejemplos: Arial, Times New Roman, Verdana, Calibri. Se cambia desde el desplegable de nombre de fuente.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Tamaño</p>
+            <h3>Tamaño de fuente</h3>
+            <p>Medido en puntos (pt). Un tamaño de 12 pt es el estándar para documentos. El título suele usarse en 14 o 16 pt.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Estilo</p>
+            <h3>Negrita (B)</h3>
+            <p>Hace el texto más grueso y destacado. Atajo: <kbd>Ctrl</kbd>+<kbd>N</kbd>. Se usa para títulos y palabras importantes.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Estilo</p>
+            <h3>Cursiva (I)</h3>
+            <p>Inclina el texto hacia la derecha. Atajo: <kbd>Ctrl</kbd>+<kbd>K</kbd>. Se usa para citas, términos en otro idioma o énfasis.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Estilo</p>
+            <h3>Subrayado (U)</h3>
+            <p>Agrega una línea debajo del texto. Atajo: <kbd>Ctrl</kbd>+<kbd>S</kbd>. Existen variantes: simple, doble, ondulado, etc.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Color</p>
+            <h3>Color de fuente</h3>
+            <p>Cambia el color de los caracteres. Se elige desde el botón "A" con el triángulo de color en el grupo Fuente.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Resaltado</p>
+            <h3>Color de resaltado</h3>
+            <p>Agrega un fondo de color detrás del texto, como un marcador. Útil para destacar información importante en el documento.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Cambiar mayúsculas</p>
+            <h3>Mayúsculas / Minúsculas</h3>
+            <p>Convierte el texto a MAYÚSCULAS, minúsculas, Primera letra en mayúscula, etc. Se accede desde el botón "Aa" en el grupo Fuente.</p>
+          </div>
+          <div class="formato-item">
+            <p class="fi-label">Tamaño</p>
+            <h3>Aumentar / Disminuir fuente</h3>
+            <p>Los botones A↑ y A↓ aumentan o disminuyen el tamaño de la fuente de a 1 punto por clic. Atajos: <kbd>Ctrl</kbd>+<kbd>.</kbd> y <kbd>Ctrl</kbd>+<kbd>,</kbd></p>
+          </div>
+        </div>
+
+        <!-- DEMO VISUAL DE FUENTES -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve cada formato en el documento</p>
+          <div class="font-demo-panel">
+            <div class="fdp-title">Panel de demostración · Grupo Fuente</div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Arial · 12pt</span>
+              <span class="font-demo-text" style="font-family:Arial,sans-serif;font-size:12pt;">El texto del documento sin formato aplicado.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Arial · 14pt</span>
+              <span class="font-demo-text" style="font-family:Arial,sans-serif;font-size:14pt;">Título del documento</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Negrita</span>
+              <span class="font-demo-text" style="font-weight:700;">Este texto tiene formato de <strong>negrita</strong> aplicado con Ctrl+N.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Cursiva</span>
+              <span class="font-demo-text" style="font-style:italic;">Este texto tiene formato de cursiva aplicado con Ctrl+K.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Subrayado</span>
+              <span class="font-demo-text" style="text-decoration:underline;">Este texto tiene subrayado aplicado con Ctrl+S.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Combinado</span>
+              <span class="font-demo-text" style="font-weight:700;font-style:italic;text-decoration:underline;">Negrita + Cursiva + Subrayado al mismo tiempo.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Color naranja</span>
+              <span class="font-demo-text" style="color:#ea580c;">Este texto tiene color naranja aplicado desde el botón A▾.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Color azul</span>
+              <span class="font-demo-text" style="color:#1d4ed8;">Este texto tiene color azul aplicado desde el botón A▾.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Resaltado</span>
+              <span class="font-demo-text">Texto normal con <span style="background:#fde047;padding:0 2px;">palabra resaltada en amarillo</span> como con marcador.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">MAYÚSCULAS</span>
+              <span class="font-demo-text" style="text-transform:uppercase;letter-spacing:0.05em;">este texto fue convertido a mayúsculas con el botón Aa.</span>
+            </div>
+            <div class="font-demo-row">
+              <span class="font-demo-tag">Verdana · 14pt</span>
+              <span class="font-demo-text" style="font-family:Verdana,sans-serif;font-size:14pt;text-decoration:underline;text-align:right;display:block;">Texto en Verdana, tamaño 14, subrayado, alineado a la derecha.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-grid two-col-grid" style="margin-top: 1.5rem;">
+          <article class="info-card accent-purple">
+            <p class="card-label">Atajos de teclado - Fuente</p>
+            <h3>Los más usados</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Atajo</th><th>Acción</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>N</kbd></td><td>Negrita</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>K</kbd></td><td>Cursiva</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Subrayado</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Deshacer</td></tr>
+                <tr><td><kbd>Ctrl</kbd>+<kbd>Y</kbd></td><td>Rehacer</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-blue">
+            <p class="card-label">Cuadro de diálogo Fuente</p>
+            <h3>Opciones avanzadas</h3>
+            <p>
+              Para acceder a <strong>todas las opciones de fuente</strong> en un solo lugar,
+              hacé clic en la pequeña flecha en la esquina inferior derecha del grupo Fuente,
+              o presioná <kbd>Ctrl</kbd>+<kbd>M</kbd>.
+            </p>
+            <p style="margin-top:0.5rem;font-size:0.87rem;color:var(--muted);">
+              Desde allí podés configurar simultáneamente: tipo de fuente, estilo, tamaño,
+              color, efectos (tachado, superíndice, subíndice, sombra) y vista previa.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMATO DE PÁRRAFO -->
+    <section class="section" id="parrafo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Grupo Párrafo</p>
+          <h2>Formato de Párrafo</h2>
+          <p>
+            El <strong>grupo Párrafo</strong> de la pestaña Inicio permite controlar
+            la apariencia del bloque de texto en su conjunto: cómo se alinea,
+            qué espacio hay entre líneas, cuánta sangría tiene, y si tiene
+            bordes o sombreado.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Alineación</p>
+            <h3>Tipos de alineación</h3>
+            <p>Controla cómo se distribuye el texto dentro de los márgenes del párrafo:</p>
+            <ul>
+              <li><strong>Izquierda (<kbd>Ctrl</kbd>+<kbd>Q</kbd>):</strong> El texto se alinea al borde izquierdo. Es la alineación por defecto.</li>
+              <li><strong>Centrado (<kbd>Ctrl</kbd>+<kbd>T</kbd>):</strong> El texto queda centrado entre los márgenes. Ideal para títulos.</li>
+              <li><strong>Derecha (<kbd>Ctrl</kbd>+<kbd>D</kbd>):</strong> El texto se alinea al borde derecho.</li>
+              <li><strong>Justificado (<kbd>Ctrl</kbd>+<kbd>J</kbd>):</strong> El texto se distribuye de modo que ambos bordes queden parejos. Usado en documentos formales.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Interlineado</p>
+            <h3>Espacio entre líneas</h3>
+            <p>
+              El <strong>interlineado</strong> controla la distancia vertical entre
+              cada línea de texto dentro de un párrafo.
+            </p>
+            <ul>
+              <li><strong>Sencillo (1,0):</strong> Espacio mínimo entre líneas.</li>
+              <li><strong>1,5 líneas:</strong> Interlineado moderado. Muy usado en trabajos académicos.</li>
+              <li><strong>Doble (2,0):</strong> Mucho espacio, útil para correcciones.</li>
+              <li><strong>Exacto / Múltiple:</strong> Valores personalizados en puntos.</li>
+            </ul>
+            <p class="card-example"><strong>Cómo acceder:</strong> Pestaña Inicio → grupo Párrafo → botón de interlineado (¶↕), o desde el cuadro de diálogo Párrafo.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Sangría</p>
+            <h3>Tipos de sangría</h3>
+            <p>
+              La <strong>sangría</strong> es el espacio entre el borde del párrafo
+              y el margen de la página. Se puede configurar desde la regla o
+              desde el cuadro de diálogo Párrafo:
+            </p>
+            <ul>
+              <li><strong>Sangría izquierda:</strong> Desplaza todo el párrafo desde el margen izquierdo.</li>
+              <li><strong>Sangría derecha:</strong> Desplaza todo el párrafo desde el margen derecho.</li>
+              <li><strong>Sangría especial - Primera línea:</strong> Solo la primera línea del párrafo tiene sangría.</li>
+              <li><strong>Sangría especial - Francesa:</strong> La primera línea queda al margen y el resto tiene sangría.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Sombreado y Bordes</p>
+            <h3>Fondo y recuadro de párrafo</h3>
+            <p>
+              Estas opciones permiten resaltar visualmente párrafos completos:
+            </p>
+            <ul>
+              <li><strong>Sombreado:</strong> Agrega un color de fondo al párrafo completo. Se configura desde el botón de cubo de pintura en el grupo Párrafo.</li>
+              <li><strong>Bordes de párrafo:</strong> Agrega un recuadro o líneas alrededor del párrafo. Se accede desde la flecha del botón de bordes en el grupo Párrafo.</li>
+            </ul>
+            <p class="card-example"><strong>Combinación efectiva:</strong> Sombreado naranja + letras azules + borde exterior = párrafo muy destacado visualmente.</p>
+          </article>
+        </div>
+
+        <!-- DEMO ALINEACIÓN -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">Tipos de alineación · comparación visual</p>
+          <div class="align-demo-grid">
+
+            <div class="align-demo-box">
+              <div class="align-demo-header">≡ IZQUIERDA · Ctrl+Q</div>
+              <div class="align-demo-page" style="text-align:left;font-family:'Segoe UI',sans-serif;font-size:0.75rem;color:#374151;line-height:1.6;">
+                La informática es la ciencia que estudia el tratamiento
+                automático de la información usando
+                computadoras y sistemas digitales.
+                <p style="margin:0.5rem 0 0;font-size:0.65rem;color:#9ca3af;">Alineación por defecto. El margen izquierdo siempre queda recto.</p>
+              </div>
+            </div>
+
+            <div class="align-demo-box">
+              <div class="align-demo-header" style="background:#7c3aed;">≡ CENTRADO · Ctrl+T</div>
+              <div class="align-demo-page" style="text-align:center;font-family:'Segoe UI',sans-serif;font-size:0.75rem;color:#374151;line-height:1.6;">
+                La informática es la ciencia que estudia el tratamiento
+                automático de la información usando
+                computadoras y sistemas digitales.
+                <p style="margin:0.5rem 0 0;font-size:0.65rem;color:#9ca3af;">Ideal para títulos. El texto queda centrado entre los márgenes.</p>
+              </div>
+            </div>
+
+            <div class="align-demo-box">
+              <div class="align-demo-header" style="background:#b45309;">≡ DERECHA · Ctrl+D</div>
+              <div class="align-demo-page" style="text-align:right;font-family:'Segoe UI',sans-serif;font-size:0.75rem;color:#374151;line-height:1.6;">
+                La informática es la ciencia que estudia el tratamiento
+                automático de la información usando
+                computadoras y sistemas digitales.
+                <p style="margin:0.5rem 0 0;font-size:0.65rem;color:#9ca3af;">El texto se alinea al borde derecho. El izquierdo queda irregular.</p>
+              </div>
+            </div>
+
+            <div class="align-demo-box">
+              <div class="align-demo-header" style="background:#065f46;">≡ JUSTIFICADO · Ctrl+J</div>
+              <div class="align-demo-page" style="text-align:justify;font-family:'Segoe UI',sans-serif;font-size:0.75rem;color:#374151;line-height:1.6;">
+                La informática es la ciencia que estudia el tratamiento
+                automático de la información usando
+                computadoras y sistemas digitales.
+                <p style="margin:0.5rem 0 0;font-size:0.65rem;color:#9ca3af;">Ambos bordes quedan parejos. Ideal para documentos formales.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- DEMO INTERLINEADO -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">Interlineado · comparación visual</p>
+          <div class="linespace-demo-grid">
+            <div class="linespace-box">
+              <div class="lsh">Sencillo (1,0)</div>
+              <div class="lsp" style="line-height:1.1;">
+                <p style="margin:0;">El procesador de textos</p>
+                <p style="margin:0;">permite crear documentos</p>
+                <p style="margin:0;">con formato profesional.</p>
+              </div>
+            </div>
+            <div class="linespace-box">
+              <div class="lsh">1,5 líneas</div>
+              <div class="lsp" style="line-height:1.6;">
+                <p style="margin:0;">El procesador de textos</p>
+                <p style="margin:0;">permite crear documentos</p>
+                <p style="margin:0;">con formato profesional.</p>
+              </div>
+            </div>
+            <div class="linespace-box">
+              <div class="lsh">Doble (2,0)</div>
+              <div class="lsp" style="line-height:2.2;">
+                <p style="margin:0;">El procesador de textos</p>
+                <p style="margin:0;">permite crear documentos</p>
+                <p style="margin:0;">con formato profesional.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEMO SANGRÍAS -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">Tipos de sangría · comparación visual</p>
+          <div class="indent-demo-grid">
+            <div class="indent-demo-box">
+              <div class="idh">Sin sangría</div>
+              <div class="idp">
+                El texto comienza desde el margen izquierdo de la página en todas sus líneas.
+              </div>
+            </div>
+            <div class="indent-demo-box">
+              <div class="idh">Sangría izquierda</div>
+              <div class="idp" style="padding-left:2.5rem;position:relative;">
+                <div class="indent-marker" style="left:0.75rem;width:1.5rem;"></div>
+                Todo el párrafo está desplazado desde el margen izquierdo de la hoja.
+              </div>
+            </div>
+            <div class="indent-demo-box">
+              <div class="idh">Sangría derecha</div>
+              <div class="idp" style="padding-right:2.5rem;position:relative;">
+                <div class="indent-marker" style="right:0.75rem;width:1.5rem;left:auto;border-left:none;border-right:2px dashed #6366f1;"></div>
+                El párrafo no llega hasta el borde derecho, queda desplazado hacia adentro.
+              </div>
+            </div>
+            <div class="indent-demo-box">
+              <div class="idh">Primera línea</div>
+              <div class="idp">
+                <span style="display:inline-block;width:1.5rem;"></span>Solo la primera línea del párrafo tiene sangría. Las demás comienzan desde el margen normal.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section alt" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Ejercicios para aplicar los conceptos de la clase. Seguí los pasos
+            en orden y prestá atención a cada detalle de formato indicado.
+          </p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Actividad práctica · Formato de fuente y párrafo</p>
+          <h3>Escribir y formatear un documento desde cero</h3>
+          <p style="font-size:0.9rem;color:var(--muted);">
+            Abrí un documento nuevo en Word y escribí el siguiente texto.
+            Recordá presionar <kbd>Enter</kbd> <strong>solo al final de cada párrafo</strong>, no al final de cada línea.
+          </p>
+
+          <!-- Texto a tipear -->
+          <div style="background:var(--surface-soft);border:1px dashed var(--line);border-radius:0.5rem;padding:1rem 1.25rem;margin:0.85rem 0 1rem;font-family:'Segoe UI',sans-serif;font-size:0.85rem;line-height:1.75;color:var(--text);">
+            <p style="margin:0 0 0.5rem;font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--primary);">Texto a escribir — presioná Enter solo al final de cada párrafo</p>
+            <p style="margin:0 0 0.6rem;"><strong>La Informática y sus componentes</strong></p>
+            <p style="margin:0 0 0.6rem;">La informática es la ciencia que estudia el procesamiento automático de la información mediante el uso de computadoras y sistemas digitales. Su aplicación abarca prácticamente todos los ámbitos de la vida moderna, desde la educación y el trabajo hasta el entretenimiento y la comunicación.</p>
+            <p style="margin:0 0 0.6rem;">El hardware es el conjunto de componentes físicos de una computadora. Entre los más importantes se encuentran el procesador o CPU, que ejecuta las instrucciones; la memoria RAM, que almacena los datos temporalmente mientras se trabaja; y el disco rígido o SSD, donde se guardan los archivos de forma permanente.</p>
+            <p style="margin:0 0 0.6rem;">El software es el conjunto de programas e instrucciones que permiten al hardware realizar tareas específicas y útiles para el usuario. Se divide en software de sistema, como el sistema operativo, y software de aplicación, como los procesadores de texto, las planillas de cálculo y los navegadores web.</p>
+            <p style="margin:0;">La relación entre hardware y software es fundamental: sin hardware el software no puede ejecutarse, y sin software el hardware no tiene ninguna utilidad práctica. Juntos forman el sistema informático que usamos a diario en nuestra vida personal y profesional.</p>
+          </div>
+
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:0.5rem;">Una vez escrito el texto, aplicá los siguientes formatos:</p>
+          <ul>
+            <li><strong>Todo el texto:</strong> fuente <strong>Arial, tamaño 12</strong> (<kbd>Ctrl</kbd>+<kbd>E</kbd> para seleccionar todo).</li>
+            <li><strong>Título:</strong> <strong>Arial, tamaño 14, Negrita, Centrado</strong>.</li>
+            <li><strong>Párrafo 1:</strong> <strong>Negrita + Cursiva</strong>, alineación <strong>Justificada</strong>.</li>
+            <li><strong>Párrafo 2:</strong> color de texto <strong>naranja</strong>, alineado al <strong>Centro</strong>.</li>
+            <li><strong>Párrafo 3:</strong> fuente <strong>Verdana, tamaño 14, Subrayado</strong>, alineado a la <strong>Derecha</strong>.</li>
+            <li><strong>Párrafo 4:</strong> texto en <strong>MAYÚSCULAS</strong>, tamaño <strong>10 pt</strong>, alineación <strong>Justificada</strong>.</li>
+          </ul>
+
+          <div class="act-resultado">
+            <div class="act-resultado-label">Así debe quedar el documento</div>
+            <div class="act-doc">
+              <p style="font-family:Arial,sans-serif;font-size:14pt;font-weight:700;text-align:center;margin:0 0 0.75rem;">La Informática y sus componentes</p>
+              <p style="font-family:Arial,sans-serif;font-size:12pt;font-weight:700;font-style:italic;text-align:justify;margin:0 0 0.65rem;">La informática es la ciencia que estudia el procesamiento automático de la información mediante el uso de computadoras y sistemas digitales. Su aplicación abarca prácticamente todos los ámbitos de la vida moderna, desde la educación y el trabajo hasta el entretenimiento y la comunicación.</p>
+              <p style="font-family:Arial,sans-serif;font-size:12pt;color:#ea580c;text-align:center;margin:0 0 0.65rem;">El hardware es el conjunto de componentes físicos de una computadora. Entre los más importantes se encuentran el procesador o CPU, que ejecuta las instrucciones; la memoria RAM, que almacena los datos temporalmente mientras se trabaja; y el disco rígido o SSD, donde se guardan los archivos de forma permanente.</p>
+              <p style="font-family:Verdana,sans-serif;font-size:14pt;text-decoration:underline;text-align:right;margin:0 0 0.65rem;">El software es el conjunto de programas e instrucciones que permiten al hardware realizar tareas específicas y útiles para el usuario.</p>
+              <p style="font-family:Arial,sans-serif;font-size:10pt;text-transform:uppercase;text-align:justify;margin:0;">LA RELACIÓN ENTRE HARDWARE Y SOFTWARE ES FUNDAMENTAL: SIN HARDWARE EL SOFTWARE NO PUEDE EJECUTARSE, Y SIN SOFTWARE EL HARDWARE NO TIENE NINGUNA UTILIDAD PRÁCTICA. JUNTOS FORMAN EL SISTEMA INFORMÁTICO QUE USAMOS A DIARIO.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Procesador de textos</h3>
+            <p>
+              Programa para crear, editar y dar formato a documentos de texto.
+              Microsoft Word es el más usado del mundo y guarda archivos en formato .docx.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Párrafos en Word</h3>
+            <p>
+              Un párrafo se crea con la tecla Enter. Solo hay que presionar Enter
+              al final de cada idea completa, no al final de cada línea visible.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Selección de texto</h3>
+            <p>
+              Se puede seleccionar con clic y arrastrar, doble clic (palabra),
+              triple clic (párrafo) o con Ctrl+E (todo el documento).
+              Con el teclado: Shift + teclas de dirección.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Formato de Fuente</h3>
+            <p>
+              Controla la apariencia de los caracteres: tipo de fuente, tamaño,
+              negrita (Ctrl+N), cursiva (Ctrl+K), subrayado (Ctrl+S), color y mayúsculas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Formato de Párrafo</h3>
+            <p>
+              Controla la apariencia del bloque: alineación (izquierda, derecha,
+              centrado, justificado), interlineado, sangrías izquierda, derecha y especiales.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Sombreado y Bordes</h3>
+            <p>
+              El sombreado agrega un color de fondo al párrafo. Los bordes
+              agregan un recuadro visible. Ambos se usan para destacar información importante.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material de la cátedra</p>
+          <h2>Video de la clase</h2>
+          <p>Video oficial de la cátedra para acompañar los contenidos de esta clase.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/XGFZL3ubjLA"
+                title="Procesador de textos Word - Taller de Informática I"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase7.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Primer Parcial · Unidades 1 y 2</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 10 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 4 · Clase 9</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
