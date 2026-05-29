@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 4 · Clase 10</title>
+  <meta
+    name="description"
+    content="Clase 10 de Taller de Informática I: insertar imágenes, ajuste de texto, líneas separadoras, formato de columnas y letra capital en Word."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Tabla de atajos */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .shortcut-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .shortcut-table td {
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .shortcut-table tr:last-child td { border-bottom: none; }
+    .shortcut-table tr:hover td { background: var(--surface-soft); }
+    .shortcut-table kbd {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 0.3rem;
+      padding: 0.1em 0.45em;
+      font-size: 0.82em;
+      font-family: monospace;
+      color: var(--text);
+    }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+    }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .actividad-block ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .actividad-block ul li strong { color: var(--text); }
+
+    /* Resultado esperado */
+    .act-resultado {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 0.85rem;
+    }
+    .act-resultado-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .act-resultado-label::before { content: "✓"; }
+    .act-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.4rem;
+      padding: 1rem 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    /* ===== WORD WINDOW MOCKUP ===== */
+    .word-window {
+      margin-top: 2.5rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      position: relative;
+      border: 1px solid #1e3a6e;
+    }
+    .wm-titlebar {
+      background: #2b579a;
+      color: #fff;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .wm-titlebar-title { font-size: 0.73rem; opacity: 0.95; }
+    .wm-titlebar-controls { display: flex; gap: 0.35rem; }
+    .wm-titlebar-controls span {
+      width: 11px; height: 11px; border-radius: 50%;
+      display: inline-block; opacity: 0.85;
+    }
+    .wm-ctrl-min { background: #fbbf24; }
+    .wm-ctrl-max { background: #34d399; }
+    .wm-ctrl-close { background: #f87171; }
+    .wm-tabs {
+      background: #2b579a;
+      display: flex;
+      gap: 0;
+      padding: 0 0.5rem;
+    }
+    .wm-tab {
+      padding: 0.28rem 0.7rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      cursor: default;
+      border-radius: 3px 3px 0 0;
+      user-select: none;
+    }
+    .wm-tab.active {
+      background: #fff;
+      color: #2b579a;
+      font-weight: 700;
+    }
+    .wm-ribbon {
+      background: #fff;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 0.4rem 0.75rem 0.3rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .wm-rgroup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding-right: 1rem;
+      border-right: 1px solid #e5e7eb;
+    }
+    .wm-rgroup:last-child { border-right: none; padding-right: 0; }
+    .wm-rgroup-label {
+      font-size: 0.58rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 0.15rem;
+    }
+    .wm-rbtns { display: flex; gap: 0.2rem; align-items: center; flex-wrap: wrap; }
+    .wm-rbtn {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 0.18rem 0.38rem;
+      font-size: 0.7rem;
+      color: #374151;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .wm-rbtn.hi { background: #dbeafe; border-color: #93c5fd; }
+    .wm-body {
+      background: #e5e7eb;
+      display: flex;
+      gap: 0;
+      padding: 0.75rem 0.75rem 0.75rem 0.5rem;
+    }
+    .wm-page {
+      background: #fff;
+      flex: 1;
+      min-height: 120px;
+      padding: 1.25rem 1.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      color: #111;
+      line-height: 1.7;
+    }
+    .wm-page p { margin: 0 0 0.5rem; font-size: 0.77rem; }
+    .wm-statusbar {
+      background: #2b579a;
+      color: rgba(255,255,255,0.85);
+      padding: 0.22rem 0.75rem;
+      font-size: 0.64rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .wm-badge {
+      position: absolute;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .wm-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .wm-legend-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.85rem;
+    }
+    .wm-num {
+      min-width: 1.5rem;
+      height: 1.5rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .wm-legend-item p { margin: 0; color: var(--muted); font-size: 0.83rem; line-height: 1.4; }
+    .wm-legend-item strong { color: var(--text); }
+
+    /* ===== AJUSTE DE TEXTO — demos visuales ===== */
+    .ajuste-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.75rem;
+    }
+    .ajuste-box {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .ajuste-header {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .ajuste-body {
+      background: #fff;
+      padding: 0.75rem 0.9rem;
+      font-size: 0.72rem;
+      color: #374151;
+      line-height: 1.55;
+      min-height: 90px;
+      position: relative;
+    }
+    .ajuste-img {
+      background: #bfdbfe;
+      border: 2px solid #3b82f6;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d4ed8;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .ajuste-caption {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      line-height: 1.4;
+      padding: 0 0.9rem 0.75rem;
+      background: #fff;
+    }
+
+    /* ===== DEMO COLUMNAS ===== */
+    .col-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .col-demo-box {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .col-demo-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    .col-demo-page {
+      background: #fff;
+      padding: 0.75rem 0.85rem;
+      min-height: 130px;
+    }
+    .col-demo-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #111;
+    }
+    .col-content {
+      display: grid;
+      gap: 0.75rem;
+      font-size: 0.67rem;
+      color: #374151;
+      line-height: 1.55;
+    }
+    .col-divider {
+      border-left: 1px solid #d1d5db;
+    }
+
+    /* ===== DEMO LETRA CAPITAL ===== */
+    .dropcap-demo {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: 'Georgia', serif;
+      color: #111;
+      font-size: 0.88rem;
+      line-height: 1.75;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .dropcap-letter {
+      float: left;
+      font-size: 3.5rem;
+      line-height: 1;
+      font-weight: 700;
+      color: #2b579a;
+      margin-right: 0.15rem;
+      margin-top: 0.05rem;
+      font-family: 'Georgia', serif;
+    }
+    .dropcap-demo-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .dropcap-variants {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .dropcap-variants { grid-template-columns: 1fr; }
+      .ajuste-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== DEMO LÍNEA SEPARADORA ===== */
+    .linea-demo {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.82rem;
+      color: #111;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .linea-demo hr {
+      border: none;
+      border-top: 1px solid #374151;
+      margin: 0.6rem 0;
+    }
+
+    /* Grid de formato */
+    .formato-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .formato-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+    }
+    .formato-item .fi-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .formato-item h3 { font-size: 0.95rem; margin: 0 0 0.35rem; }
+    .formato-item p { font-size: 0.86rem; color: var(--muted); margin: 0; }
+
+    /* imagen inline vs flotada — demo paso a paso */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .step-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      min-width: 1.75rem;
+      height: 1.75rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-body { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .step-body strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#imagenes">Insertar imágenes</a>
+        <a href="#ajuste">Ajuste de texto</a>
+        <a href="#lineas">Líneas separadoras</a>
+        <a href="#columnas">Columnas</a>
+        <a href="#capital">Letra capital</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 4</p>
+        <h1>Imágenes, Columnas y Letra Capital en Word</h1>
+        <p class="lead">
+          Aprendé a insertar <strong>imágenes desde tu dispositivo o de internet</strong>,
+          a ajustar cómo el texto las rodea, a dividir el documento en
+          <strong>columnas</strong> y a aplicar la <strong>letra capital</strong> para
+          lograr diseños profesionales.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#imagenes">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 10</li>
+          <li>Microsoft Word</li>
+          <li>Imágenes y Diseño</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Enriquecer documentos con elementos visuales</h2>
+        <p>
+          Insertar imágenes prediseñadas e imágenes en línea, ajustar el texto
+          alrededor de ellas, insertar líneas separadoras, agregar columnas
+          estilo revista y aplicar la letra capital al inicio de párrafos.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Insertar</span>
+          <span>Ajustar</span>
+          <span>Diseñar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            Una imagen en Word puede estar <strong>en línea con el texto</strong>
+            (como un carácter más) o <strong>flotando</strong> con distintos tipos de
+            ajuste para que el texto la rodee de diferentes maneras.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- INSERTAR IMÁGENES -->
+    <section class="section alt" id="imagenes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar</p>
+          <h2>Insertar Imágenes en Word</h2>
+          <p>
+            Word permite insertar imágenes de dos formas principales: desde archivos
+            guardados en tu computadora o buscándolas directamente en internet desde
+            la ventana de Word. Ambas opciones están en la pestaña <strong>Insertar</strong>.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Opción 1</p>
+            <h3>Imagen desde este dispositivo</h3>
+            <p>
+              Inserta una imagen guardada en tu computadora (JPG, PNG, GIF, BMP, etc.).
+            </p>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Hacé clic en la pestaña <strong>Insertar</strong> de la cinta de opciones.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En el grupo <strong>Ilustraciones</strong>, hacé clic en <strong>Imágenes</strong> → <strong>Este dispositivo</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Buscá y seleccioná el archivo de imagen en tu computadora.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Hacé clic en <strong>Insertar</strong>. La imagen aparece en el documento.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Opción 2</p>
+            <h3>Imágenes en línea</h3>
+            <p>
+              Busca y descarga imágenes directamente desde Internet sin salir de Word,
+              usando el buscador de imágenes integrado (Bing).
+            </p>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Insertar</strong> → grupo <strong>Ilustraciones</strong> → <strong>Imágenes en línea</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En el cuadro de búsqueda, escribí lo que necesitás (por ejemplo: "smartphone futurista").</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Seleccioná la imagen de los resultados y hacé clic en <strong>Insertar</strong>.</div>
+              </div>
+            </div>
+            <p class="card-example" style="margin-top:0.75rem;"><strong>Nota:</strong> Las imágenes en línea de Bing suelen tener licencia Creative Commons. Verificá el uso permitido si es para un trabajo formal.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">También en Ilustraciones</p>
+            <h3>Formas, íconos y SmartArt</h3>
+            <p>
+              Además de imágenes, el grupo <strong>Ilustraciones</strong> permite insertar:
+            </p>
+            <ul>
+              <li><strong>Formas:</strong> rectángulos, flechas, estrellas, líneas, etc.</li>
+              <li><strong>Íconos:</strong> íconos vectoriales integrados en Word.</li>
+              <li><strong>SmartArt:</strong> diagramas, organigramas y listas visuales.</li>
+              <li><strong>Gráfico:</strong> insertar gráficos de barras, torta, línea, etc.</li>
+            </ul>
+            <p class="card-example"><strong>Clave:</strong> Para insertar una línea horizontal separadora, usá Formas → seleccioná una línea recta.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Trabajar con la imagen seleccionada</p>
+            <h3>Pestaña Formato de imagen</h3>
+            <p>
+              Al hacer clic sobre una imagen insertada, aparece automáticamente la
+              pestaña contextual <strong>Formato de imagen</strong> con herramientas para:
+            </p>
+            <ul>
+              <li><strong>Estilos de imagen:</strong> marcos, sombras, efectos.</li>
+              <li><strong>Ajustar:</strong> brillo, contraste, color, recortar.</li>
+              <li><strong>Organizar:</strong> posición, ajuste del texto, traer al frente.</li>
+              <li><strong>Tamaño:</strong> modificar alto y ancho con precisión.</li>
+            </ul>
+            <p class="card-example"><strong>Importante:</strong> Si no ves esta pestaña, asegurate de que la imagen esté seleccionada (clic sobre ella).</p>
+          </article>
+        </div>
+
+        <!-- MOCKUP WORD — pestaña Insertar -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Pestaña Insertar · grupo Ilustraciones</p>
+          <div class="word-window" style="position:relative;">
+            <div class="wm-titlebar">
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="font-size:0.85rem;">📄</span>
+                <span class="wm-titlebar-title">ejercicio2.docx - Word</span>
+              </div>
+              <div class="wm-titlebar-controls">
+                <span class="wm-ctrl-min"></span>
+                <span class="wm-ctrl-max"></span>
+                <span class="wm-ctrl-close"></span>
+              </div>
+            </div>
+            <div class="wm-tabs">
+              <div class="wm-tab">Archivo</div>
+              <div class="wm-tab">Inicio</div>
+              <div class="wm-tab active">Insertar</div>
+              <div class="wm-tab">Diseño</div>
+              <div class="wm-tab">Disposición</div>
+              <div class="wm-tab">Referencias</div>
+              <div class="wm-tab">Vista</div>
+            </div>
+            <div class="wm-ribbon">
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">📄 Portada</div>
+                  <div class="wm-rbtn">📋 Página en blanco</div>
+                </div>
+                <div class="wm-rgroup-label">Páginas</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn hi">🖼 Imágenes ▾</div>
+                  <div class="wm-rbtn hi">🌐 Imág. en línea</div>
+                  <div class="wm-rbtn">◻ Formas ▾</div>
+                  <div class="wm-rbtn">🔷 Íconos</div>
+                  <div class="wm-rbtn">📊 SmartArt</div>
+                  <div class="wm-rbtn">📈 Gráfico</div>
+                </div>
+                <div class="wm-rgroup-label">Ilustraciones</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">📝 Cuadro de texto</div>
+                  <div class="wm-rbtn">A WordArt</div>
+                </div>
+                <div class="wm-rgroup-label">Texto</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">📎 Encabezado</div>
+                  <div class="wm-rbtn">📌 Pie de página</div>
+                  <div class="wm-rbtn"># Número de pág.</div>
+                </div>
+                <div class="wm-rgroup-label">Encabezado y pie</div>
+              </div>
+            </div>
+            <div class="wm-body">
+              <div class="wm-page">
+                <p style="font-size:0.9rem;font-weight:700;color:#dc2626;text-align:center;margin-bottom:0.25rem;">Los smartphones del futuro: ¿Cómo serán y qué harán?</p>
+                <p style="font-size:0.6rem;color:#6b7280;margin-bottom:0.5rem;">Recopilado por Miguel Prigioniero — Año 2017</p>
+                <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+                  <div style="width:60px;height:45px;background:#bfdbfe;border:1px solid #3b82f6;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.55rem;color:#1d4ed8;font-weight:700;">IMG</div>
+                  <p style="font-size:0.65rem;line-height:1.5;color:#374151;margin:0;">Diseños flexibles, procesadores quad-core, e incluso más inteligencia artificial son sólo algunas de las características que puedes esperar de los smartphones en los siguientes cinco a diez años...</p>
+                </div>
+              </div>
+            </div>
+            <div class="wm-statusbar">
+              <span>Página 1 de 1</span>
+              <span>Palabras: 520</span>
+              <span>Español (Argentina)</span>
+              <span style="margin-left:auto;">100%</span>
+            </div>
+            <div class="wm-badge" style="top:68px;left:175px;">1</div>
+            <div class="wm-badge" style="top:68px;left:255px;">2</div>
+          </div>
+          <div class="wm-legend">
+            <div class="wm-legend-item"><div class="wm-num">1</div><p><strong>Imágenes</strong> — abre el explorador de archivos para buscar una imagen en tu computadora.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">2</div><p><strong>Imágenes en línea</strong> — busca y descarga imágenes de internet sin salir de Word.</p></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AJUSTE DE TEXTO -->
+    <section class="section" id="ajuste">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ajuste de texto a imagen</p>
+          <h2>¿Cómo ajustar el texto alrededor de una imagen?</h2>
+          <p>
+            Cuando insertamos una imagen, Word la coloca por defecto
+            <strong>"En línea con el texto"</strong> — es decir, como si fuera un
+            carácter más. Para que el texto rodee la imagen o para posicionarla
+            libremente, hay que cambiar el <strong>ajuste de texto</strong>.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo acceder al ajuste?</p>
+            <h3>Menú de ajuste de texto</h3>
+            <p>Hay varias formas de acceder:</p>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">A</div>
+                <div class="step-body"><strong>Clic derecho sobre la imagen</strong> → <strong>Ajustar texto</strong> → elegir el tipo.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">B</div>
+                <div class="step-body">Con la imagen seleccionada → pestaña <strong>Formato de imagen</strong> → grupo <strong>Organizar</strong> → botón <strong>Ajustar texto</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">C</div>
+                <div class="step-body">Al seleccionar la imagen aparece el botón flotante <strong>⚙ Opciones de diseño</strong> al lado superior derecho de la imagen.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Los 7 tipos de ajuste</p>
+            <h3>Opciones disponibles</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Ajuste</th><th>Descripción</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>En línea</strong></td><td>La imagen se comporta como un carácter (por defecto).</td></tr>
+                <tr><td><strong>Cuadrado</strong></td><td>El texto rodea la imagen en forma rectangular.</td></tr>
+                <tr><td><strong>Estrecho</strong></td><td>El texto sigue la forma real del contenido de la imagen.</td></tr>
+                <tr><td><strong>Transparente</strong></td><td>Como Estrecho, pero pasa por zonas transparentes.</td></tr>
+                <tr><td><strong>Arriba y abajo</strong></td><td>El texto va arriba y abajo, no al lado de la imagen.</td></tr>
+                <tr><td><strong>Detrás del texto</strong></td><td>La imagen queda debajo del texto (marca de agua).</td></tr>
+                <tr><td><strong>Delante del texto</strong></td><td>La imagen tapa el texto que hay debajo.</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- DEMOS VISUALES DE AJUSTE -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">Tipos de ajuste · comparación visual</p>
+          <div class="ajuste-grid">
+
+            <div class="ajuste-box">
+              <div class="ajuste-header" style="background:#4b5563;">EN LÍNEA CON EL TEXTO</div>
+              <div class="ajuste-body">
+                <span style="font-size:0.72rem;color:#374151;">Texto antes.</span>
+                <span class="ajuste-img" style="width:52px;height:36px;display:inline-flex;vertical-align:middle;margin:0 2px;">IMG</span>
+                <span style="font-size:0.72rem;color:#374151;">Texto después. La imagen ocupa espacio como si fuera una letra.</span>
+              </div>
+              <div class="ajuste-caption">La imagen no se puede mover libremente. Se mueve con el texto.</div>
+            </div>
+
+            <div class="ajuste-box">
+              <div class="ajuste-header" style="background:#2563eb;">CUADRADO</div>
+              <div class="ajuste-body">
+                <div style="display:flex;gap:0.5rem;align-items:flex-start;">
+                  <div class="ajuste-img" style="width:55px;height:60px;flex-shrink:0;">IMG</div>
+                  <span style="font-size:0.72rem;color:#374151;line-height:1.55;">El texto rodea la imagen en forma de rectángulo. Es el ajuste más común para artículos y documentos estilo revista.</span>
+                </div>
+              </div>
+              <div class="ajuste-caption">Ideal para usar en ejercicios de la clase. Texto rodea la imagen rectangularmente.</div>
+            </div>
+
+            <div class="ajuste-box">
+              <div class="ajuste-header" style="background:#059669;">ESTRECHO</div>
+              <div class="ajuste-body">
+                <div style="display:flex;gap:0.5rem;align-items:flex-start;">
+                  <div class="ajuste-img" style="width:45px;height:60px;flex-shrink:0;clip-path:polygon(0 10%, 100% 0, 100% 90%, 0 100%);">IMG</div>
+                  <span style="font-size:0.72rem;color:#374151;line-height:1.55;">El texto sigue la forma real del contorno de la imagen, no solo el rectángulo que la contiene. Útil con imágenes con fondo recortado.</span>
+                </div>
+              </div>
+              <div class="ajuste-caption">El texto abraza la silueta real de la imagen, no solo el borde cuadrado.</div>
+            </div>
+
+            <div class="ajuste-box">
+              <div class="ajuste-header" style="background:#7c3aed;">ARRIBA Y ABAJO</div>
+              <div class="ajuste-body">
+                <p style="font-size:0.72rem;color:#374151;margin:0 0 0.35rem;">El texto aparece encima de la imagen.</p>
+                <div class="ajuste-img" style="width:100%;height:32px;">IMG — ocupa todo el ancho</div>
+                <p style="font-size:0.72rem;color:#374151;margin:0.35rem 0 0;">El texto continúa debajo de la imagen. No hay texto a los costados.</p>
+              </div>
+              <div class="ajuste-caption">La imagen ocupa todo el ancho y separa el texto en bloques de arriba y abajo.</div>
+            </div>
+
+            <div class="ajuste-box">
+              <div class="ajuste-header" style="background:#b45309;">DETRÁS DEL TEXTO</div>
+              <div class="ajuste-body" style="position:relative;">
+                <div class="ajuste-img" style="width:80px;height:65px;position:absolute;top:5px;left:10px;opacity:0.35;">IMG</div>
+                <p style="font-size:0.72rem;color:#374151;line-height:1.55;position:relative;z-index:1;margin:0;">El texto aparece sobre la imagen. La imagen queda como fondo de página o marca de agua decorativa detrás del contenido.</p>
+              </div>
+              <div class="ajuste-caption">La imagen queda "debajo" del texto. Se usa para marcas de agua o fondos decorativos.</div>
+            </div>
+
+            <div class="ajuste-box">
+              <div class="ajuste-header" style="background:#dc2626;">DELANTE DEL TEXTO</div>
+              <div class="ajuste-body" style="position:relative;">
+                <p style="font-size:0.72rem;color:#374151;line-height:1.55;margin:0;">El texto queda detrás. La imagen tapa lo que hay debajo, pero permite moverla a cualquier posición.</p>
+                <div class="ajuste-img" style="width:70px;height:50px;position:absolute;top:5px;right:8px;">IMG<br>sobre texto</div>
+              </div>
+              <div class="ajuste-caption">La imagen cubre el texto. Usá con cuidado para no ocultar contenido importante.</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INSERTAR LÍNEAS SEPARADORAS -->
+    <section class="section alt" id="lineas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Organizar el documento</p>
+          <h2>Insertar Líneas Separadoras</h2>
+          <p>
+            Las líneas horizontales sirven para separar visualmente secciones
+            de un documento, como el título del cuerpo del texto, o diferentes bloques
+            de contenido. En Word hay varias formas de insertarlas.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Método 1 · Forma de línea</h3>
+            <p>
+              Pestaña <strong>Insertar</strong> → <strong>Formas</strong> →
+              sección "Líneas" → seleccioná la línea recta.
+              Dibujá la línea manteniendo <kbd>Shift</kbd> para que quede perfectamente horizontal.
+              Desde el grupo <strong>Formato de forma</strong> podés cambiar el color, el grosor y el estilo.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Método 2 · Borde inferior de párrafo</h3>
+            <p>
+              Posicioná el cursor en el párrafo donde querés la línea → pestaña
+              <strong>Inicio</strong> → grupo <strong>Párrafo</strong> → flecha del botón
+              de bordes → <strong>Borde inferior</strong>. Agrega una línea horizontal
+              debajo del párrafo seleccionado.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Método 3 · Atajo rápido (---)</h3>
+            <p>
+              En una línea nueva, escribí tres guiones medios (<kbd>-</kbd><kbd>-</kbd><kbd>-</kbd>)
+              y presioná <kbd>Enter</kbd>. Word los convierte automáticamente en una
+              línea horizontal (autocorrección). También funciona con tres signos igual
+              (<strong>===</strong>) para una línea doble.
+            </p>
+          </article>
+        </div>
+
+        <!-- DEMO VISUAL -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve una línea separadora en el documento</p>
+          <div class="linea-demo">
+            <p style="font-size:1.1rem;font-weight:700;color:#dc2626;text-align:center;font-family:'Segoe UI',sans-serif;margin:0 0 0.15rem;">Los smartphones del futuro: ¿Cómo serán y qué harán?</p>
+            <p style="font-size:0.65rem;color:#6b7280;font-family:'Segoe UI',sans-serif;margin:0 0 0.4rem;">Recopilado por Miguel Prigioniero</p>
+            <hr />
+            <p style="font-size:0.78rem;color:#374151;font-family:'Segoe UI',sans-serif;margin:0.4rem 0 0;line-height:1.6;">Diseños flexibles, procesadores quad-core, e incluso más inteligencia artificial son sólo algunas de las características que puedes esperar de los smartphones en los siguientes cinco a diez años...</p>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">La línea actúa como separador visual entre el encabezado del artículo y el cuerpo del texto.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FORMATO DE COLUMNAS -->
+    <section class="section" id="columnas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Diseño estilo revista</p>
+          <h2>Formato de Columnas</h2>
+          <p>
+            El formato de columnas divide el texto en dos o más columnas verticales,
+            como en un periódico o revista. Esto permite usar el espacio de la hoja
+            de forma más eficiente y dar un aspecto más profesional al documento.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo aplicar columnas?</p>
+            <h3>Pasos para dividir en columnas</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Seleccioná el texto</strong> al que querés aplicar el formato de columnas. Si no seleccionás nada, se aplica a todo el documento.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Hacé clic en la pestaña <strong>Disposición</strong> (o "Diseño de página" en versiones anteriores).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">En el grupo <strong>Configurar página</strong>, hacé clic en <strong>Columnas</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Elegí la cantidad de columnas: <strong>Una, Dos, Tres</strong>, o personalizadas con "Más columnas...".</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Opciones avanzadas</p>
+            <h3>Más columnas... (personalizar)</h3>
+            <p>
+              El cuadro de diálogo <strong>Más columnas</strong> permite configurar:
+            </p>
+            <ul>
+              <li><strong>Número de columnas:</strong> cuántas columnas querés (hasta 11).</li>
+              <li><strong>Ancho y espacio:</strong> qué tan anchas son las columnas y cuánto espacio hay entre ellas.</li>
+              <li><strong>Línea entre columnas:</strong> agrega una línea vertical separadora entre las columnas.</li>
+              <li><strong>Columnas de ancho desigual:</strong> para diseños asimétricos.</li>
+              <li><strong>Aplicar a:</strong> sección actual, texto seleccionado, o todo el documento.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> Para volver a una sola columna, seguí los mismos pasos y elegí "Una".</p>
+          </article>
+        </div>
+
+        <!-- DEMO VISUAL -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">Una columna vs. dos columnas · comparación visual</p>
+          <div class="col-demo-grid">
+
+            <div class="col-demo-box">
+              <div class="col-demo-header">UNA COLUMNA (estándar)</div>
+              <div class="col-demo-page">
+                <div class="col-demo-title">Diseños más delgados y flexibles</div>
+                <div class="col-content" style="grid-template-columns: 1fr;">
+                  <p style="font-size:0.68rem;color:#374151;line-height:1.55;margin:0;">En la serie animada Futurama, el personaje de Amy tiene un celular tan pequeño que en un descuido se lo traga. Aunque la tecnología en el interior de los teléfonos es cada vez más pequeña, no esperamos un teléfono tan chico. Según Llamas, los smartphones tendrán un tamaño alrededor de 3.7 y 4.3 pulgadas. Pueden convertirse cada vez más pequeños y ligeros, pero no se crearán teléfonos microscópicos.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-demo-box">
+              <div class="col-demo-header">DOS COLUMNAS (estilo revista)</div>
+              <div class="col-demo-page">
+                <div class="col-demo-title">Diseños más delgados y flexibles</div>
+                <div class="col-content" style="grid-template-columns: 1fr 1px 1fr;">
+                  <p style="font-size:0.65rem;color:#374151;line-height:1.55;margin:0;">En la serie animada Futurama, el personaje de Amy tiene un celular tan pequeño que en un descuido se lo traga. Aunque la tecnología es cada vez más pequeña, no esperamos un teléfono tan chico.</p>
+                  <div style="border-left: 1px solid #d1d5db;"></div>
+                  <p style="font-size:0.65rem;color:#374151;line-height:1.55;margin:0;padding-left:0.5rem;">Según Llamas, los smartphones tendrán un tamaño alrededor de 3.7 y 4.3 pulgadas. Pueden convertirse cada vez más pequeños y ligeros, pero no se crearán teléfonos microscópicos.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LETRA CAPITAL -->
+    <section class="section alt" id="capital">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Efecto tipográfico</p>
+          <h2>Letra Capital (Drop Cap)</h2>
+          <p>
+            La <strong>letra capital</strong> es un efecto tipográfico clásico de los periódicos
+            y libros donde la primera letra de un párrafo se agranda y el texto la rodea.
+            Le da al documento un aspecto editorial y profesional.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-purple">
+            <p class="card-label">¿Cómo insertar la letra capital?</p>
+            <h3>Pasos para aplicarla</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Hacé clic en el párrafo donde querés aplicar la letra capital (no es necesario seleccionar la letra, solo estar en ese párrafo).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Hacé clic en la pestaña <strong>Insertar</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">En el grupo <strong>Texto</strong>, hacé clic en <strong>Letra capital</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Elegí entre <strong>En texto</strong> o <strong>En margen</strong>. También podés hacer clic en <strong>Opciones de letra capital</strong> para personalizar la fuente y el alto en líneas.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Opciones disponibles</p>
+            <h3>Tipos de letra capital</h3>
+            <ul>
+              <li>
+                <strong>En texto:</strong> la letra capital queda dentro del texto del párrafo. El texto fluye a su derecha y debajo de ella.
+              </li>
+              <li>
+                <strong>En margen:</strong> la letra capital queda en el margen izquierdo, fuera del área de texto.
+              </li>
+              <li>
+                <strong>Ninguna:</strong> desactiva la letra capital (para quitarla).
+              </li>
+            </ul>
+            <p style="margin-top:0.75rem;font-size:0.87rem;color:var(--muted);">
+              Desde <strong>"Opciones de letra capital"</strong> podés además elegir la tipografía de la letra capital y cuántas líneas ocupa (típicamente 3).
+            </p>
+            <p class="card-example"><strong>Uso típico:</strong> La letra capital se aplica al comienzo de un artículo, capítulo o sección importante. No se repite en cada párrafo.</p>
+          </article>
+        </div>
+
+        <!-- DEMO VISUAL -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve la letra capital en el documento</p>
+          <div class="dropcap-variants">
+
+            <div>
+              <div class="dropcap-demo-label">En texto (In text)</div>
+              <div class="dropcap-demo">
+                <span class="dropcap-letter">E</span>
+                n la serie animada Futurama, el personaje de Amy tiene un celular tan pequeño que en un descuido se lo traga. Aunque la tecnología en el interior de los teléfonos es cada vez más pequeña, no esperamos un teléfono tan chico como el de Amy.
+              </div>
+            </div>
+
+            <div>
+              <div class="dropcap-demo-label">En margen (In margin)</div>
+              <div class="dropcap-demo" style="display:flex;gap:0.5rem;align-items:flex-start;">
+                <span class="dropcap-letter" style="margin-right:0.75rem;flex-shrink:0;">I</span>
+                <span>ncluso, los consumidores nunca obtienen suficiente de sus teléfonos, es por eso que la manufactura intenta ser lo más compacta posible. Llamas espera que se encuentren diseños similares pero con una mejor ejecución del software en pocos años.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Ejercicios para aplicar los conceptos de la clase sobre imágenes, líneas,
+            columnas y letra capital.
+          </p>
+        </div>
+
+        <!-- ACTIVIDAD ÚNICA -->
+        <div class="actividad-block">
+          <p class="act-num">Actividad · Armar el documento completo</p>
+          <h3>Trabajo sobre un archivo Word</h3>
+          <p style="font-size:0.9rem;color:var(--muted);">Seguí estos pasos en orden.</p>
+          <ul>
+            <li>Seleccioná todo (<kbd>Ctrl</kbd>+<kbd>E</kbd>) y aplicá <strong>Calibri 11, interlineado 1,5, justificado</strong>.</li>
+            <li>Seleccioná el <strong>título</strong> y aplicá <strong>Calibri 18, color rojo</strong>.</li>
+            <li>Debajo del título, escribí en una nueva línea <strong>"Recopilado por Tu Nombre y Apellido"</strong> en <strong>8 pt</strong>. Luego insertá una <strong>línea horizontal separadora</strong> (escribí <kbd>-</kbd><kbd>-</kbd><kbd>-</kbd> y presioná <kbd>Enter</kbd>).</li>
+            <li>Insertá una imagen de smartphones (<strong>Insertar → Imágenes en línea</strong>), aplicá ajuste <strong>Cuadrado</strong> y posicionala a la <strong>izquierda</strong> del primer párrafo.</li>
+            <li>Seleccioná los párrafos del cuerpo y aplicá <strong>2 columnas</strong> (<strong>Disposición → Columnas → Dos</strong>).</li>
+            <li>Con el cursor en el primer párrafo, aplicá <strong>Letra capital</strong> (<strong>Insertar → Texto → Letra capital → En texto</strong>).</li>
+          </ul>
+
+          <div class="act-resultado">
+            <div class="act-resultado-label">Resultado esperado</div>
+            <div class="act-doc" style="padding:0.75rem 1rem;">
+              <p style="font-family:Calibri,sans-serif;font-size:0.9rem;font-weight:700;text-align:center;color:#dc2626;margin:0 0 0.15rem;text-decoration:underline;">Los smartphones del futuro: ¿Cómo serán y qué harán?</p>
+              <p style="font-size:0.6rem;margin:0 0 0.25rem;font-family:Calibri,sans-serif;">Recopilado por Tu Nombre y Apellido</p>
+              <hr style="border:none;border-top:1px solid #374151;margin:0.2rem 0 0.5rem;" />
+              <div style="display:grid;grid-template-columns:1fr 1px 1fr;gap:0.5rem;">
+                <div style="font-size:0.65rem;color:#374151;line-height:1.55;font-family:Calibri,sans-serif;text-align:justify;">
+                  <div style="float:left;width:44px;height:54px;background:#bfdbfe;border:1.5px solid #3b82f6;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;color:#1d4ed8;font-weight:700;margin:0 0.35rem 0.2rem 0;">IMG</div>
+                  <span style="float:left;font-size:2.2rem;font-weight:700;line-height:1;margin-right:0.1rem;font-family:Georgia,serif;color:#2b579a;">D</span>iseños flexibles, procesadores quad-core, e incluso más inteligencia artificial son sólo algunas de las características que puedes esperar de los smartphones en los siguientes cinco a diez años. Mientras lees este artículo, desarrolladores e ingenieros están trabajando en la más avanzada tecnología.
+                </div>
+                <div style="border-left:1px solid #d1d5db;"></div>
+                <div style="font-size:0.65rem;color:#374151;line-height:1.55;font-family:Calibri,sans-serif;text-align:justify;padding-left:0.4rem;">
+                  Incluso, los consumidores nunca obtienen suficiente de sus teléfonos, es por eso que la manufactura intenta ser lo más compacta posible. Llamas espera que se encuentren diseños similares pero con una mejor ejecución del software en pocos años.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos y habilidades más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Insertar imágenes</h3>
+            <p>
+              Desde el dispositivo (archivos guardados) o en línea (búsqueda desde Word).
+              Ambas opciones están en pestaña <strong>Insertar → Ilustraciones → Imágenes</strong>.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Ajuste de texto</h3>
+            <p>
+              Controla cómo el texto rodea la imagen. Los más usados son
+              <strong>Cuadrado</strong> (texto en rectángulo alrededor) y
+              <strong>Estrecho</strong> (texto sigue la silueta de la imagen).
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Líneas separadoras</h3>
+            <p>
+              Se insertan con Formas → Línea, con bordes de párrafo, o escribiendo
+              tres guiones y presionando <kbd>Enter</kbd>. Organizan visualmente el documento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Formato de columnas</h3>
+            <p>
+              Divide el texto en columnas verticales estilo periódico.
+              Se aplica desde <strong>Disposición → Columnas</strong>. Podés elegir 1, 2 o 3 columnas,
+              con o sin línea divisoria entre ellas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Letra capital</h3>
+            <p>
+              Agranda la primera letra del párrafo con un efecto tipográfico clásico.
+              Se inserta desde <strong>Insertar → Texto → Letra capital</strong>.
+              La opción "En texto" es la más usada.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Pestaña Formato de imagen</h3>
+            <p>
+              Aparece automáticamente al seleccionar una imagen. Permite cambiar estilos,
+              recortar, ajustar brillo, modificar el tamaño con precisión y organizar su posición.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material de la cátedra</p>
+          <h2>Video de la clase</h2>
+          <p>Video oficial de la cátedra para acompañar los contenidos de esta clase.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/RR_H2tdF6us"
+                title="Procesador de textos Word — Imágenes y Diseño - Taller de Informática I"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase9.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 9 · Procesador de Textos Word</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 11 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 4 · Clase 10</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
