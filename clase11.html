@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 4 · Clase 11</title>
+  <meta
+    name="description"
+    content="Clase 11 de Taller de Informática I: tablas en Word, insertar filas y columnas, configurar página, encabezados y pie de página."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Tabla de atajos */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .shortcut-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .shortcut-table td {
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .shortcut-table tr:last-child td { border-bottom: none; }
+    .shortcut-table tr:hover td { background: var(--surface-soft); }
+    .shortcut-table kbd {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 0.3rem;
+      padding: 0.1em 0.45em;
+      font-size: 0.82em;
+      font-family: monospace;
+      color: var(--text);
+    }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+    }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .actividad-block ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .actividad-block ul li strong { color: var(--text); }
+
+    /* Resultado esperado */
+    .act-resultado {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 0.85rem;
+    }
+    .act-resultado-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .act-resultado-label::before { content: "✓"; }
+    .act-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.4rem;
+      padding: 1rem 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    /* Paso a paso */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .step-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      min-width: 1.75rem;
+      height: 1.75rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-body { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .step-body strong { color: var(--text); }
+
+    /* Grid de formato */
+    .formato-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .formato-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+    }
+    .formato-item .fi-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .formato-item h3 { font-size: 0.95rem; margin: 0 0 0.35rem; }
+    .formato-item p { font-size: 0.86rem; color: var(--muted); margin: 0; }
+
+    /* ===== WORD WINDOW MOCKUP ===== */
+    .word-window {
+      margin-top: 2rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      position: relative;
+      border: 1px solid #1e3a6e;
+    }
+    .wm-titlebar {
+      background: #2b579a;
+      color: #fff;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .wm-titlebar-title { font-size: 0.73rem; opacity: 0.95; }
+    .wm-titlebar-controls { display: flex; gap: 0.35rem; }
+    .wm-titlebar-controls span {
+      width: 11px; height: 11px; border-radius: 50%;
+      display: inline-block; opacity: 0.85;
+    }
+    .wm-ctrl-min { background: #fbbf24; }
+    .wm-ctrl-max { background: #34d399; }
+    .wm-ctrl-close { background: #f87171; }
+    .wm-tabs {
+      background: #2b579a;
+      display: flex;
+      gap: 0;
+      padding: 0 0.5rem;
+    }
+    .wm-tab {
+      padding: 0.28rem 0.7rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      cursor: default;
+      border-radius: 3px 3px 0 0;
+      user-select: none;
+    }
+    .wm-tab.active {
+      background: #fff;
+      color: #2b579a;
+      font-weight: 700;
+    }
+    .wm-ribbon {
+      background: #fff;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 0.4rem 0.75rem 0.3rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .wm-rgroup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding-right: 1rem;
+      border-right: 1px solid #e5e7eb;
+    }
+    .wm-rgroup:last-child { border-right: none; padding-right: 0; }
+    .wm-rgroup-label {
+      font-size: 0.58rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 0.15rem;
+    }
+    .wm-rbtns { display: flex; gap: 0.2rem; align-items: center; flex-wrap: wrap; }
+    .wm-rbtn {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 0.18rem 0.38rem;
+      font-size: 0.7rem;
+      color: #374151;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .wm-rbtn.hi { background: #dbeafe; border-color: #93c5fd; }
+    .wm-body {
+      background: #e5e7eb;
+      display: flex;
+      gap: 0;
+      padding: 0.75rem 0.75rem 0.75rem 0.5rem;
+    }
+    .wm-page {
+      background: #fff;
+      flex: 1;
+      min-height: 120px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      color: #111;
+      line-height: 1.6;
+    }
+    .wm-statusbar {
+      background: #2b579a;
+      color: rgba(255,255,255,0.85);
+      padding: 0.22rem 0.75rem;
+      font-size: 0.64rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .wm-badge {
+      position: absolute;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .wm-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .wm-legend-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.85rem;
+    }
+    .wm-num {
+      min-width: 1.5rem;
+      height: 1.5rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .wm-legend-item p { margin: 0; color: var(--muted); font-size: 0.83rem; line-height: 1.4; }
+    .wm-legend-item strong { color: var(--text); }
+
+    /* ===== TABLA DEMO ===== */
+    .tabla-demo {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.78rem;
+      margin-top: 1.25rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    }
+    .tabla-demo th {
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.74rem;
+    }
+    .tabla-demo td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--line);
+      vertical-align: top;
+      color: var(--muted);
+      background: var(--surface);
+      line-height: 1.5;
+    }
+    .tabla-demo thead th {
+      border: 1px solid var(--line);
+    }
+    .tabla-demo .th-so {
+      background: #e96b1a;
+      color: #fff;
+    }
+    .tabla-demo .th-blue {
+      background: #2b579a;
+      color: #fff;
+    }
+    .tabla-demo .td-so {
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: var(--text);
+      background: var(--surface-soft);
+    }
+    .tabla-demo tbody tr:hover td { background: var(--surface-soft); }
+
+    /* ===== DEMO CONFIGURAR PÁGINA ===== */
+    .page-config-demo {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-top: 1.5rem;
+    }
+    .pcd-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.4rem 0.85rem;
+      letter-spacing: 0.04em;
+    }
+    .pcd-body {
+      padding: 0.85rem 1rem;
+    }
+    .pcd-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+      border-bottom: 1px dashed #e5e7eb;
+      font-size: 0.78rem;
+    }
+    .pcd-row:last-child { border-bottom: none; }
+    .pcd-label { color: #6b7280; }
+    .pcd-value { font-weight: 700; color: #111; }
+
+    /* Orientación demo */
+    .orient-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 480px) { .orient-grid { grid-template-columns: 1fr; } }
+    .orient-box {
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .orient-header {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .orient-page {
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .page-vertical {
+      background: #fff;
+      border: 1px solid #9ca3af;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.12);
+      width: 60px;
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-horizontal {
+      background: #fff;
+      border: 1px solid #9ca3af;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.12);
+      width: 100px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 70%;
+    }
+    .page-line {
+      height: 4px;
+      background: #d1d5db;
+      border-radius: 2px;
+    }
+
+    /* ===== ENCABEZADO / PIE DEMO ===== */
+    .header-footer-demo {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-top: 1.5rem;
+    }
+    .hfd-header-zone {
+      background: #f0f4ff;
+      border-bottom: 1.5px dashed #93c5fd;
+      padding: 0.5rem 1rem;
+      color: #374151;
+    }
+    .hfd-label {
+      font-size: 0.62rem;
+      color: #6b7280;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+    .hfd-body {
+      padding: 1rem;
+      min-height: 80px;
+      color: #111;
+    }
+    .hfd-footer-zone {
+      background: #f0f4ff;
+      border-top: 1.5px dashed #93c5fd;
+      padding: 0.5rem 1rem;
+      color: #374151;
+    }
+
+    /* Estilos de tabla demo */
+    .tabla-estilos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .tabla-estilo-box {
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .te-header {
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 0.3rem 0.6rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .te-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.65rem;
+    }
+    .te-table th, .te-table td {
+      padding: 0.25rem 0.45rem;
+      border: 1px solid #e5e7eb;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#tablas">Tablas</a>
+        <a href="#filas-columnas">Filas y columnas</a>
+        <a href="#estilos">Estilos de tabla</a>
+        <a href="#configurar">Configurar página</a>
+        <a href="#encabezado">Encabezado y pie</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 4</p>
+        <h1>Tablas, Configurar Página y Encabezados en Word</h1>
+        <p class="lead">
+          Aprendé a crear y modificar <strong>tablas</strong> en Word: insertar filas y columnas,
+          aplicar estilos de diseño, <strong>configurar los márgenes y la orientación</strong>
+          de la hoja, e insertar <strong>encabezados y pies de página</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#tablas">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 11</li>
+          <li>Microsoft Word</li>
+          <li>Tablas y Configuración</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Crear y diseñar tablas, y configurar el documento</h2>
+        <p>
+          Utilizar las tablas en Word, crear tablas, insertar filas y columnas,
+          crear estilos de diseño propios, configurar página, e insertar
+          encabezados y pies de página.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Tabla</span>
+          <span>Diseñar</span>
+          <span>Configurar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            Una <strong>tabla</strong> organiza la información en filas y columnas.
+            Se puede insertar, eliminar y combinar celdas, y aplicar estilos visuales
+            desde la pestaña <strong>Diseño de tabla</strong>.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- TABLAS EN WORD -->
+    <section class="section" id="tablas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar</p>
+          <h2>Tablas en Word</h2>
+          <p>
+            Una <strong>tabla</strong> es una cuadrícula de filas y columnas que permite
+            organizar información de forma estructurada. Cada intersección entre una fila
+            y una columna se llama <strong>celda</strong>. Las tablas son ideales para
+            presentar datos comparativos, listas organizadas y formularios.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo insertar una tabla?</p>
+            <h3>Insertar tabla desde el menú</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Hacé clic en la pestaña <strong>Insertar</strong> de la cinta de opciones.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En el grupo <strong>Tablas</strong>, hacé clic en el botón <strong>Tabla</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Pasá el mouse por la cuadrícula para elegir la cantidad de filas y columnas, o hacé clic en <strong>Insertar tabla...</strong> para ingresar el número exacto.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">La tabla aparece en el documento con el cursor dentro de la primera celda, lista para escribir.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Ejemplo:</strong> Para la actividad de esta clase necesitás una tabla de <strong>5 filas × 3 columnas</strong>.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Conceptos fundamentales</p>
+            <h3>Partes de una tabla</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Término</th><th>Definición</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Fila</strong></td><td>Conjunto horizontal de celdas.</td></tr>
+                <tr><td><strong>Columna</strong></td><td>Conjunto vertical de celdas.</td></tr>
+                <tr><td><strong>Celda</strong></td><td>Intersección de una fila y una columna.</td></tr>
+                <tr><td><strong>Encabezado</strong></td><td>Primera fila con los títulos de cada columna.</td></tr>
+                <tr><td><strong>Tab</strong></td><td>Mueve el cursor a la siguiente celda.</td></tr>
+                <tr><td><strong>Shift+Tab</strong></td><td>Mueve el cursor a la celda anterior.</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Navegar y editar celdas</p>
+            <h3>Moverse dentro de la tabla</h3>
+            <ul>
+              <li><strong><kbd>Tab</kbd></strong> → siguiente celda (si estás en la última celda, crea una nueva fila).</li>
+              <li><strong><kbd>Shift</kbd>+<kbd>Tab</kbd></strong> → celda anterior.</li>
+              <li><strong>Clic</strong> en cualquier celda para posicionarte directamente.</li>
+              <li><strong>Clic en el margen izquierdo de una fila</strong> → selecciona esa fila.</li>
+              <li><strong>Clic en la flecha negra sobre una columna</strong> → selecciona esa columna.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> Podés aplicar formato de fuente dentro de una celda igual que en el texto normal.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Pestañas contextuales</p>
+            <h3>Diseño y Presentación de tabla</h3>
+            <p>
+              Al hacer clic dentro de una tabla, aparecen dos pestañas adicionales en la cinta de opciones:
+            </p>
+            <ul>
+              <li><strong>Diseño de tabla:</strong> permite aplicar estilos visuales, cambiar colores de filas/columnas, agregar sombreado y bordes personalizados.</li>
+              <li><strong>Presentación:</strong> permite insertar/eliminar filas y columnas, combinar celdas, alinear el contenido, y ajustar el alto y ancho de las celdas.</li>
+            </ul>
+            <p class="card-example"><strong>Clave:</strong> Estas pestañas solo aparecen cuando el cursor está dentro de la tabla.</p>
+          </article>
+        </div>
+
+        <!-- MOCKUP TABLA DEMO -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Tabla de ejemplo · Sistemas Operativos para Smartphones</p>
+          <div style="overflow-x:auto;">
+            <table class="tabla-demo">
+              <thead>
+                <tr>
+                  <th class="th-so" style="width:90px;">Sistema<br>operativo</th>
+                  <th class="th-blue">Descripción</th>
+                  <th class="th-blue">Ventajas</th>
+                  <th class="th-blue">Desventajas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-so">iOS</td>
+                  <td>Sistema operativo de Apple: iPhone, iPad y iTouch</td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Twitter integrado en el iPhone.</li>
+                      <li>iMessages exclusivos entre iPhones.</li>
+                      <li>Siri, reconocimiento de voz.</li>
+                      <li>Facetime, videollamadas.</li>
+                    </ul>
+                  </td>
+                  <td>Funcionalidades compatibles únicamente entre iPhones (Facetime, iMessages).</td>
+                </tr>
+                <tr>
+                  <td class="td-so">Android</td>
+                  <td>Sistema operativo de Google para smartphones, PDA y terminales móviles.</td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Google Maps: GPS gratuito.</li>
+                      <li>El costo de los smartphones.</li>
+                      <li>Gama de aplicaciones muy extensa.</li>
+                    </ul>
+                  </td>
+                  <td>El mayor consumo de la batería.</td>
+                </tr>
+                <tr>
+                  <td class="td-so">Bada</td>
+                  <td>Después de Google y Apple, Samsung lanzó su sistema operativo para smartphones. Originalidad y seguridad ante ataques informáticos.</td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Abrir varias apps al mismo tiempo.</li>
+                      <li>Muy pocos errores en Bada.</li>
+                      <li>Pocos ataques de virus.</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Solo en Samsung Wave.</li>
+                      <li>Pocas aplicaciones.</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="td-so">Windows Phone</td>
+                  <td>Microsoft lanzó su propio sistema operativo: el Windows Phone</td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Ejecución rápida.</li>
+                      <li>Interfaz con el pack Office.</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Pocas aplicaciones.</li>
+                      <li>Ausencia de multitarea.</li>
+                      <li>Ausencia de tecnología Flash.</li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="td-so">BlackBerry OS</td>
+                  <td>Utilizado por toda la gama BlackBerry. Recomendable para profesionales</td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Navegación web rápida.</li>
+                      <li>Muy práctico para emails.</li>
+                      <li>Social Feeds (multiposteo en redes).</li>
+                      <li>BlackBerry Messenger.</li>
+                    </ul>
+                  </td>
+                  <td>Su principal desventaja es la ergonomía.</td>
+                </tr>
+                <tr>
+                  <td class="td-so">Symbian</td>
+                  <td>Es un sistema operativo de los más fiables</td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>Sistema operativo fiable (10 años en el mercado).</li>
+                      <li>Mayor duración de la batería.</li>
+                      <li>Sistema multitarea bien desarrollado.</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul style="margin:0;padding-left:1rem;">
+                      <li>El mercado de aplicaciones.</li>
+                      <li>Interfaz poco estética.</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">Esta es la tabla completa que vas a construir durante la actividad (con colores de encabezado naranja para "Sistema operativo" y azul para el resto).</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INSERTAR FILAS Y COLUMNAS -->
+    <section class="section alt" id="filas-columnas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Presentación</p>
+          <h2>Insertar y Eliminar Filas y Columnas</h2>
+          <p>
+            Una vez creada la tabla, podés modificar su estructura en cualquier momento:
+            agregar filas al final, insertar filas en el medio, agregar columnas, o eliminar
+            cualquier fila o columna que no sea necesaria.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Insertar filas</p>
+            <h3>Agregar filas a la tabla</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">A</div>
+                <div class="step-body"><strong>Al final de la tabla:</strong> posicionate en la última celda y presioná <kbd>Tab</kbd>. Se crea automáticamente una nueva fila.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">B</div>
+                <div class="step-body"><strong>Encima o debajo de una fila:</strong> hacé clic derecho en cualquier celda de la fila de referencia → <strong>Insertar</strong> → <strong>Insertar filas encima</strong> o <strong>Insertar filas debajo</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">C</div>
+                <div class="step-body">También podés ir a la pestaña <strong>Presentación</strong> (visible al estar dentro de la tabla) → grupo <strong>Filas y columnas</strong> → elegir la opción deseada.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Insertar columnas</p>
+            <h3>Agregar columnas a la tabla</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">A</div>
+                <div class="step-body"><strong>Clic derecho</strong> en cualquier celda de la columna de referencia → <strong>Insertar</strong> → <strong>Insertar columnas a la izquierda</strong> o <strong>Insertar columnas a la derecha</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">B</div>
+                <div class="step-body">Desde la pestaña <strong>Presentación</strong> → grupo <strong>Filas y columnas</strong> → <strong>Insertar a la izquierda</strong> o <strong>Insertar a la derecha</strong>.</div>
+              </div>
+            </div>
+            <p class="card-example" style="margin-top:0.75rem;"><strong>Ejemplo de la actividad:</strong> Insertar la columna "Descripción" entre la primera columna (Sistema operativo) y la segunda (Ventajas).</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Eliminar filas o columnas</p>
+            <h3>Borrar filas y columnas</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Seleccioná</strong> la fila o columna que querés eliminar (clic en el margen de la fila o en la flecha sobre la columna).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body"><strong>Clic derecho</strong> → <strong>Eliminar filas</strong> o <strong>Eliminar columnas</strong>.</div>
+              </div>
+            </div>
+            <p class="card-example" style="margin-top:0.75rem;"><strong>Atención:</strong> La tecla <kbd>Delete</kbd> solo borra el contenido de las celdas, no la fila o columna. Para eliminar la estructura hay que usar el menú contextual.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Combinar y dividir celdas</p>
+            <h3>Opciones avanzadas de celdas</h3>
+            <ul>
+              <li><strong>Combinar celdas:</strong> seleccioná las celdas contiguas → clic derecho → <strong>Combinar celdas</strong>. Une varias celdas en una sola.</li>
+              <li><strong>Dividir celdas:</strong> clic derecho sobre la celda → <strong>Dividir celdas</strong>. Elige cuántas filas y columnas generar.</li>
+              <li><strong>Dividir tabla:</strong> pestaña <strong>Presentación</strong> → <strong>Dividir tabla</strong>. Separa la tabla en dos a partir de la fila donde está el cursor.</li>
+            </ul>
+            <p class="card-example"><strong>Uso típico:</strong> Combinar todas las celdas de la primera fila para crear un título que ocupe todo el ancho de la tabla.</p>
+          </article>
+        </div>
+
+        <!-- MOCKUP - Pestaña Presentación -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Pestaña Presentación · grupo Filas y columnas</p>
+          <div class="word-window" style="position:relative;">
+            <div class="wm-titlebar">
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="font-size:0.85rem;">📄</span>
+                <span class="wm-titlebar-title">Sistemas Operativos smartphones.DOC - Word</span>
+              </div>
+              <div class="wm-titlebar-controls">
+                <span class="wm-ctrl-min"></span>
+                <span class="wm-ctrl-max"></span>
+                <span class="wm-ctrl-close"></span>
+              </div>
+            </div>
+            <div class="wm-tabs">
+              <div class="wm-tab">Archivo</div>
+              <div class="wm-tab">Inicio</div>
+              <div class="wm-tab">Insertar</div>
+              <div class="wm-tab">Diseño</div>
+              <div class="wm-tab">Disposición</div>
+              <div class="wm-tab" style="background:#f0fdf4;color:#15803d;font-weight:700;">Diseño de tabla</div>
+              <div class="wm-tab active">Presentación</div>
+            </div>
+            <div class="wm-ribbon">
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">☑ Seleccionar ▾</div>
+                  <div class="wm-rbtn">✎ Ver líneas</div>
+                  <div class="wm-rbtn">⊞ Propiedades</div>
+                </div>
+                <div class="wm-rgroup-label">Tabla</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn hi">↑ Insertar arriba</div>
+                  <div class="wm-rbtn hi">↓ Insertar abajo</div>
+                  <div class="wm-rbtn hi">← Insertar izq.</div>
+                  <div class="wm-rbtn hi">→ Insertar der.</div>
+                </div>
+                <div class="wm-rgroup-label">Filas y columnas</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">⊞ Combinar</div>
+                  <div class="wm-rbtn">⊟ Dividir celda</div>
+                  <div class="wm-rbtn">⊠ Dividir tabla</div>
+                </div>
+                <div class="wm-rgroup-label">Combinar</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">↕ Alto: 1 cm</div>
+                  <div class="wm-rbtn">↔ Ancho: 3 cm</div>
+                  <div class="wm-rbtn">⇕ Distrib. filas</div>
+                  <div class="wm-rbtn">⇔ Distrib. col.</div>
+                </div>
+                <div class="wm-rgroup-label">Tamaño de celda</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">⬛ ⬛ ⬛</div>
+                  <div class="wm-rbtn">⬛ ⬛ ⬛</div>
+                  <div class="wm-rbtn">⬛ ⬛ ⬛</div>
+                </div>
+                <div class="wm-rgroup-label">Alineación</div>
+              </div>
+            </div>
+            <div class="wm-body">
+              <div class="wm-page" style="padding:0.75rem 1rem;">
+                <div style="overflow-x:auto;">
+                  <table style="border-collapse:collapse;font-size:0.68rem;width:100%;">
+                    <thead>
+                      <tr>
+                        <th style="background:#e96b1a;color:#fff;padding:0.3rem 0.5rem;border:1px solid #aaa;font-size:0.65rem;">Sistema operativo</th>
+                        <th style="background:#2b579a;color:#fff;padding:0.3rem 0.5rem;border:1px solid #aaa;font-size:0.65rem;">Descripción</th>
+                        <th style="background:#2b579a;color:#fff;padding:0.3rem 0.5rem;border:1px solid #aaa;font-size:0.65rem;">Ventajas</th>
+                        <th style="background:#2b579a;color:#fff;padding:0.3rem 0.5rem;border:1px solid #aaa;font-size:0.65rem;">Desventajas</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;font-weight:700;">iOS</td>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Sistema operativo de Apple</td>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Twitter integrado, iMessages, Siri…</td>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Solo compatible entre iPhones.</td>
+                      </tr>
+                      <tr style="background:#fff9c4;">
+                        <td style="padding:0.3rem 0.5rem;border:2px solid #f97316;font-weight:700;color:#c2410c;">Bada ← nueva</td>
+                        <td style="padding:0.3rem 0.5rem;border:2px solid #f97316;color:#374151;">Samsung, seguridad ante ataques</td>
+                        <td style="padding:0.3rem 0.5rem;border:2px solid #f97316;color:#374151;">Multitarea, pocos errores…</td>
+                        <td style="padding:0.3rem 0.5rem;border:2px solid #f97316;color:#374151;">Solo en Samsung Wave.</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;font-weight:700;">Windows Phone</td>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Microsoft, Windows Phone</td>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Ejecución rápida, pack Office…</td>
+                        <td style="padding:0.3rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Pocas aplicaciones.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="wm-statusbar">
+              <span>Página 1 de 1</span>
+              <span>Palabras: 180</span>
+              <span>Español (Argentina)</span>
+              <span style="margin-left:auto;">100%</span>
+            </div>
+            <div class="wm-badge" style="top:68px;left:175px;">1</div>
+            <div class="wm-badge" style="top:68px;left:320px;">2</div>
+          </div>
+          <div class="wm-legend">
+            <div class="wm-legend-item"><div class="wm-num">1</div><p><strong>Filas y columnas</strong> — insertar arriba, abajo, izquierda o derecha de la posición actual.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">2</div><p><strong>Combinar</strong> — combinar celdas seleccionadas en una o dividir una celda en varias.</p></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ESTILOS DE TABLA -->
+    <section class="section" id="estilos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Diseño de tabla</p>
+          <h2>Estilos de Tabla y Sombreado</h2>
+          <p>
+            La pestaña <strong>Diseño de tabla</strong> permite cambiar la apariencia visual de
+            la tabla aplicando estilos predefinidos, colores de fondo a celdas
+            (sombreado) y bordes personalizados.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Estilos predefinidos</p>
+            <h3>Galería de estilos de tabla</h3>
+            <p>
+              Al estar dentro de la tabla, en la pestaña <strong>Diseño de tabla</strong>
+              encontrás una galería con decenas de estilos visuales predefinidos: tablas con
+              colores, sombreado alternado por filas, bordes gruesos, estilos minimalistas, etc.
+            </p>
+            <div class="step-list" style="margin-top:0.75rem;">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Hacé clic dentro de la tabla para activar las pestañas contextuales.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Hacé clic en la pestaña <strong>Diseño de tabla</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Pasá el mouse por los estilos de la galería para previsualizar el resultado. Hacé clic en el que quieras aplicar.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Sombreado manual</p>
+            <h3>Aplicar color de fondo a celdas</h3>
+            <p>Para colorear celdas específicas (como los encabezados):</p>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Seleccioná</strong> la celda, fila o columna que querés colorear.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En la pestaña <strong>Diseño de tabla</strong> → grupo <strong>Estilos de tabla</strong> → botón <strong>Sombreado ▾</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Elegí el color en la paleta, o hacé clic en <strong>Más colores...</strong> para ingresar un valor RGB o hex exacto.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Actividad:</strong> Aplicar naranja (#e96b1a) a la columna "Sistema operativo" y azul (#2b579a) a los demás encabezados.</p>
+          </article>
+        </div>
+
+        <!-- DEMO ESTILOS DE TABLA -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Ejemplos de estilos de tabla</p>
+          <div class="tabla-estilos-grid">
+
+            <div class="tabla-estilo-box">
+              <div class="te-header" style="background:#2b579a;">Tabla cuadrícula</div>
+              <table class="te-table">
+                <thead>
+                  <tr>
+                    <th style="background:#2b579a;color:#fff;">Col 1</th>
+                    <th style="background:#2b579a;color:#fff;">Col 2</th>
+                    <th style="background:#2b579a;color:#fff;">Col 3</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Dato A</td><td>Dato B</td><td>Dato C</td></tr>
+                  <tr><td>Dato D</td><td>Dato E</td><td>Dato F</td></tr>
+                  <tr><td>Dato G</td><td>Dato H</td><td>Dato I</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tabla-estilo-box">
+              <div class="te-header" style="background:#059669;">Filas alternadas</div>
+              <table class="te-table" style="border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th style="background:#059669;color:#fff;border:none;">Col 1</th>
+                    <th style="background:#059669;color:#fff;border:none;">Col 2</th>
+                    <th style="background:#059669;color:#fff;border:none;">Col 3</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background:#d1fae5;"><td style="border:none;padding:0.25rem 0.45rem;">Dato A</td><td style="border:none;padding:0.25rem 0.45rem;">Dato B</td><td style="border:none;padding:0.25rem 0.45rem;">Dato C</td></tr>
+                  <tr><td style="border:none;padding:0.25rem 0.45rem;">Dato D</td><td style="border:none;padding:0.25rem 0.45rem;">Dato E</td><td style="border:none;padding:0.25rem 0.45rem;">Dato F</td></tr>
+                  <tr style="background:#d1fae5;"><td style="border:none;padding:0.25rem 0.45rem;">Dato G</td><td style="border:none;padding:0.25rem 0.45rem;">Dato H</td><td style="border:none;padding:0.25rem 0.45rem;">Dato I</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tabla-estilo-box">
+              <div class="te-header" style="background:#e96b1a;">Sombreado personalizado</div>
+              <table class="te-table" style="border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th style="background:#e96b1a;color:#fff;border:1px solid #aaa;">SO</th>
+                    <th style="background:#2b579a;color:#fff;border:1px solid #aaa;">Ventajas</th>
+                    <th style="background:#2b579a;color:#fff;border:1px solid #aaa;">Desventajas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="border:1px solid #d1d5db;padding:0.25rem 0.45rem;">iOS</td><td style="border:1px solid #d1d5db;padding:0.25rem 0.45rem;">Siri, iMessage</td><td style="border:1px solid #d1d5db;padding:0.25rem 0.45rem;">Solo Apple</td></tr>
+                  <tr><td style="border:1px solid #d1d5db;padding:0.25rem 0.45rem;">Android</td><td style="border:1px solid #d1d5db;padding:0.25rem 0.45rem;">Apps extensas</td><td style="border:1px solid #d1d5db;padding:0.25rem 0.45rem;">Consume batería</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONFIGURAR PÁGINA -->
+    <section class="section alt" id="configurar">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Disposición</p>
+          <h2>Configurar Página</h2>
+          <p>
+            La <strong>configuración de página</strong> define las características físicas
+            del documento: márgenes, orientación y tamaño del papel. Estas opciones se
+            encuentran en la pestaña <strong>Disposición</strong> (también llamada
+            "Diseño de página" en versiones anteriores de Word).
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Márgenes</p>
+            <h3>Configurar los márgenes</h3>
+            <p>
+              Los <strong>márgenes</strong> son los espacios en blanco entre el borde de la
+              hoja y el área de texto. Se miden en centímetros.
+            </p>
+            <div class="step-list" style="margin-top:0.75rem;">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Disposición</strong> → grupo <strong>Configurar página</strong> → <strong>Márgenes</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Elegí una opción predefinida (Normal, Estrecho, Moderado) o hacé clic en <strong>Márgenes personalizados...</strong> para ingresar valores exactos.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Márgenes de la actividad:</strong> Superior 2,5 cm · Inferior 2 cm · Izquierdo 2 cm · Derecho 1,9 cm.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Orientación</p>
+            <h3>Vertical vs. Horizontal</h3>
+            <p>
+              La <strong>orientación</strong> determina cómo se ubica la hoja respecto al
+              texto:
+            </p>
+            <ul>
+              <li><strong>Vertical (Portrait):</strong> la hoja es más alta que ancha. Es la orientación por defecto. Ideal para documentos de texto.</li>
+              <li><strong>Horizontal (Landscape):</strong> la hoja es más ancha que alta. Útil cuando la tabla o el contenido es muy ancho.</li>
+            </ul>
+            <p style="margin-top:0.6rem;font-size:0.88rem;color:var(--muted);">Cambiá la orientación desde <strong>Disposición → Orientación → Horizontal</strong>.</p>
+            <p class="card-example"><strong>Actividad:</strong> La tabla de sistemas operativos se hace en orientación <strong>Horizontal</strong> para que entren todas las columnas.</p>
+          </article>
+        </div>
+
+        <!-- DEMO ORIENTACIÓN -->
+        <div class="orient-grid">
+          <div class="orient-box">
+            <div class="orient-header" style="background:#4b5563;">VERTICAL (Portrait)</div>
+            <div class="orient-page" style="min-height:110px;">
+              <div class="page-vertical">
+                <div class="page-lines">
+                  <div class="page-line" style="width:80%;"></div>
+                  <div class="page-line" style="width:90%;"></div>
+                  <div class="page-line" style="width:70%;"></div>
+                  <div class="page-line" style="width:85%;"></div>
+                  <div class="page-line" style="width:60%;"></div>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:0.72rem;color:var(--muted);padding:0.5rem 0.85rem 0.75rem;margin:0;">Más alta que ancha. Orientación por defecto de Word.</p>
+          </div>
+          <div class="orient-box">
+            <div class="orient-header" style="background:#2b579a;">HORIZONTAL (Landscape)</div>
+            <div class="orient-page" style="min-height:110px;">
+              <div class="page-horizontal">
+                <div class="page-lines" style="flex-direction:column;gap:4px;">
+                  <div class="page-line" style="width:95%;"></div>
+                  <div class="page-line" style="width:88%;"></div>
+                  <div class="page-line" style="width:92%;"></div>
+                  <div class="page-line" style="width:75%;"></div>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:0.72rem;color:var(--muted);padding:0.5rem 0.85rem 0.75rem;margin:0;">Más ancha que alta. Ideal para tablas con muchas columnas.</p>
+          </div>
+        </div>
+
+        <!-- DEMO CUADRO DE CONFIGURAR PÁGINA -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Valores de la actividad · Cuadro Configurar página</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1.25rem;">
+            <div class="page-config-demo">
+              <div class="pcd-header">Márgenes</div>
+              <div class="pcd-body">
+                <div class="pcd-row"><span class="pcd-label">Superior</span><span class="pcd-value">2,5 cm</span></div>
+                <div class="pcd-row"><span class="pcd-label">Inferior</span><span class="pcd-value">2 cm</span></div>
+                <div class="pcd-row"><span class="pcd-label">Izquierdo</span><span class="pcd-value">2 cm</span></div>
+                <div class="pcd-row"><span class="pcd-label">Derecho</span><span class="pcd-value">1,9 cm</span></div>
+                <div class="pcd-row"><span class="pcd-label">Encuadernación</span><span class="pcd-value">0 cm</span></div>
+              </div>
+            </div>
+            <div class="page-config-demo">
+              <div class="pcd-header">Orientación y Papel</div>
+              <div class="pcd-body">
+                <div class="pcd-row"><span class="pcd-label">Orientación</span><span class="pcd-value">Horizontal</span></div>
+                <div class="pcd-row"><span class="pcd-label">Varias páginas</span><span class="pcd-value">Normal</span></div>
+                <div class="pcd-row"><span class="pcd-label">Aplicar a</span><span class="pcd-value">Todo el documento</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ENCABEZADO Y PIE DE PÁGINA -->
+    <section class="section" id="encabezado">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar</p>
+          <h2>Encabezado y Pie de Página</h2>
+          <p>
+            El <strong>encabezado</strong> y el <strong>pie de página</strong> son zonas especiales
+            que aparecen en la parte superior e inferior de cada hoja. Se usan para información
+            repetida en todas las páginas: títulos del documento, número de página, nombre del autor,
+            fecha, logotipo de la empresa, etc.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Insertar encabezado</p>
+            <h3>¿Cómo agregar un encabezado?</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Insertar</strong> → grupo <strong>Encabezado y pie de página</strong> → <strong>Encabezado</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Elegí un estilo (En blanco, Con formato, etc.) o usá <strong>Editar encabezado</strong> para escribir libremente.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">El cursor se mueve al área de encabezado (zona azul en la parte superior de la hoja). Escribí el texto del encabezado.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Hacé doble clic fuera del encabezado o hacé clic en <strong>Cerrar encabezado y pie de página</strong> para volver al cuerpo del documento.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Insertar pie de página</p>
+            <h3>¿Cómo agregar un pie de página?</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Insertar</strong> → grupo <strong>Encabezado y pie de página</strong> → <strong>Pie de página</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Elegí un estilo o usá <strong>Editar pie de página</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">El cursor se mueve al área de pie de página. Escribí el nombre, la fecha u otra información.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Doble clic fuera del pie de página para volver al documento. También podés presionar <kbd>Esc</kbd>.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Actividad:</strong> Pie de página con <strong>tu nombre y apellido</strong> alineado a la derecha.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Características importantes</p>
+            <h3>Lo que hay que saber</h3>
+            <ul>
+              <li>El contenido del encabezado y pie se <strong>repite en todas las páginas</strong> del documento automáticamente.</li>
+              <li>Podés combinar texto, números de página, fecha, imágenes y tablas dentro del encabezado.</li>
+              <li>Para insertar el <strong>número de página</strong> automático: pestaña <strong>Insertar</strong> → <strong>Número de página</strong>.</li>
+              <li>Para editar un encabezado o pie existente, hacé <strong>doble clic</strong> sobre él.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Acceso rápido</p>
+            <h3>Atajos para editar encabezado/pie</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Acción</th><th>Método</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Abrir encabezado</td><td>Doble clic en el borde superior de la hoja</td></tr>
+                <tr><td>Abrir pie</td><td>Doble clic en el borde inferior de la hoja</td></tr>
+                <tr><td>Pasar de encabezado a pie</td><td>Pestaña <strong>Encabezado y pie</strong> → <strong>Ir al pie</strong></td></tr>
+                <tr><td>Cerrar encabezado/pie</td><td><kbd>Esc</kbd> o doble clic fuera del área</td></tr>
+                <tr><td>Número de página automático</td><td>Insertar → Número de página</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- DEMO ENCABEZADO Y PIE -->
+        <div style="margin-top:2rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve en el documento</p>
+          <div class="header-footer-demo">
+            <div class="hfd-header-zone">
+              <div class="hfd-label">Encabezado</div>
+              <div style="text-align:center;font-weight:700;font-size:0.85rem;color:#2b579a;">Sistemas operativos para Smartphones</div>
+            </div>
+            <div class="hfd-body">
+              <div style="overflow-x:auto;">
+                <table style="border-collapse:collapse;font-size:0.67rem;width:100%;">
+                  <thead>
+                    <tr>
+                      <th style="background:#e96b1a;color:#fff;padding:0.28rem 0.5rem;border:1px solid #aaa;">Sistema operativo</th>
+                      <th style="background:#2b579a;color:#fff;padding:0.28rem 0.5rem;border:1px solid #aaa;">Descripción</th>
+                      <th style="background:#2b579a;color:#fff;padding:0.28rem 0.5rem;border:1px solid #aaa;">Ventajas</th>
+                      <th style="background:#2b579a;color:#fff;padding:0.28rem 0.5rem;border:1px solid #aaa;">Desventajas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;font-weight:700;">iOS</td>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Sistema operativo de Apple: iPhone, iPad y iTouch</td>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Twitter integrado, iMessages, Siri, Facetime…</td>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Solo compatible entre iPhones.</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;font-weight:700;">Android</td>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Sistema de Google para smartphones y PDA</td>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Google Maps, variedad de apps…</td>
+                      <td style="padding:0.25rem 0.5rem;border:1px solid #d1d5db;color:#374151;">Mayor consumo de batería.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="hfd-footer-zone">
+              <div class="hfd-label">Pie de página</div>
+              <div style="text-align:right;font-size:0.8rem;color:#374151;">Tu Nombre y Apellido</div>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">El encabezado y el pie aparecen en todas las páginas. El área de texto central (la tabla) es el cuerpo del documento.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section alt" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Seguí estos pasos en orden para construir el documento completo sobre
+            sistemas operativos para smartphones.
+          </p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Actividad · Tabla de Sistemas Operativos</p>
+          <h3>Construir el documento completo paso a paso</h3>
+          <ul>
+            <li><strong>Paso 1 —</strong> Abrí un nuevo documento en Word y guardalo como <strong>"Sistemas Operativos smartphones.DOC"</strong>.</li>
+            <li><strong>Paso 2 —</strong> Configurá la página: <strong>Disposición → Orientación → Horizontal</strong>. Luego en <strong>Márgenes → Márgenes personalizados</strong> ingresá: Superior 2,5 cm · Inferior 2 cm · Izquierdo 2 cm · Derecho 1,9 cm.</li>
+            <li><strong>Paso 3 —</strong> Insertá una tabla de <strong>5 filas × 3 columnas</strong> (<strong>Insertar → Tabla</strong>). Ingresá los encabezados: <strong>Sistema operativo / Ventajas / Desventajas</strong>. Completá con los datos de iOS, Android, Windows Phone y BlackBerry OS. Configurá la fuente en <strong>Calibri tamaño 9</strong> y el encabezado en <strong>negrita</strong>.</li>
+            <li><strong>Paso 4 —</strong> Insertá una nueva fila para el Sistema Operativo <strong>"Bada"</strong> entre las filas de Android y Windows Phone (clic derecho sobre la fila de Windows Phone → Insertar → Insertar filas encima). Completá con los datos de Bada.</li>
+            <li><strong>Paso 5 —</strong> Agregá una nueva fila al final de la tabla para el sistema operativo <strong>"Symbian"</strong> (posicionate en la última celda y presioná <kbd>Tab</kbd>). Completá con sus datos.</li>
+            <li><strong>Paso 6 —</strong> Insertá una nueva columna con el título <strong>"Descripción"</strong> entre la primera y la segunda columna (clic derecho sobre la columna "Ventajas" → Insertar → Insertar columnas a la izquierda). Completá con la descripción de cada sistema operativo.</li>
+            <li><strong>Paso 7 —</strong> Aplicá colores de fondo a los encabezados: seleccioná la celda "Sistema operativo" y aplicale color <strong>naranja</strong> (Diseño de tabla → Sombreado). Seleccioná los demás encabezados (Descripción, Ventajas, Desventajas) y aplicales color <strong>azul oscuro</strong>. El texto de los encabezados debe quedar en <strong>blanco y negrita</strong>.</li>
+            <li><strong>Paso 8 —</strong> Insertá un <strong>encabezado de página</strong> (<strong>Insertar → Encabezado → En blanco</strong>) y escribí el título <strong>"Sistemas operativos para Smartphones"</strong> centrado.</li>
+            <li><strong>Paso 9 —</strong> Insertá un <strong>pie de página</strong> (<strong>Insertar → Pie de página → En blanco</strong>) y escribí tu <strong>nombre y apellido</strong> alineado a la derecha.</li>
+            <li><strong>Paso 10 —</strong> Con el cursor dentro de la tabla, explorá los <strong>Estilos de tabla</strong> disponibles en la pestaña <strong>Diseño de tabla</strong>. Pasá el mouse por los distintos estilos y observá cómo cambia la apariencia. Elegí el que más te guste o volvé al diseño manual de los pasos anteriores.</li>
+          </ul>
+
+          <div class="act-resultado">
+            <div class="act-resultado-label">Resultado esperado</div>
+            <div class="act-doc" style="padding:0.5rem 0.75rem;">
+              <!-- Mini encabezado -->
+              <div style="border-bottom:1px dashed #93c5fd;padding-bottom:0.3rem;margin-bottom:0.5rem;">
+                <div style="font-size:0.6rem;color:#6b7280;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.1rem;">Encabezado</div>
+                <div style="font-weight:700;text-align:center;font-size:0.8rem;color:#2b579a;font-family:'Segoe UI',sans-serif;">Sistemas operativos para Smartphones</div>
+              </div>
+              <!-- Tabla resultado -->
+              <div style="overflow-x:auto;">
+                <table style="border-collapse:collapse;font-family:Calibri,sans-serif;font-size:0.65rem;width:100%;">
+                  <thead>
+                    <tr>
+                      <th style="background:#e96b1a;color:#fff;padding:0.28rem 0.45rem;border:1px solid #aaa;font-weight:700;">Sistema operativo</th>
+                      <th style="background:#2b579a;color:#fff;padding:0.28rem 0.45rem;border:1px solid #aaa;font-weight:700;">Descripción</th>
+                      <th style="background:#2b579a;color:#fff;padding:0.28rem 0.45rem;border:1px solid #aaa;font-weight:700;">Ventajas</th>
+                      <th style="background:#2b579a;color:#fff;padding:0.28rem 0.45rem;border:1px solid #aaa;font-weight:700;">Desventajas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;font-weight:700;color:#111;">iOS</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">S.O. de Apple: iPhone, iPad y iTouch</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Twitter integrado, iMessages, Siri, Facetime.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Solo compatible entre iPhones.</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;font-weight:700;color:#111;">Android</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">S.O. de Google para smartphones y PDA.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Google Maps, extensa gama de apps.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Mayor consumo de batería.</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;font-weight:700;color:#111;">Bada</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Samsung. Originalidad y seguridad ante ataques.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Multitarea, pocos errores, pocos virus.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Solo en Samsung Wave. Pocas apps.</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;font-weight:700;color:#111;">Windows Phone</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Microsoft lanzó su propio S.O.: Windows Phone.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Ejecución rápida. Interfaz con pack Office.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Pocas apps. Sin multitarea. Sin Flash.</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;font-weight:700;color:#111;">BlackBerry OS</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Toda la gama BlackBerry. Para profesionales.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Navegación rápida, email, BBM.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Ergonomía poco práctica.</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;font-weight:700;color:#111;">Symbian</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Uno de los sistemas más fiables del mercado.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Fiable, batería duradera, multitarea.</td>
+                      <td style="padding:0.28rem 0.45rem;border:1px solid #d1d5db;color:#374151;">Pocas apps. Interfaz poco estética.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Mini pie -->
+              <div style="border-top:1px dashed #93c5fd;padding-top:0.3rem;margin-top:0.5rem;text-align:right;">
+                <div style="font-size:0.6rem;color:#6b7280;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.1rem;">Pie de página</div>
+                <div style="font-size:0.75rem;color:#374151;font-family:'Segoe UI',sans-serif;">Tu Nombre y Apellido</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos y habilidades más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Tablas en Word</h3>
+            <p>
+              Se insertan desde <strong>Insertar → Tabla</strong>. Permiten organizar información
+              en filas y columnas. La tecla <kbd>Tab</kbd> avanza de celda en celda y crea nuevas
+              filas al llegar al final.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Insertar filas y columnas</h3>
+            <p>
+              Clic derecho dentro de la tabla → <strong>Insertar</strong> → elegir la dirección.
+              También desde la pestaña <strong>Presentación</strong> → grupo Filas y columnas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Estilos de tabla</h3>
+            <p>
+              Disponibles en la pestaña <strong>Diseño de tabla</strong>. Aplicá colores
+              predefinidos o usá el botón <strong>Sombreado</strong> para colorear celdas
+              específicas manualmente.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Configurar página</h3>
+            <p>
+              Desde <strong>Disposición → Márgenes y Orientación</strong>. La orientación
+              <strong>Horizontal</strong> es ideal cuando la tabla es más ancha que alta.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Encabezado y pie de página</h3>
+            <p>
+              Se insertan desde <strong>Insertar → Encabezado / Pie de página</strong>.
+              Su contenido se repite en todas las páginas del documento automáticamente.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Pestañas contextuales</h3>
+            <p>
+              Al hacer clic dentro de una tabla aparecen <strong>Diseño de tabla</strong>
+              y <strong>Presentación</strong>. Solo son visibles cuando el cursor está
+              dentro de la tabla.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material de la cátedra</p>
+          <h2>Video de la clase</h2>
+          <p>Video oficial de la cátedra para acompañar los contenidos de esta clase.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/l8va5SuTpVg"
+                title="Procesador de textos Word — Tablas, Configurar página y Encabezados - Taller de Informática I"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase10.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 10 · Imágenes, Columnas y Letra Capital</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 12 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 4 · Clase 11</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
