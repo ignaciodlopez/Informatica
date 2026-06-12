@@ -1574,7 +1574,7 @@
         <div class="actividad-block">
           <p class="act-num">Actividad</p>
           <h3>Documento integrador</h3>
-          <p style="font-size:0.9rem;color:var(--muted);margin:0;">
+          <p style="font-size:0.9rem;color:var(--muted);margin:0 0 0.75rem;">
             Creá un documento llamado <strong>"Informe Word Clase 4.docx"</strong>. Aplicá estilos
             <strong>Título 1</strong> y <strong>Título 2</strong> a los encabezados, insertá un
             <strong>SmartArt</strong>, un <strong>gráfico de columnas</strong> y una <strong>forma</strong>.
@@ -1582,7 +1582,79 @@
             <strong>dos notas al pie</strong>. Por último, generá la <strong>tabla de contenidos</strong>
             automática al inicio del documento.
           </p>
-        </div>
+
+          <div class="act-resultado">
+            <div class="act-resultado-label">Resultado esperado</div>
+            <div class="act-doc" style="padding:0.75rem 1rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start;">
+
+              <!-- Página 1: tabla de contenidos -->
+              <div style="border:1px solid #e5e7eb;border-radius:0.35rem;padding:0.75rem 1rem;font-family:'Segoe UI',sans-serif;">
+                <div style="font-size:0.58rem;color:#9ca3af;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.5rem;">Página 1 · Tabla de contenidos</div>
+                <div style="font-size:0.75rem;font-weight:700;color:#111;margin-bottom:0.6rem;border-bottom:1px solid #e5e7eb;padding-bottom:0.3rem;">Tabla de contenidos</div>
+                <div style="display:flex;justify-content:space-between;font-size:0.7rem;font-weight:700;color:#111;margin-bottom:0.2rem;"><span>Sistemas Operativos</span><span style="color:#6b7280;">2</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:#374151;padding-left:0.9rem;margin-bottom:0.2rem;"><span>Introducción</span><span style="color:#6b7280;">2</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:#374151;padding-left:0.9rem;"><span>Comparativa de uso</span><span style="color:#6b7280;">3</span></div>
+              </div>
+
+              <!-- Página 2: contenido -->
+              <div style="border:1px solid #e5e7eb;border-radius:0.35rem;padding:0.75rem 1rem;font-family:'Segoe UI',sans-serif;position:relative;">
+                <div style="font-size:0.58rem;color:#9ca3af;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.5rem;">Página 2 · Cuerpo del documento</div>
+
+                <!-- Título 1 -->
+                <div style="font-size:0.82rem;font-weight:700;color:#2b579a;margin-bottom:0.1rem;">Sistemas Operativos</div>
+                <!-- Título 2 -->
+                <div style="font-size:0.72rem;font-weight:600;color:#374151;margin-bottom:0.35rem;">Introducción</div>
+
+                <!-- SmartArt mini -->
+                <div style="background:#f0f4ff;border:1px solid #c7d2fe;border-radius:0.3rem;padding:0.4rem 0.5rem;margin-bottom:0.45rem;display:flex;flex-direction:column;align-items:center;gap:0.2rem;">
+                  <div style="font-size:0.58rem;color:#6b7280;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:0.1rem;">SmartArt · Jerarquía</div>
+                  <div style="background:#2b579a;color:#fff;border-radius:2px;padding:0.15rem 0.5rem;font-size:0.6rem;font-weight:700;">Sistemas Operativos</div>
+                  <div style="display:flex;gap:0.4rem;">
+                    <div style="background:#3b82f6;color:#fff;border-radius:2px;padding:0.12rem 0.35rem;font-size:0.57rem;">Escritorio</div>
+                    <div style="background:#3b82f6;color:#fff;border-radius:2px;padding:0.12rem 0.35rem;font-size:0.57rem;">Móvil</div>
+                    <div style="background:#3b82f6;color:#fff;border-radius:2px;padding:0.12rem 0.35rem;font-size:0.57rem;">Servidor</div>
+                  </div>
+                </div>
+
+                <!-- Título 2 -->
+                <div style="font-size:0.72rem;font-weight:600;color:#374151;margin-bottom:0.3rem;">Comparativa de uso</div>
+
+                <!-- Gráfico mini + forma -->
+                <div style="display:flex;gap:0.4rem;align-items:flex-end;margin-bottom:0.45rem;">
+                  <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:0.3rem;padding:0.35rem 0.4rem;flex:1;">
+                    <div style="font-size:0.56rem;color:#6b7280;margin-bottom:0.25rem;text-align:center;">Gráfico de columnas</div>
+                    <div style="display:flex;gap:3px;align-items:flex-end;height:28px;justify-content:center;">
+                      <div style="width:7px;background:#2b579a;height:14px;border-radius:1px 1px 0 0;"></div>
+                      <div style="width:7px;background:#e96b1a;height:22px;border-radius:1px 1px 0 0;"></div>
+                      <div style="width:7px;background:#2b579a;height:18px;border-radius:1px 1px 0 0;"></div>
+                      <div style="width:7px;background:#e96b1a;height:26px;border-radius:1px 1px 0 0;"></div>
+                      <div style="width:7px;background:#2b579a;height:11px;border-radius:1px 1px 0 0;"></div>
+                      <div style="width:7px;background:#e96b1a;height:16px;border-radius:1px 1px 0 0;"></div>
+                    </div>
+                  </div>
+                  <!-- Forma llamada -->
+                  <div style="position:relative;background:#fff9c4;border:1px solid #fbbf24;border-radius:3px;padding:0.25rem 0.35rem;font-size:0.57rem;color:#92400e;max-width:70px;">
+                    Android lidera en móviles.
+                    <div style="position:absolute;left:-7px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:7px solid #fbbf24;"></div>
+                  </div>
+                </div>
+
+                <!-- Texto con hipervínculo, comentario y notas al pie -->
+                <div style="font-size:0.65rem;color:#374151;line-height:1.6;position:relative;">
+                  El sistema <span style="color:#2563eb;text-decoration:underline;">Windows<sup style="font-size:0.7em;">1</sup></span>
+                  es el más usado en escritorio<sup style="font-size:0.7em;color:#2563eb;">2</sup>.
+                  <span style="background:#fef9c3;border-bottom:1.5px solid #eab308;">Android domina en móviles</span><span style="font-size:0.6rem;color:#ca8a04;margin-left:1px;" title="Comentario">💬</span>.
+                </div>
+
+                <!-- Notas al pie -->
+                <div style="border-top:1px solid #e5e7eb;margin-top:0.45rem;padding-top:0.3rem;">
+                  <div style="font-size:0.58rem;color:#6b7280;"><sup>1</sup> Microsoft Corp.</div>
+                  <div style="font-size:0.58rem;color:#6b7280;"><sup>2</sup> Dato según StatCounter 2024.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
 
       </div>
     </section>
