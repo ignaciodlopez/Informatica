@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 4 · Clase 12</title>
+  <meta
+    name="description"
+    content="Clase 12 de Taller de Informática I: formas, SmartArt, gráficos, hipervínculos, comentarios, notas al pie y tabla de contenidos en Word."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Tabla de atajos */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .shortcut-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .shortcut-table td {
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .shortcut-table tr:last-child td { border-bottom: none; }
+    .shortcut-table tr:hover td { background: var(--surface-soft); }
+    .shortcut-table kbd {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 0.3rem;
+      padding: 0.1em 0.45em;
+      font-size: 0.82em;
+      font-family: monospace;
+      color: var(--text);
+    }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+    }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .actividad-block ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .actividad-block ul li strong { color: var(--text); }
+
+    /* Resultado esperado */
+    .act-resultado {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 0.85rem;
+    }
+    .act-resultado-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .act-resultado-label::before { content: "✓"; }
+    .act-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.4rem;
+      padding: 1rem 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    /* Paso a paso */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .step-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      min-width: 1.75rem;
+      height: 1.75rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-body { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .step-body strong { color: var(--text); }
+
+    /* Grid de formato */
+    .formato-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .formato-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+    }
+    .formato-item .fi-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .formato-item h3 { font-size: 0.95rem; margin: 0 0 0.35rem; }
+    .formato-item p { font-size: 0.86rem; color: var(--muted); margin: 0; }
+
+    /* ===== WORD WINDOW MOCKUP ===== */
+    .word-window {
+      margin-top: 2rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      position: relative;
+      border: 1px solid #1e3a6e;
+    }
+    .wm-titlebar {
+      background: #2b579a;
+      color: #fff;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .wm-titlebar-title { font-size: 0.73rem; opacity: 0.95; }
+    .wm-titlebar-controls { display: flex; gap: 0.35rem; }
+    .wm-titlebar-controls span {
+      width: 11px; height: 11px; border-radius: 50%;
+      display: inline-block; opacity: 0.85;
+    }
+    .wm-ctrl-min { background: #fbbf24; }
+    .wm-ctrl-max { background: #34d399; }
+    .wm-ctrl-close { background: #f87171; }
+    .wm-tabs {
+      background: #2b579a;
+      display: flex;
+      gap: 0;
+      padding: 0 0.5rem;
+    }
+    .wm-tab {
+      padding: 0.28rem 0.7rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      cursor: default;
+      border-radius: 3px 3px 0 0;
+      user-select: none;
+    }
+    .wm-tab.active {
+      background: #fff;
+      color: #2b579a;
+      font-weight: 700;
+    }
+    .wm-ribbon {
+      background: #fff;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 0.4rem 0.75rem 0.3rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .wm-rgroup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding-right: 1rem;
+      border-right: 1px solid #e5e7eb;
+    }
+    .wm-rgroup:last-child { border-right: none; padding-right: 0; }
+    .wm-rgroup-label {
+      font-size: 0.58rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 0.15rem;
+    }
+    .wm-rbtns { display: flex; gap: 0.2rem; align-items: center; flex-wrap: wrap; }
+    .wm-rbtn {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 0.18rem 0.38rem;
+      font-size: 0.7rem;
+      color: #374151;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .wm-rbtn.hi { background: #dbeafe; border-color: #93c5fd; }
+    .wm-rbtn.hi-green { background: #dcfce7; border-color: #86efac; }
+    .wm-rbtn.hi-purple { background: #f3e8ff; border-color: #d8b4fe; }
+    .wm-body {
+      background: #e5e7eb;
+      display: flex;
+      gap: 0;
+      padding: 0.75rem 0.75rem 0.75rem 0.5rem;
+    }
+    .wm-page {
+      background: #fff;
+      flex: 1;
+      min-height: 120px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      color: #111;
+      line-height: 1.6;
+    }
+    .wm-statusbar {
+      background: #2b579a;
+      color: rgba(255,255,255,0.85);
+      padding: 0.22rem 0.75rem;
+      font-size: 0.64rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .wm-badge {
+      position: absolute;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .wm-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .wm-legend-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.85rem;
+    }
+    .wm-num {
+      min-width: 1.5rem;
+      height: 1.5rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .wm-legend-item p { margin: 0; color: var(--muted); font-size: 0.83rem; line-height: 1.4; }
+    .wm-legend-item strong { color: var(--text); }
+
+    /* ===== FORMAS GRID ===== */
+    .shapes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .shape-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .shape-box .shape-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .shape-box .shape-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .shape-svg { width: 64px; height: 48px; }
+
+    /* ===== SMARTART DEMO ===== */
+    .smartart-demo {
+      margin-top: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      overflow-x: auto;
+    }
+    .smartart-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .smartart-hierarchy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+    }
+    .sa-node {
+      background: #2b579a;
+      color: #fff;
+      border-radius: 0.3rem;
+      padding: 0.4rem 0.9rem;
+      text-align: center;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .sa-node.level2 { background: #3b82f6; font-weight: 500; }
+    .sa-node.level3 { background: #93c5fd; color: #1e3a8a; font-weight: 500; font-size: 0.7rem; }
+    .sa-connector {
+      width: 2px;
+      height: 20px;
+      background: #9ca3af;
+    }
+    .sa-row {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .sa-branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .sa-hline {
+      height: 2px;
+      background: #9ca3af;
+      align-self: stretch;
+    }
+    .sa-children {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      position: relative;
+    }
+    .sa-children::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; right: 50%;
+      height: 2px;
+      background: transparent;
+    }
+
+    /* ===== GRAFICO DE BARRAS ===== */
+    .chart-container {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .chart-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .chart-bars {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+      height: 140px;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #374151;
+      border-left: 2px solid #374151;
+      padding-left: 0.5rem;
+      overflow-x: auto;
+    }
+    .chart-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      flex: 1;
+      min-width: 40px;
+    }
+    .chart-pair {
+      display: flex;
+      gap: 2px;
+      align-items: flex-end;
+    }
+    .bar {
+      width: 10px;
+      border-radius: 2px 2px 0 0;
+      transition: opacity 0.2s;
+    }
+    .bar-blue { background: #2b579a; }
+    .bar-orange { background: #e96b1a; }
+    .chart-x-label {
+      font-size: 0.6rem;
+      color: #6b7280;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      margin-top: 0.75rem;
+    }
+    .chart-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      color: #374151;
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ===== HIPERVINCULOS DEMO ===== */
+    .hyperlink-demo {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .hyperlink-demo p {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #374151;
+    }
+    .hyperlink-demo a-demo {
+      display: inline;
+      color: #2563eb;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    /* ===== COMENTARIO DEMO ===== */
+    .comment-demo {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .comment-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.4rem;
+      padding: 1rem 1.25rem;
+      flex: 1;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    }
+    .comment-highlight {
+      background: #fef9c3;
+      border-bottom: 2px solid #eab308;
+    }
+    .comment-bubble {
+      background: #fff9c4;
+      border: 1px solid #fbbf24;
+      border-radius: 0.4rem;
+      padding: 0.65rem 0.85rem;
+      min-width: 160px;
+      max-width: 200px;
+      font-size: 0.75rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .comment-bubble-author {
+      font-weight: 700;
+      font-size: 0.7rem;
+      color: #92400e;
+      margin-bottom: 0.3rem;
+    }
+    .comment-bubble-text { color: #374151; line-height: 1.5; }
+    .comment-line {
+      width: 2px;
+      background: #fbbf24;
+      align-self: stretch;
+    }
+
+    /* ===== NOTA AL PIE DEMO ===== */
+    .footnote-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .footnote-mark {
+      vertical-align: super;
+      font-size: 0.62em;
+      color: #2563eb;
+      font-weight: 700;
+    }
+    .footnote-sep {
+      border: none;
+      border-top: 1px solid #d1d5db;
+      margin: 1rem 0 0.5rem;
+      width: 40%;
+    }
+    .footnote-item {
+      font-size: 0.72rem;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ===== TABLA DE CONTENIDOS DEMO ===== */
+    .toc-demo {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.82rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .toc-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #111;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .toc-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.2rem 0;
+      border-bottom: 1px dotted #d1d5db;
+      gap: 0.5rem;
+    }
+    .toc-entry:last-child { border-bottom: none; }
+    .toc-entry.h1 { font-weight: 700; color: #111; }
+    .toc-entry.h2 { padding-left: 1.25rem; color: #374151; }
+    .toc-entry.h3 { padding-left: 2.5rem; color: #6b7280; font-size: 0.76rem; }
+    .toc-page { color: #6b7280; font-size: 0.75rem; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#formas">Formas</a>
+        <a href="#smartart">SmartArt</a>
+        <a href="#graficos">Gráficos</a>
+        <a href="#hipervinculos">Hipervínculos</a>
+        <a href="#comentarios">Comentarios</a>
+        <a href="#notas">Notas al pie</a>
+        <a href="#toc">Tabla de contenidos</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 4</p>
+        <h1>Formas, SmartArt, Gráficos y Referencias en Word</h1>
+        <p class="lead">
+          Insertá <strong>formas y diagramas SmartArt</strong>, creá <strong>gráficos</strong> a partir
+          de datos, agregá <strong>hipervínculos y comentarios</strong>, y usá el menú
+          <strong>Referencias</strong> para notas al pie y tabla de contenidos automática.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#formas">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 12</li>
+          <li>Microsoft Word</li>
+          <li>Ilustraciones y Referencias</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Enriquecer documentos con gráficos y referencias</h2>
+        <p>
+          Insertar formas, SmartArt y gráficos para visualizar información.
+          Crear hipervínculos, agregar comentarios de revisión, insertar
+          notas al pie y generar una tabla de contenidos automática.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Ilustraciones</span>
+          <span>Vínculos</span>
+          <span>Referencias</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            La pestaña <strong>Insertar</strong> concentra Formas, SmartArt y Gráficos.
+            La pestaña <strong>Referencias</strong> gestiona notas al pie y la tabla
+            de contenidos, que se genera a partir de los <strong>estilos de título</strong>
+            aplicados al documento.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- FORMAS -->
+    <section class="section" id="formas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar · Ilustraciones</p>
+          <h2>Insertar Formas</h2>
+          <p>
+            Las <strong>formas</strong> son elementos gráficos predefinidos que se pueden insertar
+            en cualquier parte del documento: líneas, flechas, rectángulos, círculos, llamadas,
+            estrellas y más. Se usan para señalar información, crear diagramas simples o decorar el documento.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo insertar una forma?</p>
+            <h3>Insertar desde la cinta de opciones</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Hacé clic en la pestaña <strong>Insertar</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En el grupo <strong>Ilustraciones</strong>, hacé clic en el botón <strong>Formas</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Elegí la forma deseada del menú desplegable (líneas, rectángulos, flechas, llamadas, etc.).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Hacé clic y arrastrá en el documento para dibujarla. Manteniendo <kbd>Shift</kbd> se dibuja proporcional (cuadrado perfecto, círculo perfecto).</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Dar formato a la forma</p>
+            <h3>Opciones de diseño</h3>
+            <p>Al seleccionar una forma aparece la pestaña contextual <strong>Formato de forma</strong>:</p>
+            <ul>
+              <li><strong>Relleno de forma:</strong> cambia el color de fondo (o quita el relleno).</li>
+              <li><strong>Contorno de forma:</strong> cambia el color y grosor del borde.</li>
+              <li><strong>Efectos de forma:</strong> sombra, reflejo, brillo, bisel.</li>
+              <li><strong>Posición:</strong> mueve la forma libremente o la alinea con el texto.</li>
+              <li><strong>Ajuste del texto:</strong> define cómo interactúa la forma con el texto (En línea, Cuadrado, Detrás del texto, etc.).</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> Para agregar texto dentro de una forma, hacé clic derecho sobre ella → <strong>Modificar texto</strong>.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Tipos de formas</p>
+            <h3>Categorías disponibles</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Categoría</th><th>Ejemplos</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Líneas</strong></td><td>Línea recta, flecha, flecha doble, curva</td></tr>
+                <tr><td><strong>Rectángulos</strong></td><td>Rectángulo, rectángulo redondeado</td></tr>
+                <tr><td><strong>Formas básicas</strong></td><td>Elipse, triángulo, rombo, cubo</td></tr>
+                <tr><td><strong>Flechas de bloque</strong></td><td>Flecha derecha, izquierda, pentágono</td></tr>
+                <tr><td><strong>Llamadas</strong></td><td>Bocadillo de diálogo cuadrado, redondeado</td></tr>
+                <tr><td><strong>Estrellas y banners</strong></td><td>Estrella de 4, 5, 6 puntas, cintas</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Trabajar con varias formas</p>
+            <h3>Agrupar y ordenar</h3>
+            <ul>
+              <li><strong>Seleccionar varias formas:</strong> mantenés <kbd>Shift</kbd> y hacés clic en cada forma, o arrastrás un rectángulo de selección.</li>
+              <li><strong>Agrupar:</strong> clic derecho sobre la selección → <strong>Agrupar → Agrupar</strong>. Las formas se mueven y redimensionan juntas.</li>
+              <li><strong>Ordenar:</strong> clic derecho → <strong>Enviar al frente / Enviar atrás</strong>. Controla qué forma queda sobre cuál.</li>
+              <li><strong>Alinear:</strong> pestaña <strong>Formato de forma</strong> → <strong>Organizar → Alinear</strong>.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- MOCKUP FORMAS -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Galería de formas · Pestaña Insertar</p>
+          <div class="word-window" style="position:relative;">
+            <div class="wm-titlebar">
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="font-size:0.85rem;">📄</span>
+                <span class="wm-titlebar-title">Documento1.docx - Word</span>
+              </div>
+              <div class="wm-titlebar-controls">
+                <span class="wm-ctrl-min"></span>
+                <span class="wm-ctrl-max"></span>
+                <span class="wm-ctrl-close"></span>
+              </div>
+            </div>
+            <div class="wm-tabs">
+              <div class="wm-tab">Archivo</div>
+              <div class="wm-tab">Inicio</div>
+              <div class="wm-tab active">Insertar</div>
+              <div class="wm-tab">Diseño</div>
+              <div class="wm-tab">Disposición</div>
+              <div class="wm-tab">Referencias</div>
+            </div>
+            <div class="wm-ribbon">
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">📄 Página en blanco</div>
+                  <div class="wm-rbtn">--- Salto de página</div>
+                </div>
+                <div class="wm-rgroup-label">Páginas</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">⊞ Tabla ▾</div>
+                </div>
+                <div class="wm-rgroup-label">Tablas</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">🖼 Imágenes ▾</div>
+                  <div class="wm-rbtn hi">◻ Formas ▾</div>
+                  <div class="wm-rbtn hi">✦ SmartArt</div>
+                  <div class="wm-rbtn hi">📊 Gráfico</div>
+                </div>
+                <div class="wm-rgroup-label">Ilustraciones</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">🔗 Hipervínculo</div>
+                  <div class="wm-rbtn">📌 Marcador</div>
+                </div>
+                <div class="wm-rgroup-label">Vínculos</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">≡ Encabezado ▾</div>
+                  <div class="wm-rbtn">≡ Pie ▾</div>
+                  <div class="wm-rbtn"># N.° de página ▾</div>
+                </div>
+                <div class="wm-rgroup-label">Encab. y pie de página</div>
+              </div>
+            </div>
+            <div class="wm-body">
+              <div class="wm-page" style="min-height:80px;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+                <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="5" width="50" height="40" rx="4" fill="#dbeafe" stroke="#2b579a" stroke-width="2"/>
+                  <text x="30" y="29" font-family="Segoe UI" font-size="9" fill="#1e3a8a" text-anchor="middle">Rectángulo</text>
+                </svg>
+                <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ellipse cx="30" cy="25" rx="25" ry="20" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                  <text x="30" y="29" font-family="Segoe UI" font-size="9" fill="#166534" text-anchor="middle">Elipse</text>
+                </svg>
+                <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="30,5 55,45 5,45" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+                  <text x="30" y="38" font-family="Segoe UI" font-size="8" fill="#854d0e" text-anchor="middle">Triángulo</text>
+                </svg>
+                <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points="5,25 20,5 55,5 55,45 20,45" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>
+                  <text x="32" y="29" font-family="Segoe UI" font-size="8" fill="#5b21b6" text-anchor="middle">Flecha</text>
+                </svg>
+                <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="5" width="45" height="35" rx="4" fill="#fff" stroke="#e96b1a" stroke-width="2"/>
+                  <polygon points="10,40 25,40 17,48" fill="#fff" stroke="#e96b1a" stroke-width="2"/>
+                  <text x="27" y="27" font-family="Segoe UI" font-size="8" fill="#9a3412" text-anchor="middle">Llamada</text>
+                </svg>
+              </div>
+            </div>
+            <div class="wm-statusbar">
+              <span>Página 1 de 1</span>
+              <span>Palabras: 0</span>
+              <span>Español (Argentina)</span>
+              <span style="margin-left:auto;">100%</span>
+            </div>
+            <div class="wm-badge" style="top:68px;left:230px;">1</div>
+          </div>
+          <div class="wm-legend">
+            <div class="wm-legend-item"><div class="wm-num">1</div><p><strong>Grupo Ilustraciones</strong> — contiene Formas, SmartArt y Gráfico, los tres elementos visuales principales que veremos en esta clase.</p></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SMARTART -->
+    <section class="section alt" id="smartart">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar · Ilustraciones</p>
+          <h2>Insertar SmartArt</h2>
+          <p>
+            <strong>SmartArt</strong> permite crear diagramas visuales de manera rápida y profesional:
+            organigramas, diagramas de proceso, ciclos, listas visuales y más. A diferencia de las formas
+            sueltas, SmartArt organiza automáticamente los elementos y aplica un diseño coherente.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo insertar SmartArt?</p>
+            <h3>Paso a paso</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Insertar</strong> → grupo <strong>Ilustraciones</strong> → <strong>SmartArt</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En el cuadro de diálogo, elegí la <strong>categoría</strong> (izquierda) y el <strong>diseño</strong> (centro). La descripción aparece a la derecha.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Hacé clic en <strong>Aceptar</strong>. Aparece el diagrama con un <strong>panel de texto</strong> a la izquierda para escribir el contenido.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Usá <kbd>Tab</kbd> para agregar subniveles y <kbd>Shift</kbd>+<kbd>Tab</kbd> para subir de nivel dentro del panel de texto.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Tipos de SmartArt</p>
+            <h3>¿Cuándo usar cada uno?</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Tipo</th><th>Uso típico</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Lista</strong></td><td>Listar elementos sin orden ni jerarquía.</td></tr>
+                <tr><td><strong>Proceso</strong></td><td>Secuencia de pasos con flechas.</td></tr>
+                <tr><td><strong>Ciclo</strong></td><td>Proceso que se repite (mejora continua).</td></tr>
+                <tr><td><strong>Jerarquía</strong></td><td>Organigramas, estructuras de mando.</td></tr>
+                <tr><td><strong>Relación</strong></td><td>Vínculos o conexiones entre elementos.</td></tr>
+                <tr><td><strong>Matriz</strong></td><td>Componentes dentro de un todo.</td></tr>
+                <tr><td><strong>Pirámide</strong></td><td>Proporciones o niveles jerárquicos.</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Cambiar diseño y colores</p>
+            <h3>Personalizar el SmartArt</h3>
+            <p>Al hacer clic sobre el SmartArt aparecen dos pestañas contextuales:</p>
+            <ul>
+              <li><strong>Diseño SmartArt:</strong> cambia el esquema visual (plano, 3D, con sombras). El botón <strong>Cambiar colores</strong> aplica una paleta de color al diagrama completo.</li>
+              <li><strong>Formato:</strong> permite cambiar el relleno, contorno y efectos de los elementos individuales del diagrama.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> El botón <strong>Panel de texto</strong> (pestaña Diseño SmartArt) muestra u oculta el panel lateral donde se escribe el contenido.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Agregar y eliminar formas</p>
+            <h3>Modificar la estructura</h3>
+            <ul>
+              <li><strong>Agregar elemento:</strong> hacé clic en el elemento de referencia → pestaña <strong>Diseño SmartArt</strong> → <strong>Agregar forma</strong> → elegí si va antes, después, encima o debajo.</li>
+              <li><strong>Eliminar elemento:</strong> hacé clic sobre el nodo → presioná <kbd>Delete</kbd>.</li>
+              <li><strong>Cambiar nivel:</strong> en el panel de texto, <kbd>Tab</kbd> baja de nivel y <kbd>Shift</kbd>+<kbd>Tab</kbd> sube de nivel.</li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> En un organigrama de una empresa podés agregar un nodo por cada departamento y subnodos por cada empleado.</p>
+          </article>
+        </div>
+
+        <!-- SMARTART DEMO -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Ejemplo · Organigrama (SmartArt tipo Jerarquía)</p>
+          <div class="smartart-demo">
+            <div class="smartart-label">SmartArt · Jerarquía básica</div>
+            <div class="smartart-hierarchy">
+              <div class="sa-node">Dirección General</div>
+              <div class="sa-connector"></div>
+              <div style="display:flex;gap:3rem;justify-content:center;align-items:flex-start;">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+                  <div class="sa-node level2">Dpto. de Sistemas</div>
+                  <div class="sa-connector"></div>
+                  <div style="display:flex;gap:0.75rem;">
+                    <div class="sa-node level3">Desarrollo</div>
+                    <div class="sa-node level3">Soporte</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+                  <div class="sa-node level2">Dpto. de RRHH</div>
+                  <div class="sa-connector"></div>
+                  <div style="display:flex;gap:0.75rem;">
+                    <div class="sa-node level3">Selección</div>
+                    <div class="sa-node level3">Capacit.</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+                  <div class="sa-node level2">Dpto. Comercial</div>
+                  <div class="sa-connector"></div>
+                  <div style="display:flex;gap:0.75rem;">
+                    <div class="sa-node level3">Ventas</div>
+                    <div class="sa-node level3">Marketing</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">Este organigrama se creó con SmartArt tipo <strong>Jerarquía</strong>. Cambiando el tipo se obtiene el mismo contenido en formato de proceso, ciclo o lista.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GRÁFICOS -->
+    <section class="section" id="graficos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar · Ilustraciones</p>
+          <h2>Insertar Gráficos en Word</h2>
+          <p>
+            Los <strong>gráficos</strong> permiten representar datos numéricos de forma visual.
+            Word abre una hoja de cálculo de Excel integrada para ingresar los datos, y genera
+            el gráfico automáticamente en el documento.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo insertar un gráfico?</p>
+            <h3>Paso a paso</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Insertar</strong> → grupo <strong>Ilustraciones</strong> → <strong>Gráfico</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En el cuadro de diálogo elegí el <strong>tipo de gráfico</strong> (columna, barra, línea, circular, área, etc.).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Hacé clic en <strong>Aceptar</strong>. Se abre una mini hoja de cálculo de Excel con datos de ejemplo. Reemplazalos por tus propios datos.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Cerrá la ventana de Excel. El gráfico se actualiza automáticamente en el documento con los datos que ingresaste.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Tipos de gráficos</p>
+            <h3>¿Cuándo usar cada tipo?</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Tipo</th><th>Ideal para…</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Columna</strong></td><td>Comparar valores entre categorías.</td></tr>
+                <tr><td><strong>Barra</strong></td><td>Igual que columna pero horizontal (útil si las categorías tienen nombres largos).</td></tr>
+                <tr><td><strong>Línea</strong></td><td>Mostrar tendencias a lo largo del tiempo.</td></tr>
+                <tr><td><strong>Circular (Pie)</strong></td><td>Mostrar proporciones de un todo (porcentajes).</td></tr>
+                <tr><td><strong>Área</strong></td><td>Tendencias con énfasis en el volumen total.</td></tr>
+                <tr><td><strong>Dispersión</strong></td><td>Relación entre dos variables numéricas.</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Modificar el gráfico</p>
+            <h3>Personalización</h3>
+            <p>Al hacer clic en el gráfico aparecen pestañas contextuales:</p>
+            <ul>
+              <li><strong>Diseño de gráfico:</strong> agrega o quita elementos (título, leyenda, etiquetas de datos, líneas de cuadrícula).</li>
+              <li><strong>Formato:</strong> cambia colores, fuentes y efectos de los elementos del gráfico.</li>
+              <li><strong>Editar datos:</strong> clic derecho sobre el gráfico → <strong>Editar datos</strong> para volver a la hoja de Excel y modificar los valores.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> Hacé clic en el botón <strong>+</strong> que aparece al lado del gráfico para agregar o quitar elementos rápidamente.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Ajuste en el documento</p>
+            <h3>Ubicar el gráfico en el texto</h3>
+            <ul>
+              <li><strong>Ajuste de texto:</strong> al igual que las imágenes, el gráfico puede tener ajuste En línea, Cuadrado, Detrás del texto, etc. Clic derecho → <strong>Ajustar texto</strong>.</li>
+              <li><strong>Cambiar tamaño:</strong> arrastrá los controladores de las esquinas del gráfico (con <kbd>Shift</kbd> para mantener proporciones).</li>
+              <li><strong>Cambiar tipo:</strong> clic derecho sobre el gráfico → <strong>Cambiar tipo de gráfico</strong>.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- GRÁFICO DE BARRAS DEMO -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Ejemplo de gráfico · Lectura de Diarios vs Revistas por edad</p>
+          <div class="chart-container">
+            <div class="chart-title">Lectura de Diarios vs Revistas (número de lectores por rango de edad)</div>
+            <div class="chart-bars">
+              <!-- 14-19 -->
+              <div class="chart-group">
+                <div class="chart-pair">
+                  <div class="bar bar-blue" style="height:17px;" title="Diarios: 550"></div>
+                  <div class="bar bar-orange" style="height:14px;" title="Revistas: 450"></div>
+                </div>
+                <div class="chart-x-label">14-19</div>
+              </div>
+              <!-- 20-24 -->
+              <div class="chart-group">
+                <div class="chart-pair">
+                  <div class="bar bar-blue" style="height:25px;" title="Diarios: 800"></div>
+                  <div class="bar bar-orange" style="height:31px;" title="Revistas: 1000"></div>
+                </div>
+                <div class="chart-x-label">20-24</div>
+              </div>
+              <!-- 25-34 -->
+              <div class="chart-group">
+                <div class="chart-pair">
+                  <div class="bar bar-blue" style="height:39px;" title="Diarios: 1250"></div>
+                  <div class="bar bar-orange" style="height:47px;" title="Revistas: 1500"></div>
+                </div>
+                <div class="chart-x-label">25-34</div>
+              </div>
+              <!-- 35-44 -->
+              <div class="chart-group">
+                <div class="chart-pair">
+                  <div class="bar bar-blue" style="height:62px;" title="Diarios: 2000"></div>
+                  <div class="bar bar-orange" style="height:78px;" title="Revistas: 2500"></div>
+                </div>
+                <div class="chart-x-label">35-44</div>
+              </div>
+              <!-- 45-54 -->
+              <div class="chart-group">
+                <div class="chart-pair">
+                  <div class="bar bar-blue" style="height:87px;" title="Diarios: 2800"></div>
+                  <div class="bar bar-orange" style="height:100px;" title="Revistas: 3200"></div>
+                </div>
+                <div class="chart-x-label">45-54</div>
+              </div>
+              <!-- 55-65 -->
+              <div class="chart-group">
+                <div class="chart-pair">
+                  <div class="bar bar-blue" style="height:109px;" title="Diarios: 3500"></div>
+                  <div class="bar bar-orange" style="height:125px;" title="Revistas: 4000"></div>
+                </div>
+                <div class="chart-x-label">55-65</div>
+              </div>
+              <!-- +65 -->
+              <div class="chart-group">
+                <div class="chart-pair">
+                  <div class="bar bar-blue" style="height:125px;" title="Diarios: 4000"></div>
+                  <div class="bar bar-orange" style="height:131px;" title="Revistas: 4200"></div>
+                </div>
+                <div class="chart-x-label">+65</div>
+              </div>
+            </div>
+            <div class="chart-legend">
+              <div class="chart-legend-item"><div class="legend-dot" style="background:#2b579a;"></div> Diarios</div>
+              <div class="chart-legend-item"><div class="legend-dot" style="background:#e96b1a;"></div> Revistas</div>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">Este tipo de gráfico de columnas agrupadas es ideal para comparar dos series de datos por categorías de edad. Se crea en Word con <strong>Insertar → Gráfico → Columna → Columna agrupada</strong>.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HIPERVÍNCULOS Y COMENTARIOS -->
+    <section class="section alt" id="hipervinculos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar · Vínculos</p>
+          <h2>Hipervínculos y Comentarios</h2>
+          <p>
+            Los <strong>hipervínculos</strong> permiten navegar a páginas web, archivos o lugares del
+            documento con un clic. Los <strong>comentarios</strong> son notas de revisión que se agregan
+            al margen del texto sin modificar el contenido del documento.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid" id="comentarios">
+          <article class="info-card accent-blue">
+            <p class="card-label">Hipervínculos</p>
+            <h3>Insertar un hipervínculo</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Seleccioná</strong> el texto o imagen que querés convertir en vínculo.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Pestaña <strong>Insertar</strong> → grupo <strong>Vínculos</strong> → <strong>Hipervínculo</strong>, o usá el atajo <kbd>Ctrl</kbd>+<kbd>K</kbd>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">En el cuadro de diálogo escribí la dirección web (URL) o seleccioná un archivo o un lugar del mismo documento.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Hacé clic en <strong>Aceptar</strong>. El texto queda subrayado y en azul. Para seguir el vínculo: <kbd>Ctrl</kbd>+clic.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Tipos de destino:</strong> Archivo o página web · Lugar del mismo documento · Dirección de correo electrónico · Documento nuevo.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Comentarios</p>
+            <h3>Agregar un comentario</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Seleccioná</strong> el texto sobre el que querés comentar.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Pestaña <strong>Revisar</strong> → grupo <strong>Comentarios</strong> → <strong>Nuevo comentario</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Escribí el comentario en el globo que aparece al margen derecho.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Para eliminar: clic derecho sobre el comentario → <strong>Eliminar comentario</strong>. Para resolver: clic en los tres puntos → <strong>Resolver hilo</strong>.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Uso:</strong> Los comentarios son ideales para la revisión colaborativa de documentos, para dejar observaciones sin modificar el texto original.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Editar y eliminar hipervínculos</p>
+            <h3>Gestionar los vínculos</h3>
+            <ul>
+              <li><strong>Modificar:</strong> clic derecho sobre el hipervínculo → <strong>Editar hipervínculo</strong>. Se abre el mismo cuadro de diálogo de inserción.</li>
+              <li><strong>Eliminar:</strong> clic derecho → <strong>Quitar hipervínculo</strong>. El texto queda pero pierde el formato de vínculo.</li>
+              <li><strong>Abrir:</strong> <kbd>Ctrl</kbd>+clic sobre el hipervínculo para abrirlo.</li>
+            </ul>
+            <p class="card-example"><strong>Vínculo a lugar del documento:</strong> Primero creá un <strong>Marcador</strong> (Insertar → Vínculos → Marcador) en el destino. Luego al insertar el hipervínculo elegí "Lugar de este documento" y seleccioná el marcador.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Navegación por comentarios</p>
+            <h3>Trabajar con comentarios</h3>
+            <ul>
+              <li><strong>Ver todos los comentarios:</strong> pestaña <strong>Revisar</strong> → <strong>Mostrar comentarios</strong>.</li>
+              <li><strong>Navegar:</strong> botones <strong>Anterior</strong> y <strong>Siguiente</strong> en el grupo Comentarios para ir de uno a otro.</li>
+              <li><strong>Responder:</strong> los comentarios permiten hilos de respuesta para trabajo colaborativo.</li>
+              <li><strong>Imprimir sin comentarios:</strong> <strong>Archivo → Imprimir → Configuración → Imprimir marcado</strong> (desactivar para omitir comentarios).</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- DEMOS -->
+        <div style="margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+
+          <!-- Demo hipervínculo -->
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Hipervínculo en el documento</p>
+            <div class="hyperlink-demo">
+              <p>
+                Para más información sobre sistemas operativos visitá
+                <span style="color:#2563eb;text-decoration:underline;cursor:pointer;">Wikipedia — Sistema operativo</span>
+                o descargá el
+                <span style="color:#2563eb;text-decoration:underline;cursor:pointer;">Manual de usuario (PDF)</span>.
+              </p>
+              <p style="margin-top:0.5rem;">
+                El texto subrayado en azul es un hipervínculo. Para seguirlo usá
+                <kbd style="background:#f3f4f6;border:1px solid #d1d5db;border-radius:3px;padding:0.1em 0.4em;font-size:0.78em;">Ctrl</kbd> + clic.
+              </p>
+            </div>
+          </div>
+
+          <!-- Demo comentario -->
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Comentario en el margen</p>
+            <div class="comment-demo">
+              <div class="comment-doc">
+                La informática es la disciplina que estudia el tratamiento automático de la
+                <span class="comment-highlight">información mediante computadoras</span>.
+                Su origen se remonta a la segunda mitad del siglo XX.
+              </div>
+              <div class="comment-line"></div>
+              <div class="comment-bubble">
+                <div class="comment-bubble-author">👤 Revisora — hoy</div>
+                <div class="comment-bubble-text">¿Podemos agregar la definición de la RAE aquí?</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NOTAS AL PIE -->
+    <section class="section" id="notas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Referencias</p>
+          <h2>Notas al Pie y al Final</h2>
+          <p>
+            Las <strong>notas al pie</strong> y las <strong>notas al final</strong> permiten agregar
+            aclaraciones, fuentes bibliográficas o explicaciones sin interrumpir el flujo del texto.
+            Se insertan desde la pestaña <strong>Referencias</strong>.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Insertar nota al pie</p>
+            <h3>Nota al pie de página</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Posicioná el cursor <strong>después</strong> de la palabra o frase que necesita la aclaración.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Pestaña <strong>Referencias</strong> → grupo <strong>Notas al pie</strong> → <strong>Insertar nota al pie</strong>, o usá <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>F</kbd>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">El cursor salta al pie de la página. Escribí el texto de la nota (referencia, aclaración, fuente).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Hacé clic en el cuerpo del documento para volver. El número de nota en el texto y en el pie están vinculados automáticamente.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Nota al pie vs. nota al final</p>
+            <h3>¿Cuál usar?</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th></th><th>Nota al pie</th><th>Nota al final</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>¿Dónde aparece?</strong></td>
+                  <td>Al final de la página donde está la referencia.</td>
+                  <td>Al final del documento (o sección).</td>
+                </tr>
+                <tr>
+                  <td><strong>Numeración</strong></td>
+                  <td>1, 2, 3… (por página o continua)</td>
+                  <td>i, ii, iii… (romano) o 1, 2, 3…</td>
+                </tr>
+                <tr>
+                  <td><strong>Atajo</strong></td>
+                  <td><kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>F</kbd></td>
+                  <td><kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>D</kbd></td>
+                </tr>
+                <tr>
+                  <td><strong>Uso típico</strong></td>
+                  <td>Aclaraciones, definiciones, fuentes puntuales.</td>
+                  <td>Bibliografía completa al final del documento.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Gestionar notas</p>
+            <h3>Editar y eliminar</h3>
+            <ul>
+              <li><strong>Editar:</strong> hacé doble clic sobre el número de nota en el texto para ir directamente a la nota. Hacé doble clic sobre la nota al pie para volver al texto.</li>
+              <li><strong>Eliminar:</strong> seleccioná el número de nota <strong>en el texto</strong> (no en el pie) y presioná <kbd>Delete</kbd>. La nota al pie desaparece y Word renumera el resto automáticamente.</li>
+              <li><strong>Opciones:</strong> clic en la flecha del grupo Notas al pie para abrir el cuadro de opciones y cambiar el formato de numeración, posición, etc.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Atajos</p>
+            <h3>Navegación rápida</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Acción</th><th>Atajo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Insertar nota al pie</td><td><kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>F</kbd></td></tr>
+                <tr><td>Insertar nota al final</td><td><kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>D</kbd></td></tr>
+                <tr><td>Ir a la nota al pie</td><td>Doble clic en el número del texto</td></tr>
+                <tr><td>Volver al texto</td><td>Doble clic en el número del pie</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- DEMO NOTA AL PIE -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve una nota al pie en el documento</p>
+          <div class="footnote-doc">
+            <p style="margin:0 0 0.5rem;color:#111;">
+              La informática<span class="footnote-mark">1</span> es la ciencia que estudia el tratamiento
+              automático de la información. El término fue acuñado en Francia hacia 1962<span class="footnote-mark">2</span>
+              como combinación de "información" y "automática".
+            </p>
+            <hr class="footnote-sep">
+            <div class="footnote-item"><span class="footnote-mark" style="color:#2563eb;">1</span> Del francés <em>informatique</em>: information + automatique.</div>
+            <div class="footnote-item"><span class="footnote-mark" style="color:#2563eb;">2</span> Atribuido a Philippe Dreyfus, quien lo introdujo en su artículo de 1962.</div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">El número en el texto y el número en el pie están sincronizados. Si eliminás una nota, Word renumera el resto automáticamente.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TABLA DE CONTENIDOS -->
+    <section class="section alt" id="toc">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Referencias</p>
+          <h2>Tabla de Contenidos</h2>
+          <p>
+            La <strong>tabla de contenidos</strong> (o índice) es una lista automática de los títulos
+            del documento con sus números de página. Se genera a partir de los <strong>estilos de título</strong>
+            (Título 1, Título 2, Título 3) y se actualiza con un clic cuando el documento cambia.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Paso previo: aplicar estilos de título</p>
+            <h3>Requisito para la tabla de contenidos</h3>
+            <p>
+              Antes de insertar la tabla, cada sección del documento debe tener un
+              <strong>estilo de título</strong> aplicado:
+            </p>
+            <div class="step-list" style="margin-top:0.75rem;">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Seleccioná el texto del título principal → pestaña <strong>Inicio</strong> → en el grupo <strong>Estilos</strong>, hacé clic en <strong>Título 1</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Para los subtítulos, aplicá <strong>Título 2</strong>. Para títulos de tercer nivel, aplicá <strong>Título 3</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">El texto del cuerpo del documento sigue con el estilo <strong>Normal</strong>.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Clave:</strong> Si no aplicás estilos de título, la tabla de contenidos quedará vacía.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Insertar la tabla</p>
+            <h3>Generar la tabla automática</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Posicioná el cursor al principio del documento (o donde quieras insertar la tabla).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Pestaña <strong>Referencias</strong> → grupo <strong>Tabla de contenido</strong> → <strong>Tabla de contenido</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Elegí uno de los estilos automáticos (Tabla automática 1 o 2) para generar la tabla con formato predefinido.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">La tabla aparece con los títulos y sus páginas correspondientes, en el formato de un índice.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Actualizar la tabla</p>
+            <h3>¿Qué pasa si cambia el documento?</h3>
+            <p>
+              Si agregás, eliminás o movés secciones del documento, la tabla de contenidos
+              <strong>no se actualiza sola</strong>. Hay que actualizarla manualmente:
+            </p>
+            <ul style="margin-top:0.5rem;">
+              <li>Hacé clic sobre la tabla de contenidos → aparece el botón <strong>Actualizar tabla</strong> en la parte superior.</li>
+              <li>Elegí entre <strong>Actualizar solo los números de página</strong> o <strong>Actualizar toda la tabla</strong>.</li>
+              <li>También podés ir a pestaña <strong>Referencias</strong> → <strong>Actualizar tabla</strong>.</li>
+            </ul>
+            <p class="card-example"><strong>Recomendación:</strong> Siempre actualizá la tabla antes de imprimir o enviar el documento.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Personalizar la tabla</p>
+            <h3>Opciones avanzadas</h3>
+            <ul>
+              <li><strong>Tabla de contenido personalizada:</strong> Referencias → Tabla de contenido → <strong>Tabla de contenido personalizada</strong>. Permite elegir cuántos niveles mostrar, el formato, si incluir números de página, etc.</li>
+              <li><strong>Eliminar la tabla:</strong> Referencias → Tabla de contenido → <strong>Quitar tabla de contenido</strong>.</li>
+              <li><strong>Navegar con la tabla:</strong> en el documento final, <kbd>Ctrl</kbd>+clic sobre una entrada de la tabla lleva directamente a esa sección.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- DEMO TABLA DE CONTENIDOS -->
+        <div style="margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+
+          <!-- MOCKUP ESTILOS DE TÍTULO -->
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Aplicar estilos de título</p>
+            <div class="word-window" style="margin-top:0;">
+              <div class="wm-titlebar">
+                <div style="display:flex;align-items:center;gap:0.5rem;">
+                  <span style="font-size:0.85rem;">📄</span>
+                  <span class="wm-titlebar-title">Informe.docx - Word</span>
+                </div>
+                <div class="wm-titlebar-controls">
+                  <span class="wm-ctrl-min"></span><span class="wm-ctrl-max"></span><span class="wm-ctrl-close"></span>
+                </div>
+              </div>
+              <div class="wm-tabs">
+                <div class="wm-tab">Archivo</div>
+                <div class="wm-tab active">Inicio</div>
+                <div class="wm-tab">Insertar</div>
+                <div class="wm-tab">Referencias</div>
+              </div>
+              <div class="wm-ribbon">
+                <div class="wm-rgroup">
+                  <div class="wm-rbtns">
+                    <div class="wm-rbtn" style="font-size:0.65rem;">Normal</div>
+                    <div class="wm-rbtn hi" style="font-size:0.7rem;font-weight:700;">Título 1</div>
+                    <div class="wm-rbtn" style="font-size:0.65rem;font-weight:600;">Título 2</div>
+                    <div class="wm-rbtn" style="font-size:0.62rem;font-weight:600;">Título 3</div>
+                  </div>
+                  <div class="wm-rgroup-label">Estilos</div>
+                </div>
+              </div>
+              <div class="wm-body">
+                <div class="wm-page" style="min-height:70px;">
+                  <div style="font-size:0.75rem;font-weight:700;color:#2b579a;margin-bottom:0.15rem;">1. Introducción</div>
+                  <div style="font-size:0.65rem;color:#374151;margin-bottom:0.15rem;">El presente informe analiza...</div>
+                  <div style="font-size:0.68rem;font-weight:700;color:#374151;margin-bottom:0.1rem;">1.1 Objetivos</div>
+                  <div style="font-size:0.65rem;color:#374151;">Los objetivos del trabajo son...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DEMO TABLA DE CONTENIDOS GENERADA -->
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Tabla de contenidos generada</p>
+            <div class="toc-demo">
+              <div class="toc-title">Tabla de contenidos</div>
+              <div class="toc-entry h1"><span>1. Introducción</span><span class="toc-page">1</span></div>
+              <div class="toc-entry h2"><span>1.1 Objetivos</span><span class="toc-page">1</span></div>
+              <div class="toc-entry h2"><span>1.2 Alcance del trabajo</span><span class="toc-page">2</span></div>
+              <div class="toc-entry h1"><span>2. Marco teórico</span><span class="toc-page">3</span></div>
+              <div class="toc-entry h2"><span>2.1 Definiciones</span><span class="toc-page">3</span></div>
+              <div class="toc-entry h2"><span>2.2 Antecedentes</span><span class="toc-page">4</span></div>
+              <div class="toc-entry h3"><span>2.2.1 Contexto histórico</span><span class="toc-page">4</span></div>
+              <div class="toc-entry h1"><span>3. Conclusiones</span><span class="toc-page">7</span></div>
+              <div class="toc-entry h1"><span>Bibliografía</span><span class="toc-page">8</span></div>
+            </div>
+            <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">La tabla se genera automáticamente según los estilos <strong>Título 1</strong>, <strong>Título 2</strong> y <strong>Título 3</strong> del documento.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Creá un documento en Word que integre todos los elementos vistos en esta clase:
+            formas, SmartArt, un gráfico, hipervínculos, comentarios, notas al pie y tabla de contenidos.
+          </p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Actividad · Documento integrador</p>
+          <h3>Crear un documento con ilustraciones y referencias</h3>
+          <ul>
+            <li><strong>Paso 1 —</strong> Abrí un documento en blanco y guardalo como <strong>"Informe Word Clase 4.docx"</strong>. Aplicá márgenes normales (2,5 cm en todos los lados).</li>
+            <li><strong>Paso 2 —</strong> Escribí el título <strong>"Sistemas Operativos"</strong> y aplicale el estilo <strong>Título 1</strong> (pestaña Inicio → Estilos → Título 1). Luego escribí el subtítulo <strong>"Introducción"</strong> con el estilo <strong>Título 2</strong>.</li>
+            <li><strong>Paso 3 —</strong> Insertá un <strong>SmartArt de tipo Jerarquía</strong> (Insertar → SmartArt → Jerarquía → Jerarquía básica). Creá un organigrama con: un nodo raíz <em>"Sistemas Operativos"</em> y tres ramas: <em>"Escritorio"</em>, <em>"Móvil"</em> y <em>"Servidor"</em>. Personalizá los colores desde la pestaña <strong>Diseño SmartArt</strong>.</li>
+            <li><strong>Paso 4 —</strong> Debajo del SmartArt escribí el subtítulo <strong>"Comparativa de uso"</strong> (Título 2) e insertá un <strong>Gráfico de columnas</strong> (Insertar → Gráfico → Columna → Columna agrupada). Ingresá datos comparativos de 3 sistemas operativos en 4 años.</li>
+            <li><strong>Paso 5 —</strong> Insertá una <strong>forma de llamada</strong> (Insertar → Formas → Llamadas → Llamada rectangular redondeada) al lado del gráfico. Dentro de la forma escribí una observación sobre los datos. Aplicale un relleno de color claro.</li>
+            <li><strong>Paso 6 —</strong> En el cuerpo del texto, seleccioná el nombre de un sistema operativo y creá un <strong>hipervínculo</strong> (<kbd>Ctrl</kbd>+<kbd>K</kbd>) que apunte a su sitio web oficial.</li>
+            <li><strong>Paso 7 —</strong> Seleccioná una frase del texto y agregá un <strong>comentario</strong> (Revisar → Nuevo comentario) con la nota: <em>"Verificar esta información con fuentes actualizadas."</em></li>
+            <li><strong>Paso 8 —</strong> Insertá al menos <strong>dos notas al pie</strong> (Referencias → Insertar nota al pie) en distintas partes del texto para citar fuentes o aclarar términos.</li>
+            <li><strong>Paso 9 —</strong> Posicioná el cursor al inicio del documento (antes del título) e insertá un salto de página (<kbd>Ctrl</kbd>+<kbd>Enter</kbd>). Posicioná el cursor al inicio del documento y generá la <strong>tabla de contenidos</strong> (Referencias → Tabla de contenido → Tabla automática 2).</li>
+            <li><strong>Paso 10 —</strong> Revisá el documento completo. Actualizá la tabla de contenidos haciendo clic sobre ella y seleccionando <strong>"Actualizar toda la tabla"</strong>. Guardá el archivo.</li>
+          </ul>
+
+          <div class="act-resultado">
+            <div class="act-resultado-label">Resultado esperado</div>
+            <div class="act-doc">
+              <div style="border-bottom:1px dashed #93c5fd;padding-bottom:0.5rem;margin-bottom:0.75rem;">
+                <div style="font-size:0.68rem;font-weight:700;color:#2b579a;margin-bottom:0.25rem;">TABLA DE CONTENIDOS</div>
+                <div style="font-size:0.75rem;color:#374151;">Sistemas Operativos ........................... 2</div>
+                <div style="font-size:0.75rem;color:#374151;padding-left:1rem;">Introducción ................................... 2</div>
+                <div style="font-size:0.75rem;color:#374151;padding-left:1rem;">Comparativa de uso ......................... 3</div>
+              </div>
+              <div style="font-size:0.82rem;font-weight:700;color:#2b579a;margin-bottom:0.25rem;">Sistemas Operativos</div>
+              <div style="font-size:0.76rem;font-weight:600;color:#374151;margin-bottom:0.25rem;">Introducción</div>
+              <div style="font-size:0.72rem;color:#374151;margin-bottom:0.5rem;">
+                [SmartArt de jerarquía con nodos de colores]
+              </div>
+              <div style="font-size:0.76rem;font-weight:600;color:#374151;margin-bottom:0.25rem;">Comparativa de uso</div>
+              <div style="font-size:0.72rem;color:#374151;margin-bottom:0.5rem;">[Gráfico de columnas con datos] + [Forma de llamada]</div>
+              <div style="font-size:0.72rem;color:#374151;">
+                El sistema operativo <span style="color:#2563eb;text-decoration:underline;">Windows</span><sup style="font-size:0.6em;color:#2563eb;">1</sup>
+                es el más utilizado en entornos de escritorio. El sistema
+                <span style="color:#2563eb;text-decoration:underline;">Linux</span><sup style="font-size:0.6em;color:#2563eb;">2</sup> predomina en servidores.
+              </div>
+              <hr style="border:none;border-top:1px solid #d1d5db;margin:0.75rem 0 0.4rem;width:40%;">
+              <div style="font-size:0.65rem;color:#6b7280;"><sup>1</sup> Sistema operativo desarrollado por Microsoft Corp.</div>
+              <div style="font-size:0.65rem;color:#6b7280;"><sup>2</sup> Kernel de código abierto creado por Linus Torvalds en 1991.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos y habilidades más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Formas y SmartArt</h3>
+            <p>
+              Se insertan desde <strong>Insertar → Ilustraciones</strong>. Las formas son
+              elementos sueltos; SmartArt organiza diagramas completos (jerarquías, procesos,
+              ciclos) con un diseño automático y coherente.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Gráficos</h3>
+            <p>
+              <strong>Insertar → Gráfico</strong> abre una hoja de Excel para ingresar los datos.
+              Word genera el gráfico automáticamente. Se puede cambiar el tipo, los colores
+              y los elementos desde las pestañas contextuales.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Hipervínculos</h3>
+            <p>
+              Seleccioná el texto y usá <kbd>Ctrl</kbd>+<kbd>K</kbd> o
+              <strong>Insertar → Hipervínculo</strong> para enlazar a una web, un archivo
+              o un lugar del mismo documento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Comentarios</h3>
+            <p>
+              Pestaña <strong>Revisar → Nuevo comentario</strong>. Aparecen como globos al
+              margen. Son ideales para revisión colaborativa sin modificar el texto original.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Notas al pie</h3>
+            <p>
+              Pestaña <strong>Referencias → Insertar nota al pie</strong> (<kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>F</kbd>).
+              Aparecen al pie de la página. Las notas al final van al final del documento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Tabla de contenidos</h3>
+            <p>
+              Aplicá estilos <strong>Título 1 / Título 2 / Título 3</strong> al texto, luego
+              <strong>Referencias → Tabla de contenido</strong>. Se actualiza con el botón
+              <strong>Actualizar tabla</strong>.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material de la cátedra</p>
+          <h2>Video de la clase</h2>
+          <p>Video oficial de la cátedra para acompañar los contenidos de esta clase.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/drAzayM61SE"
+                title="Procesador de textos Word — Formas, SmartArt, Gráficos y Referencias - Taller de Informática I"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase11.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 11 · Tablas, Configurar Página y Encabezados</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 13 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 4 · Clase 12</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
