@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Unidad 4 · Clase 13</title>
+  <meta
+    name="description"
+    content="Clase 13 de Taller de Informática I: buscar y reemplazar, ortografía y gramática, sinónimos, contar palabras, insertar portada y salto de página en Word."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Tabla de atajos */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .shortcut-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+    .shortcut-table td {
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .shortcut-table tr:last-child td { border-bottom: none; }
+    .shortcut-table tr:hover td { background: var(--surface-soft); }
+    .shortcut-table kbd {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 0.3rem;
+      padding: 0.1em 0.45em;
+      font-size: 0.82em;
+      font-family: monospace;
+      color: var(--text);
+    }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+    }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .actividad-block ul li {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .actividad-block ul li strong { color: var(--text); }
+
+    /* Resultado esperado */
+    .act-resultado {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 0.85rem;
+    }
+    .act-resultado-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .act-resultado-label::before { content: "✓"; }
+    .act-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.4rem;
+      padding: 1rem 1.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    /* Paso a paso */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .step-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      min-width: 1.75rem;
+      height: 1.75rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-body { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .step-body strong { color: var(--text); }
+
+    /* ===== WORD WINDOW MOCKUP ===== */
+    .word-window {
+      margin-top: 2rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      position: relative;
+      border: 1px solid #1e3a6e;
+    }
+    .wm-titlebar {
+      background: #2b579a;
+      color: #fff;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .wm-titlebar-title { font-size: 0.73rem; opacity: 0.95; }
+    .wm-titlebar-controls { display: flex; gap: 0.35rem; }
+    .wm-titlebar-controls span {
+      width: 11px; height: 11px; border-radius: 50%;
+      display: inline-block; opacity: 0.85;
+    }
+    .wm-ctrl-min { background: #fbbf24; }
+    .wm-ctrl-max { background: #34d399; }
+    .wm-ctrl-close { background: #f87171; }
+    .wm-tabs {
+      background: #2b579a;
+      display: flex;
+      gap: 0;
+      padding: 0 0.5rem;
+    }
+    .wm-tab {
+      padding: 0.28rem 0.7rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      cursor: default;
+      border-radius: 3px 3px 0 0;
+      user-select: none;
+    }
+    .wm-tab.active {
+      background: #fff;
+      color: #2b579a;
+      font-weight: 700;
+    }
+    .wm-ribbon {
+      background: #fff;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 0.4rem 0.75rem 0.3rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .wm-rgroup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding-right: 1rem;
+      border-right: 1px solid #e5e7eb;
+    }
+    .wm-rgroup:last-child { border-right: none; padding-right: 0; }
+    .wm-rgroup-label {
+      font-size: 0.58rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 0.15rem;
+    }
+    .wm-rbtns { display: flex; gap: 0.2rem; align-items: center; flex-wrap: wrap; }
+    .wm-rbtn {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 0.18rem 0.38rem;
+      font-size: 0.7rem;
+      color: #374151;
+      cursor: default;
+      white-space: nowrap;
+    }
+    .wm-rbtn.hi { background: #dbeafe; border-color: #93c5fd; }
+    .wm-rbtn.hi-green { background: #dcfce7; border-color: #86efac; }
+    .wm-rbtn.hi-purple { background: #f3e8ff; border-color: #d8b4fe; }
+    .wm-rbtn.hi-yellow { background: #fef9c3; border-color: #fbbf24; }
+    .wm-body {
+      background: #e5e7eb;
+      display: flex;
+      gap: 0;
+      padding: 0.75rem 0.75rem 0.75rem 0.5rem;
+    }
+    .wm-sidebar {
+      background: #fff;
+      width: 130px;
+      min-width: 130px;
+      border: 1px solid #d1d5db;
+      border-radius: 0.25rem;
+      margin-right: 0.5rem;
+      padding: 0.5rem;
+      font-size: 0.65rem;
+    }
+    .wm-sidebar-title {
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 0.35rem;
+      padding-bottom: 0.2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .wm-sidebar-result {
+      color: #6b7280;
+      padding: 0.2rem 0.35rem;
+      border-radius: 2px;
+      margin-bottom: 0.15rem;
+    }
+    .wm-sidebar-result.active { background: #dbeafe; color: #1d4ed8; font-weight: 600; }
+    .wm-page {
+      background: #fff;
+      flex: 1;
+      min-height: 120px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      color: #111;
+      line-height: 1.6;
+    }
+    .wm-statusbar {
+      background: #2b579a;
+      color: rgba(255,255,255,0.85);
+      padding: 0.22rem 0.75rem;
+      font-size: 0.64rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .wm-badge {
+      position: absolute;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .wm-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .wm-legend-item {
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+      font-size: 0.85rem;
+    }
+    .wm-num {
+      min-width: 1.5rem;
+      height: 1.5rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .wm-legend-item p { margin: 0; color: var(--muted); font-size: 0.83rem; line-height: 1.4; }
+    .wm-legend-item strong { color: var(--text); }
+
+    /* ===== DIALOGO BUSCAR Y REEMPLAZAR ===== */
+    .dialog-box {
+      background: #fff;
+      border: 1px solid #9ca3af;
+      border-radius: 0.35rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      overflow: hidden;
+      max-width: 380px;
+    }
+    .dialog-titlebar {
+      background: #f3f4f6;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.4rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dialog-titlebar-title { font-size: 0.72rem; font-weight: 600; color: #374151; }
+    .dialog-tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0 0.5rem;
+      background: #f9fafb;
+    }
+    .dialog-tab {
+      padding: 0.3rem 0.75rem;
+      font-size: 0.7rem;
+      color: #6b7280;
+      cursor: default;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .dialog-tab.active { color: #2b579a; border-bottom-color: #2b579a; font-weight: 600; }
+    .dialog-body { padding: 0.75rem 1rem; }
+    .dialog-field {
+      margin-bottom: 0.6rem;
+    }
+    .dialog-label {
+      font-size: 0.68rem;
+      color: #374151;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+    .dialog-input {
+      width: 100%;
+      border: 1px solid #9ca3af;
+      border-radius: 3px;
+      padding: 0.25rem 0.45rem;
+      font-size: 0.72rem;
+      color: #111;
+      background: #fff;
+      box-sizing: border-box;
+    }
+    .dialog-input.filled { background: #f0fdf4; border-color: #86efac; }
+    .dialog-footer {
+      display: flex;
+      gap: 0.4rem;
+      justify-content: flex-end;
+      padding: 0.5rem 1rem 0.75rem;
+    }
+    .dialog-btn {
+      background: #f3f4f6;
+      border: 1px solid #9ca3af;
+      border-radius: 3px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.7rem;
+      color: #374151;
+      cursor: default;
+    }
+    .dialog-btn.primary { background: #2b579a; color: #fff; border-color: #2b579a; }
+
+    /* ===== HIGHLIGHT TEXTO ===== */
+    .text-highlight-red { text-decoration: underline wavy #ef4444; }
+    .text-highlight-search { background: #fef9c3; }
+    .text-found { background: #bfdbfe; border-radius: 2px; padding: 0 1px; }
+    .text-replaced { color: #16a34a; font-weight: 600; }
+
+    /* ===== PANEL SINÓNIMOS ===== */
+    .synonyms-panel {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.4rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      overflow: hidden;
+      max-width: 220px;
+    }
+    .synonyms-header {
+      background: #2b579a;
+      color: #fff;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .synonyms-search-word {
+      padding: 0.4rem 0.65rem;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 0.7rem;
+      color: #374151;
+    }
+    .synonyms-search-word strong { color: #111; }
+    .synonyms-group-label {
+      padding: 0.3rem 0.65rem 0.1rem;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #6b7280;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .synonyms-item {
+      padding: 0.22rem 0.65rem 0.22rem 1.1rem;
+      color: #374151;
+      font-size: 0.72rem;
+      cursor: default;
+    }
+    .synonyms-item:hover { background: #f0f4ff; }
+    .synonyms-item.highlighted { background: #dbeafe; color: #1d4ed8; }
+
+    /* ===== DIALOGO CONTAR PALABRAS ===== */
+    .word-count-dialog {
+      background: #fff;
+      border: 1px solid #9ca3af;
+      border-radius: 0.35rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      overflow: hidden;
+      max-width: 280px;
+    }
+    .wcd-titlebar {
+      background: #f3f4f6;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.4rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wcd-title { font-weight: 600; font-size: 0.72rem; color: #374151; }
+    .wcd-body { padding: 0.75rem 1rem; }
+    .wcd-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.28rem 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .wcd-row:last-of-type { border-bottom: none; }
+    .wcd-label { color: #374151; }
+    .wcd-value { font-weight: 700; color: #111; }
+    .wcd-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      font-size: 0.68rem;
+      color: #6b7280;
+    }
+    .wcd-footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 0.4rem 1rem 0.6rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* ===== PORTADA GALERÍA ===== */
+    .cover-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .cover-thumb {
+      border: 2px solid var(--line);
+      border-radius: 0.4rem;
+      overflow: hidden;
+      cursor: default;
+      transition: border-color 0.15s;
+    }
+    .cover-thumb:hover { border-color: var(--primary); }
+    .cover-thumb-img {
+      aspect-ratio: 3/4;
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .cover-thumb-name {
+      font-size: 0.68rem;
+      text-align: center;
+      color: var(--muted);
+      padding: 0.3rem 0.2rem;
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+    }
+
+    /* ===== SALTO DE PÁGINA DEMO ===== */
+    .page-break-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .pb-page {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.35rem;
+      padding: 0.75rem 1.25rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    }
+    .pb-page-label {
+      font-size: 0.6rem;
+      color: #9ca3af;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .pb-page p { font-size: 0.72rem; color: #374151; line-height: 1.6; margin: 0; }
+    .pb-break-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0;
+    }
+    .pb-break-line::before,
+    .pb-break-line::after {
+      content: '';
+      flex: 1;
+      border-top: 1px dashed #d1d5db;
+    }
+    .pb-break-badge {
+      font-size: 0.6rem;
+      color: #6b7280;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 2rem;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+    }
+
+    /* ===== PORTADA PREVIEW ===== */
+    .cover-preview {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow: hidden;
+      max-width: 260px;
+    }
+    .cover-preview-band {
+      height: 55px;
+      background: linear-gradient(135deg, #2b579a, #3b82f6);
+    }
+    .cover-preview-body {
+      padding: 1.25rem 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .cover-preview-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #2b579a;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .cover-preview-subtitle {
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
+    .cover-preview-desc {
+      font-size: 0.66rem;
+      color: #374151;
+      line-height: 1.5;
+    }
+    .cover-preview-author {
+      font-size: 0.68rem;
+      color: #374151;
+      margin-top: 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#buscar">Buscar y Reemplazar</a>
+        <a href="#ortografia">Ortografía</a>
+        <a href="#sinonimos">Sinónimos</a>
+        <a href="#contar">Contar palabras</a>
+        <a href="#portada">Portada</a>
+        <a href="#salto">Salto de página</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Unidad 4</p>
+        <h1>Herramientas de Revisión y Portada en Word</h1>
+        <p class="lead">
+          Aprendé a <strong>buscar y reemplazar</strong> texto, corregir
+          <strong>ortografía y gramática</strong>, buscar <strong>sinónimos</strong>,
+          contar palabras e insertar una <strong>portada</strong> y un
+          <strong>salto de página</strong> en el documento.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#buscar">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 13</li>
+          <li>Microsoft Word</li>
+          <li>Revisión y Presentación</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Revisar y presentar un documento profesional</h2>
+        <p>
+          Usar las herramientas de revisión de Word para corregir el texto,
+          enriquecer el vocabulario y conocer las estadísticas del documento.
+          Dar una presentación formal insertando portada y separando secciones
+          con saltos de página.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Revisión</span>
+          <span>Corrección</span>
+          <span>Presentación</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            La pestaña <strong>Revisar</strong> concentra la ortografía, los sinónimos
+            y el conteo de palabras. La pestaña <strong>Inicio</strong> permite
+            <strong>Buscar y Reemplazar</strong> con <kbd>Ctrl</kbd>+<kbd>H</kbd>.
+            La <strong>portada</strong> se inserta desde <strong>Insertar → Portada</strong>.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- BUSCAR Y REEMPLAZAR -->
+    <section class="section" id="buscar">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Inicio · Edición</p>
+          <h2>Buscar y Reemplazar</h2>
+          <p>
+            La función <strong>Buscar y Reemplazar</strong> permite localizar una palabra o frase
+            dentro del documento y sustituirla por otra de forma rápida, ya sea de a una por vez
+            o todas a la vez.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Buscar texto</p>
+            <h3>Encontrar una palabra</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Inicio</strong> → grupo <strong>Edición</strong> → <strong>Buscar</strong>, o usá el atajo <kbd>Ctrl</kbd>+<kbd>B</kbd>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Se abre el <strong>Panel de navegación</strong> a la izquierda. Escribí la palabra que buscás en el campo de búsqueda.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Word resalta todas las apariciones en el documento. El panel muestra la cantidad de resultados encontrados.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Usá las flechas <strong>Anterior / Siguiente</strong> del panel para navegar entre los resultados.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Atajo:</strong> <kbd>Ctrl</kbd>+<kbd>B</kbd> abre la búsqueda. <kbd>Ctrl</kbd>+<kbd>H</kbd> abre directamente Buscar y Reemplazar.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Reemplazar texto</p>
+            <h3>Sustituir una palabra por otra</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Usá el atajo <kbd>Ctrl</kbd>+<kbd>H</kbd>, o en el panel de Buscar hacé clic en los tres puntos → <strong>Reemplazar</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">En el campo <strong>Buscar:</strong> escribí la palabra que querés cambiar.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">En el campo <strong>Reemplazar con:</strong> escribí la palabra nueva.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Hacé clic en <strong>Reemplazar</strong> para cambiar una aparición, o en <strong>Reemplazar todos</strong> para cambiar todas al mismo tiempo.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Atajos del teclado</p>
+            <h3>Búsqueda rápida</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Acción</th><th>Atajo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Abrir panel Buscar</td><td><kbd>Ctrl</kbd>+<kbd>B</kbd></td></tr>
+                <tr><td>Abrir Buscar y Reemplazar</td><td><kbd>Ctrl</kbd>+<kbd>H</kbd></td></tr>
+                <tr><td>Abrir cuadro Ir a (saltar a página)</td><td><kbd>F5</kbd></td></tr>
+                <tr><td>Cerrar panel de búsqueda</td><td><kbd>Esc</kbd></td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Opciones avanzadas</p>
+            <h3>Búsqueda con más precisión</h3>
+            <p>En el cuadro de Buscar y Reemplazar, hacé clic en <strong>Más &gt;&gt;</strong> para ver opciones adicionales:</p>
+            <ul>
+              <li><strong>Coincidir mayúsculas y minúsculas:</strong> diferencia "Robot" de "robot".</li>
+              <li><strong>Solo palabras completas:</strong> no encuentra "robótica" al buscar "robot".</li>
+              <li><strong>Usar caracteres comodín:</strong> permite buscar patrones con * y ?.</li>
+              <li><strong>Buscar con formato:</strong> buscá texto con un formato específico (negrita, color, etc.).</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- MOCKUP BUSCAR Y REEMPLAZAR -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Cuadro de diálogo · Buscar y Reemplazar</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;align-items:start;">
+
+            <!-- Panel de navegación -->
+            <div>
+              <p style="font-size:0.72rem;color:var(--muted);margin-bottom:0.5rem;">Panel de navegación (Ctrl+B)</p>
+              <div class="word-window" style="margin-top:0;">
+                <div class="wm-titlebar">
+                  <div style="display:flex;align-items:center;gap:0.5rem;">
+                    <span style="font-size:0.85rem;">📄</span>
+                    <span class="wm-titlebar-title">articulo sobre robotica.docx - Word</span>
+                  </div>
+                  <div class="wm-titlebar-controls">
+                    <span class="wm-ctrl-min"></span><span class="wm-ctrl-max"></span><span class="wm-ctrl-close"></span>
+                  </div>
+                </div>
+                <div class="wm-tabs">
+                  <div class="wm-tab active">Inicio</div>
+                  <div class="wm-tab">Insertar</div>
+                  <div class="wm-tab">Revisar</div>
+                </div>
+                <div class="wm-body" style="padding:0.5rem;">
+                  <div class="wm-sidebar">
+                    <div class="wm-sidebar-title">Navegación</div>
+                    <div style="display:flex;align-items:center;gap:0.2rem;margin-bottom:0.4rem;">
+                      <div style="flex:1;border:1px solid #9ca3af;border-radius:2px;padding:0.15rem 0.3rem;font-size:0.62rem;color:#111;">robot</div>
+                      <span style="font-size:0.65rem;color:#374151;">✕</span>
+                    </div>
+                    <div style="font-size:0.6rem;color:#6b7280;margin-bottom:0.35rem;">29 resultados</div>
+                    <div class="wm-sidebar-result">…Toyota ha creado un <span style="background:#bfdbfe;">robot</span>…</div>
+                    <div class="wm-sidebar-result active">…pequeño <span style="background:#fef9c3;font-weight:600;">robot</span> de 10 cm…</div>
+                    <div class="wm-sidebar-result">…robots sociales capaces…</div>
+                    <div class="wm-sidebar-result">…lanzó el <span style="background:#bfdbfe;">robot</span> al espacio…</div>
+                  </div>
+                  <div class="wm-page" style="min-height:80px;font-size:0.68rem;line-height:1.65;">
+                    Toyota ha creado un entrañable <span class="text-found">robot</span> diseñado
+                    para ser el nuevo copiloto de los conductores japoneses. Se trata de Kirobo Mini,
+                    un pequeño <span style="background:#fef9c3;border:1px solid #fbbf24;border-radius:1px;padding:0 1px;"><strong>robot</strong></span>
+                    de 10 centímetros de altura…
+                  </div>
+                </div>
+                <div class="wm-statusbar">
+                  <span>Página 1 de 4</span>
+                  <span>Palabras: 1.366</span>
+                  <span style="margin-left:auto;">100%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Diálogo Buscar y Reemplazar -->
+            <div>
+              <p style="font-size:0.72rem;color:var(--muted);margin-bottom:0.5rem;">Cuadro Buscar y Reemplazar (Ctrl+H)</p>
+              <div class="dialog-box">
+                <div class="dialog-titlebar">
+                  <span class="dialog-titlebar-title">Buscar y reemplazar</span>
+                  <span style="font-size:0.7rem;color:#6b7280;">✕</span>
+                </div>
+                <div class="dialog-tabs">
+                  <div class="dialog-tab">Buscar</div>
+                  <div class="dialog-tab active">Reemplazar</div>
+                  <div class="dialog-tab">Ir a</div>
+                </div>
+                <div class="dialog-body">
+                  <div class="dialog-field">
+                    <label class="dialog-label">Buscar:</label>
+                    <div class="dialog-input">coche</div>
+                  </div>
+                  <div style="font-size:0.62rem;color:#6b7280;margin-bottom:0.5rem;">Opciones: Hacia delante</div>
+                  <div class="dialog-field">
+                    <label class="dialog-label">Reemplazar con:</label>
+                    <div class="dialog-input filled">automóvil</div>
+                  </div>
+                </div>
+                <div class="dialog-footer">
+                  <div class="dialog-btn">Más &gt;&gt;</div>
+                  <div class="dialog-btn">Reemplazar</div>
+                  <div class="dialog-btn primary">Reemplazar todos</div>
+                  <div class="dialog-btn">Cancelar</div>
+                </div>
+              </div>
+              <p style="font-size:0.72rem;color:var(--muted);margin-top:0.6rem;">Al hacer clic en <strong>Reemplazar todos</strong>, Word cambia todas las apariciones de "coche" por "automóvil" de una sola vez.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ORTOGRAFÍA Y GRAMÁTICA -->
+    <section class="section alt" id="ortografia">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Revisar · Revisión</p>
+          <h2>Ortografía y Gramática</h2>
+          <p>
+            Word revisa automáticamente la ortografía y la gramática mientras escribís.
+            Los errores ortográficos se marcan con un subrayado rojo ondulado y los errores
+            gramaticales con un subrayado azul ondulado.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Corrección automática</p>
+            <h3>Indicadores visuales</h3>
+            <ul>
+              <li><strong>Subrayado rojo ondulado:</strong> error ortográfico (la palabra no existe en el diccionario).</li>
+              <li><strong>Subrayado azul ondulado:</strong> error gramatical o de estilo (frase mal construida, puntuación, concordancia).</li>
+            </ul>
+            <p style="margin-top:0.75rem;font-size:0.86rem;color:var(--muted);">Para corregir rápidamente: hacé <strong>clic derecho</strong> sobre la palabra subrayada y elegí entre las sugerencias que ofrece Word.</p>
+            <div style="margin-top:0.75rem;background:#f9fafb;border:1px solid #e5e7eb;border-radius:0.3rem;padding:0.65rem 0.85rem;font-family:'Segoe UI',sans-serif;font-size:0.82rem;line-height:1.7;">
+              El mundo de la robótica tiene una larga
+              <span class="text-highlight-red">evolucion</span>, hasta el punto de
+              desarrollar robots sociales capaces de interactuar con
+              <span style="text-decoration:underline wavy #3b82f6;">ellos mismos.</span>
+            </div>
+            <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem;">
+              <span style="color:#ef4444;">▬▬▬</span> Error ortográfico &nbsp;
+              <span style="color:#3b82f6;">▬▬▬</span> Error gramatical
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Revisión completa</p>
+            <h3>Revisar todo el documento</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Revisar</strong> → grupo <strong>Revisión</strong> → <strong>Ortografía y gramática</strong>, o presioná <kbd>F7</kbd>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Word abre un panel lateral que muestra el error y las sugerencias de corrección.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Elegí una de las sugerencias y hacé clic en <strong>Cambiar</strong> o <strong>Cambiar todo</strong>. Si la palabra es correcta, hacé clic en <strong>Omitir</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Al terminar, Word muestra un mensaje indicando que la revisión está completa.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Menú contextual</p>
+            <h3>Clic derecho sobre el error</h3>
+            <p>Al hacer clic derecho sobre una palabra subrayada, el menú muestra:</p>
+            <ul>
+              <li><strong>Sugerencias:</strong> las palabras correctas que Word propone (ej: "evolucion" → <strong>evolución</strong>).</li>
+              <li><strong>Omitir todo:</strong> ignora esta palabra en todo el documento (útil para nombres propios o términos técnicos).</li>
+              <li><strong>Agregar al diccionario:</strong> guarda la palabra para que no vuelva a marcarse como error.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Configurar idioma</p>
+            <h3>Español (Argentina)</h3>
+            <p>Es importante que el diccionario esté configurado en el idioma correcto:</p>
+            <ul>
+              <li>Pestaña <strong>Revisar</strong> → grupo <strong>Idioma</strong> → <strong>Idioma</strong> → <strong>Establecer idioma de corrección</strong>.</li>
+              <li>Seleccioná <strong>Español (Argentina)</strong> para que Word use el diccionario apropiado.</li>
+              <li>Si el texto fue copiado desde otra fuente, puede tener el idioma en inglés o castellano de España; cambiarlo evita falsos errores.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- MOCKUP REVISAR -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Pestaña Revisar · Herramientas de revisión</p>
+          <div class="word-window" style="margin-top:0;">
+            <div class="wm-titlebar">
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span style="font-size:0.85rem;">📄</span>
+                <span class="wm-titlebar-title">articulo sobre robotica.docx - Word</span>
+              </div>
+              <div class="wm-titlebar-controls">
+                <span class="wm-ctrl-min"></span><span class="wm-ctrl-max"></span><span class="wm-ctrl-close"></span>
+              </div>
+            </div>
+            <div class="wm-tabs">
+              <div class="wm-tab">Inicio</div>
+              <div class="wm-tab">Insertar</div>
+              <div class="wm-tab active">Revisar</div>
+              <div class="wm-tab">Vista</div>
+            </div>
+            <div class="wm-ribbon">
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn hi">ABC Ortografía y gramática</div>
+                  <div class="wm-rbtn hi-green">✓ Sinónimos</div>
+                  <div class="wm-rbtn hi-purple">123 Contar palabras</div>
+                </div>
+                <div class="wm-rgroup-label">Revisión</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">🌐 Traducir idioma ▾</div>
+                </div>
+                <div class="wm-rgroup-label">Idioma</div>
+              </div>
+              <div class="wm-rgroup">
+                <div class="wm-rbtns">
+                  <div class="wm-rbtn">💬 Nuevo comentario</div>
+                  <div class="wm-rbtn">← Anterior</div>
+                  <div class="wm-rbtn">→ Siguiente</div>
+                </div>
+                <div class="wm-rgroup-label">Comentarios</div>
+              </div>
+            </div>
+            <div class="wm-body">
+              <div class="wm-page" style="font-size:0.7rem;line-height:1.7;">
+                El mundo de la robótica tiene una larga <span class="text-highlight-red">evolucion</span>,
+                hasta el punto de desarrollar robots sociales capaces de interactuar con su entorno.
+                Algunos de ellos, como Buddy o ZenBo, están diseñados para ser compañeros
+                personales dentro de la <span class="text-highlight-red">robptica</span> doméstica.
+              </div>
+            </div>
+            <div class="wm-statusbar">
+              <span>Página 1 de 4</span>
+              <span>Palabras: 1.366</span>
+              <span>Español (Argentina)</span>
+              <span style="margin-left:auto;">100%</span>
+            </div>
+            <div class="wm-badge" style="top:68px;left:73px;">1</div>
+            <div class="wm-badge" style="top:68px;left:188px;">2</div>
+            <div class="wm-badge" style="top:68px;left:303px;">3</div>
+          </div>
+          <div class="wm-legend">
+            <div class="wm-legend-item"><div class="wm-num">1</div><p><strong>Ortografía y gramática</strong> — revisa el documento completo (<kbd>F7</kbd>). Resalta errores y propone correcciones.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">2</div><p><strong>Sinónimos</strong> — abre el panel Tesauro para buscar palabras con significado similar.</p></div>
+            <div class="wm-legend-item"><div class="wm-num">3</div><p><strong>Contar palabras</strong> — muestra estadísticas completas del documento.</p></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SINÓNIMOS -->
+    <section class="section" id="sinonimos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Revisar · Revisión</p>
+          <h2>Sinónimos (Tesauro)</h2>
+          <p>
+            El <strong>Tesauro</strong> de Word permite encontrar palabras con significado similar
+            (sinónimos) para enriquecer el vocabulario y evitar repeticiones en el texto. Se accede
+            desde la pestaña <strong>Revisar</strong>.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo buscar sinónimos?</p>
+            <h3>Dos formas de acceder</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Forma rápida:</strong> hacé clic derecho sobre la palabra → en el menú elegí <strong>Sinónimos</strong>. Aparece una lista de opciones directamente en el menú contextual.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body"><strong>Tesauro completo:</strong> seleccioná la palabra → pestaña <strong>Revisar</strong> → <strong>Sinónimos</strong> (o <kbd>Shift</kbd>+<kbd>F7</kbd>). Se abre un panel lateral con más opciones.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">En el panel Tesauro, hacé clic en el sinónimo deseado → clic en la flecha que aparece → <strong>Insertar</strong> para reemplazar la palabra en el texto.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Atajo:</strong> <kbd>Shift</kbd>+<kbd>F7</kbd> abre el Tesauro directamente.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Menú contextual rápido</p>
+            <h3>Sinónimos al instante</h3>
+            <p>Al hacer clic derecho sobre una palabra, el submenú <strong>Sinónimos</strong> muestra las primeras sugerencias:</p>
+            <ul>
+              <li>Al pasar el mouse sobre un sinónimo, aparece la opción de <strong>Insertar</strong> para reemplazarlo directamente.</li>
+              <li>Al final de la lista hay una opción <strong>Tesauro…</strong> para abrir el panel completo con más resultados.</li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> Al buscar sinónimos de "grande" se sugieren: enorme, inmenso, amplio, vasto, extenso.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Panel Tesauro</p>
+            <h3>Búsqueda avanzada</h3>
+            <ul>
+              <li>El panel agrupa los sinónimos por <strong>categoría gramatical</strong> (adjetivo, verbo, sustantivo) y por <strong>sentido</strong>.</li>
+              <li>Podés buscar sinónimos de un sinónimo: hacé clic sobre cualquier palabra del panel y el tesauro se actualiza.</li>
+              <li>También muestra <strong>antónimos</strong> (palabras de significado opuesto) en algunos casos.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Buenas prácticas</p>
+            <h3>Cuándo usar sinónimos</h3>
+            <ul>
+              <li><strong>Evitar repeticiones:</strong> si usaste "importante" tres veces en un párrafo, reemplazá algunas apariciones por "relevante", "significativo" o "fundamental".</li>
+              <li><strong>Adaptar el registro:</strong> elegí un sinónimo más formal o más coloquial según el tipo de documento.</li>
+              <li><strong>Verificar el significado:</strong> un sinónimo no siempre tiene exactamente el mismo sentido. Usalo con cuidado para no alterar el mensaje.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- DEMO SINÓNIMOS -->
+        <div style="margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;align-items:start;">
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Menú contextual · Sinónimos</p>
+            <div style="background:#fff;border:1px solid #d1d5db;border-radius:0.4rem;padding:0.75rem 1rem;font-family:'Segoe UI',sans-serif;font-size:0.78rem;line-height:1.7;box-shadow:0 2px 6px rgba(0,0,0,0.07);">
+              La robótica tiene una larga <span style="background:#bfdbfe;border-radius:2px;padding:0 2px;font-weight:600;">evolución</span> hasta el punto de desarrollar robots <span style="text-decoration:underline wavy #9ca3af;">capaces</span> de interactuar.
+            </div>
+            <div style="background:#fff;border:1px solid #9ca3af;border-radius:0.35rem;box-shadow:0 6px 20px rgba(0,0,0,0.18);font-family:'Segoe UI',sans-serif;font-size:0.72rem;margin-top:0.4rem;overflow:hidden;max-width:200px;">
+              <div style="padding:0.22rem 0.75rem;background:#f9fafb;border-bottom:1px solid #e5e7eb;font-size:0.7rem;font-weight:600;color:#374151;">Sinónimos</div>
+              <div style="padding:0.18rem 0.75rem 0.18rem 1.2rem;color:#374151;background:#dbeafe;font-weight:600;">avance</div>
+              <div style="padding:0.18rem 0.75rem 0.18rem 1.2rem;color:#374151;">desarrollo</div>
+              <div style="padding:0.18rem 0.75rem 0.18rem 1.2rem;color:#374151;">progreso</div>
+              <div style="padding:0.18rem 0.75rem 0.18rem 1.2rem;color:#374151;">cambio</div>
+              <div style="padding:0.18rem 0.75rem 0.18rem 1.2rem;color:#374151;">proceso</div>
+              <div style="padding:0.18rem 0.75rem 0.18rem 1.2rem;color:#2b579a;font-size:0.68rem;">Tesauro…</div>
+            </div>
+          </div>
+
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Panel Tesauro completo</p>
+            <div class="synonyms-panel">
+              <div class="synonyms-header">Tesauro</div>
+              <div class="synonyms-search-word">Buscando: <strong>evolución</strong></div>
+              <div class="synonyms-group-label">Sustantivo (desarrollo)</div>
+              <div class="synonyms-item highlighted">avance</div>
+              <div class="synonyms-item">desarrollo</div>
+              <div class="synonyms-item">progreso</div>
+              <div class="synonyms-item">proceso</div>
+              <div class="synonyms-group-label">Sustantivo (cambio)</div>
+              <div class="synonyms-item">transformación</div>
+              <div class="synonyms-item">mutación</div>
+              <div class="synonyms-item">variación</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTAR PALABRAS -->
+    <section class="section" id="contar">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Revisar · Revisión</p>
+          <h2>Contar Palabras</h2>
+          <p>
+            La función <strong>Contar palabras</strong> muestra estadísticas detalladas del documento:
+            páginas, palabras, caracteres, párrafos y líneas. Es útil para verificar la extensión
+            de un trabajo cuando hay un límite de palabras.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo acceder?</p>
+            <h3>Tres maneras de contar palabras</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Barra de estado:</strong> en la parte inferior de la ventana de Word aparece el contador de palabras siempre visible. Hacé clic sobre él para abrir el cuadro completo.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body"><strong>Pestaña Revisar:</strong> grupo <strong>Revisión</strong> → <strong>Contar palabras</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body"><strong>Selección parcial:</strong> seleccioná una parte del texto antes de abrir Contar palabras para ver las estadísticas solo de esa selección.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Estadísticas del documento</p>
+            <h3>¿Qué muestra el cuadro?</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Estadística</th><th>¿Qué cuenta?</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Páginas</strong></td><td>Cantidad total de páginas del documento.</td></tr>
+                <tr><td><strong>Palabras</strong></td><td>Total de palabras (incluye encabezados, pies de página y cuadros de texto si está activada la opción).</td></tr>
+                <tr><td><strong>Caracteres (sin espacios)</strong></td><td>Cantidad de letras, números y signos de puntuación.</td></tr>
+                <tr><td><strong>Caracteres (con espacios)</strong></td><td>Igual que el anterior pero incluyendo los espacios.</td></tr>
+                <tr><td><strong>Párrafos</strong></td><td>Cantidad de párrafos (cada vez que se presiona Enter).</td></tr>
+                <tr><td><strong>Líneas</strong></td><td>Total de líneas de texto en el documento.</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Barra de estado</p>
+            <h3>Contador en tiempo real</h3>
+            <p>
+              La barra de estado en la parte inferior de Word muestra el conteo de palabras
+              de forma continua mientras escribís. Podés ver:
+            </p>
+            <ul>
+              <li>El total de palabras del documento completo.</li>
+              <li>Si tenés texto seleccionado, muestra <strong>X de Y palabras</strong> (seleccionadas sobre el total).</li>
+            </ul>
+            <p class="card-example"><strong>Ejemplo:</strong> "Palabras: 45 de 1.366" significa que tenés seleccionadas 45 palabras de un documento de 1.366 en total.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Incluir o excluir elementos</p>
+            <h3>Opción del cuadro de diálogo</h3>
+            <p>En el cuadro Contar palabras hay una casilla de verificación:</p>
+            <ul>
+              <li><strong>Incluir cuadros de texto, notas al pie y notas al final:</strong> si está activada, el conteo incluye el texto dentro de esos elementos. Si está desactivada, solo cuenta el cuerpo principal del documento.</li>
+            </ul>
+            <p class="card-example"><strong>Útil para:</strong> trabajos académicos donde los pies de página no cuentan dentro del límite de palabras requerido.</p>
+          </article>
+        </div>
+
+        <!-- DEMO CONTAR PALABRAS -->
+        <div style="margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;align-items:center;">
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Cuadro estadístico · Contar palabras</p>
+            <div class="word-count-dialog">
+              <div class="wcd-titlebar">
+                <span class="wcd-title">Contar palabras</span>
+                <div style="display:flex;gap:0.3rem;">
+                  <span style="font-size:0.65rem;background:#d1d5db;border-radius:2px;padding:0.1rem 0.3rem;">?</span>
+                  <span style="font-size:0.65rem;background:#d1d5db;border-radius:2px;padding:0.1rem 0.3rem;">✕</span>
+                </div>
+              </div>
+              <div class="wcd-body">
+                <div style="font-size:0.7rem;font-weight:700;color:#374151;margin-bottom:0.5rem;">Estadísticas:</div>
+                <div class="wcd-row"><span class="wcd-label">Páginas</span><span class="wcd-value">4</span></div>
+                <div class="wcd-row"><span class="wcd-label">Palabras</span><span class="wcd-value">1.366</span></div>
+                <div class="wcd-row"><span class="wcd-label">Caracteres (sin espacios)</span><span class="wcd-value">6.959</span></div>
+                <div class="wcd-row"><span class="wcd-label">Caracteres (con espacios)</span><span class="wcd-value">8.300</span></div>
+                <div class="wcd-row"><span class="wcd-label">Párrafos</span><span class="wcd-value">27</span></div>
+                <div class="wcd-row"><span class="wcd-label">Líneas</span><span class="wcd-value">112</span></div>
+                <div class="wcd-checkbox">
+                  <div style="width:11px;height:11px;border:1px solid #9ca3af;background:#2b579a;border-radius:1px;display:flex;align-items:center;justify-content:center;">
+                    <span style="color:#fff;font-size:0.55rem;">✓</span>
+                  </div>
+                  Incluir cuadros de texto, notas al pie y notas al final
+                </div>
+              </div>
+              <div class="wcd-footer">
+                <div class="dialog-btn primary">Cerrar</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Barra de estado en Word</p>
+            <div style="background:#2b579a;border-radius:0.35rem;padding:0.3rem 0.85rem;display:inline-flex;gap:1.5rem;font-family:'Segoe UI',sans-serif;font-size:0.65rem;color:rgba(255,255,255,0.9);">
+              <span>Página 2 de 4</span>
+              <span style="background:rgba(255,255,255,0.12);border-radius:2px;padding:0.05rem 0.35rem;cursor:pointer;text-decoration:underline dotted rgba(255,255,255,0.5);">Palabras: 1.366</span>
+              <span>Español (Argentina)</span>
+            </div>
+            <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">El contador de palabras en la barra de estado se actualiza en tiempo real. Hacé clic sobre él para abrir el cuadro de estadísticas completo.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PORTADA -->
+    <section class="section alt" id="portada">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar · Páginas</p>
+          <h2>Insertar Portada</h2>
+          <p>
+            Word incluye una galería de <strong>portadas prediseñadas</strong> que se insertan al
+            inicio del documento con un solo clic. Cada portada tiene campos editables para el
+            título, subtítulo, descripción y autor.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo insertar una portada?</p>
+            <h3>Paso a paso</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Pestaña <strong>Insertar</strong> → grupo <strong>Páginas</strong> → <strong>Portada</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">Se abre una galería de diseños. Elegí el que más te guste (Austin, Con bandas, Cuadrícula, Faceta, Filigrana, etc.).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">La portada se inserta automáticamente al inicio del documento (antes de cualquier otro contenido).</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">Hacé clic sobre cada campo de la portada (<em>[Título del documento]</em>, <em>[Subtítulo]</em>, <em>[Nombre]</em>) y escribí el contenido.</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Campos de la portada</p>
+            <h3>Qué podés completar</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th>Campo</th><th>Contenido</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Título del documento</strong></td><td>El título principal del trabajo.</td></tr>
+                <tr><td><strong>Subtítulo</strong></td><td>Un subtítulo o tema secundario.</td></tr>
+                <tr><td><strong>Descripción breve</strong></td><td>Un párrafo corto con el resumen del documento.</td></tr>
+                <tr><td><strong>Nombre / Autor</strong></td><td>Nombre y apellido del/la autor/a.</td></tr>
+                <tr><td><strong>Fecha</strong></td><td>Fecha de entrega o creación.</td></tr>
+                <tr><td><strong>Empresa / Institución</strong></td><td>Nombre de la organización.</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Editar y quitar</p>
+            <h3>Gestionar la portada</h3>
+            <ul>
+              <li><strong>Cambiar diseño:</strong> podés volver a Insertar → Portada y elegir otro diseño; Word reemplaza la portada actual sin afectar el resto del documento.</li>
+              <li><strong>Quitar portada:</strong> Insertar → Portada → <strong>Quitar portada actual</strong>.</li>
+              <li><strong>Los campos son texto normal:</strong> una vez completados, podés seguir formateando el texto (cambiar fuente, tamaño, color) como en cualquier parte del documento.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Diseños disponibles</p>
+            <h3>Galería de portadas</h3>
+            <p>Algunos diseños incluidos en Word:</p>
+            <ul>
+              <li><strong>Austin:</strong> franja lateral con título destacado.</li>
+              <li><strong>Con bandas:</strong> bandas horizontales de color con el título.</li>
+              <li><strong>Cuadrícula:</strong> diseño con cuadros superpuestos.</li>
+              <li><strong>Faceta:</strong> rectángulos geométricos en la esquina.</li>
+              <li><strong>Filigrana:</strong> diseño clásico con texto superpuesto.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> El menú también incluye <strong>Más portadas de Office.com</strong> para descargar diseños adicionales.</p>
+          </article>
+        </div>
+
+        <!-- DEMO PORTADA -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Ejemplo de portada · "Artículos sobre Robótica"</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;align-items:start;">
+            <div class="cover-preview">
+              <div class="cover-preview-band"></div>
+              <div class="cover-preview-body">
+                <div class="cover-preview-title">Artículos sobre Robótica</div>
+                <div class="cover-preview-subtitle">[Subtítulo del documento]</div>
+                <div class="cover-preview-desc">
+                  Descripción breve<br>
+                  Dibujar al lector con un resumen de la participación. Normalmente es un breve resumen del documento.
+                </div>
+                <div class="cover-preview-author">Miguel Prigioniero<br><span style="font-size:0.62rem;color:#9ca3af;">[Dirección de correo electrónico]</span></div>
+              </div>
+            </div>
+            <div>
+              <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Para crear esta portada:</p>
+              <div class="step-list" style="margin-top:0;">
+                <div class="step-item">
+                  <div class="step-num">1</div>
+                  <div class="step-body">Pestaña <strong>Insertar</strong> → <strong>Portada</strong> → elegí el diseño <strong>"Con bandas"</strong> o similar.</div>
+                </div>
+                <div class="step-item">
+                  <div class="step-num">2</div>
+                  <div class="step-body">Hacé clic en el campo de título y escribí <strong>"Artículos sobre Robótica"</strong>.</div>
+                </div>
+                <div class="step-item">
+                  <div class="step-num">3</div>
+                  <div class="step-body">Completá la descripción breve con un resumen del contenido del documento.</div>
+                </div>
+                <div class="step-item">
+                  <div class="step-num">4</div>
+                  <div class="step-body">Escribí tu <strong>nombre y apellido</strong> en el campo de autor.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SALTO DE PÁGINA -->
+    <section class="section" id="salto">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Pestaña Insertar · Páginas</p>
+          <h2>Salto de Página</h2>
+          <p>
+            Un <strong>salto de página</strong> fuerza el inicio de una nueva página en el punto
+            exacto donde está el cursor, sin importar cuánto espacio haya en la página actual.
+            Es la forma correcta de separar secciones en un documento.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">¿Cómo insertar un salto de página?</p>
+            <h3>Dos métodos</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body"><strong>Atajo de teclado (más rápido):</strong> posicioná el cursor al inicio del texto que queda en la nueva página y presioná <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body"><strong>Desde la cinta:</strong> pestaña <strong>Insertar</strong> → grupo <strong>Páginas</strong> → <strong>Salto de página</strong>.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">El texto desde el cursor en adelante se mueve a la página siguiente. El salto de página aparece como una línea punteada en la vista de borrador.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Atajo:</strong> <kbd>Ctrl</kbd>+<kbd>Enter</kbd> inserta el salto de página directamente.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Salto manual vs. salto automático</p>
+            <h3>La diferencia importa</h3>
+            <table class="shortcut-table" style="margin-top:0.5rem;">
+              <thead>
+                <tr><th></th><th>Salto manual</th><th>Salto automático</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>¿Cómo se crea?</strong></td>
+                  <td>El usuario lo inserta con <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.</td>
+                  <td>Word lo genera automáticamente cuando la página se llena.</td>
+                </tr>
+                <tr>
+                  <td><strong>¿Se puede eliminar?</strong></td>
+                  <td>Sí, seleccionando la marca de salto y presionando <kbd>Delete</kbd>.</td>
+                  <td>No, desaparece solo si el contenido encaja en una sola página.</td>
+                </tr>
+                <tr>
+                  <td><strong>Uso típico</strong></td>
+                  <td>Separar capítulos, secciones, artículos.</td>
+                  <td>Continuación natural del texto.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Ver y eliminar saltos</p>
+            <h3>Marcas de formato</h3>
+            <p>Para ver los saltos de página en el documento:</p>
+            <ul>
+              <li>Pestaña <strong>Inicio</strong> → grupo <strong>Párrafo</strong> → botón <strong>¶</strong> (Mostrar todo) o atajo <kbd>Ctrl</kbd>+<kbd>*</kbd>. Activa la vista de todas las marcas de formato, incluidos los saltos de página.</li>
+              <li>El salto aparece como una línea punteada con el texto "Salto de página".</li>
+              <li>Para eliminarlo: hacé clic al inicio de esa línea y presioná <kbd>Retroceso</kbd>, o colocá el cursor antes y presioná <kbd>Delete</kbd>.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Por qué NO usar Enter repetido</p>
+            <h3>Buena práctica</h3>
+            <p>
+              Un error común es presionar <kbd>Enter</kbd> muchas veces para bajar el texto
+              a la página siguiente. Esto genera problemas:
+            </p>
+            <ul>
+              <li>Si se agrega o elimina texto, los "Enter" extras desplazan el contenido y se pierde el diseño.</li>
+              <li>El salto de página manual siempre empieza la nueva página exactamente donde corresponde, sin importar los cambios en el documento.</li>
+            </ul>
+            <p class="card-example"><strong>Regla:</strong> Nunca uses Enter para saltar de página. Siempre usá <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.</p>
+          </article>
+        </div>
+
+        <!-- DEMO SALTO DE PÁGINA -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve el salto de página en el documento</p>
+          <div class="page-break-demo">
+            <div class="pb-page">
+              <div class="pb-page-label">Página 1</div>
+              <p>
+                En definitiva, parece que la convivencia entre humanos y robots está destinada
+                a formar parte de la sociedad japonesa, y muy pronto de la europea. Con este
+                robot en miniatura, Toyota espera contribuir al desarrollo de la sociedad y
+                mejorar la atención personalizada.
+              </p>
+            </div>
+            <div class="pb-break-line">
+              <span class="pb-break-badge">— Salto de página —</span>
+            </div>
+            <div class="pb-page">
+              <div class="pb-page-label">Página 2</div>
+              <p>
+                <strong>Este robot tiene la precisión suficiente como para operar de cataratas</strong>
+              </p>
+              <p style="margin-top:0.35rem;">
+                La firma tecnológica Cambridge Consultants ha creado un robot que puede
+                operar de cataratas con una precisión milimétrica.
+              </p>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">El salto de página se inserta <strong>antes</strong> del título del segundo artículo. De esta forma, cada artículo empieza en una página nueva.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section alt" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>Aplicá las herramientas de revisión y presentación sobre el documento de la clase.</p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Actividad</p>
+          <h3>Artículos sobre Robótica</h3>
+          <ul>
+            <li><strong>1.</strong> Abrí el archivo <strong>"artículo sobre robotica.docx"</strong>.</li>
+            <li><strong>2.</strong> Buscá la palabra <strong>"robot"</strong> (<kbd>Ctrl</kbd>+<kbd>B</kbd>).</li>
+            <li><strong>3.</strong> Reemplazá <strong>"coche"</strong> por <strong>"automóvil"</strong> (<kbd>Ctrl</kbd>+<kbd>H</kbd> → Reemplazar todos).</li>
+            <li><strong>4.</strong> Insertá un salto de página (<kbd>Ctrl</kbd>+<kbd>Enter</kbd>) antes del segundo artículo <em>"Este robot tiene la precisión…"</em>.</li>
+            <li><strong>5.</strong> Agregá una portada (Insertar → Portada) con el título <strong>"Artículos sobre Robótica"</strong>, una descripción breve y tu <strong>nombre y apellido</strong>.</li>
+          </ul>
+
+          <div class="act-resultado">
+            <div class="act-resultado-label">Resultado esperado</div>
+            <div class="act-doc" style="padding:0.75rem 1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;align-items:start;">
+
+              <!-- Portada mini -->
+              <div style="border:1px solid #e5e7eb;border-radius:0.35rem;overflow:hidden;font-family:'Segoe UI',sans-serif;">
+                <div style="height:30px;background:linear-gradient(135deg,#2b579a,#3b82f6);"></div>
+                <div style="padding:0.6rem 0.75rem;">
+                  <div style="font-size:0.58rem;color:#9ca3af;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.25rem;">Página 1 · Portada</div>
+                  <div style="font-size:0.72rem;font-weight:700;color:#2b579a;text-transform:uppercase;margin-bottom:0.15rem;">Artículos sobre Robótica</div>
+                  <div style="font-size:0.6rem;color:#6b7280;margin-bottom:0.25rem;">[Subtítulo]</div>
+                  <div style="font-size:0.58rem;color:#374151;line-height:1.4;margin-bottom:0.35rem;">Breve descripción del contenido del documento…</div>
+                  <div style="font-size:0.6rem;color:#374151;border-top:1px solid #e5e7eb;padding-top:0.25rem;">Tu nombre y apellido</div>
+                </div>
+              </div>
+
+              <!-- Página 1 con texto final + salto -->
+              <div style="border:1px solid #e5e7eb;border-radius:0.35rem;padding:0.6rem 0.75rem;font-family:'Segoe UI',sans-serif;">
+                <div style="font-size:0.58rem;color:#9ca3af;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.3rem;">Pág. 2 → "coche" reemplazado</div>
+                <div style="font-size:0.64rem;color:#374151;line-height:1.55;">
+                  …Toyota usa este pequeño
+                  <span style="text-decoration:line-through;color:#ef4444;font-size:0.6rem;">coche</span>
+                  <span class="text-replaced" style="font-size:0.64rem;"> automóvil</span>
+                  copiloto en sus pruebas de conducción autónoma…
+                </div>
+                <div style="margin-top:0.4rem;border-top:1px dashed #d1d5db;padding-top:0.3rem;display:flex;align-items:center;gap:0.35rem;">
+                  <div style="flex:1;height:1px;background:#d1d5db;"></div>
+                  <span style="font-size:0.55rem;color:#9ca3af;white-space:nowrap;">— Salto de página —</span>
+                  <div style="flex:1;height:1px;background:#d1d5db;"></div>
+                </div>
+              </div>
+
+              <!-- Página 2 segundo artículo -->
+              <div style="border:1px solid #e5e7eb;border-radius:0.35rem;padding:0.6rem 0.75rem;font-family:'Segoe UI',sans-serif;">
+                <div style="font-size:0.58rem;color:#9ca3af;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.3rem;">Pág. 3 · Segundo artículo</div>
+                <div style="font-size:0.67rem;font-weight:700;color:#111;line-height:1.4;margin-bottom:0.3rem;">Este robot tiene la precisión suficiente como para operar de cataratas</div>
+                <div style="font-size:0.62rem;color:#374151;line-height:1.55;">La firma tecnológica Cambridge Consultants ha creado un robot que puede operar de cataratas con una precisión milimétrica…</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos y habilidades más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Buscar y Reemplazar</h3>
+            <p>
+              <kbd>Ctrl</kbd>+<kbd>B</kbd> abre el panel de búsqueda y resalta todas las
+              apariciones. <kbd>Ctrl</kbd>+<kbd>H</kbd> abre el cuadro para reemplazar una
+              palabra por otra, una a una o todas a la vez.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Ortografía y Gramática</h3>
+            <p>
+              La pestaña <strong>Revisar → Ortografía y gramática</strong> (<kbd>F7</kbd>)
+              recorre el documento y propone correcciones. El clic derecho sobre una palabra
+              subrayada también muestra las sugerencias.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Sinónimos</h3>
+            <p>
+              Clic derecho → <strong>Sinónimos</strong> para una lista rápida.
+              Pestaña <strong>Revisar → Sinónimos</strong> o <kbd>Shift</kbd>+<kbd>F7</kbd>
+              para abrir el Tesauro completo con más opciones.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Contar Palabras</h3>
+            <p>
+              Pestaña <strong>Revisar → Contar palabras</strong> muestra páginas, palabras,
+              caracteres, párrafos y líneas. El contador en la barra de estado está siempre visible.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Portada</h3>
+            <p>
+              Pestaña <strong>Insertar → Portada</strong>. Elegí un diseño de la galería y
+              completá los campos de título, descripción y autor. Se inserta automáticamente
+              al inicio del documento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Salto de Página</h3>
+            <p>
+              <kbd>Ctrl</kbd>+<kbd>Enter</kbd> inserta un salto de página en el punto exacto
+              del cursor. Nunca uses Enter repetido para saltar de página: el salto manual
+              es estable y no se desplaza con los cambios.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material de la cátedra</p>
+          <h2>Video de la clase</h2>
+          <p>Video oficial de la cátedra para acompañar los contenidos de esta clase.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;">
+            <p style="font-size:0.9rem;color:var(--muted);text-align:center;margin:0;">
+              Prigioniero, M. <strong>Procesador de textos.</strong><br>
+              Hacé clic para ver el video de la clase en el campus virtual.
+            </p>
+            <a
+              href="https://tinyurl.com/yddxe7uj"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+            >
+              Ver video de la clase
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase12.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 12 · Formas, SmartArt, Gráficos y Referencias</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 14 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Unidad 4 · Clase 13</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
