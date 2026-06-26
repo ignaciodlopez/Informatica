@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Clase 14 · Inteligencia Artificial</title>
+  <meta
+    name="description"
+    content="Clase 14 de Taller de Informática I: qué es la inteligencia artificial, herramientas como ChatGPT, Gemini y Copilot, cómo escribir buenos prompts y usos prácticos."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* ===== STEP LIST ===== */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .step-item {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      min-width: 1.75rem;
+      height: 1.75rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-body { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .step-body strong { color: var(--text); }
+
+    /* ===== CHAT DEMO ===== */
+    .chat-window {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.82rem;
+      border: 1px solid #e5e7eb;
+      margin-top: 1.5rem;
+    }
+    .chat-titlebar {
+      background: #10a37f;
+      color: #fff;
+      padding: 0.45rem 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-titlebar-name { font-size: 0.78rem; font-weight: 700; }
+    .chat-titlebar-controls { display: flex; gap: 0.35rem; }
+    .chat-titlebar-controls span {
+      width: 10px; height: 10px; border-radius: 50%;
+      display: inline-block; opacity: 0.85;
+    }
+    .chat-body {
+      background: #fff;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .chat-msg {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+    }
+    .chat-msg.user { flex-direction: row-reverse; }
+    .chat-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .chat-avatar.ai { background: #10a37f; color: #fff; }
+    .chat-avatar.human { background: #6b7280; color: #fff; }
+    .chat-bubble {
+      max-width: 80%;
+      padding: 0.6rem 0.85rem;
+      border-radius: 0.75rem;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+    .chat-bubble.ai {
+      background: #f3f4f6;
+      color: #111;
+      border-radius: 0.2rem 0.75rem 0.75rem 0.75rem;
+    }
+    .chat-bubble.user {
+      background: #10a37f;
+      color: #fff;
+      border-radius: 0.75rem 0.2rem 0.75rem 0.75rem;
+    }
+    .chat-input-bar {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 0.65rem 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .chat-input-bar input {
+      flex: 1;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      font-family: inherit;
+      background: #fff;
+      outline: none;
+    }
+    .chat-send-btn {
+      background: #10a37f;
+      color: #fff;
+      border: none;
+      border-radius: 0.4rem;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.75rem;
+      cursor: default;
+    }
+
+    /* ===== HERRAMIENTAS GRID ===== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .tool-logo {
+      width: 40px; height: 40px;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .tool-card h3 { font-size: 0.95rem; margin: 0; }
+    .tool-card .tool-maker { font-size: 0.72rem; color: var(--muted); margin: 0; }
+    .tool-card .tool-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.5; flex: 1; }
+    .tool-card .tool-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.2rem; }
+    .tool-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+    .tool-card .tool-link {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      margin-top: 0.2rem;
+      display: inline-block;
+    }
+    .tool-card .tool-link:hover { text-decoration: underline; }
+
+    /* ===== PROMPT COMPARISON ===== */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 640px) { .prompt-grid { grid-template-columns: 1fr; } }
+    .prompt-card {
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .prompt-card.bad {
+      background: #fff5f5;
+      border: 1px solid #fca5a5;
+    }
+    .prompt-card.good {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+    }
+    .prompt-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .prompt-label.bad { color: #dc2626; }
+    .prompt-label.good { color: #16a34a; }
+    .prompt-text {
+      background: #fff;
+      border-radius: 0.4rem;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.83rem;
+      color: #374151;
+      font-style: italic;
+      border: 1px solid #e5e7eb;
+      line-height: 1.55;
+    }
+    .prompt-result {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .prompt-result strong { color: var(--text); }
+
+    /* ===== COTIDIANA GRID ===== */
+    .cotidiana-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+    }
+    .cotidiana-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cotidiana-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+    .cotidiana-item h4 { font-size: 0.88rem; margin: 0; }
+    .cotidiana-item p { font-size: 0.78rem; color: var(--muted); margin: 0; line-height: 1.4; }
+
+    /* ===== ALERTA / CUIDADO ===== */
+    .alerta-box {
+      background: #fff7ed;
+      border: 1px solid #fb923c;
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-top: 1rem;
+    }
+    .alerta-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .alerta-body { font-size: 0.87rem; color: #7c2d12; line-height: 1.55; }
+    .alerta-body strong { color: #9a3412; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#que-es">¿Qué es la IA?</a>
+        <a href="#cotidiana">IA cotidiana</a>
+        <a href="#herramientas">Herramientas</a>
+        <a href="#prompts">Prompts</a>
+        <a href="#usos">Usos prácticos</a>
+        <a href="#cuidados">Cuidados</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Taller de Informática I · Clase adicional</p>
+        <h1>Inteligencia Artificial</h1>
+        <p class="lead">
+          Qué es la <strong>inteligencia artificial</strong>, qué herramientas existen hoy,
+          cómo hablarle para obtener buenos resultados y de qué manera puede ayudarte
+          en el estudio, el trabajo y la vida cotidiana.
+        </p>
+
+        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:999px;padding:0.3rem 0.85rem;margin-bottom:0.5rem;">
+          <span style="font-size:0.75rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#fff;">★ Clase adicional</span>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#que-es">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#herramientas">Ver herramientas</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Adicional</li>
+          <li>Inteligencia Artificial</li>
+          <li>Herramientas y Prompts</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Entender la IA y empezar a usarla</h2>
+        <p>
+          Conocer qué es la inteligencia artificial, en qué situaciones ya la usamos
+          sin darnos cuenta, qué herramientas de IA generativa existen y cómo
+          aprovecharlas para tareas concretas del día a día.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>¿Qué es?</span>
+          <span>Herramientas</span>
+          <span>Prompts</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            La IA no es magia ni ciencia ficción. Es una tecnología que ya usamos todos
+            los días. Aprender a usarla bien es una habilidad cada vez más importante.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- QUÉ ES LA IA -->
+    <section class="section" id="que-es">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Conceptos básicos</p>
+          <h2>¿Qué es la Inteligencia Artificial?</h2>
+          <p>
+            La <strong>inteligencia artificial (IA)</strong> es una rama de la informática que busca
+            crear programas capaces de realizar tareas que, hasta ahora, requerían inteligencia humana:
+            entender texto, reconocer imágenes, traducir idiomas, tomar decisiones o generar contenido nuevo.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Definición simple</p>
+            <h3>¿Cómo "aprende" una IA?</h3>
+            <p>A diferencia de un programa tradicional (que sigue instrucciones paso a paso escritas por un programador), una IA <strong>aprende a partir de ejemplos</strong>:</p>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">Se le muestran <strong>millones de ejemplos</strong>: textos, imágenes, conversaciones, datos.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">La IA <strong>detecta patrones</strong> en esos ejemplos y ajusta su comportamiento.</div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">Con el tiempo, puede <strong>responder situaciones nuevas</strong> que nunca había visto antes.</div>
+              </div>
+            </div>
+            <p class="card-example"><strong>Analogía:</strong> Es como aprender a manejar. No memorizás cada calle; aprendés patrones (señales, curvas, tráfico) y los aplicás en situaciones nuevas.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">¿Qué puede hacer?</p>
+            <h3>Capacidades actuales de la IA</h3>
+            <ul>
+              <li><strong>Entender y generar texto:</strong> redactar, resumir, traducir, responder preguntas.</li>
+              <li><strong>Reconocer imágenes:</strong> identificar objetos, personas, textos en fotos.</li>
+              <li><strong>Generar imágenes:</strong> crear ilustraciones, fotos o diseños a partir de una descripción.</li>
+              <li><strong>Transcribir audio:</strong> convertir voz en texto con alta precisión.</li>
+              <li><strong>Recomendar contenido:</strong> sugerir películas, música, productos según tus gustos.</li>
+              <li><strong>Detectar patrones:</strong> fraudes bancarios, diagnósticos médicos, predicción del tiempo.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Tipos de IA</p>
+            <h3>IA estrecha vs. IA general</h3>
+            <p>Hoy existen dos grandes categorías:</p>
+            <ul>
+              <li>
+                <strong>IA estrecha (lo que existe hoy):</strong> especializada en una sola tarea.
+                ChatGPT es muy bueno con texto, pero no puede manejar un auto.
+                Un motor de recomendaciones sugiere películas, pero no traduce idiomas.
+              </li>
+              <li>
+                <strong>IA general (todavía no existe):</strong> una IA que pudiera hacer cualquier
+                tarea intelectual que hace un humano. Sigue siendo un objetivo de investigación,
+                no una realidad.
+              </li>
+            </ul>
+            <p class="card-example">Lo que ves en películas de ciencia ficción (robots que sienten, planean y actúan por su cuenta) es IA general. Hoy no existe.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">¿Qué NO puede hacer?</p>
+            <h3>Límites importantes</h3>
+            <ul>
+              <li><strong>No piensa:</strong> no tiene conciencia, opiniones propias ni emociones. Genera respuestas que "suenan bien" según los patrones que aprendió.</li>
+              <li><strong>No siempre tiene razón:</strong> puede inventar información que parece verdadera pero es falsa. A esto se llama "alucinación".</li>
+              <li><strong>No sabe todo:</strong> los modelos tienen una fecha de corte de conocimiento y no acceden a información en tiempo real (salvo que tengan esa función habilitada).</li>
+              <li><strong>No reemplaza el criterio humano:</strong> en decisiones importantes (médicas, legales, financieras), la IA es una ayuda, no una respuesta definitiva.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- IA EN TU VIDA COTIDIANA -->
+    <section class="section alt" id="cotidiana">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ya la usás sin saberlo</p>
+          <h2>La IA en tu vida cotidiana</h2>
+          <p>
+            No hace falta abrir ChatGPT para usar inteligencia artificial. Ya está integrada
+            en decenas de aplicaciones que usás todos los días.
+          </p>
+        </div>
+
+        <div class="cotidiana-grid">
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">🎬</div>
+            <h4>Netflix / YouTube</h4>
+            <p>El sistema de recomendaciones analiza lo que mirás y predice qué querés ver a continuación.</p>
+          </div>
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">🎵</div>
+            <h4>Spotify</h4>
+            <p>Las listas "Descubrimiento semanal" y "Daily Mix" son generadas por IA según tu historial.</p>
+          </div>
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">🗺️</div>
+            <h4>Google Maps / Waze</h4>
+            <p>Predicen el tráfico, calculan rutas y estiman tiempos de llegada en tiempo real.</p>
+          </div>
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">📱</div>
+            <h4>Siri / Google Assistant</h4>
+            <p>Reconocen tu voz, entienden lo que pedís y ejecutan acciones o responden preguntas.</p>
+          </div>
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">📸</div>
+            <h4>Filtros de fotos</h4>
+            <p>Los filtros de belleza, la detección de caras y el "modo retrato" del celular usan IA.</p>
+          </div>
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">📧</div>
+            <h4>Correo electrónico</h4>
+            <p>El filtro de spam que separa los correos basura de los importantes funciona con IA.</p>
+          </div>
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">🛒</div>
+            <h4>Tiendas online</h4>
+            <p>"Otros usuarios también compraron…" es un sistema de recomendación basado en IA.</p>
+          </div>
+          <div class="cotidiana-item">
+            <div class="cotidiana-icon">⌨️</div>
+            <h4>Autocorrector</h4>
+            <p>El corrector del celular y el subrayado rojo en Word detectan errores usando IA.</p>
+          </div>
+        </div>
+
+        <div class="alerta-box" style="margin-top:2rem;background:#f0f9ff;border-color:#7dd3fc;">
+          <div class="alerta-icon">💡</div>
+          <div class="alerta-body" style="color:#0c4a6e;">
+            <strong>Para pensar:</strong> La próxima vez que uses alguna de estas aplicaciones, prestá atención a cómo "adivina" lo que querés. Eso es inteligencia artificial trabajando en segundo plano, de forma invisible.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERRAMIENTAS DE IA GENERATIVA -->
+    <section class="section" id="herramientas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">IA generativa</p>
+          <h2>Herramientas de IA que podés usar hoy</h2>
+          <p>
+            La <strong>IA generativa</strong> es una categoría especial: en lugar de solo analizar
+            o clasificar información, crea contenido nuevo: textos, imágenes, código, resúmenes.
+            Estas son las herramientas más populares y accesibles hoy.
+          </p>
+        </div>
+
+        <div class="tools-grid">
+
+          <div class="tool-card">
+            <div class="tool-logo" style="background:#10a37f;">🤖</div>
+            <h3>ChatGPT</h3>
+            <p class="tool-maker">OpenAI</p>
+            <p class="tool-desc">
+              El asistente de IA más conocido del mundo. Conversás con él como si fuera una
+              persona: le hacés preguntas, le pedís que redacte textos, que explique conceptos,
+              que resuma documentos o que te ayude a estudiar.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag">Texto</span>
+              <span class="tool-tag">Preguntas</span>
+              <span class="tool-tag">Resúmenes</span>
+              <span class="tool-tag">Código</span>
+            </div>
+            <span class="tool-link">chatgpt.com · Gratis con cuenta</span>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-logo" style="background:#4285f4;">✦</div>
+            <h3>Gemini</h3>
+            <p class="tool-maker">Google</p>
+            <p class="tool-desc">
+              La IA de Google. Similar a ChatGPT, pero integrada con los servicios de Google
+              (Gmail, Docs, Drive). Puede buscar en Internet en tiempo real y trabajar con
+              imágenes además de texto.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag">Texto</span>
+              <span class="tool-tag">Imágenes</span>
+              <span class="tool-tag">Búsqueda</span>
+              <span class="tool-tag">Google Drive</span>
+            </div>
+            <span class="tool-link">gemini.google.com · Gratis con cuenta Google</span>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-logo" style="background:#0078d4;">⊕</div>
+            <h3>Microsoft Copilot</h3>
+            <p class="tool-maker">Microsoft</p>
+            <p class="tool-desc">
+              La IA de Microsoft, integrada en Windows, el navegador Edge y las aplicaciones
+              de Office (Word, Excel, PowerPoint). Si ya usás Word, Copilot puede ayudarte
+              a redactar y mejorar textos directamente desde el documento.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag">Texto</span>
+              <span class="tool-tag">Word / Excel</span>
+              <span class="tool-tag">Imágenes</span>
+              <span class="tool-tag">Windows</span>
+            </div>
+            <span class="tool-link">copilot.microsoft.com · Gratis</span>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-logo" style="background:#7c3aed;">🎨</div>
+            <h3>Canva IA</h3>
+            <p class="tool-maker">Canva</p>
+            <p class="tool-desc">
+              La popular herramienta de diseño incorporó funciones de IA: generá imágenes
+              a partir de texto, remové fondos de fotos, redimensioná diseños automáticamente
+              y pedile a la IA que reescriba o mejore tus textos.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag">Diseño</span>
+              <span class="tool-tag">Imágenes</span>
+              <span class="tool-tag">Texto</span>
+            </div>
+            <span class="tool-link">canva.com · Gratis (funciones básicas)</span>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-logo" style="background:#e96b1a;">🖼️</div>
+            <h3>DALL-E / Adobe Firefly</h3>
+            <p class="tool-maker">OpenAI / Adobe</p>
+            <p class="tool-desc">
+              Herramientas especializadas en <strong>generar imágenes</strong> a partir de una
+              descripción en texto. Describís lo que querés ver y la IA lo crea. Adobe Firefly
+              está integrado en Photoshop e Illustrator.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag">Imágenes</span>
+              <span class="tool-tag">Arte IA</span>
+              <span class="tool-tag">Diseño</span>
+            </div>
+            <span class="tool-link">Integrado en ChatGPT y Adobe</span>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-logo" style="background:#374151;">🎙️</div>
+            <h3>Whisper / Otter.ai</h3>
+            <p class="tool-maker">OpenAI / Otter</p>
+            <p class="tool-desc">
+              Herramientas de <strong>transcripción automática</strong>: convertís audio o video
+              en texto con alta precisión. Muy útiles para transcribir clases, reuniones o
+              entrevistas sin tener que escribir manualmente.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag">Audio a texto</span>
+              <span class="tool-tag">Transcripción</span>
+            </div>
+            <span class="tool-link">otter.ai · Gratis (plan limitado)</span>
+          </div>
+
+        </div>
+
+        <!-- Demo chat -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve una conversación con ChatGPT</p>
+          <div class="chat-window">
+            <div class="chat-titlebar">
+              <span class="chat-titlebar-name">ChatGPT</span>
+              <div class="chat-titlebar-controls">
+                <span style="background:#fbbf24;"></span>
+                <span style="background:#34d399;"></span>
+                <span style="background:#f87171;"></span>
+              </div>
+            </div>
+            <div class="chat-body">
+              <div class="chat-msg user">
+                <div class="chat-avatar human">Yo</div>
+                <div class="chat-bubble user">¿Qué es la RAM y para qué sirve? Explicalo de forma simple.</div>
+              </div>
+              <div class="chat-msg">
+                <div class="chat-avatar ai">IA</div>
+                <div class="chat-bubble ai">
+                  La <strong>RAM</strong> (Random Access Memory) es la memoria temporal de tu computadora.
+                  Funciona como el escritorio donde ponés todo lo que estás usando ahora: los programas abiertos,
+                  las pestañas del navegador, el documento que estás editando.<br><br>
+                  Cuando apagás la computadora, todo lo que estaba en la RAM se borra (por eso se llama memoria temporal).
+                  Lo que querés guardar va al disco rígido.<br><br>
+                  <strong>Más RAM = podés tener más cosas abiertas al mismo tiempo</strong> sin que el equipo se ponga lento.
+                </div>
+              </div>
+              <div class="chat-msg user">
+                <div class="chat-avatar human">Yo</div>
+                <div class="chat-bubble user">¿Y cuánta RAM necesito para uso normal?</div>
+              </div>
+              <div class="chat-msg">
+                <div class="chat-avatar ai">IA</div>
+                <div class="chat-bubble ai">
+                  Para uso cotidiano (navegar, usar Office, ver videos), con <strong>8 GB</strong> alcanza y sobra.
+                  Si trabajás con diseño, edición de video o juegos, conviene tener <strong>16 GB o más</strong>.
+                </div>
+              </div>
+            </div>
+            <div class="chat-input-bar">
+              <input type="text" placeholder="Escribí tu pregunta aquí…" disabled />
+              <button class="chat-send-btn">Enviar</button>
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:0.65rem;">La conversación es natural: podés hacer preguntas de seguimiento, pedir que explique de otra manera o que dé más ejemplos.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROMPTS -->
+    <section class="section alt" id="prompts">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La clave para buenos resultados</p>
+          <h2>¿Qué es un prompt y cómo escribir uno bueno?</h2>
+          <p>
+            Un <strong>prompt</strong> es el mensaje o instrucción que le escribís a la IA.
+            La calidad de la respuesta depende en gran medida de la calidad del prompt.
+            Una instrucción vaga produce una respuesta vaga; una instrucción específica
+            produce una respuesta útil.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Principio 1</p>
+            <h3>Sé específico y detallado</h3>
+            <p>Cuanta más información le das a la IA, mejor entiende lo que necesitás.</p>
+            <ul>
+              <li>Describí el <strong>tema</strong> con precisión.</li>
+              <li>Indicá el <strong>objetivo</strong>: ¿para qué necesitás esa información?</li>
+              <li>Mencioná el <strong>contexto</strong>: ¿sos estudiante, profesional, principiante?</li>
+            </ul>
+            <p class="card-example">
+              ❌ "Explicame las redes" <br>
+              ✅ "Explicame qué es una red LAN, para qué se usa y cuál es la diferencia con una WAN. Hablame como si fuera un estudiante de secundaria."
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Principio 2</p>
+            <h3>Indicá el formato que querés</h3>
+            <p>Podés pedirle a la IA que responda de una manera específica:</p>
+            <ul>
+              <li><strong>Lista con viñetas</strong> para pasos o enumeraciones.</li>
+              <li><strong>Tabla</strong> para comparar dos o más cosas.</li>
+              <li><strong>Texto corrido</strong> para redacciones o explicaciones.</li>
+              <li><strong>Breve / en detalle</strong> para controlar el largo de la respuesta.</li>
+            </ul>
+            <p class="card-example">
+              "Haceme una tabla comparando RAM y ROM. Columnas: qué es, cuándo se borra, para qué sirve."
+            </p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Principio 3</p>
+            <h3>Asignale un rol</h3>
+            <p>Podés pedirle a la IA que actúe como un experto en un área:</p>
+            <ul>
+              <li>"Actuá como un <strong>profesor de primaria</strong> y explicame la fotosíntesis."</li>
+              <li>"Sos un <strong>corrector de estilo</strong>. Revisá este texto y mejorá la redacción sin cambiar las ideas."</li>
+              <li>"Sos un <strong>asistente de cocina</strong>. Sugería una receta con los ingredientes que te digo."</li>
+            </ul>
+            <p class="card-example">Asignarle un rol ayuda a la IA a ajustar el nivel del lenguaje, el tono y el enfoque de la respuesta.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Principio 4</p>
+            <h3>Podés corregirla y pedirle que mejore</h3>
+            <p>La IA no te da una sola oportunidad. La conversación es iterativa:</p>
+            <ul>
+              <li>"<strong>Explicalo más simple</strong>, no entendí la parte de los protocolos."</li>
+              <li>"<strong>Hacelo más corto</strong>, en no más de 5 puntos."</li>
+              <li>"<strong>Agregá un ejemplo</strong> concreto para cada punto."</li>
+              <li>"<strong>Cambiá el tono</strong>, que suene más formal."</li>
+            </ul>
+            <p class="card-example">No tengas miedo de pedir que rehaga la respuesta. Es parte del proceso.</p>
+          </article>
+        </div>
+
+        <!-- Comparación buen/mal prompt -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Comparación · Prompt vago vs. Prompt específico</p>
+          <div class="prompt-grid">
+            <div class="prompt-card bad">
+              <div class="prompt-label bad">✗ Prompt vago</div>
+              <div class="prompt-text">"Hablame de Word"</div>
+              <p class="prompt-result">
+                <strong>Resultado probable:</strong> una respuesta muy general sobre qué es Word,
+                su historia y características básicas. Útil para nadie en particular.
+              </p>
+            </div>
+            <div class="prompt-card good">
+              <div class="prompt-label good">✓ Prompt específico</div>
+              <div class="prompt-text">"Soy estudiante y necesito aprender a hacer una tabla de contenidos automática en Word. Explicame el proceso paso a paso, en lenguaje simple, incluyendo qué debo hacer antes de insertarla."</div>
+              <p class="prompt-result">
+                <strong>Resultado probable:</strong> una guía clara y ordenada, adaptada a
+                alguien que está aprendiendo, con los pasos en el orden correcto.
+              </p>
+            </div>
+            <div class="prompt-card bad">
+              <div class="prompt-label bad">✗ Prompt vago</div>
+              <div class="prompt-text">"Escribime algo sobre el medio ambiente"</div>
+              <p class="prompt-result">
+                <strong>Resultado probable:</strong> un texto genérico sobre el medio ambiente
+                que no sirve para nada concreto.
+              </p>
+            </div>
+            <div class="prompt-card good">
+              <div class="prompt-label good">✓ Prompt específico</div>
+              <div class="prompt-text">"Escribime un párrafo de 100 palabras sobre el cambio climático, para incluir en un trabajo de secundaria. Tono formal, sin tecnicismos. Que mencione causas y consecuencias."</div>
+              <p class="prompt-result">
+                <strong>Resultado probable:</strong> un párrafo listo para usar, del largo
+                adecuado, con el tono y el contenido exacto que pediste.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- USOS PRÁCTICOS -->
+    <section class="section" id="usos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Aplicaciones concretas</p>
+          <h2>Usos prácticos de la IA</h2>
+          <p>
+            Más allá de hacer preguntas sueltas, la IA puede convertirse en una herramienta
+            real para mejorar tu productividad, tu aprendizaje y tu trabajo diario.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Para estudiar</p>
+            <h3>La IA como compañero de estudio</h3>
+            <ul>
+              <li><strong>Explicar conceptos difíciles:</strong> "Explicame la mitosis como si tuviera 12 años."</li>
+              <li><strong>Resumir apuntes:</strong> pegás tu texto y le pedís que lo sintetice en puntos clave.</li>
+              <li><strong>Generar preguntas de repaso:</strong> "Haceme 5 preguntas de múltiple choice sobre este tema."</li>
+              <li><strong>Corregir errores:</strong> compartís un ejercicio resuelto y le pedís que revise si está bien.</li>
+              <li><strong>Buscar ejemplos:</strong> "Dame 3 ejemplos concretos de redes LAN en la vida real."</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para escribir</p>
+            <h3>Ayuda con redacción</h3>
+            <ul>
+              <li><strong>Mejorar un texto que ya escribiste:</strong> "Revisá la ortografía y mejorá la redacción sin cambiar las ideas."</li>
+              <li><strong>Cambiar el tono:</strong> "Reescribí este email de forma más formal / más amigable."</li>
+              <li><strong>Traducir:</strong> "Traducí este párrafo al inglés en un nivel intermedio."</li>
+              <li><strong>Generar un borrador:</strong> le explicás la idea y te da un primer texto que vos después editás.</li>
+              <li><strong>Buscar palabras:</strong> "¿Cómo se dice 'realizar' sin repetir tanto esa palabra?"</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Para el trabajo</p>
+            <h3>Productividad laboral</h3>
+            <ul>
+              <li><strong>Redactar emails:</strong> describís la situación y la IA escribe el correo.</li>
+              <li><strong>Resumir documentos largos:</strong> pegás un informe extenso y pedís un resumen ejecutivo.</li>
+              <li><strong>Crear listas y checklists:</strong> "Haceme una lista de todo lo que necesito para organizar una reunión."</li>
+              <li><strong>Generar ideas:</strong> "Dame 10 ideas de nombres para un negocio de comida saludable."</li>
+              <li><strong>Organizar información:</strong> le dás datos desordenados y los convierte en una tabla.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Para el día a día</p>
+            <h3>Usos cotidianos</h3>
+            <ul>
+              <li><strong>Recetas de cocina:</strong> "Tengo pollo, arroz y limón. ¿Qué puedo cocinar?"</li>
+              <li><strong>Planificar un viaje:</strong> "Quiero ir 3 días a Córdoba capital con poco presupuesto. ¿Qué hago?"</li>
+              <li><strong>Consejos de salud (orientativos):</strong> "¿Qué alimentos ayudan a bajar el colesterol?"</li>
+              <li><strong>Resolver dudas rápidas:</strong> preguntas que antes googleabas, ahora las respondés en conversación.</li>
+              <li><strong>Hacer las compras:</strong> "Haceme una lista de supermercado para una semana para 2 personas, que incluya comidas económicas."</li>
+            </ul>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CUIDADOS Y LIMITACIONES -->
+    <section class="section alt" id="cuidados">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Uso responsable</p>
+          <h2>Cuidados y limitaciones de la IA</h2>
+          <p>
+            Usar IA de forma inteligente implica también conocer sus límites y sus riesgos.
+            No todo lo que dice la IA es verdad, y no todo uso es apropiado.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Limitación 1</p>
+            <h3>Las "alucinaciones"</h3>
+            <p>
+              La IA puede <strong>inventar información</strong> que suena completamente real y convincente
+              pero que es falsa. A este fenómeno se lo llama "alucinación".
+            </p>
+            <ul>
+              <li>Puede inventar citas de personas famosas que nunca dijeron eso.</li>
+              <li>Puede dar fechas, nombres o estadísticas incorrectas con total seguridad.</li>
+              <li>Puede crear referencias bibliográficas de libros que no existen.</li>
+            </ul>
+            <div class="alerta-box" style="margin-top:0.75rem;">
+              <div class="alerta-icon">⚠️</div>
+              <div class="alerta-body">Siempre verificá la información importante en fuentes confiables antes de usarla.</div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Limitación 2</p>
+            <h3>Fecha de corte del conocimiento</h3>
+            <p>
+              Los modelos de IA se entrenan con datos hasta una fecha determinada. Después de esa fecha,
+              <strong>no saben qué pasó en el mundo</strong>.
+            </p>
+            <ul>
+              <li>No conocen noticias recientes, resultados electorales ni eventos actuales (salvo que tengan acceso a Internet habilitado).</li>
+              <li>Si preguntás algo sobre "el último partido" o "el precio actual del dólar", pueden equivocarse.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> Para información en tiempo real, usá buscadores como Google, o usá versiones de IA con acceso a Internet (Gemini, Copilot o ChatGPT con búsqueda activada).</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Cuidado 1</p>
+            <h3>Privacidad: qué no compartir</h3>
+            <p>
+              Todo lo que escribís en la IA puede ser usado para mejorar el modelo o revisado por
+              la empresa. <strong>Nunca compartas:</strong>
+            </p>
+            <ul>
+              <li>Contraseñas o datos de acceso a cuentas.</li>
+              <li>Datos personales sensibles: número de documento, domicilio, datos bancarios.</li>
+              <li>Información confidencial de tu trabajo o empresa.</li>
+              <li>Datos médicos o de salud propios o de terceros.</li>
+            </ul>
+            <p class="card-example">Tratá la IA como trataría a cualquier plataforma de Internet pública.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Cuidado 2</p>
+            <h3>Uso responsable en el estudio</h3>
+            <p>
+              La IA es una herramienta de aprendizaje, no un atajo para no aprender:
+            </p>
+            <ul>
+              <li><strong>Usala para entender, no para copiar:</strong> pedile que explique, no que haga el trabajo por vos.</li>
+              <li><strong>Verificá lo que produce:</strong> si la IA te da una respuesta para un trabajo, leela, entendela y confirmá que es correcta.</li>
+              <li><strong>Muchas instituciones tienen políticas sobre el uso de IA.</strong> Consultá las reglas de tu escuela o institución antes de usarla en evaluaciones.</li>
+            </ul>
+            <p class="card-example">La IA puede ayudarte a aprender más rápido. Pero si la usás para saltarte el proceso, te perdés el aprendizaje.</p>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Resumen de la clase</p>
+          <h2>Lo más importante</h2>
+        </div>
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Conceptos clave</p>
+            <h3>Qué es la IA</h3>
+            <ul>
+              <li>La IA aprende de ejemplos, no sigue instrucciones fijas.</li>
+              <li>Hoy existe IA estrecha (especializada); la IA general es ficción.</li>
+              <li>Ya usamos IA en Netflix, Spotify, Maps, el corrector y más.</li>
+              <li>La IA generativa crea texto, imágenes y código nuevo.</li>
+            </ul>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Herramientas principales</p>
+            <h3>Dónde acceder</h3>
+            <ul>
+              <li><strong>ChatGPT</strong> (chatgpt.com) — texto y análisis</li>
+              <li><strong>Gemini</strong> (gemini.google.com) — texto + Google</li>
+              <li><strong>Copilot</strong> (copilot.microsoft.com) — integrado en Office</li>
+              <li><strong>Canva IA</strong> (canva.com) — diseño e imágenes</li>
+            </ul>
+          </article>
+          <article class="info-card accent-purple">
+            <p class="card-label">Prompts efectivos</p>
+            <h3>Las 4 claves</h3>
+            <ul>
+              <li>Sé <strong>específico</strong> en lo que pedís.</li>
+              <li>Indicá el <strong>formato</strong> que querés (lista, tabla, resumen…).</li>
+              <li>Asignale un <strong>rol</strong> si es útil (profesor, corrector…).</li>
+              <li><strong>Iterá</strong>: si no quedó bien, pedile que lo mejore.</li>
+            </ul>
+          </article>
+          <article class="info-card accent-yellow">
+            <p class="card-label">Cuidados</p>
+            <h3>Usala bien</h3>
+            <ul>
+              <li>Verificá información importante: la IA puede equivocarse.</li>
+              <li>No compartas datos personales o sensibles.</li>
+              <li>Usala para aprender, no para saltarte el aprendizaje.</li>
+              <li>Para noticias recientes, combinala con un buscador.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="parcial2.html">
+        <span class="class-nav-label">Anterior</span>
+        <span class="class-nav-title">Segundo Parcial · Repaso y Modelo de Examen</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 15 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Contenido adicional · Inteligencia Artificial</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

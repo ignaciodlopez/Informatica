@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taller de Informática I | Segundo Parcial</title>
+  <meta
+    name="description"
+    content="Segundo Parcial de Taller de Informática I: repaso completo de Unidad 4 (Word), con guía de estudio y modelo de examen."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Badge de parcial */
+    .parcial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    /* Tarjetas de repaso */
+    .repaso-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .repaso-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .repaso-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    .repaso-card .rc-clase {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .repaso-card h3 {
+      font-size: 1rem;
+      margin: 0 0 0.6rem;
+    }
+    .repaso-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .repaso-card ul li {
+      font-size: 0.87rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .repaso-card ul li::before {
+      content: "›";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .repaso-card .rc-link {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .repaso-card .rc-link:hover { text-decoration: underline; }
+
+    /* Consignas del parcial */
+    .consigna-list {
+      counter-reset: consigna;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .consigna-list li {
+      counter-increment: consigna;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .consigna-list li::before {
+      content: counter(consigna);
+      min-width: 1.8rem;
+      height: 1.8rem;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .consigna-list li p {
+      margin: 0;
+      font-size: 0.93rem;
+      line-height: 1.55;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">Taller de Informática I</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#repaso-u4a">Repaso C9–C11</a>
+        <a href="#repaso-u4b">Repaso C12–C13</a>
+        <a href="#conceptos-clave">Conceptos clave</a>
+        <a href="#parcial">Modelo de parcial</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="parcial-badge">📋 Evaluación</div>
+        <p class="eyebrow">Taller de Informática I · Unidad 4</p>
+        <h1>Segundo Parcial</h1>
+        <p class="lead">
+          Guía de repaso y modelo del segundo parcial. Cubre los contenidos
+          de la <strong>Unidad 4</strong>: Microsoft Word desde la interfaz básica hasta
+          las herramientas avanzadas de formato, ilustraciones y referencias.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#repaso-u4a">Empezar repaso</a>
+          <a class="btn btn-secondary" href="#parcial">Ver modelo de parcial</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos del parcial">
+          <li>Clases 9 a 13</li>
+          <li>Unidad 4 · Word</li>
+          <li>Repaso + Examen</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">¿Qué entra en el parcial?</p>
+        <h2>Contenidos evaluados</h2>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem;">
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 9:</strong> Interfaz, texto, formato de fuente y párrafo</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 10:</strong> Imágenes, ajuste de texto, columnas y letra capital</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 11:</strong> Tablas, configurar página y encabezados</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 12:</strong> Formas, SmartArt, gráficos, hipervínculos, notas al pie y tabla de contenidos</li>
+          <li style="font-size:0.9rem;color:var(--muted);"><strong style="color:var(--text);">Clase 13:</strong> Buscar y reemplazar, ortografía, sinónimos, portada y salto de página</li>
+        </ul>
+        <div class="hero-note" style="margin-top:1rem;">
+          <span>Consejo</span>
+          <p>Repasá cada clase usando los links al final de cada tarjeta. Prestá especial atención a las diferencias entre conceptos similares (interlineado vs. espacio entre párrafos, nota al pie vs. nota al final, SmartArt vs. gráfico).</p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- REPASO CLASES 9, 10 y 11 -->
+    <section class="section" id="repaso-u4a">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Unidad 4 · Clases 9, 10 y 11</p>
+          <h2>Repaso: Texto, Imágenes, Tablas y Página</h2>
+          <p>
+            Revisá los temas más importantes de cada clase. Hacé clic en
+            "Ver clase completa" para repasar los detalles.
+          </p>
+        </div>
+
+        <div class="repaso-grid">
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 9 · Word básico</p>
+            <h3>Interfaz, texto y formato de fuente y párrafo</h3>
+            <ul>
+              <li>Interfaz de Word: cinta de opciones, pestañas, grupos</li>
+              <li>Barra de herramientas de acceso rápido y barra de estado</li>
+              <li>Crear, guardar (<kbd>Ctrl</kbd>+<kbd>G</kbd>) y abrir documentos</li>
+              <li>Selección de texto con mouse y teclado</li>
+              <li>Formato de fuente: tipo, tamaño, negrita, cursiva, subrayado, color</li>
+              <li>Alineación de párrafo: izquierda, centrado, derecha, justificado</li>
+              <li>Sangrías: primera línea, francesa, izquierda y derecha</li>
+              <li>Interlineado y espacio antes/después de párrafo</li>
+            </ul>
+            <a class="rc-link" href="clase9.html">Ver clase completa →</a>
+          </div>
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 10 · Imágenes y columnas</p>
+            <h3>Imágenes, columnas y letra capital</h3>
+            <ul>
+              <li>Insertar imágenes desde el dispositivo o en línea</li>
+              <li>Cambiar tamaño y recortar imágenes</li>
+              <li>Ajuste de texto: En línea, Cuadrado, Estrecho, Detrás del texto, Delante del texto</li>
+              <li>Líneas separadoras (borde inferior de párrafo)</li>
+              <li>Columnas: crear múltiples columnas, separador de columna</li>
+              <li>Salto de columna para pasar texto a la siguiente columna</li>
+              <li>Letra capital: en texto o en margen, opciones de líneas y fuente</li>
+            </ul>
+            <a class="rc-link" href="clase10.html">Ver clase completa →</a>
+          </div>
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 11 · Tablas y página</p>
+            <h3>Tablas, configurar página y encabezados</h3>
+            <ul>
+              <li>Crear tablas: Insertar → Tabla, elegir filas y columnas</li>
+              <li>Agregar y eliminar filas y columnas</li>
+              <li>Combinar y dividir celdas</li>
+              <li>Estilos de diseño de tabla (colores, bordes)</li>
+              <li>Configurar página: márgenes (Normal, Estrecho, Ancho), orientación (Vertical / Horizontal), tamaño de papel</li>
+              <li>Insertar encabezado y pie de página</li>
+              <li>Número de página: posición y formato</li>
+              <li>Primera página diferente en encabezado/pie</li>
+            </ul>
+            <a class="rc-link" href="clase11.html">Ver clase completa →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO CLASES 12 y 13 -->
+    <section class="section alt" id="repaso-u4b">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Unidad 4 · Clases 12 y 13</p>
+          <h2>Repaso: Ilustraciones, Referencias y Revisión</h2>
+          <p>
+            Los temas avanzados de Word que también entran en el parcial.
+          </p>
+        </div>
+
+        <div class="repaso-grid">
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 12 · Ilustraciones y Referencias</p>
+            <h3>Formas, SmartArt, gráficos, hipervínculos, notas al pie y tabla de contenidos</h3>
+            <ul>
+              <li>Formas: insertar, dar formato (relleno, contorno, efectos), texto dentro de forma</li>
+              <li>SmartArt: tipos (lista, proceso, ciclo, jerarquía), panel de texto, cambiar colores</li>
+              <li>Gráfico: tipos (columna, línea, circular), hoja de Excel integrada, editar datos</li>
+              <li>Hipervínculos: <kbd>Ctrl</kbd>+<kbd>K</kbd>, destinos (web, archivo, lugar del documento, email)</li>
+              <li>Comentarios: pestaña Revisar → Nuevo comentario; editar y eliminar</li>
+              <li>Nota al pie: <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>F</kbd>, aparece al final de la página</li>
+              <li>Nota al final: aparece al final del documento</li>
+              <li>Tabla de contenidos: basada en estilos Título 1, 2, 3; Referencias → Tabla de contenidos; actualizar con clic derecho</li>
+            </ul>
+            <a class="rc-link" href="clase12.html">Ver clase completa →</a>
+          </div>
+
+          <div class="repaso-card">
+            <p class="rc-clase">Clase 13 · Revisión y portada</p>
+            <h3>Herramientas de revisión y portada</h3>
+            <ul>
+              <li>Buscar texto: <kbd>Ctrl</kbd>+<kbd>B</kbd></li>
+              <li>Buscar y reemplazar: <kbd>Ctrl</kbd>+<kbd>H</kbd>, reemplazar uno a uno o todos</li>
+              <li>Ortografía y gramática: <kbd>F7</kbd>, subrayado rojo (ortografía) y azul/verde (gramática)</li>
+              <li>Corrección automática mientras se escribe</li>
+              <li>Sinónimos: clic derecho → Sinónimos, o <kbd>Shift</kbd>+<kbd>F7</kbd></li>
+              <li>Contar palabras: barra de estado o Revisar → Contar palabras</li>
+              <li>Portada: Insertar → Portada, estilos prediseñados (campos editables)</li>
+              <li>Salto de página: <kbd>Ctrl</kbd>+<kbd>Enter</kbd> o Insertar → Salto de página</li>
+            </ul>
+            <a class="rc-link" href="clase13.html">Ver clase completa →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCEPTOS CLAVE PARA NO CONFUNDIR -->
+    <section class="section" id="conceptos-clave">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Atención especial</p>
+          <h2>Conceptos que suelen confundirse</h2>
+          <p>
+            Diferencias importantes que es muy probable que aparezcan en el parcial.
+            Prestá especial atención a estas comparaciones.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Confusión frecuente 1</p>
+            <h3>Interlineado vs. Espacio entre párrafos</h3>
+            <p>No es lo mismo ajustar el espacio dentro de un párrafo que entre párrafos:</p>
+            <ul>
+              <li><strong>Interlineado:</strong> espacio entre las líneas <em>dentro</em> de un mismo párrafo. Ej: Simple, 1,5 líneas, Doble.</li>
+              <li><strong>Espacio entre párrafos:</strong> espacio en blanco <em>antes</em> o <em>después</em> de cada párrafo (en puntos). No requiere presionar Enter dos veces.</li>
+            </ul>
+            <p class="card-example">Ambos se configuran desde <strong>Inicio → Párrafo</strong> (flecha de la esquina) o desde la pestaña <strong>Diseño de página → Párrafo</strong>.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Confusión frecuente 2</p>
+            <h3>Sangría de primera línea vs. Sangría francesa</h3>
+            <p>Son dos tipos de sangría opuestos:</p>
+            <ul>
+              <li><strong>Primera línea:</strong> solo la primera línea del párrafo tiene sangría. Es la sangría clásica de los libros.</li>
+              <li><strong>Francesa:</strong> la primera línea <em>no</em> tiene sangría, pero todas las demás líneas del párrafo sí la tienen. Se usa en listas bibliográficas.</li>
+            </ul>
+            <p class="card-example">Ambas se configuran en el cuadro de diálogo <strong>Párrafo → Sangría → Especial</strong>.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Confusión frecuente 3</p>
+            <h3>Nota al pie vs. Nota al final</h3>
+            <p>Dos tipos de notas con distinta ubicación:</p>
+            <ul>
+              <li><strong>Nota al pie:</strong> aparece al pie de la <em>misma página</em> donde está la referencia numerada.</li>
+              <li><strong>Nota al final:</strong> aparece al <em>final del documento</em> (o de la sección), agrupando todas las notas juntas.</li>
+            </ul>
+            <p class="card-example"><strong>Atajos:</strong> Nota al pie = <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>F</kbd> · Nota al final = <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>D</kbd></p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Confusión frecuente 4</p>
+            <h3>SmartArt vs. Gráfico</h3>
+            <p>Sirven para cosas distintas:</p>
+            <ul>
+              <li><strong>SmartArt:</strong> para crear <em>diagramas visuales</em> (organigramas, procesos, ciclos). No requiere datos numéricos. El contenido se escribe en un panel de texto.</li>
+              <li><strong>Gráfico:</strong> para representar <em>datos numéricos</em> de forma visual (columnas, líneas, torta). Se ingresan los datos en una hoja de cálculo de Excel integrada.</li>
+            </ul>
+            <p class="card-example">SmartArt → ideas y relaciones. Gráfico → números y estadísticas.</p>
+          </article>
+
+          <article class="info-card accent-blue">
+            <p class="card-label">Confusión frecuente 5</p>
+            <h3>Ajuste "En línea" vs. "Cuadrado" (imágenes)</h3>
+            <p>Determinan cómo se comporta la imagen respecto al texto:</p>
+            <ul>
+              <li><strong>En línea con el texto:</strong> la imagen se comporta como un carácter de texto. No se puede arrastrar libremente.</li>
+              <li><strong>Cuadrado / Estrecho:</strong> la imagen "flota" sobre el documento y el texto la rodea. Se puede posicionar en cualquier lugar de la página.</li>
+            </ul>
+            <p class="card-example">Para posicionar una imagen libremente, primero hay que cambiar el ajuste a <strong>Cuadrado</strong> o <strong>Estrecho</strong>.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Confusión frecuente 6</p>
+            <h3>Estilos de título vs. Formato manual de fuente</h3>
+            <p>Solo los estilos generan la tabla de contenidos automática:</p>
+            <ul>
+              <li><strong>Formato manual:</strong> poner texto en negrita y tamaño 18 hace que <em>se vea</em> como un título, pero Word no lo reconoce como tal.</li>
+              <li><strong>Estilos Título 1, 2, 3:</strong> le indican a Word que ese texto es un encabezado de nivel 1, 2 o 3. La tabla de contenidos se genera a partir de estos estilos.</li>
+            </ul>
+            <p class="card-example">Sin aplicar estilos Título, la tabla de contenidos automática aparecerá vacía.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Confusión frecuente 7</p>
+            <h3>Orientación Vertical vs. Horizontal</h3>
+            <p>Se refiere a la orientación de la hoja, no del texto:</p>
+            <ul>
+              <li><strong>Vertical (Portrait):</strong> la hoja es más alta que ancha. Es la orientación predeterminada para documentos de texto.</li>
+              <li><strong>Horizontal (Landscape):</strong> la hoja es más ancha que alta. Se usa para tablas anchas, folletos, presentaciones impresas.</li>
+            </ul>
+            <p class="card-example">Se cambia desde <strong>Diseño de página → Orientación</strong>.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Confusión frecuente 8</p>
+            <h3>Hipervínculo vs. Marcador</h3>
+            <p>Son dos herramientas complementarias de la pestaña Insertar:</p>
+            <ul>
+              <li><strong>Marcador:</strong> es un "punto de referencia" invisible que se coloca en un lugar del documento para poder nombrarlo y volver a él.</li>
+              <li><strong>Hipervínculo:</strong> es el enlace activo. Puede apuntar a una URL, a un archivo o a un marcador dentro del mismo documento.</li>
+            </ul>
+            <p class="card-example">Para hacer un hipervínculo interno: primero creá un marcador, luego insertá el hipervínculo y elegí "Lugar de este documento".</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODELO DE PARCIAL -->
+    <section class="section alt" id="parcial">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Modelo orientativo</p>
+          <h2>Modelo de Parcial</h2>
+          <p>
+            Este es un <strong>modelo de referencia</strong>: las preguntas reales del examen
+            pueden variar. El parcial puede incluir preguntas de desarrollo,
+            múltiple choice, o una actividad práctica en la computadora.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Modelo · Parte 1</p>
+            <h3>Texto, párrafo e imágenes (Clases 9 y 10)</h3>
+            <ol class="consigna-list">
+              <li>
+                <p>¿Qué es Microsoft Word? Nombrá al menos <strong>4 tipos de formato de fuente</strong> y explicá brevemente para qué sirve cada uno.</p>
+              </li>
+              <li>
+                <p>Explicá la diferencia entre <strong>interlineado</strong> y <strong>espacio entre párrafos</strong>. ¿Desde qué parte de la interfaz se configuran?</p>
+              </li>
+              <li>
+                <p>¿Cuáles son los <strong>4 tipos de alineación de párrafo</strong> que ofrece Word? Describí cuándo conviene usar cada uno y nombrá el atajo de teclado de al menos dos.</p>
+              </li>
+              <li>
+                <p>Explicá qué es una <strong>sangría</strong>. Describí la diferencia entre la sangría de <strong>primera línea</strong> y la sangría <strong>francesa</strong>. Dá un ejemplo de uso de cada una.</p>
+              </li>
+              <li>
+                <p>¿Cómo se inserta una imagen en Word? Explicá la diferencia entre el ajuste de texto <strong>"En línea con el texto"</strong> y <strong>"Cuadrado"</strong>. ¿Cuándo usarías cada uno?</p>
+              </li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Modelo · Parte 2</p>
+            <h3>Tablas, ilustraciones y referencias (Clases 11, 12 y 13)</h3>
+            <ol class="consigna-list" style="counter-reset: consigna 5;">
+              <li>
+                <p>¿Cómo se crea una <strong>tabla</strong> en Word? Explicá cómo se agregan filas o columnas y cómo se <strong>combinan celdas</strong>. ¿Desde qué pestaña se modifica el diseño?</p>
+              </li>
+              <li>
+                <p>¿Para qué sirve el <strong>SmartArt</strong>? ¿En qué se diferencia de un <strong>gráfico</strong>? Nombrá y describí brevemente 3 tipos de SmartArt.</p>
+              </li>
+              <li>
+                <p>Explicá qué es una <strong>nota al pie</strong> y cómo se inserta. ¿Cuál es la diferencia con una <strong>nota al final</strong>? Mencioná el atajo de teclado de cada una.</p>
+              </li>
+              <li>
+                <p>Describí el proceso para generar una <strong>tabla de contenidos automática</strong>. ¿Qué requisito previo debe cumplir el documento para que funcione correctamente? ¿Cómo se actualiza?</p>
+              </li>
+              <li>
+                <p>¿Para qué sirve la herramienta <strong>Buscar y reemplazar</strong>? Indicá el atajo de teclado y dá un ejemplo concreto de cuándo la usarías en un documento real.</p>
+              </li>
+            </ol>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase13.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 13 · Herramientas de Revisión y Portada en Word</span>
+      </a>
+      <a class="class-nav-link next" href="clase14.html">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 14 · Inteligencia Artificial</span>
+      </a>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Taller de Informática I</strong> · Segundo Parcial · Unidad 4</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
