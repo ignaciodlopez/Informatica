@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Comisión B · Clase 1</title>
+  <meta
+    name="description"
+    content="Clase 1 de Informática Aplicada (C1-21-10, Comisión B): la computadora, hardware y software, dispositivos, el procesador, la memoria RAM y una introducción a los Sistemas Operativos."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Comisión B</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#computadora">Computadora</a>
+        <a href="#dispositivos">Dispositivos</a>
+        <a href="#procesador">Procesador</a>
+        <a href="#so">Sistemas Operativos</a>
+        <a href="#so-populares">SOs populares</a>
+        <a href="#panel-control">Panel de Control</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Comisión B · Unidad 1</p>
+        <h1>Introducción a la Informática y Sistemas Operativos</h1>
+        <p class="lead">
+          Una guía visual para dar los primeros pasos en el mundo de la
+          <strong>Informática</strong>: qué es una computadora, la diferencia
+          entre <strong>hardware</strong> y <strong>software</strong>, cómo
+          intervienen el procesador y la memoria, y para qué sirve un
+          <strong>Sistema Operativo</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#computadora">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 1</li>
+          <li>Hardware y Software</li>
+          <li>Sistemas Operativos</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Dar los primeros pasos en la Informática</h2>
+        <p>
+          Conocer los distintos tipos de computadoras, identificar sus partes
+          físicas y lógicas, y distinguir las unidades de medida de
+          almacenamiento de la información.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Hardware</span>
+          <span>Software</span>
+          <span>Sist. Operativo</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Enfoque de la clase</span>
+          <p>
+            Esta primera clase se divide en dos partes. En la primera vemos
+            qué es una computadora, sus componentes físicos y lógicos, el
+            procesador y la memoria. En la segunda profundizamos en los
+            Sistemas Operativos: qué son, cuáles son los más usados y cómo se
+            organiza el Panel de Control de Windows.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- LA COMPUTADORA, HARDWARE Y SOFTWARE -->
+    <section class="section" id="computadora">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Parte 1 · Punto de partida</p>
+          <h2>¿Qué es una computadora?</h2>
+          <p>
+            Es una máquina programable capaz de realizar cálculos y tomar
+            decisiones lógicas a una velocidad miles de millones de veces más
+            rápida que la alcanzable por un ser humano. Para funcionar,
+            combina dos partes inseparables: lo físico y lo lógico.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Hardware</p>
+            <h3>La parte física de la computadora</h3>
+            <p>
+              Es todo lo que podemos ver y tocar: el gabinete, el monitor, el
+              teclado, el mouse, la placa madre, el disco y cada componente
+              material que forma el equipo.
+            </p>
+            <ul>
+              <li>Se puede tocar, conectar y reemplazar</li>
+              <li>Incluye la CPU, la memoria y los periféricos</li>
+              <li>Sin software, es un conjunto de piezas sin utilidad</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Software</p>
+            <h3>La parte lógica de la computadora</h3>
+            <p>
+              Es todo lo que podemos ver y no tocar: los programas, las
+              aplicaciones y el Sistema Operativo, que le indican al hardware
+              qué tareas debe realizar.
+            </p>
+            <ul>
+              <li>Conjunto de instrucciones y programas</li>
+              <li>Ejemplos: Windows, Word, un navegador</li>
+              <li>Necesita del hardware para poder ejecutarse</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISPOSITIVOS -->
+    <section class="section alt" id="dispositivos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Hardware en acción</p>
+          <h2>Dispositivos de entrada, salida y almacenamiento</h2>
+          <p>
+            El hardware se puede clasificar según la función que cumple: hacer
+            llegar datos a la computadora, mostrar los resultados o guardar la
+            información para usarla más adelante.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Entrada</h3>
+            <p>
+              Permiten ingresar datos desde el exterior hacia la computadora.
+            </p>
+            <ul>
+              <li>Teclado y mouse</li>
+              <li>Micrófono y cámara web</li>
+              <li>Escáner y joystick</li>
+            </ul>
+          </article>
+          <article class="simple-card featured">
+            <h3>Salida</h3>
+            <p>
+              Muestran o entregan al usuario la información ya procesada.
+            </p>
+            <ul>
+              <li>Monitor</li>
+              <li>Impresora</li>
+              <li>Parlantes y auriculares</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Almacenamiento</h3>
+            <p>
+              Guardan datos de forma temporal o permanente para usarlos
+              después.
+            </p>
+            <ul>
+              <li>Disco rígido y SSD</li>
+              <li>Pendrive</li>
+              <li>CD, DVD y tarjetas de memoria</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EL PROCESADOR Y LA MEMORIA -->
+    <section class="section" id="procesador">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El corazón del equipo</p>
+          <h2>El procesador y la Memoria RAM</h2>
+          <p>
+            Además de recibir y mostrar datos, la computadora necesita
+            procesarlos y tener un lugar donde trabajar con ellos mientras
+            están en uso.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="simple-card">
+            <img class="card-img" src="img/cpu.jpg" alt="CPU – procesador" loading="lazy">
+            <h3>CPU</h3>
+            <p>
+              Es la unidad central de proceso: controla el funcionamiento
+              general del equipo, ejecuta instrucciones y toma las decisiones
+              lógicas que permiten resolver cada tarea.
+            </p>
+          </article>
+          <article class="simple-card">
+            <img class="card-img" src="img/ram.jpg" alt="Módulo de Memoria RAM" loading="lazy">
+            <h3>Memoria RAM</h3>
+            <p>
+              <em>Random Access Memory</em>, o memoria de acceso aleatorio.
+              Guarda temporalmente los programas y datos que se están usando
+              en ese momento, mientras el equipo está encendido.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>De la memoria al Sistema Operativo</span>
+          <p>
+            No es que la memoria RAM sea inservible sin más: el Sistema
+            Operativo es el que ayuda al usuario a comunicarse con la
+            computadora, pero si no existe un Sistema Operativo en nuestro
+            equipo o dispositivo, simplemente no podemos trabajar. Por eso, en
+            la segunda parte de esta clase profundizamos en qué son y cómo
+            funcionan.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.25rem;">
+          <span>Actividad de aprendizaje</span>
+          <p>
+            En el foro de la Unidad, vas a realizar una actividad de
+            intercambio sobre las computadoras que conocés y qué esperás de
+            los próximos pasos en Informática. Compartí también los
+            comentarios o dificultades que hayas tenido al resolver la tarea.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SISTEMA OPERATIVO -->
+    <section class="section alt" id="so">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Parte 2 · Concepto central</p>
+          <h2>¿Qué es un Sistema Operativo?</h2>
+          <p>
+            Es el software principal de la computadora: el conjunto de
+            programas que administra los recursos del equipo y hace posible
+            que el usuario pueda interactuar con el hardware y con el resto de
+            los programas.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Interfaz al usuario</h3>
+            <p>
+              Ofrece el entorno visual a través del cual interactuamos con la
+              computadora, como el escritorio con sus íconos y menús.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Administración de recursos</h3>
+            <p>
+              Coordina el uso del procesador, la memoria y el almacenamiento
+              para que todos los programas funcionen de manera ordenada.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Puente hacia el hardware</h3>
+            <p>
+              Sin un Sistema Operativo, el hardware no tiene forma de recibir
+              instrucciones ni de comunicarse con el usuario.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SO POPULARES -->
+    <section class="section" id="so-populares">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Panorama del mercado</p>
+          <h2>Sistemas Operativos más utilizados</h2>
+          <p>
+            Existen distintos Sistemas Operativos según el tipo de equipo y la
+            época en que fueron creados. La diferencia más visible entre ellos
+            es si cuentan o no con un entorno gráfico.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <img class="so-logo" src="img/msdos.svg" alt="Logo MS-DOS" />
+            <p class="card-label">SO sin entorno gráfico</p>
+            <h3>MS-DOS</h3>
+            <p>
+              Microsoft Disk Operating System. Uno de los primeros sistemas
+              operativos de uso masivo en PCs: el usuario debía escribir
+              comandos de texto para ejecutar cualquier acción.
+            </p>
+            <ul>
+              <li>Interfaz de línea de comandos</li>
+              <li>Precursor de Windows</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <img class="so-logo" src="img/windows.svg" alt="Logo Windows" />
+            <p class="card-label">SO con entorno gráfico</p>
+            <h3>Microsoft Windows</h3>
+            <p>
+              El sistema operativo de interfaz gráfica más extendido en
+              computadoras personales. Evolucionó desde sus primeras versiones
+              hasta Windows 11.
+            </p>
+            <ul>
+              <li>Interfaz gráfica intuitiva</li>
+              <li>Compatible con la gran mayoría del software</li>
+            </ul>
+          </article>
+
+          <article class="info-card" style="--accent-card: var(--warm); border-top: 4px solid var(--warm);">
+            <img class="so-logo" src="img/linux.png" alt="Logo Linux (Tux)" />
+            <p class="card-label">SO con entorno gráfico</p>
+            <h3>Linux</h3>
+            <p>
+              Sistema operativo de código abierto, disponible en varias
+              distribuciones (Ubuntu, Fedora, Debian, entre otras). Muy usado
+              en servidores y entornos técnicos.
+            </p>
+            <ul>
+              <li>Gratuito y de código abierto</li>
+              <li>Distintas distribuciones según el uso</li>
+            </ul>
+          </article>
+
+          <article class="info-card" style="--accent-card: var(--rose); border-top: 4px solid var(--rose);">
+            <img class="so-logo" src="img/macos.svg" alt="Logo macOS" />
+            <p class="card-label">SO con entorno gráfico</p>
+            <h3>Apple macOS</h3>
+            <p>
+              Sistema operativo de Apple para sus computadoras Mac, reconocido
+              por su diseño cuidado y su integración con el resto de los
+              dispositivos Apple.
+            </p>
+            <ul>
+              <li>Exclusivo para hardware Apple</li>
+              <li>Muy usado en entornos creativos</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Y en el celular, ¿qué usamos?</span>
+          <p>
+            Los smartphones y tablets también funcionan con Sistemas
+            Operativos propios, como <strong>Android</strong> (Google) e
+            <strong>iOS</strong> (Apple). Cumplen la misma función que en una
+            computadora: administrar el hardware del dispositivo y permitir
+            que el usuario lo utilice.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL DE CONTROL -->
+    <section class="section alt" id="panel-control">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Foco de la clase</p>
+          <h2>El Panel de Control de Windows</h2>
+          <p>
+            Es el lugar de Windows donde se concentran las herramientas para
+            revisar y configurar el funcionamiento del equipo: desde el
+            hardware conectado hasta las cuentas de usuario.
+          </p>
+        </div>
+
+        <div class="win-diagram">
+          <img src="img/windows11-desktop.png" alt="Captura del escritorio de Windows 11, punto de partida para acceder al Panel de Control." loading="lazy"/>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Sistema y seguridad</h3>
+            <p>
+              Estado general del equipo, copias de seguridad y herramientas de
+              mantenimiento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Redes e Internet</h3>
+            <p>
+              Configuración de la conexión a Internet y de las redes a las que
+              está conectado el equipo.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Hardware y sonido</h3>
+            <p>
+              Dispositivos conectados, impresoras, mouse, volumen y
+              configuración de audio.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Programas</h3>
+            <p>
+              Instalar, desinstalar o modificar los programas que tiene
+              cargados el equipo.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Cuentas de usuario</h3>
+            <p>
+              Administración de los perfiles y permisos de quienes usan la
+              computadora.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Apariencia y personalización</h3>
+            <p>
+              Fondo de escritorio, temas visuales y ajustes de accesibilidad
+              del sistema.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Actividad de aprendizaje</span>
+          <p>
+            Vamos a opinar en el foro de discusión permanente de la Unidad
+            sobre el tema expuesto en esta clase.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Ideas clave para llevar</h2>
+          <p>
+            Un repaso de los conceptos más importantes de la Clase 1, con
+            preguntas para abrir el debate.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Término</th>
+                  <th>Definición breve</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Hardware</td>
+                  <td>Parte física de la computadora</td>
+                  <td>Teclado, monitor, disco</td>
+                </tr>
+                <tr>
+                  <td>Software</td>
+                  <td>Parte lógica: programas e instrucciones</td>
+                  <td>Windows, Word</td>
+                </tr>
+                <tr>
+                  <td>CPU</td>
+                  <td>Procesa la información y ejecuta instrucciones</td>
+                  <td>El "cerebro" del equipo</td>
+                </tr>
+                <tr>
+                  <td>Memoria RAM</td>
+                  <td>Guarda temporalmente lo que se está usando</td>
+                  <td>Programas abiertos en ese momento</td>
+                </tr>
+                <tr>
+                  <td>Sistema Operativo</td>
+                  <td>Administra los recursos y conecta hardware y usuario</td>
+                  <td>Windows, Linux, macOS</td>
+                </tr>
+                <tr>
+                  <td>Panel de Control</td>
+                  <td>Centro de configuración de Windows</td>
+                  <td>Cambiar el volumen o instalar un programa</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Ideas clave</h3>
+            <ul>
+              <li>El hardware es físico; el software es lógico.</li>
+              <li>Los dispositivos se clasifican en entrada, salida y almacenamiento.</li>
+              <li>La CPU procesa y la memoria RAM guarda lo que se está usando.</li>
+              <li>Sin un Sistema Operativo, el hardware no puede recibir instrucciones.</li>
+              <li>El Panel de Control concentra la configuración del equipo en Windows.</li>
+            </ul>
+
+            <div class="mini-questions">
+              <h4>Para abrir el intercambio en clase</h4>
+              <ul>
+                <li>¿Qué computadoras conocés y qué esperás aprender en esta materia?</li>
+                <li>¿Por qué la memoria RAM pierde su contenido al apagar el equipo?</li>
+                <li>¿Qué Sistema Operativo usás en tu computadora y en tu celular?</li>
+              </ul>
+            </div>
+
+            <blockquote>
+              "Entender cómo funciona una computadora no es sólo una cuestión
+              técnica: es aprender a pensar cómo se organiza la información en
+              el mundo digital."
+            </blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual para reforzar y ampliar los conceptos vistos
+            en esta clase.
+          </p>
+        </div>
+
+        <p class="card-label" style="margin-bottom: 0.75rem;">Parte 1 · Hardware y software</p>
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/Qzj7RiET5NE"
+                title="Video recomendado – Conceptos básicos de informática"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/epypctT4JHI"
+                title="Video recomendado – El procesador, introducción a la informática"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+
+        <p class="card-label" style="margin: 2rem 0 0.75rem;">Parte 2 · Sistemas Operativos</p>
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/u7Ve5Yt7j-8"
+                title="Video recomendado – Introducción a Sistemas Operativos"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/1C8x3nn-u_w"
+                title="Video recomendado – Sistemas Operativos: qué son, características y tipos"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/IS6QJqouVIo"
+                title="Video recomendado – Panel de Control de Windows 10"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="index.html">
+        <span class="class-nav-label">Volver al inicio</span>
+        <span class="class-nav-title">Página de inicio · Todas las clases</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 2 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Comisión B · Unidad 1 · Clase 1</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
