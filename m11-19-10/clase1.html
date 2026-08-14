@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 1</title>
+  <meta
+    name="description"
+    content="Clase 1 de Informática Aplicada (M11-19-10), Unidad 1: qué es Excel, un poco de su historia, y cómo crear y dar formato a las planillas de cálculo aplicando fórmulas básicas como ENTERO."
+  />
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#que-es-excel">Qué es Excel</a>
+        <a href="#historia">Historia</a>
+        <a href="#video">Video de la clase</a>
+        <a href="#ejercicio">Ejercicio 1</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 1</p>
+        <h1>Crear y dar formato a las planillas</h1>
+        <p class="lead">
+          Primer acercamiento a la <strong>planilla de cálculo</strong>: qué
+          es Excel, de dónde viene, y cómo crear un libro, ingresar datos,
+          combinar y centrar títulos, y aplicar fórmulas básicas para
+          transformar datos en información útil.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#que-es-excel">Qué es Excel</a>
+          <a class="btn btn-secondary" href="#ejercicio">Ir al ejercicio</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 1</li>
+          <li>Qué es Excel e historia</li>
+          <li>Dominio de planilla de cálculo</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Conocer Excel y aplicar tu primera fórmula</h2>
+        <p>
+          Entender qué es una planilla de cálculo y de dónde viene, para
+          después armar una planilla propia, darle formato y aplicar
+          fórmulas que calculen automáticamente valores a partir de los
+          datos ingresados.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Qué es Excel</span>
+          <span>Crear planilla</span>
+          <span>Aplicar fórmulas</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Primero un poco de teoría e historia, después el video de la
+            clase siguiendo el paso a paso, y por último resolvés el
+            Ejercicio 1 en tu propia planilla de cálculo.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- QUÉ ES EXCEL -->
+    <section class="section" id="que-es-excel">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Conceptos iniciales</p>
+          <h2>¿Qué es una planilla de cálculo?</h2>
+          <p>
+            Una planilla de cálculo (u hoja de cálculo) es un software de
+            aplicación que organiza la información en filas y columnas,
+            formando celdas. Cada celda puede contener un dato, un texto o
+            una fórmula que calcula un resultado a partir de otras celdas.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">La herramienta</p>
+            <h3>¿Qué es Excel?</h3>
+            <p>
+              Excel es el programa de planillas de cálculo desarrollado por
+              Microsoft, parte del paquete Microsoft Office. Es uno de los
+              programas de software de aplicación más usados en el mundo del
+              trabajo y el estudio.
+            </p>
+            <ul>
+              <li>Organiza datos en filas, columnas y celdas</li>
+              <li>Permite calcular con fórmulas y funciones</li>
+              <li>Genera gráficos a partir de los datos cargados</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para qué sirve</p>
+            <h3>¿Para qué se usa una planilla de cálculo?</h3>
+            <p>
+              Cualquier tarea que implique ordenar datos y hacer cuentas con
+              ellos se simplifica con una planilla de cálculo: no hace falta
+              recalcular todo a mano cada vez que cambia un dato.
+            </p>
+            <ul>
+              <li>Llevar registros: gastos, stock, asistencias</li>
+              <li>Calcular totales, promedios y porcentajes</li>
+              <li>Analizar datos con tablas, filtros y gráficos</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORIA -->
+    <section class="section alt" id="historia">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Un poco de historia</p>
+          <h2>De VisiCalc a Excel</h2>
+          <p>
+            Las planillas de cálculo no nacieron con Excel: antes de que
+            Microsoft lanzara su producto, ya existían programas que
+            resolvían el mismo problema de otra manera.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Año</th>
+                  <th>Hito</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1979</td>
+                  <td>Se lanza VisiCalc, la primera planilla de cálculo para computadoras personales (Apple II).</td>
+                </tr>
+                <tr>
+                  <td>1983</td>
+                  <td>Lotus 1-2-3 se convierte en la planilla de cálculo dominante en la era de MS-DOS.</td>
+                </tr>
+                <tr>
+                  <td>1985</td>
+                  <td>Microsoft lanza la primera versión de Excel, para las computadoras Macintosh.</td>
+                </tr>
+                <tr>
+                  <td>1987</td>
+                  <td>Sale Excel 2.0, la primera versión para Windows.</td>
+                </tr>
+                <tr>
+                  <td>1990</td>
+                  <td>Excel pasa a formar parte de Microsoft Office, junto a Word y PowerPoint.</td>
+                </tr>
+                <tr>
+                  <td>2007</td>
+                  <td>Rediseño de la interfaz con la Cinta de opciones y el nuevo formato de archivo .xlsx.</td>
+                </tr>
+                <tr>
+                  <td>Hoy</td>
+                  <td>Excel funciona también en la nube (Microsoft 365), con edición colaborativa en tiempo real.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Para tener en cuenta</h3>
+            <ul>
+              <li>Excel no fue la primera planilla de cálculo, pero terminó imponiéndose.</li>
+              <li>Su nombre resume la idea del programa: "sobresalir" (excel) en el cálculo.</li>
+              <li>Hoy existen alternativas como Google Sheets o LibreOffice Calc, con la misma lógica de filas y columnas.</li>
+            </ul>
+            <p class="card-example">
+              <strong>Para pensar:</strong> aunque cambien el nombre y el
+              diseño, la idea central se mantiene desde 1979 hasta hoy:
+              organizar datos en celdas y calcular con fórmulas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO DE LA CLASE -->
+    <section class="section" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material multimedia requerido</p>
+          <h2>Unidad 1 · Clase 1</h2>
+          <p>
+            Seguí la explicación del video para entender cómo se arma la
+            planilla del Ejercicio 1 paso a paso. Te recomendamos verlo dos
+            veces: la primera para familiarizarte con la organización de la
+            clase, y la segunda mientras resolvés el ejercicio.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/eVO4nB16_X8"
+                title="Unidad 1 – Clase 1: Crear y dar formato a las planillas"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Antes de empezar</span>
+          <p>
+            Si te surgen dudas durante el video o al resolver el ejercicio,
+            planteálas en el foro de la Unidad 1 para intercambiar con tus
+            compañeros y tu profesor.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJERCICIO 1 -->
+    <section class="section alt" id="ejercicio">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica</p>
+          <h2>Ejercicio 1 · Atención pacientes en Julio</h2>
+          <p>
+            Vas a crear una planilla que registre la cantidad de pacientes
+            atendidos por provincia, y calcular con fórmulas el incremento
+            estimado y la cantidad de pacientes estimados para el próximo
+            período.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Crear la planilla</h3>
+            <p>
+              Abrí un libro nuevo y creá la planilla con las columnas
+              Provincia, Ministro, Pacientes anteriores, Ingresos, Egresos,
+              Incremento estimado y Pacientes estimados.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Ingresar los datos</h3>
+            <p>
+              Cargá los valores de Provincia, Ministro, Pacientes anteriores,
+              Ingresos y Egresos para cada una de las seis provincias de la
+              tabla.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Combinar y centrar el título</h3>
+            <p>
+              Combiná y centrá la primera fila sobre todas las columnas de la
+              planilla, y escribí como título "Atención pacientes en Julio".
+            </p>
+          </article>
+        </div>
+
+        <div class="card-grid two-col-grid" style="margin-top: 1.5rem;">
+          <article class="simple-card featured">
+            <h3>4. Incremento estimado</h3>
+            <p>
+              Calculá, con una fórmula en cada celda, el 5% de los Pacientes
+              anteriores. Como se trata de personas, el resultado debe ser un
+              número entero.
+            </p>
+            <p class="card-example">
+              <strong>Fórmula:</strong> <code>=ENTERO(C4*5%)</code>
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>5. Pacientes estimados</h3>
+            <p>
+              Calculá, con una fórmula, la cantidad de Pacientes estimados:
+              sumá a los Pacientes anteriores los Ingresos y el Incremento
+              estimado, y restale los Egresos.
+            </p>
+            <p class="card-example">
+              <strong>Fórmula:</strong> <code>=C4+D4+F4-E4</code>
+            </p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Resultado esperado</p>
+          <h2>Planilla completa</h2>
+          <p>
+            Así debería quedar tu planilla una vez ingresados los datos y
+            aplicadas las dos fórmulas.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Provincia</th>
+                  <th>Ministro</th>
+                  <th>Pacientes anteriores</th>
+                  <th>Ingresos</th>
+                  <th>Egresos</th>
+                  <th>Incremento estimado</th>
+                  <th>Pacientes estimados</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Buenos Aires</td>
+                  <td>Jorge Gómez</td>
+                  <td>345</td>
+                  <td>48</td>
+                  <td>39</td>
+                  <td>17</td>
+                  <td>371</td>
+                </tr>
+                <tr>
+                  <td>C.A.B.A.</td>
+                  <td>Carlos Mochales</td>
+                  <td>210</td>
+                  <td>32</td>
+                  <td>35</td>
+                  <td>10</td>
+                  <td>217</td>
+                </tr>
+                <tr>
+                  <td>Mendoza</td>
+                  <td>Susana Benítez</td>
+                  <td>160</td>
+                  <td>28</td>
+                  <td>15</td>
+                  <td>8</td>
+                  <td>181</td>
+                </tr>
+                <tr>
+                  <td>Córdoba</td>
+                  <td>Isabel Resnik</td>
+                  <td>170</td>
+                  <td>21</td>
+                  <td>17</td>
+                  <td>8</td>
+                  <td>182</td>
+                </tr>
+                <tr>
+                  <td>Santa Fe</td>
+                  <td>Marcelo Díaz</td>
+                  <td>133</td>
+                  <td>24</td>
+                  <td>14</td>
+                  <td>6</td>
+                  <td>149</td>
+                </tr>
+                <tr>
+                  <td>Entre Ríos</td>
+                  <td>Beatriz Romero</td>
+                  <td>98</td>
+                  <td>17</td>
+                  <td>22</td>
+                  <td>4</td>
+                  <td>97</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Después de resolver el ejercicio</span>
+          <p>
+            Volvé al video y repasá el resumen de la clase. Comprobá que tu
+            planilla refleje los mismos contenidos que se explican ahí antes
+            de dar por cerrado el ejercicio.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="section" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Para reflexionar</h2>
+          <p>
+            Imaginá que tenés que explicarle a un colega los primeros pasos
+            para usar una planilla de cálculo como Excel.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Pasos iniciales</h3>
+            <p>
+              Elaborá los primeros pasos y las recomendaciones que le darías
+              para una primera aproximación al programa.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Dificultades posibles</h3>
+            <p>
+              Pensá qué dificultades podría tener y qué consejos le darías
+              para sobrellevarlas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Compartir en el foro</h3>
+            <p>
+              Compartí tus reflexiones en el Foro de la Unidad 1 para
+              intercambiar con tus compañeros.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="index.html">
+        <span class="class-nav-label">Volver al inicio</span>
+        <span class="class-nav-title">Página de inicio · Todas las clases</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 2 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 1 · Clase 1</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
