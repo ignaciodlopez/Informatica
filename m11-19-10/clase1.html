@@ -19,6 +19,7 @@
         <a href="#inicio">Inicio</a>
         <a href="#que-es-excel">Qué es Excel</a>
         <a href="#historia">Historia</a>
+        <a href="#primeros-pasos">Primeros pasos</a>
         <a href="#video">Video de la clase</a>
         <a href="#ejercicio">Ejercicio 1</a>
         <a href="#cierre">Cierre</a>
@@ -202,8 +203,324 @@
       </div>
     </section>
 
+    <!-- PRIMEROS PASOS EN EXCEL -->
+    <section class="section" id="primeros-pasos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes del ejercicio</p>
+          <h2>Primeros pasos en Excel</h2>
+          <p>
+            Antes de resolver el Ejercicio 1 conviene conocer las partes
+            básicas de la pantalla y las acciones que vas a repetir todo el
+            tiempo: ingresar datos, seleccionar celdas, dar formato y armar
+            una fórmula. Repasemos cada una.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>La cinta de opciones</h3>
+            <p>
+              Es la franja de botones en la parte superior, organizada en
+              pestañas (Inicio, Insertar, Fórmulas, etc.). Desde la pestaña
+              "Inicio" accedés a lo más usado: fuente, alineación, combinar y
+              centrar, y formato de número.
+            </p>
+            <div class="excel-mock" aria-hidden="true">
+              <div class="excel-ribbon-tabs">
+                <span class="excel-ribbon-tab active">Inicio</span>
+                <span class="excel-ribbon-tab">Insertar</span>
+                <span class="excel-ribbon-tab">Fórmulas</span>
+              </div>
+              <div class="excel-ribbon-buttons">
+                <span class="excel-btn"><strong>N</strong></span>
+                <span class="excel-btn">Bordes</span>
+                <span class="excel-btn on">Combinar y centrar</span>
+                <span class="excel-btn">Formato número</span>
+              </div>
+            </div>
+          </article>
+          <article class="simple-card featured">
+            <h3>Filas, columnas y celdas</h3>
+            <p>
+              Las columnas se identifican con letras (A, B, C…) y las filas
+              con números (1, 2, 3…). Cada celda tiene una referencia única,
+              como <code>C4</code>, que combina su columna y su fila.
+            </p>
+            <div class="excel-mock" aria-hidden="true">
+              <div class="excel-grid">
+                <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+                  <div class="excel-cell corner"></div>
+                  <div class="excel-cell col-h">A</div>
+                  <div class="excel-cell col-h">B</div>
+                  <div class="excel-cell col-h">C</div>
+                  <div class="excel-cell col-h">D</div>
+                </div>
+                <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+                  <div class="excel-cell row-h">1</div>
+                  <div class="excel-cell"></div>
+                  <div class="excel-cell"></div>
+                  <div class="excel-cell"></div>
+                  <div class="excel-cell"></div>
+                </div>
+                <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+                  <div class="excel-cell row-h">2</div>
+                  <div class="excel-cell"></div>
+                  <div class="excel-cell"></div>
+                  <div class="excel-cell selected">345</div>
+                  <div class="excel-cell"></div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>La barra de fórmulas</h3>
+            <p>
+              Ubicada arriba de la planilla, muestra el contenido real de la
+              celda seleccionada: el texto, el número o la fórmula que
+              escribiste, aunque en la celda se vea el resultado.
+            </p>
+            <div class="excel-mock" aria-hidden="true">
+              <div class="excel-formula-bar">
+                <span class="excel-name-box">C2</span>
+                <span class="excel-fx">fx</span>
+                <span class="excel-formula-value">345</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Acción 1</p>
+          <h2>Cómo ingresar datos en una celda</h2>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Hacer clic en la celda</h3>
+            <p>
+              Al hacer clic, la celda queda seleccionada: se marca con un
+              borde y su referencia (por ejemplo <code>A1</code>) aparece en
+              el "cuadro de nombres", a la izquierda de la barra de fórmulas.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Escribir el contenido</h3>
+            <p>
+              Lo que escribas aparece a la vez en la celda y en la barra de
+              fórmulas. Excel detecta solo si es texto, un número o, si
+              empieza con "=", una fórmula.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Confirmar</h3>
+            <p>
+              Con <code>Enter</code> confirmás y pasás a la celda de abajo;
+              con <code>Tab</code>, confirmás y pasás a la celda de la
+              derecha. Con las flechas del teclado te movés sin perder la
+              selección.
+            </p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Acción 2</p>
+          <h2>Cómo seleccionar celdas y rangos</h2>
+          <p>
+            Antes de dar formato o combinar celdas, primero hay que
+            seleccionarlas. Un "rango" es un grupo de celdas contiguas, como
+            de <code>A1</code> a <code>G1</code>.
+          </p>
+        </div>
+
+        <div class="list-panel">
+          <div>
+            <h3>Una sola celda</h3>
+            <p>Hacé un clic simple sobre ella.</p>
+          </div>
+          <div>
+            <h3>Un rango</h3>
+            <p>Hacé clic en la primera celda y, sin soltar, arrastrá hasta la última.</p>
+          </div>
+          <div>
+            <h3>Celdas salteadas</h3>
+            <p>Mantené apretado <code>Ctrl</code> y hacé clic en cada celda que quieras agregar.</p>
+          </div>
+          <div>
+            <h3>Un rango grande</h3>
+            <p>Hacé clic en la primera celda, mantené <code>Shift</code> y hacé clic en la última.</p>
+          </div>
+          <div>
+            <h3>Una fila o columna entera</h3>
+            <p>Hacé clic directamente sobre el número de fila o la letra de columna.</p>
+          </div>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="max-width: 420px;">
+          <div class="excel-mock-label">Rango seleccionado: A1:D1</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">B</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell selected"></div>
+              <div class="excel-cell selected"></div>
+              <div class="excel-cell selected"></div>
+              <div class="excel-cell selected"></div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Acción 3</p>
+          <h2>Cómo dar formato: fuente, combinar y centrar</h2>
+          <p>
+            Con la selección hecha, los botones de la pestaña "Inicio"
+            aplican el formato sobre todas las celdas seleccionadas a la vez.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Formato de texto</p>
+            <h3>Negrita, color y bordes</h3>
+            <p>
+              Con la celda o el rango seleccionado, usá los botones de
+              negrita, color de relleno y bordes para resaltar títulos y
+              encabezados, igual que harías con un texto en un procesador de
+              texto.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Combinar y centrar</p>
+            <h3>Unificar varias celdas en una sola</h3>
+            <p>
+              Seleccioná el rango que querés combinar (por ejemplo, toda la
+              primera fila de tu planilla) y hacé clic en "Combinar y
+              centrar". Las celdas se unen en una sola y el contenido queda
+              centrado, ideal para títulos que abarcan toda la tabla.
+            </p>
+            <div class="excel-compare" aria-hidden="true">
+              <figure>
+                <figcaption>Antes</figcaption>
+                <div class="excel-mock">
+                  <div class="excel-grid">
+                    <div class="excel-row" style="grid-template-columns: repeat(4, 1fr);">
+                      <div class="excel-cell">Atención…</div>
+                      <div class="excel-cell"></div>
+                      <div class="excel-cell"></div>
+                      <div class="excel-cell"></div>
+                    </div>
+                  </div>
+                </div>
+              </figure>
+              <figure>
+                <figcaption>Después</figcaption>
+                <div class="excel-mock">
+                  <div class="excel-grid">
+                    <div class="excel-row" style="grid-template-columns: repeat(4, 1fr);">
+                      <div class="excel-cell merged" style="grid-column: span 4;">Atención pacientes en Julio</div>
+                    </div>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Acción 4</p>
+          <h2>Cómo armar una fórmula</h2>
+          <p>
+            Una fórmula es una operación que Excel calcula automáticamente.
+            Siempre empieza con el signo <code>=</code>: eso le indica a
+            Excel que lo que sigue no es texto, sino algo para calcular.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Referencias en vez de números</h3>
+            <p>
+              En lugar de escribir el valor de una celda a mano, se usa su
+              referencia (por ejemplo <code>C4</code>). Así, si el dato de
+              esa celda cambia, el resultado de la fórmula se actualiza solo.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Operadores básicos</h3>
+            <p>
+              Para sumar, restar, multiplicar y dividir se usan
+              <code>+</code>, <code>-</code>, <code>*</code> y
+              <code>/</code>. Por ejemplo, <code>=C4+D4</code> suma el
+              contenido de esas dos celdas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Funciones</h3>
+            <p>
+              Son fórmulas predefinidas con un nombre, como
+              <code>ENTERO</code>. Se escriben como
+              <code>=NOMBRE(argumento)</code>, donde el argumento es el valor
+              o la celda sobre la que actúa la función.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda F4 seleccionada — referencia a C4</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">F4</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=ENTERO(C4*5%)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+              <div class="excel-cell col-h">F</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell ref">345</div>
+              <div class="excel-cell">48</div>
+              <div class="excel-cell">39</div>
+              <div class="excel-cell selected">17</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>La función ENTERO</span>
+          <p>
+            <code>ENTERO(número)</code> devuelve la parte entera de un
+            número, descartando los decimales sin redondear hacia arriba.
+            Por eso <code>=ENTERO(4.8)</code> da como resultado
+            <code>4</code>. Es útil cuando el resultado de un cálculo
+            representa algo que no puede ser una fracción, como una cantidad
+            de personas.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- VIDEO DE LA CLASE -->
-    <section class="section" id="video">
+    <section class="section alt" id="video">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Material multimedia requerido</p>
@@ -242,41 +559,47 @@
     </section>
 
     <!-- EJERCICIO 1 -->
-    <section class="section alt" id="ejercicio">
+    <section class="section" id="ejercicio">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Práctica</p>
           <h2>Ejercicio 1 · Atención pacientes en Julio</h2>
           <p>
-            Vas a crear una planilla que registre la cantidad de pacientes
-            atendidos por provincia, y calcular con fórmulas el incremento
-            estimado y la cantidad de pacientes estimados para el próximo
-            período.
+            Ahora que ya conocés las acciones básicas, vamos a combinarlas
+            para armar una planilla real: vas a registrar la cantidad de
+            pacientes atendidos por provincia, y calcular con fórmulas el
+            incremento estimado y la cantidad de pacientes estimados para el
+            próximo período.
           </p>
         </div>
 
         <div class="process-grid">
           <article class="process-card">
-            <h3>1. Crear la planilla</h3>
+            <h3>1. Crear los encabezados</h3>
             <p>
-              Abrí un libro nuevo y creá la planilla con las columnas
-              Provincia, Ministro, Pacientes anteriores, Ingresos, Egresos,
-              Incremento estimado y Pacientes estimados.
+              En la fila 3, hacé clic en la celda <code>A3</code> y escribí
+              "Provincia". Con <code>Tab</code> pasá a <code>B3</code> y
+              escribí "Ministro", y repetí hasta completar los siete
+              encabezados: Provincia, Ministro, Pacientes anteriores,
+              Ingresos, Egresos, Incremento estimado y Pacientes estimados.
             </p>
           </article>
           <article class="process-card">
             <h3>2. Ingresar los datos</h3>
             <p>
-              Cargá los valores de Provincia, Ministro, Pacientes anteriores,
-              Ingresos y Egresos para cada una de las seis provincias de la
-              tabla.
+              A partir de la fila 4, cargá fila por fila los datos de las
+              seis provincias: Provincia, Ministro, Pacientes anteriores,
+              Ingresos y Egresos. Usá <code>Enter</code> para bajar de fila
+              una vez completada cada una.
             </p>
           </article>
           <article class="process-card">
             <h3>3. Combinar y centrar el título</h3>
             <p>
-              Combiná y centrá la primera fila sobre todas las columnas de la
-              planilla, y escribí como título "Atención pacientes en Julio".
+              Seleccioná el rango <code>A1:G1</code> (toda la primera fila,
+              de la columna A a la G) y hacé clic en "Combinar y centrar".
+              En esa celda combinada, escribí el título "Atención pacientes
+              en Julio".
             </p>
           </article>
         </div>
@@ -285,23 +608,32 @@
           <article class="simple-card featured">
             <h3>4. Incremento estimado</h3>
             <p>
-              Calculá, con una fórmula en cada celda, el 5% de los Pacientes
-              anteriores. Como se trata de personas, el resultado debe ser un
-              número entero.
+              Hacé clic en <code>F4</code> (la fila de Buenos Aires) y
+              escribí la fórmula del 5% de los Pacientes anteriores,
+              redondeado hacia abajo con <code>ENTERO</code> porque se trata
+              de personas.
             </p>
             <p class="card-example">
-              <strong>Fórmula:</strong> <code>=ENTERO(C4*5%)</code>
+              <strong>Fórmula en F4:</strong> <code>=ENTERO(C4*5%)</code>
+            </p>
+            <p>
+              Confirmá con <code>Enter</code> y repetí la misma lógica —
+              adaptando el número de fila— en <code>F5</code>,
+              <code>F6</code>, y así hasta la última provincia.
             </p>
           </article>
           <article class="simple-card featured">
             <h3>5. Pacientes estimados</h3>
             <p>
-              Calculá, con una fórmula, la cantidad de Pacientes estimados:
-              sumá a los Pacientes anteriores los Ingresos y el Incremento
-              estimado, y restale los Egresos.
+              En <code>G4</code>, sumá los Pacientes anteriores, los Ingresos
+              y el Incremento estimado, y restale los Egresos.
             </p>
             <p class="card-example">
-              <strong>Fórmula:</strong> <code>=C4+D4+F4-E4</code>
+              <strong>Fórmula en G4:</strong> <code>=C4+D4+F4-E4</code>
+            </p>
+            <p>
+              Repetí la fórmula, fila por fila, hasta completar la columna
+              para las seis provincias.
             </p>
           </article>
         </div>
@@ -401,7 +733,7 @@
     </section>
 
     <!-- CIERRE -->
-    <section class="section" id="cierre">
+    <section class="section alt" id="cierre">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Cierre de la clase</p>

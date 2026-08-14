@@ -1238,6 +1238,194 @@ blockquote {
   }
 }
 
+/* ── MOCKUPS ILUSTRATIVOS DE EXCEL ───────────────────────────── */
+.excel-mock {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  margin-top: 1rem;
+}
+
+.excel-mock-label {
+  padding: 0.4rem 0.7rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface-soft);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Cinta de opciones */
+.excel-ribbon-tabs {
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.4rem 0.6rem 0;
+  background: var(--surface-soft);
+  font-size: 0.68rem;
+}
+
+.excel-ribbon-tab {
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px 6px 0 0;
+  color: var(--muted);
+}
+
+.excel-ribbon-tab.active {
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 700;
+  border: 1px solid var(--line);
+  border-bottom: 1px solid var(--surface);
+  margin-bottom: -1px;
+}
+
+.excel-ribbon-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.55rem 0.6rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.excel-btn {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.66rem;
+  background: var(--surface);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.excel-btn.on {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Barra de fórmulas */
+.excel-formula-bar {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  font-family: "Consolas", "SFMono-Regular", Menlo, monospace;
+}
+
+.excel-name-box {
+  padding: 0.4rem 0.65rem;
+  border-right: 1px solid var(--line);
+  min-width: 3.4rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.excel-fx {
+  padding: 0 0.55rem;
+  color: var(--accent);
+  font-style: italic;
+  border-right: 1px solid var(--line);
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+}
+
+.excel-formula-value {
+  padding: 0.4rem 0.65rem;
+  font-size: 0.75rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+}
+
+/* Grilla de celdas */
+.excel-grid {
+  overflow-x: auto;
+}
+
+.excel-row {
+  display: grid;
+}
+
+.excel-cell {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 0.35rem 0.5rem;
+  font-size: 0.7rem;
+  color: var(--text);
+  background: var(--surface);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.excel-cell.corner,
+.excel-cell.col-h,
+.excel-cell.row-h {
+  background: var(--surface-soft);
+  font-weight: 700;
+  color: var(--muted);
+  justify-content: center;
+  font-size: 0.66rem;
+}
+
+.excel-cell.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  background: var(--accent-soft);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.excel-cell.ref {
+  outline: 2px dashed var(--warm);
+  outline-offset: -2px;
+  background: var(--warm-soft);
+  position: relative;
+  z-index: 1;
+}
+
+.excel-cell.merged {
+  justify-content: center;
+  font-weight: 700;
+  background: var(--warm-soft);
+}
+
+/* Comparación antes / después */
+.excel-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.excel-compare figure {
+  margin: 0;
+}
+
+.excel-compare figcaption {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
 /* ── BOTÓN MODO OSCURO ────────────────────────────────────── */
 .darkmode-btn {
   flex-shrink: 0;
