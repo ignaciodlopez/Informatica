@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Comisión A y B · Clase 2</title>
+  <meta
+    name="description"
+    content="Clase 2 de Informática Aplicada (C1-21-10, Comisión A y B): qué es Internet, el modelo cliente-servidor, IP y DNS, breve historia de Internet, tipos de redes y de conexión, navegadores, servicios de la red y seguridad al navegar."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Comisión A y B</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#que-es-internet">Qué es Internet</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#historia">Historia</a>
+        <a href="#redes">Redes y Wifi</a>
+        <a href="#conexiones">Conexiones</a>
+        <a href="#navegadores">Navegadores</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#seguridad">Seguridad</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Comisión A y B · Unidad 1</p>
+        <h1>Internet: la red de redes</h1>
+        <p class="lead">
+          En la Clase 1 vimos qué es una computadora y cómo se organizan su
+          hardware, su software y su Sistema Operativo. Ahora damos un paso
+          más: cómo esas computadoras se conectan entre sí para formar
+          <strong>Internet</strong>, la red más grande que existe, y cómo
+          navegarla de forma segura.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#que-es-internet">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#resumen">Resumen final</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 2</li>
+          <li>Redes y conexión</li>
+          <li>Internet seguro</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Comprender qué es Internet y cómo funciona</h2>
+        <p>
+          Identificar los tipos de redes y de conexión más usados, entender
+          el modelo cliente-servidor, reconocer las partes de una URL y los
+          servicios que ofrece la red, y aplicar buenas prácticas de
+          seguridad al navegar.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Dispositivo</span>
+          <span>Red</span>
+          <span>Servidor</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Enfoque de la clase</span>
+          <p>
+            Empezamos por el concepto de Internet y cómo viaja la
+            información, repasamos brevemente su historia, y avanzamos hacia
+            lo más práctico: redes, tipos de conexión, navegadores,
+            servicios y seguridad básica al usar la red todos los días.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- QUÉ ES INTERNET -->
+    <section class="section" id="que-es-internet">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Punto de partida</p>
+          <h2>¿Qué es Internet?</h2>
+          <p>
+            Internet es una red mundial que conecta millones de computadoras,
+            celulares y otros dispositivos entre sí, permitiéndoles
+            intercambiar información sin importar en qué lugar del mundo se
+            encuentren. No es un único cable ni una sola computadora central:
+            es la suma de miles de redes más pequeñas conectadas bajo reglas
+            comunes.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Una red de redes</h3>
+            <p>
+              Conecta redes hogareñas, empresariales, universitarias y de
+              proveedores de servicio entre sí, formando una única red
+              global a la que todos pueden sumarse.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Sin dueño ni centro único</h3>
+            <p>
+              Ningún país ni empresa es "dueño" de Internet. Funciona porque
+              todas las redes que la componen aceptan usar los mismos
+              protocolos, es decir, las mismas reglas de comunicación.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Comunicación por paquetes</h3>
+            <p>
+              La información no viaja entera: se divide en pequeños
+              "paquetes" de datos que pueden tomar caminos distintos y se
+              vuelven a ordenar al llegar a destino.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Internet</p>
+            <h3>La infraestructura</h3>
+            <p>
+              Es la red física y lógica que conecta los dispositivos: cables,
+              antenas, satélites, routers y los protocolos que hacen posible
+              el intercambio de datos entre ellos.
+            </p>
+            <ul>
+              <li>Existe desde fines de la década de 1960</li>
+              <li>Es el "camino" por donde viaja la información</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">World Wide Web (WWW)</p>
+            <h3>Uno de sus servicios</h3>
+            <p>
+              Es el sistema de páginas y sitios conectados por enlaces
+              (hipervínculos) que consultamos con un navegador. Es la parte
+              más visible de Internet, pero no la única.
+            </p>
+            <ul>
+              <li>Nació en 1991, mucho después que Internet</li>
+              <li>Conviven con ella el correo, el streaming, los juegos en línea, etc.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.75rem;">
+          <span>Una confusión frecuente</span>
+          <p>
+            En el uso cotidiano decimos "entrar a Internet" para referirnos a
+            navegar páginas web, pero en realidad la Web es apenas uno de los
+            servicios que corren sobre Internet. El correo electrónico, el
+            streaming de video o una videollamada también usan Internet, sin
+            pasar necesariamente por un navegador.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="section alt" id="como-funciona">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Detrás de escena</p>
+          <h2>¿Cómo viaja la información? El modelo cliente-servidor</h2>
+          <p>
+            Cuando escribimos una dirección en el navegador, nuestra
+            computadora no "va a buscar" la página por sí sola: le pide esa
+            información a otra computadora, especializada en guardarla y
+            entregarla, llamada <strong>servidor</strong>.
+          </p>
+        </div>
+
+        <div class="win-diagram" style="background: var(--surface); padding: 1.5rem;">
+          <svg viewBox="0 0 760 260" role="img" aria-labelledby="csTitle csDesc" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block; font-family: 'Segoe UI', Inter, Roboto, Helvetica, Arial, sans-serif;">
+            <title id="csTitle">Diagrama del modelo cliente-servidor</title>
+            <desc id="csDesc">El cliente envía una solicitud a través de Internet hacia un servidor, que responde enviando la página solicitada.</desc>
+
+            <!-- Cliente -->
+            <rect x="20" y="70" width="180" height="120" rx="16" fill="#eaf4ff" stroke="#295c88" stroke-width="2"/>
+            <text x="110" y="115" text-anchor="middle" font-size="17" font-weight="700" fill="#295c88">Cliente</text>
+            <text x="110" y="140" text-anchor="middle" font-size="12.5" fill="#5f6b7a">Tu computadora,</text>
+            <text x="110" y="157" text-anchor="middle" font-size="12.5" fill="#5f6b7a">celular o tablet</text>
+
+            <!-- Internet cloud -->
+            <ellipse cx="380" cy="130" rx="120" ry="60" fill="#f3f6fb" stroke="#d9e2ef" stroke-width="2"/>
+            <text x="380" y="126" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2937">Internet</text>
+            <text x="380" y="146" text-anchor="middle" font-size="11.5" fill="#5f6b7a">(routers y redes)</text>
+
+            <!-- Servidor -->
+            <rect x="560" y="70" width="180" height="120" rx="16" fill="#ddf5ee" stroke="#238775" stroke-width="2"/>
+            <text x="650" y="115" text-anchor="middle" font-size="17" font-weight="700" fill="#238775">Servidor</text>
+            <text x="650" y="140" text-anchor="middle" font-size="12.5" fill="#5f6b7a">Aloja la página</text>
+            <text x="650" y="157" text-anchor="middle" font-size="12.5" fill="#5f6b7a">o el servicio</text>
+
+            <!-- Arrows -->
+            <defs>
+              <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 z" fill="#295c88"/>
+              </marker>
+              <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 z" fill="#238775"/>
+              </marker>
+            </defs>
+            <line x1="204" y1="105" x2="270" y2="105" stroke="#295c88" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+            <text x="237" y="95" text-anchor="middle" font-size="11.5" fill="#295c88" font-weight="600">solicitud</text>
+
+            <line x1="556" y1="155" x2="490" y2="155" stroke="#238775" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+            <text x="523" y="175" text-anchor="middle" font-size="11.5" fill="#238775" font-weight="600">respuesta</text>
+          </svg>
+        </div>
+
+        <p style="text-align:center; color: var(--muted); font-size: 0.9rem; margin-top: -1.5rem; margin-bottom: 2rem;">
+          El cliente pide una página (solicitud) y el servidor se la envía de vuelta (respuesta). Ese ida y vuelta ocurre en fracciones de segundo, muchas veces por minuto.
+        </p>
+
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Dirección IP</h3>
+            <p>
+              Es el número que identifica de forma única a cada dispositivo
+              conectado a una red, de manera parecida a como una dirección
+              postal identifica una casa.
+            </p>
+            <p class="card-example">
+              <strong>Ejemplo:</strong> una IP puede verse así:
+              <code>190.15.201.4</code>. Sin ese número, ningún dato sabría
+              a dónde llegar.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>DNS: la agenda de Internet</h3>
+            <p>
+              El Sistema de Nombres de Dominio (DNS) traduce nombres fáciles
+              de recordar, como <code>www.educ.ar</code>, a la dirección IP
+              numérica del servidor donde está esa página.
+            </p>
+            <p class="card-example">
+              <strong>Por eso:</strong> escribimos nombres de dominio en el
+              navegador y no largas cadenas de números.
+            </p>
+          </article>
+        </div>
+
+        <div class="win-diagram" style="max-width: 620px; margin-top: 2rem;">
+          <img src="img/servers.jpg" alt="Sala de servidores de un centro de datos: filas de racks con equipos conectados." loading="lazy" />
+        </div>
+        <p style="text-align:center; color: var(--muted); font-size: 0.85rem; margin-top: -1.75rem;">
+          Los servidores que alojan páginas y servicios suelen estar en centros de datos como este, funcionando las 24 horas.
+        </p>
+      </div>
+    </section>
+
+    <!-- HISTORIA -->
+    <section class="section" id="historia">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">De ARPANET a hoy</p>
+          <h2>Breve historia de Internet</h2>
+          <p>
+            Internet no apareció de un día para el otro: es el resultado de
+            varias décadas de avances que fueron conectando cada vez más
+            redes, dispositivos y personas.
+          </p>
+        </div>
+
+        <div class="list-panel">
+          <div>
+            <h3>1969 · Nace ARPANET</h3>
+            <p>Una red militar y académica en EE. UU. conecta 4 universidades. Es el antecedente directo de Internet.</p>
+          </div>
+          <div>
+            <h3>1973-1983 · Protocolo TCP/IP</h3>
+            <p>Se estandariza el "idioma" común que permite conectar redes distintas entre sí. Ahí nace, en sentido estricto, el término Internet.</p>
+          </div>
+          <div>
+            <h3>1989-1991 · Nace la World Wide Web</h3>
+            <p>Tim Berners-Lee crea el sistema de páginas con enlaces (hipertexto) que hace que cualquier persona pueda navegar la red.</p>
+          </div>
+          <div>
+            <h3>Años 90 y 2000 · Internet masivo</h3>
+            <p>Llegan la banda ancha, el correo electrónico, los buscadores, el comercio electrónico y las primeras redes sociales.</p>
+          </div>
+          <div>
+            <h3>Actualidad · Internet móvil y de las cosas</h3>
+            <p>Miles de millones de personas y dispositivos —celulares, relojes, electrodomésticos— conectados en simultáneo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REDES Y WIFI -->
+    <section class="section alt" id="redes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cómo se conectan los dispositivos</p>
+          <h2>Tipos de redes: cableadas e inalámbricas</h2>
+          <p>
+            Antes de llegar a Internet, cada dispositivo forma parte de una
+            red más pequeña, como la de una casa, una oficina o una escuela.
+            Estas redes se clasifican según su alcance y según si usan cables
+            o transmiten por ondas de radio.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>LAN (red local)</h3>
+            <p>
+              Conecta dispositivos dentro de un espacio reducido, como una
+              casa, una oficina o un aula. Suele combinar cables y Wifi.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>WAN (red amplia)</h3>
+            <p>
+              Conecta redes que están lejos entre sí, incluso en distintas
+              ciudades o países. Internet es, en sí misma, la WAN más grande
+              que existe.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Wifi (red inalámbrica)</h3>
+            <p>
+              Permite conectarse a una red local sin cables, usando ondas de
+              radio de corto alcance emitidas por un router.
+            </p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Confusión frecuente</p>
+          <h2>Módem y router: no son lo mismo</h2>
+          <p>
+            En muchos hogares un solo aparato cumple las dos funciones, pero
+            conceptualmente son tareas distintas.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Módem</p>
+            <h3>Traduce la señal del proveedor</h3>
+            <p>
+              Convierte la señal que llega desde el proveedor de Internet
+              (por teléfono, cable o fibra) en datos que la red doméstica
+              puede utilizar.
+            </p>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Router</p>
+            <h3>Reparte la conexión</h3>
+            <p>
+              Toma esa conexión y la distribuye entre varios dispositivos a
+              la vez, por cable o por Wifi, creando la red local de la casa.
+            </p>
+          </article>
+        </div>
+
+        <div class="card-grid two-col-grid" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <img class="card-img" src="img/router.jpg" alt="Router doméstico con antenas y luces indicadoras encendidas." loading="lazy">
+            <h3>Router Wifi</h3>
+            <p>Con sus antenas emite la señal inalámbrica que reciben celulares, notebooks y smart TVs.</p>
+          </article>
+          <article class="simple-card">
+            <img class="card-img" src="img/network-cables.jpg" alt="Cables de red conectados a las entradas de un router." loading="lazy">
+            <h3>Cableado de red</h3>
+            <p>Los cables de red (Ethernet) ofrecen una conexión más estable que el Wifi para equipos fijos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONEXIONES -->
+    <section class="section" id="conexiones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Del proveedor a tu casa</p>
+          <h2>Tipos de conexión a Internet</h2>
+          <p>
+            El proveedor de servicios de Internet (ISP) puede hacer llegar la
+            conexión de distintas formas, con diferencias importantes en
+            velocidad, estabilidad y cobertura.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Cómo funciona</th>
+                  <th>Velocidad aproximada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Dial-up</td>
+                  <td>Usa la línea telefónica tradicional y la ocupa por completo</td>
+                  <td>Muy baja (hasta 56 kbps)</td>
+                </tr>
+                <tr>
+                  <td>ADSL</td>
+                  <td>Usa la línea telefónica en una frecuencia separada, sin ocupar el teléfono</td>
+                  <td>Media (hasta 20-25 Mbps)</td>
+                </tr>
+                <tr>
+                  <td>Cable módem</td>
+                  <td>Aprovecha la misma red del servicio de televisión por cable</td>
+                  <td>Alta (decenas a cientos de Mbps)</td>
+                </tr>
+                <tr>
+                  <td>Fibra óptica</td>
+                  <td>Transmite datos como pulsos de luz por cables de vidrio</td>
+                  <td>Muy alta (cientos de Mbps a varios Gbps)</td>
+                </tr>
+                <tr>
+                  <td>Satelital</td>
+                  <td>Se conecta con un satélite en órbita, útil en zonas rurales</td>
+                  <td>Variable, con mayor demora (latencia)</td>
+                </tr>
+                <tr>
+                  <td>Móvil (3G/4G/5G)</td>
+                  <td>Usa la red de antenas de telefonía celular</td>
+                  <td>Media a muy alta, según la generación</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <img class="card-img" src="img/fiber.jpg" alt="Extremo de un cable de fibra óptica con sus hilos de vidrio visibles." loading="lazy">
+            <h3>Para tener en cuenta</h3>
+            <ul>
+              <li>A mayor velocidad de subida y bajada, mejor para videollamadas y streaming.</li>
+              <li>La latencia (demora) importa tanto como la velocidad, sobre todo en videollamadas y juegos en línea.</li>
+              <li>La fibra óptica es hoy la conexión fija más veloz y estable.</li>
+              <li>La conexión móvil permite navegar sin depender de cables ni de una red fija.</li>
+            </ul>
+            <p class="card-example">
+              <strong>Ejemplo:</strong> mirar un video en baja calidad exige poca velocidad, pero una videollamada grupal en alta calidad necesita una conexión rápida y estable en ambos sentidos.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVEGADORES -->
+    <section class="section alt" id="navegadores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La puerta de entrada a la Web</p>
+          <h2>Navegadores web</h2>
+          <p>
+            El navegador es el programa que le pide páginas a los
+            servidores, interpreta su código y nos las muestra de forma
+            visual y ordenada. Sin un navegador, no podríamos ver la Web.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <img class="so-logo" src="img/chrome.svg" alt="Logo de Google Chrome" />
+            <p class="card-label">Navegador</p>
+            <h3>Google Chrome</h3>
+            <p>El más utilizado en el mundo. Se integra con las cuentas y servicios de Google.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <img class="so-logo" src="img/firefox.svg" alt="Logo de Mozilla Firefox" />
+            <p class="card-label">Navegador</p>
+            <h3>Mozilla Firefox</h3>
+            <p>Navegador de código abierto, reconocido por su enfoque en la privacidad.</p>
+          </article>
+
+          <article class="info-card" style="--accent-card: var(--warm); border-top: 4px solid var(--warm);">
+            <img class="so-logo" src="img/edge.svg" alt="Logo de Microsoft Edge" />
+            <p class="card-label">Navegador</p>
+            <h3>Microsoft Edge</h3>
+            <p>Viene instalado por defecto en Windows y está basado en el mismo motor que Chrome.</p>
+          </article>
+
+          <article class="info-card" style="--accent-card: var(--rose); border-top: 4px solid var(--rose);">
+            <img class="so-logo" src="img/safari.png" alt="Logo de Safari" />
+            <p class="card-label">Navegador</p>
+            <h3>Safari</h3>
+            <p>El navegador predeterminado de Apple, presente en Mac, iPhone y iPad.</p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Para leer una dirección</p>
+          <h2>Anatomía de una URL</h2>
+          <p>
+            Una URL (localizador uniforme de recursos) es la dirección de una
+            página web. Se lee de izquierda a derecha y cada parte cumple
+            una función distinta.
+          </p>
+        </div>
+
+        <article class="table-card">
+          <p style="font-family: 'Consolas', 'Courier New', monospace; font-size: 1.15rem; font-weight: 700; line-height: 2.4; word-break: break-all; margin: 0 0 1.25rem;">
+            <span style="background: var(--primary-soft); color: var(--primary); padding: 0.2rem 0.5rem; border-radius: 6px;">https://</span
+            ><span style="background: var(--accent-soft); color: var(--accent); padding: 0.2rem 0.5rem; border-radius: 6px;">www.educ.ar</span
+            ><span style="background: var(--warm-soft); color: var(--warm); padding: 0.2rem 0.5rem; border-radius: 6px;">/recursos</span
+            ><span style="background: var(--rose-soft); color: var(--rose); padding: 0.2rem 0.5rem; border-radius: 6px;">/buscar</span>
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem;">
+            <li><strong style="color: var(--primary);">Protocolo</strong> — indica las reglas de comunicación a usar; <code>https://</code> significa que la conexión con el servidor está cifrada.</li>
+            <li><strong style="color: var(--accent);">Dominio</strong> — el nombre del sitio, traducido por el DNS a la dirección IP del servidor.</li>
+            <li><strong style="color: var(--warm);">Ruta</strong> — indica en qué sección o carpeta del sitio está el contenido.</li>
+            <li><strong style="color: var(--rose);">Recurso</strong> — la página o el archivo específico que se solicita.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Qué podemos hacer en la red</p>
+          <h2>Servicios que ofrece Internet</h2>
+          <p>
+            La Web es apenas uno de los tantos servicios que funcionan sobre
+            Internet. Reconocerlos ayuda a entender por qué la usamos para
+            tantas cosas distintas a lo largo del día.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>La Web (WWW)</h3>
+            <p>Páginas de información, tiendas, plataformas educativas y de gobierno, conectadas por enlaces.</p>
+          </article>
+          <article class="simple-card">
+            <h3>Correo electrónico</h3>
+            <p>Envío de mensajes y archivos adjuntos a través de cuentas como Gmail o Outlook.</p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Mensajería y redes sociales</h3>
+            <p>Comunicación en tiempo real e intercambio de contenidos: WhatsApp, Instagram, entre otras.</p>
+          </article>
+          <article class="simple-card">
+            <h3>Streaming</h3>
+            <p>Música y video a demanda, sin necesidad de descargar el archivo completo antes de reproducirlo.</p>
+          </article>
+          <article class="simple-card">
+            <h3>La nube</h3>
+            <p>Guardar y compartir archivos en servidores remotos, accesibles desde cualquier dispositivo.</p>
+          </article>
+          <article class="simple-card">
+            <h3>Comercio y trámites</h3>
+            <p>Compras, pagos y gestiones de gobierno realizadas de manera online.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEGURIDAD -->
+    <section class="section alt" id="seguridad">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Navegar con cuidado</p>
+          <h2>Internet seguro: buenas prácticas</h2>
+          <p>
+            Usar Internet todos los días también implica cuidar la
+            información personal. Algunas prácticas simples reducen mucho
+            los riesgos más comunes.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Contraseñas seguras</h3>
+            <p>
+              Usar contraseñas largas y distintas para cada servicio, y
+              activar la verificación en dos pasos cuando esté disponible.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Cuidado con el phishing</h3>
+            <p>
+              Desconfiar de mensajes o enlaces que piden datos personales o
+              bancarios con urgencia, incluso si parecen venir de un
+              conocido.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Verificar el candado y HTTPS</h3>
+            <p>
+              Antes de ingresar datos sensibles, revisar que la dirección
+              comience con <code>https://</code>, señal de que la conexión
+              está cifrada.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 2rem;">
+          <span>Actividad de aprendizaje</span>
+          <p>
+            En el foro de la Unidad, vamos a compartir qué tipo de conexión a
+            Internet usan en su casa o su celular, y qué medida de seguridad
+            de las vistas en esta clase ya aplican o van a empezar a aplicar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Ideas clave para llevar</h2>
+          <p>
+            Un repaso de los conceptos más importantes de la Clase 2, con
+            preguntas para abrir el debate.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Término</th>
+                  <th>Definición breve</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Internet</td>
+                  <td>Red mundial que conecta redes más pequeñas entre sí</td>
+                  <td>La red detrás de la Web, el correo, el streaming</td>
+                </tr>
+                <tr>
+                  <td>World Wide Web</td>
+                  <td>Sistema de páginas conectadas por enlaces</td>
+                  <td>Un sitio como educ.ar</td>
+                </tr>
+                <tr>
+                  <td>Cliente-servidor</td>
+                  <td>Modelo donde un dispositivo pide y otro responde</td>
+                  <td>Tu navegador y el servidor de una página</td>
+                </tr>
+                <tr>
+                  <td>Dirección IP</td>
+                  <td>Número que identifica a cada dispositivo en la red</td>
+                  <td>190.15.201.4</td>
+                </tr>
+                <tr>
+                  <td>DNS</td>
+                  <td>Traduce nombres de dominio a direcciones IP</td>
+                  <td>www.educ.ar → número de IP del servidor</td>
+                </tr>
+                <tr>
+                  <td>Router / módem</td>
+                  <td>Reparten y traducen la conexión, respectivamente</td>
+                  <td>El equipo Wifi de tu casa</td>
+                </tr>
+                <tr>
+                  <td>URL</td>
+                  <td>Dirección de un recurso en la Web</td>
+                  <td>https://www.educ.ar/recursos</td>
+                </tr>
+                <tr>
+                  <td>HTTPS</td>
+                  <td>Protocolo que cifra la comunicación con el servidor</td>
+                  <td>El candado en la barra de direcciones</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Ideas clave</h3>
+            <ul>
+              <li>Internet es la infraestructura; la Web es uno de sus servicios.</li>
+              <li>La información viaja en paquetes entre un cliente y un servidor.</li>
+              <li>El DNS traduce nombres de dominio en direcciones IP.</li>
+              <li>Las redes se clasifican por alcance (LAN, WAN) y por si usan cables o no (Wifi).</li>
+              <li>El módem traduce la señal del proveedor; el router la reparte entre los dispositivos.</li>
+              <li>La fibra óptica ofrece hoy la mayor velocidad y estabilidad entre las conexiones fijas.</li>
+              <li>Verificar HTTPS y desconfiar del phishing son hábitos básicos de seguridad.</li>
+            </ul>
+
+            <div class="mini-questions">
+              <h4>Para abrir el intercambio en clase</h4>
+              <ul>
+                <li>¿Qué tipo de conexión a Internet tenés en tu casa o tu celular?</li>
+                <li>¿Por qué escribimos nombres de dominio y no direcciones IP en el navegador?</li>
+                <li>¿Qué hábito de seguridad de los vistos hoy ya aplicás al navegar?</li>
+              </ul>
+            </div>
+
+            <blockquote>
+              "Internet no es un lugar al que 'entramos': es una enorme red de
+              acuerdos técnicos que hace posible que cualquier dispositivo,
+              en cualquier parte del mundo, pueda comunicarse con otro."
+            </blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual para reforzar y ampliar los conceptos vistos
+            en esta clase. Sus canales no permiten reproducirlos incrustados
+            en otros sitios, así que se abren en YouTube al hacer clic.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a href="https://youtu.be/EqwBMhc8YO0" target="_blank" rel="noopener noreferrer" style="position:absolute; inset:0; display:block;">
+                <img src="https://i.ytimg.com/vi/EqwBMhc8YO0/hqdefault.jpg" alt="Miniatura del video ¿Qué es Internet? (ARSAT)" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(15,23,42,0.15);">
+                  <span style="width:68px; height:68px; border-radius:50%; background:rgba(15,23,42,0.75); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.35);">
+                    <span style="width:0; height:0; border-style:solid; border-width:13px 0 13px 22px; border-color:transparent transparent transparent #ffffff; margin-left:5px;"></span>
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">¿Qué es Internet?</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">ARSAT · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a href="https://youtu.be/uunnO9yZCYk" target="_blank" rel="noopener noreferrer" style="position:absolute; inset:0; display:block;">
+                <img src="https://i.ytimg.com/vi/uunnO9yZCYk/hqdefault.jpg" alt="Miniatura del video ¿Qué son las redes y cómo funciona Internet? (EDteam)" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(15,23,42,0.15);">
+                  <span style="width:68px; height:68px; border-radius:50%; background:rgba(15,23,42,0.75); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.35);">
+                    <span style="width:0; height:0; border-style:solid; border-width:13px 0 13px 22px; border-color:transparent transparent transparent #ffffff; margin-left:5px;"></span>
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">¿Qué son las redes y cómo funciona Internet?</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">EDteam · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a href="https://youtu.be/iPw_bVw-11c" target="_blank" rel="noopener noreferrer" style="position:absolute; inset:0; display:block;">
+                <img src="https://i.ytimg.com/vi/iPw_bVw-11c/hqdefault.jpg" alt="Miniatura del video ¿Quién inventó internet? La historia de internet (DW Español)" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+                <span style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(15,23,42,0.15);">
+                  <span style="width:68px; height:68px; border-radius:50%; background:rgba(15,23,42,0.75); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.35);">
+                    <span style="width:0; height:0; border-style:solid; border-width:13px 0 13px 22px; border-color:transparent transparent transparent #ffffff; margin-left:5px;"></span>
+                  </span>
+                </span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">¿Quién inventó internet? La historia de internet</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">DW Español · Ver en YouTube ↗</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase1.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 1 · Informática y Sistemas Operativos</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 3 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Comisión A y B · Unidad 1 · Clase 2</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
