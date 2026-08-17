@@ -33,9 +33,55 @@
     btn.setAttribute('title',      isDark ? 'Modo claro'         : 'Modo oscuro');
   }
 
+  function initNav() {
+    const nav = document.querySelector('.topbar-nav');
+    if (!nav) return;
+
+    nav.addEventListener('wheel', function (e) {
+      if (nav.scrollWidth <= nav.clientWidth) return;
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        nav.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    const links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+    if (!links.length) return;
+    const sections = links
+      .map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); })
+      .filter(Boolean);
+    if (!sections.length || typeof IntersectionObserver === 'undefined') return;
+
+    let current = null;
+    function setActive(id) {
+      links.forEach(function (a) {
+        const isActive = a.getAttribute('href') === '#' + id;
+        a.classList.toggle('active', isActive);
+        if (isActive) {
+          a.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
+    }
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && entry.target.id !== current) {
+          current = entry.target.id;
+          setActive(current);
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function () {
+      init();
+      initNav();
+    });
   } else {
     init();
+    initNav();
   }
 })();

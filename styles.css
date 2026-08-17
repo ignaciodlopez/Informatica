@@ -120,6 +120,11 @@ a {
   box-shadow: none;
 }
 
+.topbar-nav a.active {
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
 .section-menu {
   padding: 1rem 0 0.45rem;
 }
