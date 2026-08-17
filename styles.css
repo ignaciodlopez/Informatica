@@ -853,6 +853,14 @@ blockquote {
   margin: 0 0 0.25rem;
 }
 
+.home-class-body p.home-class-subject {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 0.5rem;
+  line-height: 1.15;
+}
+
 .home-class-body h3 {
   margin: 0 0 0.5rem;
   font-size: 1.1rem;
