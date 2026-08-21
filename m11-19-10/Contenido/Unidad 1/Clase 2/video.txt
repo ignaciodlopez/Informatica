@@ -1,0 +1,547 @@
+EXCEL 2 — Transcripción explicativa detallada
+1. ¿Qué se trabaja en este video?
+
+El video continúa con la planilla que se había comenzado a trabajar en la clase anterior. El objetivo principal ahora es aprender a copiar fórmulas de una celda a otras y, sobre todo, entender la diferencia entre:
+
+referencias relativas
+referencias absolutas
+
+Este concepto es importante porque cuando copiamos una fórmula en Excel, las referencias a las celdas pueden ir cambiando automáticamente. En determinadas situaciones eso es justamente lo que queremos, pero en otras necesitamos que una determinada celda permanezca siempre fija.
+
+2. Se retoma la planilla de la clase anterior
+
+Se parte de una tabla que contiene información correspondiente a distintas provincias o sucursales.
+
+Dentro de esa tabla existe una columna con una determinada cantidad de personas o pacientes y se quiere calcular un incremento estimado.
+
+La idea es utilizar un único porcentaje de incremento para todas las filas de la tabla.
+
+Por ejemplo:
+
+Provincia	Cantidad actual	Incremento estimado
+Buenos Aires	valor en D4	fórmula en G4
+Otra provincia	valor en D5	fórmula en G5
+Otra provincia	valor en D6	fórmula en G6
+
+El porcentaje que se utilizará para todos los cálculos se coloca en una celda aparte.
+
+3. Configuración de la celda G2
+
+Se utiliza la celda:
+
+G2
+
+para almacenar el porcentaje de incremento.
+
+Primero hay que seleccionar esa celda y aplicarle formato:
+
+Porcentaje
+
+Es decir, G2 no se utilizará como una cantidad de pacientes, sino como un porcentaje que será utilizado posteriormente en las fórmulas.
+
+El material de la clase indica colocar un 8 % en G2.
+
+Visualmente tendríamos algo semejante a:
+
+G2 = 8%
+
+Esto es muy importante porque esta celda va a funcionar como un parámetro general.
+
+En otras palabras:
+
+Todas las provincias utilizarán el porcentaje que se encuentre almacenado en G2.
+
+Si después queremos cambiar el porcentaje, no debería ser necesario modificar cada fórmula por separado. Alcanzaría con cambiar G2.
+
+4. Cálculo del incremento de Buenos Aires
+
+Después se trabaja sobre la primera fila de datos.
+
+En este caso se utiliza:
+
+G4
+
+para calcular el incremento estimado de Buenos Aires.
+
+La cantidad original se encuentra en:
+
+D4
+
+y el porcentaje se encuentra en:
+
+G2
+
+Entonces se construye una fórmula semejante a:
+
+=ENTERO(D4*G2)
+
+La función ENTERO hace que Excel tome únicamente la parte entera del resultado.
+
+Por ejemplo, si matemáticamente el cálculo diera:
+
+152,64
+
+la función:
+
+=ENTERO(152,64)
+
+devuelve:
+
+152
+
+Esto tiene sentido en este ejercicio porque se está trabajando con cantidades de personas o pacientes: no podemos tener, por ejemplo, 152,64 pacientes.
+
+Por eso se utiliza ENTERO.
+
+5. ¿Qué significa D4*G2?
+
+Conviene separar la fórmula:
+
+=ENTERO(D4*G2)
+
+Tenemos dos referencias.
+
+D4
+
+Representa la cantidad correspondiente a la provincia de esa fila.
+
+En este caso:
+
+D4 → Buenos Aires
+G2
+
+Representa el porcentaje de incremento.
+
+Por ejemplo:
+
+G2 → 8%
+
+Entonces Excel hace conceptualmente:
+
+Cantidad de Buenos Aires × porcentaje
+
+y obtiene la cantidad adicional estimada.
+
+6. Ahora aparece el problema importante de la clase
+
+Una vez que la fórmula funciona correctamente para Buenos Aires, sería poco práctico escribir manualmente una fórmula nueva para cada provincia.
+
+Excel permite copiar una fórmula.
+
+Por ejemplo, podemos seleccionar G4 y utilizar el controlador de relleno —el pequeño cuadrado de la esquina de la celda seleccionada— para arrastrar la fórmula hacia abajo.
+
+La intención es hacer algo así:
+
+G4  fórmula para Buenos Aires
+ ↓
+G5  fórmula para segunda provincia
+ ↓
+G6  fórmula para tercera provincia
+ ↓
+...
+
+Y acá aparece uno de los conceptos fundamentales del video.
+
+7. Excel modifica automáticamente las referencias
+
+Supongamos que tenemos en G4:
+
+=ENTERO(D4*G2)
+
+Si copiamos esa fórmula una fila hacia abajo, Excel no necesariamente copia exactamente el mismo texto.
+
+Excel interpreta inicialmente esas referencias como referencias relativas.
+
+Por eso transforma:
+
+D4
+
+en:
+
+D5
+
+Esto está perfecto.
+
+¿Por qué?
+
+Porque ahora estamos trabajando con la segunda provincia y queremos utilizar la cantidad correspondiente a su propia fila.
+
+Pero Excel también transforma:
+
+G2
+
+en:
+
+G3
+
+Y ahí aparece el problema.
+
+La fórmula termina siendo:
+
+=ENTERO(D5*G3)
+
+El material de la clase muestra específicamente este ejemplo.
+
+8. ¿Por qué Excel cambia D4 por D5?
+
+Porque Excel interpreta la referencia de manera relativa.
+
+La fórmula original estaba en G4.
+
+Cuando la llevamos una fila hacia abajo, Excel piensa:
+
+“Si la fórmula se desplazó una fila hacia abajo, las celdas a las que hace referencia también deben desplazarse una fila.”
+
+Entonces:
+
+D4 → D5
+G2 → G3
+
+Si seguimos copiando:
+
+D5 → D6
+G3 → G4
+
+y así sucesivamente.
+
+9. D4 sí debe cambiar
+
+La referencia:
+
+D4
+
+sí queremos que cambie.
+
+Por ejemplo:
+
+En la fila 4 queremos:
+
+D4
+
+En la fila 5 queremos:
+
+D5
+
+En la fila 6:
+
+D6
+
+En la fila 7:
+
+D7
+
+Por lo tanto esta referencia tiene que seguir siendo relativa.
+
+10. G2 NO debe cambiar
+
+El problema es G2.
+
+Todos los cálculos tienen que utilizar el mismo porcentaje.
+
+Si el 8 % está almacenado en G2, necesitamos:
+
+Buenos Aires → G2
+Provincia 2 → G2
+Provincia 3 → G2
+Provincia 4 → G2
+...
+
+No queremos:
+
+G2
+G3
+G4
+G5
+G6
+
+Queremos que Excel mantenga G2 siempre fijo.
+
+Y ahí aparece el concepto fundamental:
+
+Referencia absoluta
+11. Diferencia entre referencia relativa y absoluta
+Referencia relativa
+
+Una referencia como:
+
+G2
+
+puede modificarse cuando copiamos la fórmula.
+
+Por ejemplo:
+
+G2
+↓
+G3
+↓
+G4
+↓
+G5
+Referencia absoluta
+
+Una referencia absoluta se escribe utilizando el signo:
+
+$
+
+Entonces:
+
+$G$2
+
+significa:
+
+Siempre utilizar la columna G y la fila 2, independientemente de dónde copie la fórmula.
+
+El material complementario de la materia especifica precisamente que deben colocarse los signos $ delante de la letra de la columna y del número de fila.
+
+12. Fórmula correcta
+
+Por lo tanto la fórmula que realmente conviene utilizar es:
+
+=ENTERO(D4*$G$2)
+
+Ahora tenemos dos tipos de referencia dentro de una misma fórmula:
+
+D4       → relativa
+$G$2     → absoluta
+
+Y esto es justamente lo importante del ejercicio.
+
+13. ¿Qué sucede ahora al copiar la fórmula?
+
+Supongamos:
+
+G4
+=ENTERO(D4*$G$2)
+
+Al arrastrarla hacia abajo Excel genera:
+
+G5
+=ENTERO(D5*$G$2)
+G6
+=ENTERO(D6*$G$2)
+G7
+=ENTERO(D7*$G$2)
+G8
+=ENTERO(D8*$G$2)
+
+Observá qué parte cambia:
+
+D4
+D5
+D6
+D7
+D8
+
+pero esta parte queda siempre igual:
+
+$G$2
+$G$2
+$G$2
+$G$2
+$G$2
+
+Ese es exactamente el comportamiento buscado.
+
+14. ¿Para qué sirven los signos $?
+
+Podemos entender:
+
+$G$2
+
+así:
+
+$G → fijar la columna G
+$2 → fijar la fila 2
+
+Por eso Excel no modifica ninguna de las dos partes cuando copiamos la fórmula.
+
+En este ejercicio necesitamos fijar completamente la celda porque el porcentaje está guardado únicamente en G2.
+
+15. ¿Qué ocurría con la fórmula incorrecta?
+
+Si escribiéramos:
+
+=ENTERO(D4*G2)
+
+y luego copiáramos hacia abajo, aparecería:
+
+=ENTERO(D5*G3)
+
+Pero según la planilla utilizada en la clase, G3 contiene el encabezado "INCREMENTO ESTIMADO".
+
+Entonces Excel estaría intentando hacer algo conceptualmente parecido a:
+
+número × texto
+
+y evidentemente eso provoca un error.
+
+El error no está realmente en la operación matemática.
+
+El problema está en cómo se está referenciando la celda que contiene el porcentaje.
+
+16. ¿Cuál es entonces la solución?
+
+La solución no consiste en modificar cada fórmula individualmente.
+
+Por ejemplo, no sería eficiente hacer manualmente:
+
+=ENTERO(D4*G2)
+=ENTERO(D5*G2)
+=ENTERO(D6*G2)
+=ENTERO(D7*G2)
+=ENTERO(D8*G2)
+
+Funcionaría, pero se estaría desperdiciando una de las ventajas principales de Excel.
+
+Lo correcto es escribir una sola vez:
+
+=ENTERO(D4*$G$2)
+
+y después copiar/arrastrar la fórmula.
+
+Excel se encarga automáticamente del resto.
+
+17. La gran ventaja de trabajar de esta manera
+
+Después aparece otra demostración muy importante.
+
+Supongamos que originalmente tenemos:
+
+G2 = 8%
+
+Todos los incrementos se calculan utilizando ese valor.
+
+Si ahora queremos modificar la estimación, no tenemos que tocar las fórmulas.
+
+Simplemente modificamos:
+
+G2
+
+Por ejemplo:
+
+8% → 9%
+
+Automáticamente se recalculan todas las filas.
+
+El material de la clase incluso propone observar qué ocurre con las columnas de Incremento estimado y Pacientes estimados cuando se modifica ese porcentaje.
+
+18. ¿Por qué se actualiza todo automáticamente?
+
+Porque las fórmulas no contienen directamente el porcentaje.
+
+No hicimos:
+
+=ENTERO(D4*8%)
+
+sino:
+
+=ENTERO(D4*$G$2)
+
+Por lo tanto Excel consulta permanentemente el contenido de G2.
+
+Si G2 cambia:
+
+8% → 9%
+
+todas las fórmulas que dependen de $G$2 se vuelven a calcular.
+
+Esto muestra una de las ideas principales de una planilla de cálculo:
+
+Separar los datos o parámetros de las fórmulas.
+
+19. Ejemplo numérico para entenderlo
+
+Supongamos que:
+
+D4 = 1000 pacientes
+G2 = 8%
+
+La fórmula sería:
+
+=ENTERO(D4*$G$2)
+
+Excel calcula:
+
+1000 × 8%
+1000 × 0,08
+= 80
+
+Por lo tanto:
+
+Incremento estimado = 80
+
+Si los pacientes estimados se obtienen tomando la cantidad existente y agregando el incremento, tendríamos conceptualmente:
+
+1000 + 80 = 1080
+
+Ahora cambiamos solamente:
+
+G2 = 9%
+
+Excel vuelve a calcular:
+
+1000 × 9%
+= 90
+
+El incremento pasa automáticamente:
+
+80 → 90
+
+Y cualquier otro cálculo de la tabla que dependa de ese incremento también se actualiza.
+
+20. Lo más importante que intenta enseñar el profesor
+
+El ejercicio no busca simplemente que aprendas a calcular un porcentaje.
+
+Lo principal es comprender que Excel maneja las referencias de manera diferente dependiendo de cómo escribimos la fórmula.
+
+Referencia relativa
+D4
+
+Al copiar:
+
+D4 → D5 → D6 → D7
+Referencia absoluta
+$G$2
+
+Al copiar:
+
+$G$2 → $G$2 → $G$2 → $G$2
+Fórmula combinando ambas
+=ENTERO(D4*$G$2)
+
+Al copiar:
+
+=ENTERO(D4*$G$2)
+=ENTERO(D5*$G$2)
+=ENTERO(D6*$G$2)
+=ENTERO(D7*$G$2)
+21. Cómo podrías repetir el ejercicio vos mismo
+Abrir la planilla de la clase anterior.
+Seleccionar G2.
+Aplicarle formato Porcentaje.
+Colocar el porcentaje solicitado.
+Ir a G4.
+Escribir:
+=ENTERO(D4*$G$2)
+Presionar Enter.
+Volver a seleccionar G4.
+Posicionar el mouse en el controlador de relleno de la esquina inferior derecha.
+Arrastrarlo hacia abajo.
+Comprobar que D4 se convierta en D5, D6, etc.
+Comprobar que $G$2 permanezca sin modificaciones.
+Cambiar el porcentaje almacenado en G2.
+Observar cómo se recalculan automáticamente los resultados.
+Un detalle del material que puede confundirte
+
+La guía tiene una pequeña inconsistencia: primero indica configurar G2 y colocar 8 %, pero más adelante habla de modificar la estimación de 7 % a 9 %. Lo importante conceptualmente no es si el valor inicial es 7 u 8 %, sino demostrar que al modificar únicamente G2 se actualiza automáticamente toda la planilla.
+
+Resumen para estudiar
+
+Este video enseña principalmente a copiar fórmulas utilizando referencias relativas y absolutas. Las referencias relativas, como D4, cambian automáticamente cuando copiamos una fórmula hacia otras filas. Las referencias absolutas, como $G$2, permanecen fijas gracias al signo $. En el ejercicio se necesita calcular un incremento porcentual para distintas provincias utilizando un único porcentaje almacenado en G2, por lo que la fórmula adecuada es:
+
+=ENTERO(D4*$G$2)
+
+Al copiarla hacia abajo, D4 pasa a ser D5, D6, etc., mientras que $G$2 permanece fijo. De esta manera, si posteriormente se modifica el porcentaje de G2, todos los resultados asociados se actualizan automáticamente.
+
+Importante: el material de la materia confirma que el video que me pasaste corresponde a esta parte sobre copiar fórmulas y referencias absolutas/relativas. La parte de SUMA, PROMEDIO, MÁXIMO y MÍNIMO está asociada a otro video distinto (b-PsYJ4uuXM) dentro de la misma clase.

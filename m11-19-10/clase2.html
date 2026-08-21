@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 2</title>
+  <meta
+    name="description"
+    content="Clase 2 de Informática Aplicada (M11-19-10), Unidad 1: cómo copiar fórmulas, la diferencia entre referencias relativas y absolutas, y las funciones básicas SUMA, PROMEDIO, MÁXIMO y MÍNIMO."
+  />
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#copiar-formulas">Copiar fórmulas</a>
+        <a href="#referencias">Referencias</a>
+        <a href="#referencias-mixtas">Ref. mixtas</a>
+        <a href="#errores-comunes">Errores comunes</a>
+        <a href="#video-1">Video 1</a>
+        <a href="#ejercicio-referencias">Práctica: referencias</a>
+        <a href="#funciones">Funciones</a>
+        <a href="#video-2">Video 2</a>
+        <a href="#ejercicio-funciones">Práctica: funciones</a>
+        <a href="#vida-diaria">Vida diaria</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 1</p>
+        <h1>Copiar fórmulas y funciones básicas</h1>
+        <p class="lead">
+          Seguimos con la planilla de <strong>Atención pacientes en Julio</strong>
+          que empezaste en la Clase 1. Ahora vas a aprender a copiar una
+          fórmula a muchas celdas de una sola vez, por qué a veces esa copia
+          "rompe" el cálculo, y cómo evitarlo con <strong>referencias
+          absolutas</strong>. Después vamos a resumir toda la tabla con las
+          funciones <strong>SUMA</strong>, <strong>PROMEDIO</strong>,
+          <strong>MÁXIMO</strong> y <strong>MÍNIMO</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#referencias">Referencias absolutas</a>
+          <a class="btn btn-secondary" href="#funciones">Funciones básicas</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 2</li>
+          <li>Referencias relativas y absolutas</li>
+          <li>SUMA, PROMEDIO, MÁXIMO y MÍNIMO</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Copiar una fórmula sin romperla</h2>
+        <p>
+          Entender la diferencia entre una referencia relativa y una
+          absoluta para poder copiar una fórmula a toda una columna con un
+          solo movimiento, y aplicar las funciones más usadas para resumir
+          una tabla de datos: total, promedio, máximo y mínimo.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Copiar fórmulas</span>
+          <span>Referencias $</span>
+          <span>Funciones de resumen</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Retomá la planilla del Ejercicio 1 de la clase anterior. Primero
+            vemos por qué copiar una fórmula puede salir mal y cómo
+            arreglarlo, con su video; después sumamos las funciones de
+            resumen, con otro video propio.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- COPIAR FÓRMULAS -->
+    <section class="section" id="copiar-formulas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Repaso rápido</p>
+          <h2>¿Por qué copiar una fórmula?</h2>
+          <p>
+            En la Clase 1 escribiste una fórmula distinta en cada fila
+            (<code>F4</code>, <code>F5</code>, <code>F6</code>…). Funciona,
+            pero no escala: si tu tabla tuviera cien filas, escribir cien
+            fórmulas a mano sería lento y fácil de arruinar. Excel permite
+            escribir la fórmula una sola vez y copiarla al resto de las
+            celdas.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">La herramienta</p>
+            <h3>El controlador de relleno</h3>
+            <p>
+              Es el pequeño cuadrado que aparece en la esquina inferior
+              derecha de la celda seleccionada. Al hacer clic y arrastrar
+              sobre él, Excel copia el contenido —o la fórmula— de esa celda
+              a todas las celdas por donde pasás.
+            </p>
+            <ul>
+              <li>Doble clic sobre él copia hasta el final de la columna con datos</li>
+              <li>Funciona igual hacia abajo que hacia la derecha</li>
+              <li>No es lo mismo que "copiar y pegar" (Ctrl+C / Ctrl+V), aunque el resultado se parezca</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Lo importante</p>
+            <h3>Excel no copia el número, copia la fórmula</h3>
+            <p>
+              Cuando copiás una celda con una fórmula, Excel no repite el
+              resultado que ves: vuelve a calcular la fórmula en la celda de
+              destino. Y ahí entra en juego cómo esté escrita cada
+              referencia dentro de esa fórmula.
+            </p>
+            <ul>
+              <li>Si la fórmula usa una referencia relativa, se ajusta sola</li>
+              <li>Si usa una referencia absoluta, se mantiene fija</li>
+              <li>Una misma fórmula puede combinar los dos tipos</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Más de un camino</p>
+          <h2>Las distintas formas de copiar una fórmula</h2>
+          <p>
+            El controlador de relleno es la más visual, pero no es la
+            única manera de copiar una fórmula en Excel. Conviene conocer
+            las cuatro, porque según la situación una te va a resultar más
+            cómoda que otra.
+          </p>
+        </div>
+
+        <div class="list-panel">
+          <div>
+            <h3>Arrastrar el controlador</h3>
+            <p>Clic sostenido sobre el cuadradito de la esquina y arrastrás hasta donde necesites.</p>
+          </div>
+          <div>
+            <h3>Doble clic en el controlador</h3>
+            <p>Copia automáticamente hacia abajo hasta la última fila que tenga datos en la columna de al lado.</p>
+          </div>
+          <div>
+            <h3>Copiar y pegar</h3>
+            <p>Seleccioná la celda, <code>Ctrl+C</code>, seleccioná el destino y <code>Ctrl+V</code>. Ideal para copiar a celdas salteadas.</p>
+          </div>
+          <div>
+            <h3>Rellenar hacia abajo o la derecha</h3>
+            <p>Seleccioná la celda con la fórmula junto con el rango de destino y usá <code>Ctrl+D</code> (abajo) o <code>Ctrl+R</code> (derecha).</p>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un detalle que confunde al principio</span>
+          <p>
+            Copiar y pegar con <code>Ctrl+V</code> también trae el formato
+            de la celda de origen (color, bordes, tamaño de fuente). Si
+            solo querés la fórmula sin arrastrar el formato, usá "Pegado
+            especial" (<code>Ctrl+Alt+V</code>) y elegí "Fórmulas".
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCIAS RELATIVAS Y ABSOLUTAS -->
+    <section class="section alt" id="referencias">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El concepto central de la clase</p>
+          <h2>Referencias relativas vs. absolutas</h2>
+          <p>
+            Volvamos a la planilla de <strong>Atención pacientes en
+            Julio</strong>, ya con una columna nueva —"Fecha de
+            estimación"— insertada entre Ministro y Pacientes anteriores.
+            Vas a agregarla vos mismo/a en el ejercicio de más abajo; acá
+            alcanza con saber que corrió una columna hacia la derecha todo
+            lo que venía después, así que <strong>Pacientes anteriores
+            ahora es la columna D</strong> (antes era C) e
+            <strong>Incremento estimado es la columna G</strong> (antes
+            era F). Vamos a guardar en la celda <code>G2</code> el
+            porcentaje de incremento que se aplica a todas las provincias.
+            El problema aparece justo al intentar copiar la fórmula que lo
+            usa.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. G2 guarda el porcentaje</h3>
+            <p>
+              Seleccioná <code>G2</code>, aplicale formato "Porcentaje" y
+              escribí <code>8</code>. Esa celda funciona como un parámetro
+              único: todas las provincias van a usar el mismo porcentaje
+              para calcular su incremento.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. La primera fórmula, en G4</h3>
+            <p>
+              En <code>G4</code> escribís
+              <code>=ENTERO(D4*G2)</code>: la cantidad de pacientes
+              anteriores de Buenos Aires (<code>D4</code>) multiplicada por
+              el porcentaje (<code>G2</code>), redondeada con
+              <code>ENTERO</code> porque son personas.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Copiás hacia abajo</h3>
+            <p>
+              Seleccionás <code>G4</code> y arrastrás el controlador de
+              relleno hasta <code>G9</code>, para completar el incremento de
+              las seis provincias de una sola vez.
+            </p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">¿Parece que algo falló?</p>
+          <h2>Excel corrió la referencia a G2 también</h2>
+          <p>
+            Al copiar <code>G4</code> una fila hacia abajo, Excel asume que
+            <strong>todas</strong> las referencias de la fórmula se tienen
+            que mover una fila. Eso está bien para <code>D4</code> —que sí
+            queremos que pase a ser <code>D5</code>—, pero es un problema
+            para <code>G2</code>.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda G5 seleccionada — la fórmula copiada quedó mal</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">G5</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=ENTERO(D5*G3)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+              <div class="excel-cell col-h">F</div>
+              <div class="excel-cell col-h">G</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell ref">INCREMENTO ESTIMADO</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">5</div>
+              <div class="excel-cell">210</div>
+              <div class="excel-cell">32</div>
+              <div class="excel-cell">35</div>
+              <div class="excel-cell selected" style="color: var(--rose); font-weight: 700;">#¡VALOR!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>¿Por qué pasa esto?</span>
+          <p>
+            <code>G3</code> no contiene un número: contiene el texto
+            "INCREMENTO ESTIMADO", el encabezado de la columna. Excel
+            intenta multiplicar un número por un texto y devuelve el error
+            <code>#¡VALOR!</code>. El problema no está en la cuenta, está en
+            que la referencia a <code>G2</code> se movió cuando no
+            queríamos que se moviera.
+          </p>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 2rem;">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo de referencia</th>
+                  <th>Cómo se escribe</th>
+                  <th>Qué pasa al copiar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Relativa</td>
+                  <td><code>D4</code></td>
+                  <td>Se ajusta sola: <code>D4</code> → <code>D5</code> → <code>D6</code>…</td>
+                </tr>
+                <tr>
+                  <td>Absoluta</td>
+                  <td><code>$G$2</code></td>
+                  <td>Queda fija: <code>$G$2</code> → <code>$G$2</code> → <code>$G$2</code>…</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Cómo se lee $G$2</h3>
+            <ul>
+              <li><code>$G</code> fija la columna G, no importa a qué columna copies</li>
+              <li><code>$2</code> fija la fila 2, no importa a qué fila copies</li>
+              <li>Los dos signos <code>$</code> juntos fijan la celda entera</li>
+            </ul>
+            <p class="card-example">
+              <strong>Atajo:</strong> con el cursor sobre la referencia
+              dentro de la fórmula, la tecla <code>F4</code> agrega o quita
+              los signos <code>$</code> sin que tengas que escribirlos a
+              mano.
+            </p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">La solución</p>
+          <h2>Fijar G2 con $ para que no se mueva</h2>
+          <p>
+            La fórmula correcta combina una referencia relativa —para que
+            cada fila use su propia cantidad de pacientes— con una
+            referencia absoluta —para que todas usen siempre el mismo
+            porcentaje.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda G4 seleccionada — fórmula con referencia absoluta</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">G4</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=ENTERO(D4*$G$2)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">G</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell ref">8,00%</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell">345</div>
+              <div class="excel-cell selected">27</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">5</div>
+              <div class="excel-cell">210</div>
+              <div class="excel-cell selected">16</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">6</div>
+              <div class="excel-cell">160</div>
+              <div class="excel-cell selected">12</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top: 1.5rem; max-width: 70ch;">
+          Al copiar <code>=ENTERO(D4*$G$2)</code> hacia abajo, la parte
+          <code>D4</code> se convierte en <code>D5</code>, <code>D6</code>…
+          porque es relativa. La parte <code>$G$2</code> queda exactamente
+          igual en las seis filas porque es absoluta. Y como la fórmula lee
+          el valor de <code>G2</code> en vez de tener el porcentaje escrito
+          a mano, si después cambiás ese número —por ejemplo de 8% a 9%— las
+          seis filas se recalculan solas, sin tocar ninguna fórmula.
+        </p>
+      </div>
+    </section>
+
+    <!-- REFERENCIAS MIXTAS -->
+    <section class="section" id="referencias-mixtas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Un paso más allá (opcional)</p>
+          <h2>Referencias mixtas: fijar solo la fila o solo la columna</h2>
+          <p>
+            Relativa y absoluta no son las dos únicas formas de escribir
+            una referencia. Existe un tercer tipo, la
+            <strong>referencia mixta</strong>, que fija solamente la fila o
+            solamente la columna. Sirve para cuando necesitás copiar una
+            misma fórmula en las dos direcciones a la vez: hacia abajo
+            <strong>y</strong> hacia la derecha.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Se escribe</th>
+                  <th>Al copiar hacia abajo</th>
+                  <th>Al copiar hacia la derecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Relativa</td>
+                  <td><code>D4</code></td>
+                  <td>Cambia la fila: <code>D5</code>, <code>D6</code>…</td>
+                  <td>Cambia la columna: <code>E4</code>, <code>F4</code>…</td>
+                </tr>
+                <tr>
+                  <td>Absoluta</td>
+                  <td><code>$D$4</code></td>
+                  <td>No cambia nada</td>
+                  <td>No cambia nada</td>
+                </tr>
+                <tr>
+                  <td>Mixta, fila fija</td>
+                  <td><code>D$4</code></td>
+                  <td>La fila queda en <code>4</code></td>
+                  <td>Cambia la columna: <code>E$4</code>, <code>F$4</code>…</td>
+                </tr>
+                <tr>
+                  <td>Mixta, columna fija</td>
+                  <td><code>$D4</code></td>
+                  <td>Cambia la fila: <code>$D5</code>, <code>$D6</code>…</td>
+                  <td>La columna queda en <code>D</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo se lee el signo $</span>
+          <p>
+            El signo <code>$</code> siempre fija lo que tiene inmediatamente
+            a la derecha. En <code>D$4</code>, el <code>$</code> está pegado
+            al <code>4</code>: fija la fila. En <code>$D4</code>, está
+            pegado a la <code>D</code>: fija la columna. Y con el atajo
+            <code>F4</code> podés ir ciclando entre los cuatro estados sin
+            escribir el signo a mano: <code>$D$4</code> →
+            <code>D$4</code> → <code>$D4</code> → <code>D4</code> →
+            <code>$D$4</code> otra vez.
+          </p>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Reto opcional</p>
+          <h2>Comparar tres escenarios de incremento a la vez</h2>
+          <p>
+            Imaginá que en vez de un solo porcentaje en <code>G2</code>
+            querés comparar tres escenarios —3%, 5% y 8%— para cada
+            provincia, uno al lado del otro. Escribís los porcentajes en
+            la fila 2, en las celdas <code>J2</code>, <code>K2</code> y
+            <code>L2</code>, y armás una sola fórmula en <code>J4</code>
+            que después puedas copiar hacia abajo y hacia la derecha sin
+            reescribirla.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda J4 seleccionada — fórmula con referencia mixta</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">J4</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=ENTERO($D4*J$2)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">J</div>
+              <div class="excel-cell col-h">K</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell ref">3%</div>
+              <div class="excel-cell ref">5%</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell ref">345</div>
+              <div class="excel-cell selected">10</div>
+              <div class="excel-cell">17</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top: 1.5rem; max-width: 70ch;">
+          <code>$D4</code> fija la columna D (siempre lee Pacientes
+          anteriores de esa fila) pero deja libre la fila, así que al
+          copiar hacia abajo pasa a leer <code>$D5</code>,
+          <code>$D6</code>… <code>J$2</code> fija la fila 2 (siempre lee
+          el porcentaje del encabezado) pero deja libre la columna, así
+          que al copiar hacia la derecha pasa a leer <code>K$2</code>,
+          <code>L$2</code>… Con una sola fórmula, copiada una vez hacia
+          abajo y una vez hacia la derecha, completás las 18 celdas del
+          cuadro comparativo.
+        </p>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section alt" id="errores-comunes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando algo sale mal</p>
+          <h2>Errores comunes en Excel</h2>
+          <p>
+            Ya viste el error <code>#¡VALOR!</code> al copiar mal una
+            referencia. Excel tiene un puñado de errores típicos que vas a
+            encontrar tarde o temprano; reconocerlos rápido te ahorra
+            minutos de revisar toda la fórmula letra por letra.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Error</th>
+                  <th>Causa más común</th>
+                  <th>Cómo solucionarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>#¡VALOR!</code></td>
+                  <td>La fórmula intenta operar con un texto en vez de un número, como pasó con <code>G3</code></td>
+                  <td>Revisá que las celdas referenciadas tengan el tipo de dato correcto</td>
+                </tr>
+                <tr>
+                  <td><code>#REF!</code></td>
+                  <td>La fórmula apunta a una celda que ya no existe, porque se borró la fila o columna</td>
+                  <td>Volvé a escribir la referencia apuntando a la celda correcta</td>
+                </tr>
+                <tr>
+                  <td><code>#DIV/0!</code></td>
+                  <td>La fórmula divide por una celda vacía o con el valor 0</td>
+                  <td>Revisá que el divisor tenga un valor válido antes de dividir</td>
+                </tr>
+                <tr>
+                  <td><code>#NOMBRE?</code></td>
+                  <td>Excel no reconoce el nombre de la función, por ejemplo por un error de tipeo</td>
+                  <td>Revisá que el nombre de la función esté bien escrito, en el idioma de tu Excel</td>
+                </tr>
+                <tr>
+                  <td><code>#####</code></td>
+                  <td>La columna es demasiado angosta para mostrar el contenido de la celda</td>
+                  <td>Ensanchá la columna arrastrando el borde de su encabezado</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo investigar un error</span>
+          <p>
+            El error no siempre está en la celda donde lo ves: a veces esa
+            celda solo heredó el problema de otra celda que referencia.
+            Hacé clic en la celda con error y mirá la barra de fórmulas
+            antes de tocar nada. Y si el error apareció justo después de
+            copiar una fórmula, lo primero que hay que sospechar es de una
+            referencia que debería haber sido absoluta.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO 1 -->
+    <section class="section" id="video-1">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material multimedia requerido</p>
+          <h2>Unidad 1 · Clase 2 · Parte 1</h2>
+          <p>
+            Este video retoma la planilla de la clase anterior y muestra en
+            vivo el problema de copiar la fórmula sin fijar el porcentaje,
+            y cómo se soluciona con <code>$G$2</code>. Miralo con tu
+            planilla abierta al lado para ir reproduciendo cada paso.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/ueESSLPBx5s"
+                title="Unidad 1 – Clase 2, parte 1: copiar fórmulas y referencias absolutas"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Antes de empezar</span>
+          <p>
+            Podés abrir dos ventanas al mismo tiempo: una con el video y
+            otra con tu archivo de Excel. Si te surge una duda, planteála
+            en el Foro de la Unidad 1.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJERCICIO: REFERENCIAS -->
+    <section class="section alt" id="ejercicio-referencias">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica</p>
+          <h2>Ejercicio 1 (continuación) · Fijar el porcentaje con referencia absoluta</h2>
+          <p>
+            Abrí la planilla del Ejercicio 1 que armaste en la Clase 1 y
+            seguí estos pasos en orden. Cada uno se apoya en el anterior.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Agregá una provincia nueva</h3>
+            <p>
+              Insertá una fila con los datos de <strong>Mendoza</strong>:
+              Ministro Susana Benítez, Pacientes anteriores 160, Ingresos
+              28, Egresos 15. Calculá el Incremento estimado y los
+              Pacientes estimados con las mismas fórmulas de la clase
+              anterior.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Insertá una columna nueva</h3>
+            <p>
+              Entre "Ministro" y "Pacientes anteriores", insertá una
+              columna con el título "Fecha de estimación". Al insertarla,
+              todas las columnas de la derecha se corren un lugar: lo que
+              era la columna C ahora es D, y así sucesivamente.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Vaciá Incremento estimado</h3>
+            <p>
+              Borrá el contenido de toda la columna "Incremento estimado".
+              La vamos a volver a calcular desde cero, esta vez con un
+              porcentaje único guardado en una celda aparte.
+            </p>
+          </article>
+        </div>
+
+        <div class="card-grid two-col-grid" style="margin-top: 1.5rem;">
+          <article class="simple-card featured">
+            <h3>4. Porcentaje único en G2</h3>
+            <p>
+              Seleccioná <code>G2</code>, aplicale formato "Porcentaje" y
+              escribí <code>8</code>. Después, en <code>G4</code>, armá la
+              fórmula ya con la referencia absoluta.
+            </p>
+            <p class="card-example">
+              <strong>Fórmula en G4:</strong> <code>=ENTERO(D4*$G$2)</code>
+            </p>
+            <p>
+              Confirmá con <code>Enter</code>, volvé a seleccionar
+              <code>G4</code> y arrastrá el controlador de relleno hasta
+              <code>G9</code> para completar las seis provincias de una
+              sola vez.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>5. Cambiá el porcentaje</h3>
+            <p>
+              Con la columna ya calculada, modificá el valor de
+              <code>G2</code> de <code>8%</code> a <code>9%</code>.
+            </p>
+            <p class="card-example">
+              <strong>Comprobación:</strong> ningún <code>#¡VALOR!</code>,
+              y las columnas Incremento estimado y Pacientes estimados se
+              actualizan solas.
+            </p>
+            <p>
+              Si ves que algo no cambia, revisá que la fórmula tenga los
+              dos signos <code>$</code> delante de la G y del 2.
+            </p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Resultado esperado</p>
+          <h2>Planilla con el 9% aplicado</h2>
+          <p>
+            Así debería quedar tu planilla después de insertar la fila y la
+            columna, y de aplicar la fórmula con referencia absoluta.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Provincia</th>
+                  <th>Ministro</th>
+                  <th>Fecha de estimación</th>
+                  <th>Pacientes anteriores</th>
+                  <th>Ingresos</th>
+                  <th>Egresos</th>
+                  <th>Incremento estimado</th>
+                  <th>Pacientes estimados</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Buenos Aires</td>
+                  <td>Jorge Gómez</td>
+                  <td>14/07/2020</td>
+                  <td>345</td>
+                  <td>48</td>
+                  <td>39</td>
+                  <td>31</td>
+                  <td>385</td>
+                </tr>
+                <tr>
+                  <td>C.A.B.A.</td>
+                  <td>Carlos Mochales</td>
+                  <td>12/07/2020</td>
+                  <td>210</td>
+                  <td>32</td>
+                  <td>35</td>
+                  <td>18</td>
+                  <td>225</td>
+                </tr>
+                <tr>
+                  <td>Mendoza</td>
+                  <td>Susana Benítez</td>
+                  <td>01/07/2020</td>
+                  <td>160</td>
+                  <td>28</td>
+                  <td>15</td>
+                  <td>14</td>
+                  <td>187</td>
+                </tr>
+                <tr>
+                  <td>Córdoba</td>
+                  <td>Isabel Resnik</td>
+                  <td>21/07/2020</td>
+                  <td>170</td>
+                  <td>21</td>
+                  <td>17</td>
+                  <td>15</td>
+                  <td>189</td>
+                </tr>
+                <tr>
+                  <td>Santa Fe</td>
+                  <td>Marcelo Díaz</td>
+                  <td>09/07/2020</td>
+                  <td>133</td>
+                  <td>24</td>
+                  <td>14</td>
+                  <td>11</td>
+                  <td>154</td>
+                </tr>
+                <tr>
+                  <td>Entre Ríos</td>
+                  <td>Beatriz Romero</td>
+                  <td>19/09/2020</td>
+                  <td>98</td>
+                  <td>17</td>
+                  <td>22</td>
+                  <td>8</td>
+                  <td>101</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Recordatorio</span>
+          <p>
+            "Pacientes estimados" sigue calculándose igual que en la Clase
+            1: Pacientes anteriores + Ingresos + Incremento estimado −
+            Egresos. Con la columna nueva insertada, en <code>H4</code>
+            queda como <code>=D4+E4+G4-F4</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUNCIONES BÁSICAS -->
+    <section class="section" id="funciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Segunda parte de la clase</p>
+          <h2>Funciones para resumir una tabla</h2>
+          <p>
+            Una función es una fórmula predefinida con nombre propio, igual
+            que <code>ENTERO</code> de la clase anterior. Se escribe
+            <code>=NOMBRE(rango)</code>, donde el rango es el grupo de
+            celdas sobre el que actúa, separado con dos puntos:
+            <code>celda1:celdaN</code>.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Función</th>
+                  <th>Resultado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>=SUMA(celda1:celdaN)</code></td>
+                  <td>Calcula la sumatoria del rango de celdas especificado.</td>
+                </tr>
+                <tr>
+                  <td><code>=PROMEDIO(celda1:celdaN)</code></td>
+                  <td>Calcula el promedio del rango de celdas especificado.</td>
+                </tr>
+                <tr>
+                  <td><code>=MAX(celda1:celdaN)</code></td>
+                  <td>Obtiene el valor máximo del rango de celdas especificado.</td>
+                </tr>
+                <tr>
+                  <td><code>=MIN(celda1:celdaN)</code></td>
+                  <td>Obtiene el valor mínimo del rango de celdas especificado.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Un ejemplo concreto</h3>
+            <p>
+              Para sumar los "Pacientes anteriores" de las seis provincias,
+              el rango son las celdas <code>D4</code> a <code>D9</code>.
+            </p>
+            <p class="card-example">
+              <strong>Fórmula:</strong> <code>=SUMA(D4:D9)</code>
+            </p>
+            <ul>
+              <li>El rango va de la primera celda con dato a la última, sin saltear ninguna</li>
+              <li>No hace falta escribir cada celda por separado, como <code>D4+D5+D6…</code></li>
+              <li>Si agregás una fila de datos dentro del rango, tenés que ajustar el rango a mano</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda D13 seleccionada — función SUMA</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">D13</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=SUMA(D4:D9)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+              <div class="excel-cell col-h">F</div>
+              <div class="excel-cell col-h">G</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">13</div>
+              <div class="excel-cell selected">1.116</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Truco: copiar la fórmula hacia el costado</span>
+          <p>
+            El controlador de relleno también funciona hacia la derecha.
+            Si arrastrás <code>D13</code> hasta <code>H13</code>, la
+            referencia relativa se ajusta por columna en vez de por fila:
+            <code>SUMA(D4:D9)</code> se convierte en
+            <code>SUMA(E4:E9)</code>, después en
+            <code>SUMA(F4:F9)</code>, y así hasta la última columna. Evitás
+            escribir la misma función cinco veces.
+          </p>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Un poco más de profundidad</p>
+          <h2>Cómo está armada una función por dentro</h2>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="max-width: 480px;">
+          <div class="excel-mock-label">Las tres partes de =SUMA(D4:D9)</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">D13</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=SUMA(D4:D9)</span>
+          </div>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1rem;">
+          <article class="simple-card">
+            <h3>El signo =</h3>
+            <p>
+              Como cualquier fórmula, arranca con <code>=</code>: le avisa
+              a Excel que lo que sigue hay que calcularlo, no mostrarlo
+              como texto.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>El nombre de la función</h3>
+            <p>
+              <code>SUMA</code> le dice a Excel qué operación aplicar. Cada
+              función tiene un nombre único: <code>PROMEDIO</code>,
+              <code>MAX</code>, <code>MIN</code>, <code>ENTERO</code>…
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>El argumento entre paréntesis</h3>
+            <p>
+              <code>(D4:D9)</code> es el dato sobre el que actúa la
+              función. Puede ser un rango, una celda sola o incluso otra
+              función.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Atajo en la cinta</p>
+            <h3>El botón Autosuma (Σ)</h3>
+            <p>
+              En la pestaña "Inicio" o "Fórmulas" hay un botón con el
+              símbolo Σ. Al hacer clic con una celda vacía seleccionada,
+              Excel escribe <code>=SUMA(</code> y adivina el rango de
+              números que tiene al lado, listo para confirmar con
+              <code>Enter</code>.
+            </p>
+            <div class="excel-mock" aria-hidden="true">
+              <div class="excel-ribbon-buttons">
+                <span class="excel-btn on">Σ Autosuma</span>
+                <span class="excel-btn">Promedio</span>
+                <span class="excel-btn">Más funciones</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Cuando el rango no es continuo</p>
+            <h3>Sumar celdas salteadas</h3>
+            <p>
+              Si necesitás sumar dos bloques de celdas que no están
+              pegados, separalos con una coma dentro del mismo argumento.
+              También podés armar ese rango a mano manteniendo apretado
+              <code>Ctrl</code> mientras hacés clic en cada celda.
+            </p>
+            <p class="card-example">
+              <strong>Ejemplo:</strong>
+              <code>=SUMA(D4:D9,F4:F9)</code>
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Funciones anidadas</span>
+          <p>
+            Una función puede ir adentro de otra: se llama "anidar"
+            funciones. Por ejemplo, si querés el promedio de Pacientes
+            estimados redondeado hacia abajo, podés combinar
+            <code>PROMEDIO</code> con la función <code>ENTERO</code> que ya
+            usaste en la Clase 1: <code>=ENTERO(PROMEDIO(H4:H9))</code>.
+            Excel resuelve primero la función de más adentro
+            (<code>PROMEDIO</code>) y usa ese resultado como argumento de
+            la de afuera (<code>ENTERO</code>).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO 2 -->
+    <section class="section alt" id="video-2">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material multimedia requerido</p>
+          <h2>Unidad 1 · Clase 2 · Parte 2</h2>
+          <p>
+            Este segundo video muestra cómo agregar la fila de totales a la
+            planilla del Ejercicio 1 y aplicar SUMA, PROMEDIO, MÁXIMO y
+            MÍNIMO. Volvé a abrir tu planilla y seguí el paso a paso.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/b-PsYJ4uuXM"
+                title="Unidad 1 – Clase 2, parte 2: SUMA, PROMEDIO, MÁXIMO y MÍNIMO"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Antes de empezar</span>
+          <p>
+            Si te quedaron dudas sobre referencias absolutas de la primera
+            parte, no hace falta resolverlas antes de seguir: las
+            funciones de esta parte no dependen de eso.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJERCICIO: FUNCIONES -->
+    <section class="section" id="ejercicio-funciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica</p>
+          <h2>Ejercicio 1 (continuación) · Totales, promedios y extremos</h2>
+          <p>
+            Seguí trabajando sobre la misma planilla del ejercicio
+            anterior, ya con las ocho columnas y las seis provincias
+            cargadas.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Sumá los Pacientes estimados</h3>
+            <p>
+              En <code>H10</code>, escribí <code>=SUMA(H4:H9)</code> para
+              obtener el total de Pacientes estimados de las seis
+              provincias.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Agregá las etiquetas</h3>
+            <p>
+              En las celdas <code>A13</code> a <code>A16</code>, escribí
+              en cursiva: TOTAL, PROMEDIO, MÁXIMO y MÍNIMO. Agregá bordes a
+              ese bloque para diferenciarlo del resto de la tabla.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Aplicá SUMA a Pacientes anteriores</h3>
+            <p>
+              En <code>D13</code>, escribí <code>=SUMA(D4:D9)</code> y
+              copiala hacia la derecha, hasta <code>H13</code>, para
+              obtener el total de Ingresos, Egresos, Incremento estimado y
+              Pacientes estimados.
+            </p>
+          </article>
+        </div>
+
+        <div class="card-grid two-col-grid" style="margin-top: 1.5rem;">
+          <article class="simple-card featured">
+            <h3>4. PROMEDIO, MÁXIMO y MÍNIMO</h3>
+            <p>
+              Repetí la misma lógica en las filas 14, 15 y 16, cambiando
+              solo el nombre de la función.
+            </p>
+            <p class="card-example">
+              <strong>D14:</strong> <code>=PROMEDIO(D4:D9)</code><br />
+              <strong>D15:</strong> <code>=MAX(D4:D9)</code><br />
+              <strong>D16:</strong> <code>=MIN(D4:D9)</code>
+            </p>
+            <p>
+              Copiá cada una hacia la derecha, hasta la columna
+              <code>H</code>, igual que hiciste con la fila de TOTAL.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>5. Revisá los resultados</h3>
+            <p>
+              El promedio de Pacientes estimados debería quedar en
+              <code>206,83</code>, con el máximo en Buenos Aires
+              (<code>385</code>) y el mínimo en Entre Ríos
+              (<code>101</code>).
+            </p>
+            <p>
+              Si algún resultado no coincide, revisá que el rango de la
+              función cubra las seis filas de datos, de la 4 a la 9.
+            </p>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Resultado esperado</p>
+          <h2>Tabla de resumen completa</h2>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Pacientes anteriores</th>
+                  <th>Ingresos</th>
+                  <th>Egresos</th>
+                  <th>Incremento estimado</th>
+                  <th>Pacientes estimados</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TOTAL</td>
+                  <td>1.116</td>
+                  <td>170</td>
+                  <td>142</td>
+                  <td>97</td>
+                  <td>1.241</td>
+                </tr>
+                <tr>
+                  <td>PROMEDIO</td>
+                  <td>186</td>
+                  <td>28,33</td>
+                  <td>23,67</td>
+                  <td>16,17</td>
+                  <td>206,83</td>
+                </tr>
+                <tr>
+                  <td>MÁXIMO</td>
+                  <td>345</td>
+                  <td>48</td>
+                  <td>39</td>
+                  <td>31</td>
+                  <td>385</td>
+                </tr>
+                <tr>
+                  <td>MÍNIMO</td>
+                  <td>98</td>
+                  <td>17</td>
+                  <td>14</td>
+                  <td>8</td>
+                  <td>101</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Después de resolver el ejercicio</span>
+          <p>
+            Guardá tu planilla: en la próxima clase de la unidad vas a
+            seguir trabajando sobre esta misma tabla para armar gráficos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDA DIARIA -->
+    <section class="section" id="vida-diaria">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para llevártelo de acá</p>
+          <h2>Dónde vas a usar esto fuera de la facultad</h2>
+          <p>
+            Referencias absolutas y funciones de resumen no son solo para
+            planillas de la facultad: aparecen en cualquier tabla que
+            manejes en tu trabajo o en tu casa. Estos son algunos ejemplos
+            de dónde te van a servir.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Situación</th>
+                  <th>Qué guardarías en una celda aparte (como G2)</th>
+                  <th>Funciones que usarías</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Gastos del mes</td>
+                  <td>El porcentaje que querés apartar como ahorro</td>
+                  <td>SUMA para el total, PROMEDIO para el gasto diario</td>
+                </tr>
+                <tr>
+                  <td>Notas de un curso</td>
+                  <td>La nota mínima para aprobar</td>
+                  <td>PROMEDIO, MAX y MIN para ver el mejor y el peor resultado</td>
+                </tr>
+                <tr>
+                  <td>Stock de un local</td>
+                  <td>El precio unitario o el porcentaje de reposición</td>
+                  <td>SUMA para el stock total, MIN para saber qué producto está por agotarse</td>
+                </tr>
+                <tr>
+                  <td>Turnos de un consultorio</td>
+                  <td>La duración estándar de cada turno</td>
+                  <td>SUMA de las horas ocupadas del día</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>La idea de fondo</span>
+          <p>
+            En los cuatro casos hay algo en común: un valor que se repite
+            en todos los cálculos —el porcentaje de ahorro, la nota
+            mínima, el precio— conviene guardarlo en una única celda y
+            referenciarlo con <code>$</code>, en vez de escribirlo adentro
+            de cada fórmula. Así, cambiarlo una sola vez actualiza todos
+            los resultados, exactamente como viste hoy con el incremento
+            de pacientes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="section alt" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Para reflexionar</h2>
+          <p>
+            Terminamos las dos primeras clases de la unidad. Antes de
+            seguir, hacé una pausa y repasá mentalmente las fórmulas y
+            funciones que viste hasta acá.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Una planilla propia</h3>
+            <p>
+              Pensá qué planilla podrías diseñar para resolver alguna
+              situación de tu trabajo o tu vida diaria. Pensalo en
+              términos de utilidad: ¿qué problema te resolvería tenerla
+              armada?
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Fórmulas y funciones</h3>
+            <p>
+              ¿Qué fórmulas aplicarías en esa planilla? ¿Necesitarías
+              referencias absolutas, como <code>$G$2</code>, o te
+              alcanzaría con las relativas? ¿Qué funciones de las vistas —
+              SUMA, PROMEDIO, MÁXIMO, MÍNIMO— serían necesarias incluir?
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Compartir en el foro</h3>
+            <p>
+              Compartí tus reflexiones en el Foro de la Unidad 1 para
+              intercambiar con tus compañeros y tu profesor/a tutor/a.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase1.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 1 · Crear y dar formato a las planillas</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 3 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 1 · Clase 2</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
