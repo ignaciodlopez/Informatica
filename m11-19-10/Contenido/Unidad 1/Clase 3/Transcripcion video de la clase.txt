@@ -1,0 +1,238 @@
+GRÁFICOS EN EXCEL
+00:00 – Objetivos de la clase
+
+Los objetivos que se presentan son:
+
+Gráficos estadísticos en Excel.
+Tipos de gráficos.
+Crear un gráfico estadístico.
+Modificar la apariencia de un gráfico estadístico.
+00:30 – Gráficos en Excel
+
+Se introduce el tema de los gráficos en Excel. Los gráficos permiten representar de manera visual los datos que tenemos almacenados en una planilla de cálculo. Dependiendo de la información que queramos mostrar podemos utilizar distintos tipos de gráficos.
+
+Para insertar un gráfico se utiliza la pestaña Insertar de Excel y dentro de ella encontramos las diferentes alternativas disponibles.
+
+01:00 – Gráfico de columnas
+
+Uno de los primeros tipos que se muestra es el gráfico de columnas. Dentro de esta categoría existen distintas variantes, por ejemplo columnas agrupadas, columnas apiladas y gráficos en tres dimensiones.
+
+Este tipo de gráfico resulta útil para comparar valores correspondientes a distintas categorías.
+
+01:30 – Gráfico de líneas
+
+Luego aparece el gráfico de líneas. Este tipo de gráfico permite representar los datos mediante puntos unidos por líneas y es especialmente útil cuando queremos observar la evolución o variación de determinados valores.
+
+02:00 – Gráfico circular
+
+También encontramos el gráfico circular, conocido normalmente como gráfico de torta. Sirve para representar cómo se distribuye un total entre diferentes categorías.
+
+Cada sector del círculo representa una parte del total.
+
+02:30 – Gráfico de área
+
+Otro de los gráficos disponibles es el gráfico de área. Tiene características similares al gráfico de líneas pero el espacio que queda debajo de la línea aparece relleno.
+
+03:00 – Gráfico de dispersión
+
+Se muestra además el gráfico XY o de dispersión, que permite relacionar valores correspondientes a dos variables y visualizar cómo se distribuyen los datos.
+
+03:30 – Otros tipos de gráficos
+
+Excel dispone de una gran cantidad de gráficos diferentes. En el menú aparecen, entre otros:
+
+Columnas, líneas, circular, barras, área, XY o dispersión, mapas, cotizaciones, superficie, radial, rectángulos, proyección solar, histograma, cajas y bigotes, cascada, embudo y gráfico combinado.
+
+Como ejemplo se muestra el gráfico de cotizaciones, que permite trabajar con valores como máximos, mínimos y cierre.
+
+Ejemplo práctico
+04:00 – Planilla “Ventas mes de ABRIL”
+
+A continuación se comienza a trabajar con una planilla de Excel que contiene información de diferentes sucursales.
+
+La tabla contiene las columnas:
+
+Sucursal – Responsable – Fecha de apertura – Ventas del mes – Gastos – Sueldos – Comisión por ventas – Ganancia neta.
+
+Las sucursales que aparecen son:
+
+Avellaneda, Palermo, Rosario, Morón, Belgrano y Luján.
+
+También aparecen al final de la tabla los cálculos de total, promedio, máximo y mínimo.
+
+La comisión por ventas utilizada en la planilla es del 8 %.
+
+04:30 – Selección de los datos
+
+Para realizar un gráfico primero debemos determinar qué información queremos representar.
+
+En este ejemplo se utilizan las sucursales y los valores correspondientes a las ventas del mes.
+
+Se seleccionan los datos necesarios de la tabla y posteriormente se ingresa a la pestaña Insertar.
+
+05:00 – Insertar el gráfico
+
+Dentro de la pestaña Insertar encontramos el grupo correspondiente a Gráficos.
+
+A partir de los datos seleccionados se elige un gráfico de columnas.
+
+05:30 – Creación del gráfico
+
+Excel genera automáticamente el gráfico.
+
+En el eje horizontal aparecen las distintas sucursales:
+
+Avellaneda, Palermo, Rosario, Morón, Belgrano y Luján.
+
+Mientras que en el eje vertical aparecen los valores monetarios correspondientes a las ventas.
+
+El gráfico tiene como título inicialmente:
+
+“ventas del mes”.
+
+06:00 – Mover y modificar el tamaño
+
+Una vez creado el gráfico podemos cambiar su ubicación dentro de la hoja.
+
+Para moverlo simplemente seleccionamos el gráfico y lo desplazamos hasta el lugar deseado.
+
+También podemos cambiar su tamaño utilizando los puntos que aparecen alrededor del gráfico cuando está seleccionado.
+
+06:30 – Elementos del gráfico
+
+Cuando seleccionamos el gráfico aparecen distintas herramientas que permiten modificar sus características.
+
+Excel permite trabajar sobre elementos específicos del gráfico como:
+
+el título, los ejes, las series de datos, las etiquetas y el área del gráfico.
+
+07:00 – Seleccionar los elementos
+
+Es importante tener en cuenta que podemos seleccionar independientemente cada elemento.
+
+Por ejemplo, podemos seleccionar solamente el título sin modificar el resto del gráfico.
+
+07:30 – Formato del título
+
+Se selecciona el título “ventas del mes”.
+
+Al hacerlo aparece el panel de Formato, desde donde se pueden modificar diferentes propiedades del elemento seleccionado.
+
+08:00 – Cambiar el aspecto del título
+
+Se modifica el formato del título. En el ejemplo el texto “ventas del mes” pasa a visualizarse en color verde.
+
+Esto demuestra que los diferentes componentes del gráfico pueden tener formatos independientes.
+
+08:30 – Formato del área del gráfico
+
+Luego se selecciona el área del gráfico.
+
+En el panel de formato aparecen distintas opciones de relleno, entre ellas:
+
+sin relleno, relleno sólido, relleno degradado, relleno con imagen o textura y relleno de trama.
+
+Se prueba un relleno con textura para observar cómo cambia el fondo.
+
+09:00 – Diferentes rellenos
+
+Se continúan probando las alternativas disponibles para modificar el fondo del gráfico.
+
+Excel ofrece diferentes colores, tramas y estilos que pueden utilizarse para personalizarlo.
+
+09:30 – Relleno degradado
+
+Finalmente se utiliza un fondo con un efecto degradado azul.
+
+De esta forma vemos que no solamente podemos cambiar los datos representados, sino también toda la apariencia visual del gráfico.
+
+10:00 – Formato de los ejes
+
+También podemos seleccionar los ejes del gráfico de manera individual.
+
+Se selecciona el eje vertical, que contiene los valores monetarios.
+
+10:30 – Modificación del eje vertical
+
+Los números correspondientes al eje vertical son modificados y pasan a visualizarse en un tono naranja.
+
+La modificación afecta únicamente al elemento que fue seleccionado.
+
+11:00 – Eje horizontal
+
+Luego se seleccionan las etiquetas correspondientes al eje horizontal.
+
+En este caso son los nombres de las sucursales.
+
+Se modifica su apariencia y los nombres de las sucursales pasan a mostrarse en otro color.
+
+11:30 – Series de datos
+
+También podemos seleccionar la serie de datos, es decir, el conjunto de columnas que representa las ventas.
+
+Desde Formato de serie de datos aparecen distintas opciones que permiten modificar la apariencia de las columnas.
+
+Se pueden cambiar propiedades como el relleno, el borde y diferentes características de presentación.
+
+12:00 – Modificar un punto de datos
+
+Incluso es posible modificar individualmente uno de los valores del gráfico.
+
+Al seleccionar nuevamente una columna específica podemos trabajar solamente sobre ese punto de datos, sin modificar las demás columnas.
+
+En el ejemplo una de las columnas termina destacándose con un color diferente del resto.
+
+Creación de un gráfico circular
+12:30 – Volver a los datos
+
+Se vuelve a la tabla original de Ventas mes de ABRIL.
+
+Ahora se utilizarán nuevamente los datos correspondientes a las sucursales y las ventas para generar otro tipo de representación.
+
+13:00 – Seleccionar los valores
+
+Se selecciona la información que queremos utilizar y se vuelve a ingresar a las herramientas de gráficos.
+
+13:30 – Gráfico circular
+
+Esta vez se inserta un gráfico circular en tres dimensiones.
+
+Cada porción del gráfico corresponde a una de las sucursales.
+
+Los diferentes tamaños de las porciones permiten comparar visualmente cuánto representa cada sucursal respecto del total de ventas.
+
+14:00 – Etiquetas del gráfico
+
+Se agregan o modifican las etiquetas del gráfico para facilitar la interpretación.
+
+En el gráfico aparecen los nombres de las sucursales junto con sus respectivos porcentajes.
+
+De esta forma no es necesario observar directamente la tabla para comprender qué participación tiene cada sucursal.
+
+14:30 – Organización de los gráficos
+
+El gráfico circular puede moverse y cambiarse de tamaño de la misma manera que el gráfico de columnas.
+
+Se lo ubica en otra zona de la hoja para poder visualizar los dos gráficos simultáneamente.
+
+15:00 – Comparación de los gráficos
+
+Finalmente quedan visibles dos representaciones de la misma información.
+
+A la izquierda se encuentra el gráfico de columnas, denominado “Ventas del mes”.
+
+A la derecha aparece el gráfico circular, denominado “VENTAS DEL MES”.
+
+En el gráfico de columnas se puede observar que una de las columnas fue destacada individualmente con otro color.
+
+En el gráfico circular aparecen las diferentes sucursales con su participación porcentual.
+
+15:30 – 16:27 – Resultado final
+
+Se vuelve a observar la tabla con los datos originales y los gráficos creados.
+
+El ejercicio permite comprobar que, partiendo de una misma serie de datos, podemos utilizar distintas formas de representación dependiendo de aquello que queramos destacar.
+
+Además, una vez creado el gráfico podemos modificar prácticamente todos sus componentes: tipo de gráfico, título, colores, relleno, ejes, series de datos, puntos individuales, etiquetas, tamaño y posición.
+
+En conclusión, para crear un gráfico en Excel primero debemos seleccionar correctamente los datos, luego utilizar las opciones de la pestaña Insertar para elegir el tipo de gráfico y, finalmente, utilizar las herramientas de Diseño y Formato para adaptar su presentación.

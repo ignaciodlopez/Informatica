@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 3</title>
+  <meta
+    name="description"
+    content="Clase 3 de Informática Aplicada (M11-19-10), Unidad 1: qué son los gráficos estadísticos, sus principales tipos, y cómo crear y personalizar un gráfico de columnas y uno circular a partir de una tabla de datos."
+  />
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#que-es-un-grafico">Qué es un gráfico</a>
+        <a href="#tipos-de-graficos">Tipos de gráficos</a>
+        <a href="#anatomia-del-grafico">Partes de un gráfico</a>
+        <a href="#errores-comunes-graficos">Errores comunes</a>
+        <a href="#video">Video</a>
+        <a href="#ejercicio-columnas">Gráfico de columnas</a>
+        <a href="#personalizar">Personalizar</a>
+        <a href="#grafico-circular">Gráfico circular</a>
+        <a href="#vida-diaria">Vida diaria</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 1</p>
+        <h1>Gráficos en Excel</h1>
+        <p class="lead">
+          Tu planilla de <strong>Atención pacientes en Julio</strong> ya
+          tiene datos cargados, fórmulas con referencias absolutas y
+          funciones de resumen. Ahora vas a darle una vuelta más: en vez de
+          leer números en una tabla, vas a <strong>verlos</strong>. Un
+          gráfico bien elegido cuenta en un segundo lo que una tabla tarda
+          minutos en explicar.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#tipos-de-graficos">Tipos de gráficos</a>
+          <a class="btn btn-secondary" href="#ejercicio-columnas">Crear un gráfico</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 3</li>
+          <li>Gráfico de columnas y gráfico circular</li>
+          <li>Personalización de gráficos</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>De la tabla al gráfico</h2>
+        <p>
+          Reconocer los tipos de gráfico más usados en Excel y cuándo
+          conviene cada uno, para después crear un gráfico de columnas y
+          uno circular a partir de tu propia planilla, y darles formato
+          hasta que comuniquen la información de un solo vistazo.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Tipos de gráfico</span>
+          <span>Crear el gráfico</span>
+          <span>Personalizarlo</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Retomá la planilla del Ejercicio 1, ya con la fila de TOTAL,
+            PROMEDIO, MÁXIMO y MÍNIMO de la Clase 2. Primero vemos la teoría
+            de los tipos de gráfico, con su video; después construimos dos
+            gráficos sobre esos mismos datos, paso a paso.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- QUÉ ES UN GRÁFICO -->
+    <section class="section" id="que-es-un-grafico">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>¿Qué es un gráfico y para qué sirve?</h2>
+          <p>
+            Un gráfico es una representación visual de los datos de una
+            tabla. No agrega información nueva —usa los mismos números que
+            ya tenés en tu planilla— pero los muestra de una forma que el
+            ojo interpreta mucho más rápido que una columna de cifras.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">La idea central</p>
+            <h3>Los mismos datos, otra forma de leerlos</h3>
+            <p>
+              Mirá la tabla de Pacientes anteriores por provincia: para
+              saber cuál tuvo más pacientes tenés que leer las seis
+              cifras y compararlas mentalmente. En un gráfico de columnas,
+              la respuesta es la barra más alta. La información es
+              idéntica; lo que cambia es cuánto esfuerzo te pide entenderla.
+            </p>
+            <ul>
+              <li>Un gráfico no reemplaza a la tabla, la complementa</li>
+              <li>Se actualiza solo si cambian los datos de origen</li>
+              <li>Sirve para mostrar comparaciones, evoluciones o proporciones</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Antes de graficar</p>
+            <h3>El primer paso es elegir qué mostrar</h3>
+            <p>
+              No se grafica "toda la tabla": se elige qué pregunta querés
+              responder. ¿Qué provincia tuvo más pacientes? ¿Cómo se
+              reparte el total entre las seis? ¿Los ingresos crecieron mes
+              a mes? Cada pregunta pide un tipo de gráfico distinto.
+            </p>
+            <ul>
+              <li>Primero la pregunta, después el tipo de gráfico</li>
+              <li>Seleccionás solo las columnas necesarias, con sus títulos</li>
+              <li>Menos datos bien elegidos comunican más que un gráfico saturado</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPOS DE GRÁFICOS -->
+    <section class="section alt" id="tipos-de-graficos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Un vistazo al menú de Excel</p>
+          <h2>Los tipos de gráfico más usados</h2>
+          <p>
+            Desde la pestaña <strong>Insertar</strong>, grupo
+            <strong>Gráficos</strong>, Excel ofrece muchísimas variantes:
+            columnas, líneas, circular, barras, área, dispersión, mapas,
+            cotizaciones, radial, cascada, embudo y más. No hace falta
+            conocerlas todas de memoria; alcanza con reconocer bien las
+            cinco más frecuentes.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Columnas</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <rect x="10" y="24" width="16" height="40" rx="2" fill="var(--primary)"></rect>
+              <rect x="36" y="10" width="16" height="54" rx="2" fill="var(--primary)"></rect>
+              <rect x="62" y="34" width="16" height="30" rx="2" fill="var(--primary)"></rect>
+              <rect x="88" y="46" width="16" height="18" rx="2" fill="var(--primary)"></rect>
+            </svg>
+            <p>
+              Barras verticales, una por categoría. Ideal para
+              <strong>comparar</strong> valores entre distintos elementos,
+              como los pacientes anteriores de cada provincia.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Líneas</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <polyline points="8,50 34,34 60,44 86,18 112,26" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+              <circle cx="8" cy="50" r="3" fill="var(--accent)"></circle>
+              <circle cx="34" cy="34" r="3" fill="var(--accent)"></circle>
+              <circle cx="60" cy="44" r="3" fill="var(--accent)"></circle>
+              <circle cx="86" cy="18" r="3" fill="var(--accent)"></circle>
+              <circle cx="112" cy="26" r="3" fill="var(--accent)"></circle>
+            </svg>
+            <p>
+              Une los puntos de datos con una línea. Se usa para ver la
+              <strong>evolución</strong> de un valor a lo largo del tiempo,
+              por ejemplo los ingresos mes a mes.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Circular (torta)</h3>
+            <div aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; margin: 0.25rem auto 0.75rem; background: conic-gradient(var(--warm) 0% 35%, var(--rose) 35% 60%, var(--primary) 60% 80%, var(--accent) 80% 100%);"></div>
+            <p>
+              Un círculo dividido en porciones. Muestra cómo se
+              <strong>reparte un total</strong> entre sus partes, como el
+              porcentaje de pacientes que aporta cada provincia.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Área</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <path d="M8,50 L34,30 L60,38 L86,14 L112,22 L112,64 L8,64 Z" fill="var(--primary)" opacity="0.25"></path>
+              <polyline points="8,50 34,30 60,38 86,14 112,22" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            </svg>
+            <p>
+              Como el de líneas, pero con el espacio debajo de la línea
+              relleno. Además de la evolución, resalta visualmente el
+              <strong>volumen acumulado</strong>.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Dispersión (XY)</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <line x1="8" y1="8" x2="8" y2="58" stroke="var(--line)" stroke-width="2"></line>
+              <line x1="8" y1="58" x2="114" y2="58" stroke="var(--line)" stroke-width="2"></line>
+              <circle cx="24" cy="46" r="4" fill="var(--rose)"></circle>
+              <circle cx="40" cy="30" r="4" fill="var(--rose)"></circle>
+              <circle cx="55" cy="40" r="4" fill="var(--rose)"></circle>
+              <circle cx="70" cy="20" r="4" fill="var(--rose)"></circle>
+              <circle cx="88" cy="28" r="4" fill="var(--rose)"></circle>
+              <circle cx="100" cy="14" r="4" fill="var(--rose)"></circle>
+            </svg>
+            <p>
+              Ubica puntos según dos variables a la vez. Sirve para ver si
+              existe una <strong>relación</strong> entre ellas, por
+              ejemplo entre ingresos y egresos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Otros tipos</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <rect x="8" y="8" width="70" height="10" rx="2" fill="var(--muted)"></rect>
+              <rect x="8" y="27" width="95" height="10" rx="2" fill="var(--muted)"></rect>
+              <rect x="8" y="46" width="50" height="10" rx="2" fill="var(--muted)"></rect>
+            </svg>
+            <p>
+              Barras, mapas, cotizaciones, radial, cascada, embudo… Excel
+              suma variantes para necesidades puntuales, como el gráfico
+              de cotizaciones, pensado para valores de máximo, mínimo y
+              cierre.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo elegir sin equivocarte</span>
+          <p>
+            Si tu pregunta es "¿quién tiene más?", usá columnas o barras.
+            Si es "¿cómo cambió con el tiempo?", usá líneas o área. Si es
+            "¿qué parte del total representa cada uno?", usá un gráfico
+            circular. El resto de los tipos aparece cuando la pregunta se
+            vuelve más específica.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>Si no estás seguro/a, dejá que Excel proponga</span>
+          <p>
+            Con el rango de datos seleccionado, el botón
+            <strong>Gráficos recomendados</strong> (pestaña Insertar) le
+            muestra a Excel tus datos y te propone dos o tres tipos que
+            suelen funcionar bien para esa forma de tabla. Es un buen
+            punto de partida mientras te familiarizás, pero la decisión
+            final sigue siendo tuya: Excel no sabe qué pregunta querés
+            responder, solo mira la forma de los números.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANATOMÍA DE UN GRÁFICO -->
+    <section class="section" id="anatomia-del-grafico">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de tocar nada</p>
+          <h2>Las partes de un gráfico</h2>
+          <p>
+            En el video vas a escuchar términos como "área del gráfico",
+            "serie de datos" o "eje", como si fueran obvios. Repasemos
+            qué nombra cada uno antes de verlo, para que cuando el video
+            diga "seleccioná el título" sepas exactamente dónde hacer
+            clic.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Título</h3>
+            <svg viewBox="0 0 120 40" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <rect x="20" y="14" width="80" height="10" rx="3" fill="var(--primary)"></rect>
+            </svg>
+            <p>
+              El nombre del gráfico, arriba de todo. Por defecto toma el
+              encabezado de la columna graficada ("Pacientes anteriores"),
+              pero se puede reemplazar por un texto propio o, como vas a
+              ver más abajo, vincularlo a una celda.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Área de trazado</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <rect x="10" y="8" width="100" height="48" rx="4" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="4 3"></rect>
+            </svg>
+            <p>
+              El rectángulo donde se dibujan las barras, líneas o
+              porciones. No es lo mismo que el "área del gráfico": esta
+              última es el marco completo, fondo y título incluidos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Serie de datos</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <rect x="10" y="24" width="16" height="40" rx="2" fill="var(--accent)"></rect>
+              <rect x="36" y="10" width="16" height="54" rx="2" fill="var(--accent)"></rect>
+              <rect x="62" y="34" width="16" height="30" rx="2" fill="var(--accent)"></rect>
+              <rect x="88" y="46" width="16" height="18" rx="2" fill="var(--accent)"></rect>
+            </svg>
+            <p>
+              El conjunto de valores representados: en un gráfico de
+              columnas, cada barra; en uno circular, cada porción. Puede
+              haber más de una serie en el mismo gráfico, por ejemplo
+              Ingresos y Egresos juntos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Ejes</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <line x1="16" y1="8" x2="16" y2="56" stroke="var(--text)" stroke-width="2"></line>
+              <line x1="16" y1="56" x2="112" y2="56" stroke="var(--text)" stroke-width="2"></line>
+              <line x1="10" y1="20" x2="16" y2="20" stroke="var(--text)" stroke-width="2"></line>
+              <line x1="10" y1="38" x2="16" y2="38" stroke="var(--text)" stroke-width="2"></line>
+              <line x1="40" y1="56" x2="40" y2="62" stroke="var(--text)" stroke-width="2"></line>
+              <line x1="76" y1="56" x2="76" y2="62" stroke="var(--text)" stroke-width="2"></line>
+            </svg>
+            <p>
+              El eje vertical muestra la escala de valores; el horizontal,
+              las categorías (las provincias). Un gráfico circular no
+              tiene ejes, porque no compara contra una escala: reparte un
+              total.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Líneas de cuadrícula</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <line x1="8" y1="12" x2="112" y2="12" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"></line>
+              <line x1="8" y1="28" x2="112" y2="28" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"></line>
+              <line x1="8" y1="44" x2="112" y2="44" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"></line>
+              <line x1="8" y1="60" x2="112" y2="60" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"></line>
+            </svg>
+            <p>
+              Líneas tenues de fondo, alineadas con los números del eje
+              vertical. Ayudan a estimar la altura de una barra sin tener
+              que trazar una línea imaginaria hasta el eje.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Leyenda y etiquetas de datos</h3>
+            <svg viewBox="0 0 120 64" aria-hidden="true" style="width: 100%; max-width: 120px; height: auto; display: block; margin: 0.25rem auto 0.75rem;">
+              <rect x="14" y="10" width="10" height="10" rx="2" fill="var(--primary)"></rect>
+              <rect x="30" y="12" width="50" height="6" rx="3" fill="var(--line)"></rect>
+              <rect x="14" y="27" width="10" height="10" rx="2" fill="var(--accent)"></rect>
+              <rect x="30" y="29" width="60" height="6" rx="3" fill="var(--line)"></rect>
+              <rect x="14" y="44" width="10" height="10" rx="2" fill="var(--warm)"></rect>
+              <rect x="30" y="46" width="40" height="6" rx="3" fill="var(--line)"></rect>
+            </svg>
+            <p>
+              La leyenda identifica qué representa cada color cuando hay
+              más de una serie. Las etiquetas de datos muestran el valor
+              —o el porcentaje— directamente sobre cada barra o porción.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué importa esto ahora</span>
+          <p>
+            Más adelante en la clase vas a leer instrucciones como
+            "seleccioná el área del gráfico" o "hacé clic en el título".
+            Cada una de esas instrucciones apunta a una de las piezas que
+            acabás de conocer, no al gráfico entero.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES AL ELEGIR UN GRÁFICO -->
+    <section class="section alt" id="errores-comunes-graficos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando el gráfico "miente" sin querer</p>
+          <h2>Errores comunes al diseñar un gráfico</h2>
+          <p>
+            Un gráfico técnicamente correcto igual puede comunicar algo
+            equivocado, si su diseño no acompaña a los datos. Estos son
+            los errores más frecuentes, y cómo evitarlos.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Error de diseño</th>
+                  <th>Por qué confunde</th>
+                  <th>Cómo evitarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Circular con demasiadas categorías</td>
+                  <td>Con más de cinco o seis porciones, varias quedan tan chicas que no se distinguen ni se leen sus etiquetas</td>
+                  <td>Agrupá las categorías más chicas en "Otros", o usá un gráfico de columnas en su lugar</td>
+                </tr>
+                <tr>
+                  <td>Comparar valores que no forman un todo</td>
+                  <td>Un circular da a entender que las porciones suman el 100% de algo; comparar "Pacientes anteriores" con "Pacientes estimados" en un mismo circular sugiere una relación que no existe</td>
+                  <td>Reservá el circular para partes de un mismo total; para comparar valores independientes, usá columnas</td>
+                </tr>
+                <tr>
+                  <td>Abusar del efecto 3D</td>
+                  <td>La perspectiva hace que las porciones o columnas del fondo parezcan más chicas de lo que realmente son</td>
+                  <td>Usalo por estética si querés, pero confirmá las proporciones reales con las etiquetas de datos antes de sacar conclusiones</td>
+                </tr>
+                <tr>
+                  <td>Eje vertical que no arranca en cero</td>
+                  <td>Recortar la base del eje exagera visualmente diferencias que en realidad son pequeñas</td>
+                  <td>Dejá que el eje arranque en 0, salvo que tengas una razón justificada y la aclares</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo detectar un gráfico engañoso</span>
+          <p>
+            Antes de sacar una conclusión de un gráfico —el tuyo o el de
+            otra persona— fijate en dos cosas: dónde arranca el eje
+            vertical y cuántas categorías tiene si es circular. Los datos
+            no mienten por sí solos, pero un mal diseño puede hacer que
+            cuenten una historia distinta de la real.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="section" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material multimedia requerido</p>
+          <h2>Unidad 1 · Clase 3</h2>
+          <p>
+            El video muestra en vivo cómo crear un gráfico de columnas en
+            3D y uno circular a partir de una planilla con sucursales y
+            ventas, y cómo personalizar cada una de sus partes: fondo,
+            título, ejes y series de datos. Te recomendamos verlo dos
+            veces y después reproducir los mismos pasos sobre tu propia
+            planilla de pacientes.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/XNyWj80FzPQ"
+                title="Unidad 1 – Clase 3: Gráficos en Excel"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Antes de empezar</span>
+          <p>
+            En el video, los datos son distintos a los tuyos —sucursales y
+            ventas en vez de provincias y pacientes— pero los botones y los
+            pasos son exactamente los mismos. Andá reemplazando mentalmente
+            "sucursal" por "provincia" y "ventas" por "pacientes
+            anteriores" mientras lo mirás.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EJERCICIO: GRÁFICO DE COLUMNAS -->
+    <section class="section alt" id="ejercicio-columnas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica</p>
+          <h2>Ejercicio 1 (continuación) · Gráfico de columnas en 3D</h2>
+          <p>
+            Abrí la planilla del Ejercicio 1 que venís armando desde la
+            Clase 1. Vamos a graficar la cantidad de
+            <strong>pacientes anteriores</strong> de cada provincia, para
+            responder de un vistazo cuál tuvo más y cuál menos.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Creá una hoja nueva</h3>
+            <p>
+              Hacé clic en el botón "+" al pie de la ventana, junto a la
+              pestaña de tu hoja actual, para agregar una hoja donde vas a
+              insertar el gráfico. Así lo separás de la tabla de datos.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Seleccioná el rango a graficar</h3>
+            <p>
+              Volvé a la hoja con la tabla. Seleccioná la columna
+              "Provincia" (A3:A9) y, manteniendo apretado <code>Ctrl</code>,
+              seleccioná también "Pacientes anteriores" (D3:D9). Los
+              títulos tienen que quedar incluidos en la selección.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Insertá el gráfico</h3>
+            <p>
+              Con el rango seleccionado, andá a la pestaña
+              <strong>Insertar</strong>, grupo <strong>Gráficos</strong>, y
+              elegí el ícono de Columna → <strong>Columna 3D</strong>.
+              Excel genera el gráfico automáticamente.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Rango seleccionado — columnas A y D, sin las de en medio</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">B</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell selected">PROVINCIA</div>
+              <div class="excel-cell">MINISTRO</div>
+              <div class="excel-cell">FECHA</div>
+              <div class="excel-cell selected">PAC. ANTERIORES</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell selected">Buenos Aires</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell selected">345</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">9</div>
+              <div class="excel-cell selected">Entre Ríos</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell selected">98</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué el Ctrl</span>
+          <p>
+            "Provincia" y "Pacientes anteriores" no son columnas
+            adyacentes: entre medio están "Ministro" y "Fecha de
+            estimación". Con <code>Ctrl</code> apretado podés sumar a la
+            selección un segundo rango sin arrastrar por las columnas que
+            no te interesan.
+          </p>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Resultado esperado</p>
+          <h2>El gráfico recién creado</h2>
+          <p>
+            Así se ve el gráfico apenas insertado, con el formato por
+            defecto de Excel: columnas azules, fondo blanco y el título
+            "Pacientes anteriores" tomado del encabezado de la columna.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Gráfico de columnas 3D — Pacientes anteriores</div>
+          <p style="text-align: center; font-weight: 700; margin: 0 0 1rem;">PACIENTES ANTERIORES</p>
+          <div style="display: flex; align-items: flex-end; gap: 0.9rem; height: 170px; padding: 0 0.5rem;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+              <div style="width: 100%; max-width: 34px; height: 150px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.7rem; color: var(--muted); text-align: center;">Buenos<br />Aires</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+              <div style="width: 100%; max-width: 34px; height: 91px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.7rem; color: var(--muted);">C.A.B.A.</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+              <div style="width: 100%; max-width: 34px; height: 70px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.7rem; color: var(--muted);">Mendoza</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+              <div style="width: 100%; max-width: 34px; height: 74px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.7rem; color: var(--muted);">Córdoba</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+              <div style="width: 100%; max-width: 34px; height: 58px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.7rem; color: var(--muted);">Santa Fe</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+              <div style="width: 100%; max-width: 34px; height: 43px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.7rem; color: var(--muted); text-align: center;">Entre<br />Ríos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un gráfico no es una imagen fija</span>
+          <p>
+            El gráfico queda vinculado a la tabla: si más adelante
+            cambiás el valor de "Pacientes anteriores" de alguna
+            provincia, la columna correspondiente se actualiza sola en el
+            gráfico, sin que tengas que rehacer nada.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERSONALIZAR EL GRÁFICO -->
+    <section class="section" id="personalizar">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Del gráfico por defecto al gráfico propio</p>
+          <h2>Personalizar cada elemento del gráfico</h2>
+          <p>
+            Un gráfico en Excel no es una sola pieza: es un conjunto de
+            elementos —área del gráfico, título, ejes, series de datos—
+            que se pueden seleccionar y formatear de manera
+            <strong>independiente</strong>. Al hacer clic sobre el gráfico
+            aparecen herramientas nuevas para trabajar sobre cada parte.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Fondo con relleno degradado</h3>
+            <p>
+              Hacé clic en el área del gráfico (el fondo, no una columna)
+              y abrí el panel "Formato del área del gráfico". Elegí
+              <strong>Relleno degradado</strong> en vez del blanco liso
+              por defecto.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Título en negrita y más grande</h3>
+            <p>
+              Seleccioná el título "Pacientes anteriores" —solo el
+              título, nada más— y desde la pestaña Inicio aplicale
+              negrita y tamaño de fuente 16, igual que harías con un texto
+              en Word.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Ejes en negrita y con color</h3>
+            <p>
+              Repetí la misma operación sobre el eje vertical (los
+              números) y el eje horizontal (los nombres de las
+              provincias): negrita y un color que resalte sobre el fondo
+              degradado.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Gráfico personalizado — fondo degradado, título y ejes destacados</div>
+          <div style="background: linear-gradient(180deg, var(--primary-soft), var(--surface)); border-radius: 10px; padding: 1rem;">
+            <p style="text-align: center; font-weight: 700; font-size: 1.15rem; margin: 0 0 1rem; color: var(--primary);">PACIENTES ANTERIORES</p>
+            <div style="display: flex; align-items: flex-end; gap: 0.9rem; height: 170px; padding: 0 0.5rem;">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+                <div style="width: 100%; max-width: 34px; height: 150px; background: var(--warm); border-radius: 4px 4px 0 0;"></div>
+                <span style="font-size: 0.7rem; font-weight: 700; color: var(--rose); text-align: center;">Buenos<br />Aires</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+                <div style="width: 100%; max-width: 34px; height: 91px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+                <span style="font-size: 0.7rem; font-weight: 700; color: var(--rose);">C.A.B.A.</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+                <div style="width: 100%; max-width: 34px; height: 70px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+                <span style="font-size: 0.7rem; font-weight: 700; color: var(--rose);">Mendoza</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+                <div style="width: 100%; max-width: 34px; height: 74px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+                <span style="font-size: 0.7rem; font-weight: 700; color: var(--rose);">Córdoba</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+                <div style="width: 100%; max-width: 34px; height: 58px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+                <span style="font-size: 0.7rem; font-weight: 700; color: var(--rose);">Santa Fe</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1;">
+                <div style="width: 100%; max-width: 34px; height: 43px; background: var(--primary); border-radius: 4px 4px 0 0;"></div>
+                <span style="font-size: 0.7rem; font-weight: 700; color: var(--rose); text-align: center;">Entre<br />Ríos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-grid two-col-grid" style="margin-top: 1.5rem;">
+          <article class="simple-card featured">
+            <h3>4. Título vinculado a una celda</h3>
+            <p>
+              En vez de dejar el título fijo, podés hacer que lea el
+              contenido de una celda: seleccioná el título, hacé clic en
+              la barra de fórmulas, escribí <code>=</code> y hacé clic en
+              la celda <code>A1</code> de tu tabla (el título "Atención
+              pacientes en Julio"). Confirmá con <code>Enter</code>.
+            </p>
+            <p class="card-example">
+              <strong>Se ve así en la barra de fórmulas:</strong>
+              <code>=Hoja1!$A$1</code>
+            </p>
+            <p>
+              Igual que con la referencia absoluta <code>$G$2</code> de la
+              Clase 2, si el día de mañana cambiás el texto de
+              <code>A1</code>, el título del gráfico se actualiza solo.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>5. Resaltá el valor más alto</h3>
+            <p>
+              Hacé un primer clic sobre la serie de columnas para
+              seleccionarlas a todas, y un segundo clic —despacio, sin
+              doble clic— solamente sobre la columna de <strong>Buenos
+              Aires</strong>, la de mayor valor. Quedará seleccionada ella
+              sola.
+            </p>
+            <p>
+              Desde "Formato de punto de datos" cambiale el relleno a
+              color <strong>naranja</strong>, como en la barra de arriba,
+              para que salte a la vista sin necesidad de leer el eje
+              vertical.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRÁFICO CIRCULAR -->
+    <section class="section alt" id="grafico-circular">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Segundo gráfico de la clase</p>
+          <h2>Gráfico circular: ver el reparto del total</h2>
+          <p>
+            El gráfico de columnas responde "¿quién tiene más?". El
+            circular —o "de torta"— responde una pregunta distinta:
+            "¿qué porción del total le corresponde a cada provincia?".
+            Usa exactamente el mismo rango de datos que ya seleccionaste
+            antes.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Volvé a los datos</h3>
+            <p>
+              En la hoja de la tabla, volvé a seleccionar "Provincia"
+              (A3:A9) y "Pacientes anteriores" (D3:D9) con
+              <code>Ctrl</code>, igual que para el gráfico de columnas.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Insertá un gráfico circular</h3>
+            <p>
+              Desde <strong>Insertar → Gráficos</strong>, elegí esta vez
+              el ícono de gráfico Circular y seleccioná la variante
+              "3D". Excel calcula automáticamente el porcentaje que
+              representa cada provincia sobre el total.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Agregá las etiquetas</h3>
+            <p>
+              Con el gráfico seleccionado, agregá etiquetas de datos que
+              muestren el nombre de la provincia junto con su porcentaje,
+              para no depender de la leyenda de colores.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Gráfico circular — Pacientes anteriores por provincia</div>
+          <p style="text-align: center; font-weight: 700; margin: 0 0 1rem;">PACIENTES ANTERIORES</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: center;">
+            <div style="width: 170px; height: 170px; border-radius: 50%; background: conic-gradient(var(--primary) 0% 31%, var(--accent) 31% 50%, var(--warm) 50% 64%, var(--rose) 64% 79%, #6d5a9e 79% 91%, #3f9e8c 91% 100%); flex-shrink: 0;"></div>
+            <ul style="list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; font-size: 0.85rem;">
+              <li><span style="display:inline-block; width:0.8em; height:0.8em; border-radius:2px; background:var(--primary); margin-right:0.5em;"></span>Buenos Aires — 31%</li>
+              <li><span style="display:inline-block; width:0.8em; height:0.8em; border-radius:2px; background:var(--accent); margin-right:0.5em;"></span>C.A.B.A. — 19%</li>
+              <li><span style="display:inline-block; width:0.8em; height:0.8em; border-radius:2px; background:var(--warm); margin-right:0.5em;"></span>Mendoza — 14%</li>
+              <li><span style="display:inline-block; width:0.8em; height:0.8em; border-radius:2px; background:var(--rose); margin-right:0.5em;"></span>Córdoba — 15%</li>
+              <li><span style="display:inline-block; width:0.8em; height:0.8em; border-radius:2px; background:#6d5a9e; margin-right:0.5em;"></span>Santa Fe — 12%</li>
+              <li><span style="display:inline-block; width:0.8em; height:0.8em; border-radius:2px; background:#3f9e8c; margin-right:0.5em;"></span>Entre Ríos — 9%</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un detalle importante</span>
+          <p>
+            El gráfico circular tiene sentido cuando las partes forman un
+            <strong>todo con significado</strong> —acá, el total de
+            pacientes anteriores de las seis provincias—. No conviene
+            usarlo para comparar valores que no se suman entre sí, como
+            comparar directamente "Pacientes anteriores" con "Pacientes
+            estimados": para eso volvés a usar columnas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDA DIARIA -->
+    <section class="section" id="vida-diaria">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para llevártelo de acá</p>
+          <h2>Dónde vas a usar cada tipo de gráfico</h2>
+          <p>
+            La pregunta que querés responder define el tipo de gráfico,
+            no al revés. Estos son algunos ejemplos fuera de la facultad.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Situación</th>
+                  <th>Pregunta que te hacés</th>
+                  <th>Gráfico recomendado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Gastos del mes</td>
+                  <td>¿En qué categoría gasté más: comida, transporte, ocio?</td>
+                  <td>Columnas</td>
+                </tr>
+                <tr>
+                  <td>Consumo eléctrico</td>
+                  <td>¿Cómo varió el consumo mes a mes en el último año?</td>
+                  <td>Líneas</td>
+                </tr>
+                <tr>
+                  <td>Reparto de un presupuesto</td>
+                  <td>¿Qué porcentaje del presupuesto total se destina a cada área?</td>
+                  <td>Circular</td>
+                </tr>
+                <tr>
+                  <td>Turnos de un consultorio</td>
+                  <td>¿Existe relación entre la duración del turno y la satisfacción del paciente?</td>
+                  <td>Dispersión (XY)</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>La idea de fondo</span>
+          <p>
+            Antes de abrir la pestaña Insertar, definí en una frase qué
+            querés que la persona que mire el gráfico entienda en tres
+            segundos. Esa frase te va a decir, casi siempre, qué tipo de
+            gráfico usar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="section alt" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Reto: un mismo dato, dos gráficos</h2>
+          <p>
+            Como cierre de esta clase, volvé a tu planilla del Ejercicio 1
+            y trabajá con la columna <strong>Egresos</strong> de las seis
+            provincias.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Gráfico de barras</h3>
+            <p>
+              Creá un gráfico de barras (o columnas) que compare los
+              Egresos de cada provincia, para identificar de un vistazo
+              cuál gastó más y cuál menos.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Gráfico circular</h3>
+            <p>
+              Con el mismo dato de Egresos, armá también un gráfico
+              circular que muestre qué porcentaje del gasto total le
+              corresponde a cada provincia.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Compartir en el foro</h3>
+            <p>
+              Compartí tus dos gráficos en el Foro de la Unidad 1, y
+              contá cuál de los dos te pareció más claro para este dato
+              en particular, y por qué.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase2.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 2 · Copiar fórmulas y funciones básicas</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 4 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 1 · Clase 3</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
