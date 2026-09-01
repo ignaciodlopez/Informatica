@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 4</title>
+  <meta
+    name="description"
+    content="Clase 4 de Informática Aplicada (C1-21-10, Todas las comisiones): insertar imágenes desde archivo y en línea, insertar video, definir columnas periodísticas y aplicar letra capital en Word."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .actividad-block ul li { font-size: 0.9rem; color: var(--muted); }
+    .actividad-block ul li strong { color: var(--text); }
+
+    .act-resultado {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 0.85rem;
+    }
+    .act-resultado-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .act-resultado-label::before { content: "✓"; }
+
+    .act-referencia { margin-top: 1.25rem; }
+    .act-referencia-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+    .act-referencia-doc {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.1rem 1.4rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .art-title {
+      margin: 0 0 0.8rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+    }
+    .art-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      position: relative;
+    }
+    .art-columns::before {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0; left: 50%;
+      width: 1px;
+      background: #d1d5db;
+      transform: translateX(-50%);
+    }
+    .art-col {
+      font-size: 0.8rem;
+      line-height: 1.7;
+      text-align: justify;
+      color: #374151;
+    }
+    .art-col::after { content: ""; display: block; clear: both; }
+    .art-img {
+      float: right;
+      width: 2.9rem;
+      height: 2.9rem;
+      border-radius: 4px;
+      margin: 0.15rem 0 0.4rem 0.6rem;
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-img span {
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+    .art-legend {
+      list-style: none;
+      margin: 0.85rem 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .art-legend li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      line-height: 1.5;
+    }
+    .art-legend-dot {
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      margin-top: 0.3rem;
+      flex-shrink: 0;
+    }
+    .art-legend-dot.dropcap { background: var(--primary); }
+    .art-legend-dot.img { background: #2563eb; }
+    .art-legend-dot.line { background: #9ca3af; }
+
+    /* ===== CORRECTO VS INCORRECTO ===== */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 600px) { .vs-grid { grid-template-columns: 1fr; } }
+    .vs-box {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .vs-header {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .vs-wrong .vs-header { background: #dc2626; color: #fff; }
+    .vs-right .vs-header { background: #16a34a; color: #fff; }
+    .vs-page {
+      background: #fff;
+      padding: 1rem 1.25rem;
+      min-height: 120px;
+      color: #111;
+      font-size: 0.77rem;
+      line-height: 1.55;
+    }
+    .vs-page p { margin: 0.4rem 0 0; }
+    .vs-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.65rem;
+      line-height: 1.5;
+    }
+
+    /* ===== DEMO AJUSTE DE TEXTO (imagen + wrap) ===== */
+    .wrap-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .wrap-demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .wrap-demo-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.32rem 0.65rem;
+      letter-spacing: 0.03em;
+    }
+    .wrap-demo-page {
+      padding: 0.85rem 0.9rem;
+      color: #374151;
+      font-size: 0.72rem;
+      line-height: 1.6;
+      min-height: 6.5rem;
+    }
+    .wrap-demo-page::after { content: ""; display: block; clear: both; }
+    .wrap-img {
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+    }
+    .wrap-img-inline {
+      display: block;
+      width: 100%;
+      height: 2.4rem;
+      border-radius: 3px;
+      margin: 0.3rem 0;
+    }
+    .wrap-img-float {
+      float: right;
+      width: 3.4rem;
+      height: 3.4rem;
+      border-radius: 4px;
+      margin: 0 0 0.4rem 0.6rem;
+    }
+    .wrap-img-float.circle {
+      border-radius: 50%;
+      shape-outside: circle(50%);
+      -webkit-shape-outside: circle(50%);
+    }
+    .wrap-demo-caption { margin: 0.5rem 0 0; font-size: 0.63rem; color: #9ca3af; clear: both; }
+
+    /* ===== DEMO COLUMNAS ===== */
+    .columnas-demo {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.1rem 1.4rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      font-size: 0.8rem;
+      line-height: 1.65;
+      text-align: justify;
+      column-count: 2;
+      column-gap: 1.75rem;
+      column-rule: 1px solid #d1d5db;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    /* ===== DEMO LETRA CAPITAL ===== */
+    .dropcap-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .dropcap-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .dropcap-box .dch {
+      background: #7c3aed;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+    }
+    .dropcap-box .dcp {
+      padding: 0.9rem 1.1rem;
+      font-size: 0.78rem;
+      color: #374151;
+      line-height: 1.65;
+      text-align: justify;
+    }
+    .dropcap-box .dcp::after { content: ""; display: block; clear: both; }
+    .dropcap-letter {
+      float: left;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      font-size: 2.9rem;
+      line-height: 0.78;
+      color: var(--primary);
+      padding: 0.1rem 0.4rem 0 0;
+    }
+
+    /* Video cards con miniatura (canales que no permiten incrustar) */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#imagenes">Imágenes</a>
+        <a href="#video">Video</a>
+        <a href="#columnas">Columnas</a>
+        <a href="#letracapital">Letra capital</a>
+        <a href="#errores">Errores comunes</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 2</p>
+        <h1>Párrafo y Estilos</h1>
+        <p class="lead">
+          Seguimos trabajando con <strong>Microsoft Word</strong>: aprendé a insertar
+          imágenes desde archivo y desde Internet, incrustar un <strong>video en línea</strong>,
+          dividir el texto en <strong>columnas periodísticas</strong> y aplicar una
+          <strong>letra capital</strong> — los recursos que transforman un documento
+          plano en una publicación con aspecto profesional.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#imagenes">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 4</li>
+          <li>Microsoft Word</li>
+          <li>Imágenes y Columnas</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Diseñar documentos con imágenes, video y columnas</h2>
+        <p>
+          Aprender a insertar imágenes desde archivo e imágenes en línea, insertar
+          un video en línea, definir columnas de texto tipo periodístico y aplicar
+          letra capital sobre un documento ya creado.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Insertar</span>
+          <span>Diseñar</span>
+          <span>Publicar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            El <strong>ajuste de texto</strong> (Cuadrado, Estrecho) es lo que
+            transforma una imagen "pegada" en una imagen integrada naturalmente
+            al documento, con el texto fluyendo a su alrededor.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- INSERTAR IMÁGENES -->
+    <section class="section" id="imagenes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Ilustraciones</p>
+          <h2>Insertar Imágenes: desde archivo y en línea</h2>
+          <p>
+            Una imagen bien integrada es la diferencia entre un documento de texto
+            plano y uno con aspecto de publicación real. Word ofrece dos formas de
+            incorporar imágenes.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Opción A</p>
+            <h3>Imagen desde archivo (este dispositivo)</h3>
+            <p>
+              Inserta una foto que ya tenés guardada en tu computadora (descargada,
+              capturada, escaneada, etc.).
+            </p>
+            <ul>
+              <li><strong>Insertar</strong> → grupo <strong>Ilustraciones</strong> → <strong>Imágenes</strong> → <strong>Este dispositivo...</strong></li>
+              <li>Buscás el archivo en tus carpetas y hacés clic en <strong>Insertar</strong>.</li>
+            </ul>
+            <p class="card-example"><strong>Tip:</strong> por defecto la imagen queda "En línea con el texto" (se comporta como una letra gigante). Cambiá el ajuste de texto para que el párrafo la rodee.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Opción B</p>
+            <h3>Imágenes en línea (desde Internet)</h3>
+            <p>
+              Busca imágenes directamente desde Word, sin salir del programa,
+              usando el buscador integrado de Bing.
+            </p>
+            <ul>
+              <li><strong>Insertar</strong> → <strong>Ilustraciones</strong> → <strong>Imágenes</strong> → <strong>Imágenes en línea</strong></li>
+              <li>Escribís una palabra clave y elegís la imagen que quieras usar.</li>
+            </ul>
+            <p class="card-example"><strong>Ojo:</strong> revisá que la imagen tenga licencia reutilizable, sobre todo en trabajos académicos.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Bonus</p>
+            <h3>Captura de pantalla</h3>
+            <p>
+              En el mismo grupo <strong>Ilustraciones</strong> hay un botón
+              <strong>Captura</strong>: permite insertar una foto de una ventana
+              abierta, o recortar una zona específica de la pantalla, sin necesidad
+              de usar un programa externo.
+            </p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Ajuste de texto</p>
+            <h3>La clave para que se vea bien</h3>
+            <p>
+              Clic en la imagen → ícono de <strong>Opciones de diseño</strong> (la
+              "flor" que aparece al lado) → elegí cómo se relaciona con el texto.
+            </p>
+            <p class="card-example"><strong>Los más usados:</strong> Cuadrado (el texto la rodea en forma rectangular) y Estrecho (el texto sigue el contorno de la imagen).</p>
+          </article>
+
+          <article class="info-card accent-blue">
+            <p class="card-label">Ficha contextual</p>
+            <h3>Formato de imagen</h3>
+            <p>
+              Al seleccionar una imagen aparece una pestaña nueva en la cinta,
+              solo mientras la imagen está seleccionada: <strong>Formato de
+              imagen</strong>. Ahí vive todo lo que se puede retocar sin salir de Word.
+            </p>
+            <ul>
+              <li><strong>Correcciones:</strong> nitidez, brillo y contraste.</li>
+              <li><strong>Color:</strong> saturación, tono, o volverla blanco y negro.</li>
+              <li><strong>Estilos de imagen:</strong> marcos, bordes redondeados, sombras.</li>
+              <li><strong>Recortar:</strong> corta partes que no querés mostrar, sin editar el archivo original.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Tamaño</p>
+            <h3>Redimensionar sin deformar</h3>
+            <p>
+              Las imágenes tienen "manijas" (cuadraditos) en sus bordes y esquinas
+              para cambiar el tamaño arrastrando con el mouse.
+            </p>
+            <ul>
+              <li><strong>Esquinas:</strong> agrandan o achican la imagen manteniendo la proporción original (ancho y alto).</li>
+              <li><strong>Bordes (arriba/abajo/costados):</strong> estiran solo en una dirección — <span style="color:#dc2626;">deforman la imagen</span>, evitalos salvo que sea intencional.</li>
+              <li>Para control exacto: ficha <strong>Formato de imagen</strong> → grupo <strong>Tamaño</strong>, e ingresá alto y ancho en centímetros.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Buenas prácticas</p>
+            <h3>Texto alternativo y peso del archivo</h3>
+            <p>
+              Dos hábitos profesionales que no cuestan nada y suman mucho:
+            </p>
+            <ul>
+              <li><strong>Texto alternativo:</strong> clic derecho sobre la imagen → <strong>Editar texto alternativo</strong>. Describe la imagen para lectores de pantalla (accesibilidad) y para cuando la imagen no carga.</li>
+              <li><strong>Comprimir imágenes:</strong> Formato de imagen → <strong>Comprimir imágenes</strong>. Reduce el peso del archivo .docx cuando insertaste fotos de alta resolución, sin perder calidad visible.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- DEMO AJUSTE DE TEXTO -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">Ajuste de texto · comparación visual</p>
+          <div class="wrap-demo-grid">
+
+            <div class="wrap-demo-box">
+              <div class="wrap-demo-header">EN LÍNEA CON EL TEXTO</div>
+              <div class="wrap-demo-page">
+                Cuando insertás una imagen, este es el ajuste por defecto en Word.
+                <div class="wrap-img wrap-img-inline"></div>
+                La imagen se comporta como si fuera una letra enorme: empuja el
+                texto hacia abajo en vez de dejarlo fluir a su alrededor.
+              </div>
+              <p class="wrap-demo-caption" style="padding:0 0.9rem 0.7rem;">La imagen ocupa su propia línea, como un carácter de texto gigante.</p>
+            </div>
+
+            <div class="wrap-demo-box">
+              <div class="wrap-demo-header" style="background:#065f46;">CUADRADO</div>
+              <div class="wrap-demo-page">
+                <div class="wrap-img wrap-img-float"></div>
+                El texto rodea a la imagen respetando un contorno rectangular,
+                dejando un pequeño margen a su alrededor. Es el ajuste más usado
+                para integrar imágenes dentro de un párrafo con prolijidad.
+              </div>
+              <p class="wrap-demo-caption" style="padding:0 0.9rem 0.7rem;">El párrafo abraza el rectángulo imaginario de la imagen.</p>
+            </div>
+
+            <div class="wrap-demo-box">
+              <div class="wrap-demo-header" style="background:#b45309;">ESTRECHO</div>
+              <div class="wrap-demo-page">
+                <div class="wrap-img wrap-img-float circle"></div>
+                El texto sigue el contorno real de la imagen (o de su forma),
+                acercándose más en las zonas donde la imagen es más angosta.
+                Da un efecto más dinámico que el ajuste cuadrado.
+              </div>
+              <p class="wrap-demo-caption" style="padding:0 0.9rem 0.7rem;">El texto "abraza" la silueta de la imagen, no solo su rectángulo.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSERTAR VIDEO -->
+    <section class="section alt" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Multimedia</p>
+          <h2>Insertar Video en Línea</h2>
+          <p>
+            Word permite incrustar un video (por ejemplo de YouTube) directamente
+            en el documento, para que se reproduzca sin salir del archivo cuando
+            se lo ve en pantalla.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Paso a paso</p>
+            <h3>Cómo insertarlo</h3>
+            <ul>
+              <li><strong>Insertar</strong> → grupo <strong>Multimedia</strong> → <strong>Vídeo en línea</strong></li>
+              <li>Pegás la URL del video (o lo buscás desde el cuadro de búsqueda) y hacés clic en <strong>Insertar</strong>.</li>
+              <li>El video aparece como un cuadro con miniatura y botón de reproducción, igual que en una página web.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Cuándo usarlo</p>
+            <h3>Documento interactivo vs. documento impreso</h3>
+            <p>
+              El video solo se reproduce si el documento se abre en una
+              computadora con conexión a Internet (o se ve en pantalla). En un
+              documento impreso o exportado a PDF, el espacio del video queda
+              como una imagen fija.
+            </p>
+            <p class="card-example"><strong>Úsalo cuando:</strong> el documento se va a compartir digitalmente y el video complementa la lectura sin necesidad de buscarlo aparte.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Origen del video</p>
+            <h3>¿De dónde puede venir?</h3>
+            <p>
+              El cuadro de "Vídeo en línea" acepta más de una fuente, no solo el
+              buscador integrado:
+            </p>
+            <ul>
+              <li><strong>Búsqueda de vídeos en YouTube:</strong> escribís el tema y elegís entre los resultados, sin salir de Word.</li>
+              <li><strong>Pegar una URL:</strong> copiás el link de un video específico que ya encontraste.</li>
+              <li><strong>Código para insertar (embed):</strong> algunos sitios (no solo YouTube) dan un código HTML para incrustar — se puede pegar en ese mismo cuadro.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Ajustes del recuadro</p>
+            <h3>Redimensionar y ubicar el video</h3>
+            <p>
+              Una vez insertado, el video se comporta como una imagen: tiene
+              manijas en las esquinas para agrandarlo o achicarlo manteniendo la
+              proporción, y también se le puede aplicar <strong>ajuste de
+              texto</strong> (Cuadrado, Estrecho) para que el párrafo lo rodee.
+            </p>
+            <p class="card-example"><strong>Tip:</strong> no lo hagas ni muy chico (se pierde el botón de play) ni tan grande que domine la página — un ancho de media columna suele quedar bien.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUMNAS -->
+    <section class="section" id="columnas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Diseño · grupo Configurar página</p>
+          <h2>Definir Columnas en el Texto</h2>
+          <p>
+            Dividir un bloque de texto en dos o más columnas verticales, como en
+            un diario o revista. Es formato de <strong>párrafo/sección</strong>,
+            por eso convive con los estilos de esta unidad.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-purple">
+            <p class="card-label">Paso a paso</p>
+            <h3>Cómo aplicar columnas</h3>
+            <ul>
+              <li><strong>Seleccioná el texto</strong> que querés poner en columnas (si no seleccionás nada, se aplica desde el cursor hasta el final).</li>
+              <li><strong>Diseño</strong> → grupo <strong>Configurar página</strong> → <strong>Columnas</strong> → elegí 2, 3, o <strong>"Más columnas..."</strong> para personalizar ancho y espaciado.</li>
+              <li>En "Más columnas" activá <strong>Línea entre columnas</strong> para lograr el look clásico de diario.</li>
+            </ul>
+            <p class="card-example"><strong>Error típico:</strong> no seleccionar el texto antes de aplicar columnas — Word transforma todo el documento y se ve raro.</p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Detalle técnico</p>
+            <h3>Saltos de columna</h3>
+            <p>
+              Si querés forzar que un párrafo empiece justo al inicio de la
+              columna siguiente (en vez de esperar a que se llene la columna
+              actual), usá <strong>Diseño → Saltos → Columna</strong>.
+            </p>
+            <p class="card-example"><strong>Combo ganador:</strong> columnas + letra capital + una imagen chica dentro de una columna = efecto "artículo de revista".</p>
+          </article>
+
+          <article class="info-card accent-blue">
+            <p class="card-label">Personalización</p>
+            <h3>Columnas de ancho desigual</h3>
+            <p>
+              En <strong>"Más columnas..."</strong> hay una casilla llamada
+              <strong>Columnas de igual ancho</strong>. Desmarcala para definir
+              vos mismo el ancho de cada columna por separado — útil cuando
+              querés una columna angosta (para una imagen o una cita destacada)
+              junto a una más ancha con el texto principal.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Errores comunes</p>
+            <h3>Qué evitar con columnas</h3>
+            <ul>
+              <li>❌ Aplicar columnas a <strong>todo el documento</strong> cuando solo querías afectar un párrafo o sección.</li>
+              <li>❌ Insertar una imagen ancha con ajuste "Estrecho" dentro de una columna angosta: la imagen no entra y deforma el layout.</li>
+              <li>❌ Olvidar la <strong>línea entre columnas</strong> — sin ella, dos columnas pegadas se pueden confundir con dos ideas distintas.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- DEMO COLUMNAS -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Así se ve un texto en columnas periodísticas</p>
+          <div class="columnas-demo">
+            <p style="margin:0 0 0.6rem;font-weight:700;">La Tercera Generación</p>
+            <p style="margin:0;">
+              Esta generación es de la década del 60, con la introducción de los
+              circuitos integrados. Mientras el ENIAC podía almacenar veinte
+              números de diez dígitos, estos podían almacenar millones de
+              números. Surgen conceptos como memoria virtual, multiprogramación
+              y sistemas operacionales complejos. Ejemplos de esta época son el
+              IBM 360 y el BURROUGHS B-3500. El uso de columnas separadas por una
+              línea vertical es lo que le da a un texto ese aspecto tan
+              reconocible de diario o revista impresa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LETRA CAPITAL -->
+    <section class="section alt" id="letracapital">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Texto</p>
+          <h2>Insertar Letra Capital</h2>
+          <p>
+            Esa primera letra grande y decorativa que ocupa varias líneas de
+            alto al inicio de un párrafo o artículo, típica de libros y revistas.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Paso a paso</p>
+            <h3>Cómo aplicarla</h3>
+            <ul>
+              <li>Poné el cursor dentro del <strong>párrafo</strong> (no hace falta seleccionar la letra).</li>
+              <li><strong>Insertar</strong> → grupo <strong>Texto</strong> → <strong>Letra capital</strong></li>
+              <li>Elegí <strong>En texto</strong> (queda integrada, rodeada por el párrafo) o <strong>En margen</strong> (queda afuera, sobre el margen izquierdo).</li>
+              <li>Desde "Opciones de letra capital..." ajustás fuente, líneas de alto y distancia del texto.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Cuándo se usa</p>
+            <h3>Por qué combina con columnas</h3>
+            <p>
+              Letra capital + columnas es exactamente la combinación que genera
+              el efecto "artículo de periódico". No es casual que compartan la
+              misma clase: ambas son herramientas de diseño editorial dentro de Word.
+            </p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Personalización</p>
+            <h3>Una fuente propia para la letra capital</h3>
+            <p>
+              Dentro de "Opciones de letra capital..." hay un desplegable de
+              <strong>Fuente</strong> independiente del resto del párrafo. Elegir
+              una tipografía serif (Georgia, Cambria, Times New Roman) para la
+              letra capital, distinta de la fuente del cuerpo del texto, es el
+              truco que usan las revistas para que se note como un elemento
+              decorativo y no como un error de formato.
+            </p>
+          </article>
+
+          <article class="info-card accent-yellow">
+            <p class="card-label">Errores comunes</p>
+            <h3>Qué evitar con la letra capital</h3>
+            <ul>
+              <li>❌ Aplicarla a un párrafo muy corto (una sola línea): al ocupar 2 o 3 líneas de alto, la letra queda más grande que todo el párrafo.</li>
+              <li>❌ Poner el cursor en el párrafo equivocado — Word aplica la letra capital al párrafo donde está el cursor, no al que seleccionaste con el mouse.</li>
+              <li>❌ Combinarla con sangría de primera línea en el mismo párrafo: suelen chocar visualmente, mejor quitar la sangría en ese párrafo puntual.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- DEMO LETRA CAPITAL -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">En texto vs. En margen · comparación visual</p>
+          <div class="dropcap-demo-grid">
+
+            <div class="dropcap-box">
+              <div class="dch">EN TEXTO</div>
+              <div class="dcp">
+                <span class="dropcap-letter">E</span>sta generación es de la
+                década del 60, con la introducción de los circuitos integrados.
+                La letra capital queda integrada dentro del mismo bloque de
+                texto, rodeada por el resto del párrafo.
+              </div>
+            </div>
+
+            <div class="dropcap-box">
+              <div class="dch" style="background:#b45309;">EN MARGEN</div>
+              <div class="dcp" style="padding-left:3.4rem;position:relative;">
+                <span class="dropcap-letter" style="position:absolute;left:0.6rem;top:0.75rem;">E</span>
+                Esta generación es de la década del 60, con la introducción de
+                los circuitos integrados. La letra capital queda afuera del
+                bloque de texto, ubicada sobre el margen izquierdo de la página.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPCIONES DE AJUSTE — RESUMEN RÁPIDO -->
+    <section class="section" id="ajustes-rapidos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de seguir</p>
+          <h2>Referencia Rápida</h2>
+          <p>
+            Un resumen visual de las tres decisiones de diseño de esta clase,
+            para tener a mano mientras trabajás en Word.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="info-card accent-blue">
+            <p class="card-label">Ajuste de imagen</p>
+            <h3>Las 4 opciones más usadas</h3>
+            <ul>
+              <li><strong>En línea con el texto:</strong> la imagen se comporta como un carácter. Ajuste por defecto.</li>
+              <li><strong>Cuadrado:</strong> el texto rodea la imagen en forma de rectángulo. El más usado.</li>
+              <li><strong>Estrecho:</strong> el texto sigue el contorno real de la imagen.</li>
+              <li><strong>Detrás / Delante del texto:</strong> la imagen se superpone o queda debajo del texto.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Columnas</p>
+            <h3>Dos, tres o personalizadas</h3>
+            <p>
+              <strong>Diseño → Columnas.</strong> Seleccioná el texto antes de
+              aplicar — si no, Word convierte todo el documento.
+            </p>
+            <p class="card-example"><strong>Tip:</strong> sumá "Línea entre columnas" para el estilo periodístico clásico.</p>
+          </article>
+
+          <article class="info-card accent-purple">
+            <p class="card-label">Letra capital</p>
+            <h3>En texto / En margen</h3>
+            <p>
+              <strong>Insertar → Letra capital.</strong> El cursor solo
+              necesita estar dentro del párrafo, no hace falta seleccionar la letra.
+            </p>
+            <p class="card-example"><strong>Tip:</strong> una fuente serif distinta le da un aire más editorial.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section alt" id="errores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de practicar</p>
+          <h2>Errores Comunes de esta Clase</h2>
+          <p>
+            Estos son los tropiezos más frecuentes al aplicar imágenes y
+            columnas por primera vez. Fijate la diferencia visual entre el
+            error y la versión correcta.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0;">Imagen sin ajuste de texto vs. imagen con ajuste "Cuadrado"</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Imagen "En línea con el texto"</div>
+            <div class="vs-page">
+              El párrafo se corta de forma abrupta apenas insertás la imagen.
+              <div class="wrap-img wrap-img-inline" style="height:2.1rem;margin:0.4rem 0;"></div>
+              El texto que sigue recién continúa después, dejando espacios en
+              blanco feos a los costados de la imagen.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Imagen con ajuste "Cuadrado"</div>
+            <div class="vs-page">
+              <div class="wrap-img wrap-img-float" style="width:2.9rem;height:2.9rem;"></div>
+              El texto fluye naturalmente alrededor de la imagen, sin huecos ni
+              cortes abruptos, integrada al párrafo como en cualquier
+              publicación profesional.
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">En el ejemplo <strong style="color:#dc2626;">INCORRECTO</strong>, olvidar cambiar el ajuste de texto es el error más común de toda la clase. En el ejemplo <strong style="color:#16a34a;">CORRECTO</strong>, un solo clic en "Opciones de diseño → Cuadrado" resuelve todo.</p>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Columnas en todo el documento vs. columnas solo en la sección elegida</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Columnas aplicadas a todo</div>
+            <div class="vs-page" style="column-count:2; column-gap:1rem; column-rule:1px solid #d1d5db;">
+              <strong>HISTORIA DE LA COMPUTADORA</strong>
+              <p>La Segunda Generación: IBM 1401, BURROUGHS B 200...</p>
+              <p>La Tercera Generación: circuitos integrados...</p>
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Columnas solo en una sección</div>
+            <div class="vs-page">
+              <strong>HISTORIA DE LA COMPUTADORA</strong>
+              <p>La Segunda Generación: texto normal, a una sola columna, como el resto del documento.</p>
+              <div style="column-count:2; column-gap:1rem; column-rule:1px solid #d1d5db; margin-top:0.5rem;">
+                <strong>La Tercera Generación</strong>
+                <p style="margin-top:0.2rem;">Acá sí, en columnas periodísticas, solo para esta sección puntual.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Si no seleccionás el texto antes de aplicar columnas, Word transforma <strong style="color:var(--text);">todo</strong> el documento — incluido el título. Seleccionar primero es lo que te da control sobre qué parte se convierte en columnas.</p>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Editamos el documento creado en la clase anterior, aplicándole las
+            herramientas de esta clase, y lo compartimos en el foro de la Unidad
+            para la evaluación entre pares.
+          </p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio 1 · Imágenes, video, columnas y letra capital</p>
+          <h3>Editamos "Historia de la Computadora"</h3>
+          <p style="font-size:0.9rem;color:var(--muted);">
+            Retomá el documento de Word de la Clase 3 ("Historia de la
+            Computadora", con sus secciones La Segunda Generación, BURROUGHS,
+            La Tercera Generación, IBM 360, OSBORNE 1 y PC XT) y aplicale lo
+            siguiente:
+          </p>
+          <ul>
+            <li><strong>Columnas:</strong> elegí una sección completa (por ejemplo, "La Tercera Generación") y convertila en 2 columnas, con línea divisoria entre ellas.</li>
+            <li><strong>Letra capital:</strong> aplicá una letra capital "En texto" al primer párrafo de esa misma sección.</li>
+            <li><strong>Imagen desde archivo:</strong> descargá e insertá una foto de alguna de las computadoras mencionadas (IBM 360, Osborne 1, PC XT) con ajuste "Cuadrado".</li>
+            <li><strong>Imagen en línea:</strong> agregá otra imagen relacionada buscándola directamente desde Word.</li>
+            <li><strong>Video en línea:</strong> insertá un video sobre historia de la computación cerca del final del documento.</li>
+            <li><strong>Compartí:</strong> guardá el documento y subilo al foro de la Unidad para la evaluación entre pares.</li>
+          </ul>
+
+          <div class="act-referencia">
+            <p class="act-referencia-label">Referencia visual · así debería quedar la sección "La Tercera Generación"</p>
+            <div class="act-referencia-doc">
+              <p class="art-title">LA TERCERA GENERACIÓN</p>
+              <div class="art-columns">
+                <div class="art-col">
+                  <span class="dropcap-letter">E</span>sta generación es de la
+                  década del 60, con la introducción de los circuitos
+                  integrados. El Burroughs B-2500 fue uno de los primeros
+                  ejemplos representativos de esta etapa tecnológica.
+                </div>
+                <div class="art-col">
+                  <span class="art-img"><span>IMG</span></span>
+                  Mientras el ENIAC podía almacenar veinte números de diez
+                  dígitos, estos nuevos equipos podían almacenar millones.
+                  Surgen conceptos como memoria virtual, multiprogramación y
+                  sistemas operacionales complejos. Ejemplos de esta época son
+                  el IBM 360 y el BURROUGHS B-3500.
+                </div>
+              </div>
+            </div>
+            <ul class="art-legend">
+              <li><span class="art-legend-dot dropcap"></span> Letra capital "En texto" en el primer párrafo</li>
+              <li><span class="art-legend-dot img"></span> Imagen (IBM 360 / Osborne 1 / PC XT) con ajuste "Cuadrado" dentro de la columna</li>
+              <li><span class="art-legend-dot line"></span> Dos columnas separadas por una línea divisoria</li>
+            </ul>
+          </div>
+
+          <div class="act-resultado">
+            <p class="act-resultado-label">Resultado esperado</p>
+            <p style="font-size:0.88rem;color:var(--muted);margin:0;">
+              Un documento que combine texto justificado con columnas
+              periodísticas, letra capital, imágenes integradas con ajuste de
+              texto y un video — el mismo efecto visual que un artículo de
+              revista o periódico digital.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Imagen desde archivo</h3>
+            <p>
+              Insertar → Imágenes → Este dispositivo. Trae una foto ya guardada
+              en tu computadora.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Imagen en línea</h3>
+            <p>
+              Insertar → Imágenes → Imágenes en línea. Busca en Internet sin
+              salir de Word.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Ajuste de texto</h3>
+            <p>
+              El ícono de "Opciones de diseño" define cómo el texto rodea a la
+              imagen: Cuadrado y Estrecho son los más usados.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Video en línea</h3>
+            <p>
+              Insertar → Vídeo en línea. Se reproduce dentro del documento en
+              pantalla, no en la versión impresa.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Columnas</h3>
+            <p>
+              Diseño → Columnas. Seleccioná el texto antes de aplicar. Sumá una
+              línea divisoria para el estilo periodístico.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Letra capital</h3>
+            <p>
+              Insertar → Letra capital. En texto (integrada) o En margen
+              (afuera del bloque de texto).
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual de la cátedra para reforzar los conceptos de
+            esta clase. Sus canales no permiten reproducirlos incrustados en
+            otros sitios, así que se abren en YouTube al hacer clic.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/rWUgzF9_4tk" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/rWUgzF9_4tk/hqdefault.jpg" alt="Miniatura del video Curso de MS Word 365 - 11.1. Trabajar con imágenes" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">11.1. Trabajar con imágenes. Ajustar, transparencia, correcciones</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">aulaclic · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/8SiDI7-tqTU" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/8SiDI7-tqTU/hqdefault.jpg" alt="Miniatura del video Curso de MS Word 365 - 11.2. Insertar imágenes desde Internet" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">11.2. Insertar imágenes desde Internet. Captura de pantalla</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">aulaclic · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/eudIyHJZQbY" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/eudIyHJZQbY/hqdefault.jpg" alt="Miniatura del video Columnas de estilo periodístico" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Columnas de estilo periodístico</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">Manuel Mejía Muñoz · Ver en YouTube ↗</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase3.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 3 · Crear documentos en Word</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 5 · Tablas - Formas</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 2 · Clase 4</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
