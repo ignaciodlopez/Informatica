@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 4</title>
+  <meta
+    name="description"
+    content="Clase 4 de Informática Aplicada (M11-19-10), Unidad 1: las funciones CONTAR, SUMAR.SI y CONTAR.SI para obtener estadísticas condicionales, las funciones de fecha AÑO, MES, DÍA y HOY, y la función lógica SI, aplicadas a una tabla de alumnos."
+  />
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#la-base">Los datos</a>
+        <a href="#que-es-una-funcion">Recordatorio</a>
+        <a href="#guia-resolucion">Guía paso a paso</a>
+        <a href="#repaso-basicas">Funciones básicas</a>
+        <a href="#contar">CONTAR</a>
+        <a href="#sumar-si">SUMAR.SI</a>
+        <a href="#contar-si">CONTAR.SI</a>
+        <a href="#fechas">Fechas</a>
+        <a href="#funcion-si">Función SI</a>
+        <a href="#errores-comunes">Errores comunes</a>
+        <a href="#vida-diaria">Vida diaria</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 1</p>
+        <h1>Funciones en Excel</h1>
+        <p class="lead">
+          Hasta acá usaste <strong>SUMA</strong>, <strong>PROMEDIO</strong>,
+          <strong>MÁXIMO</strong> y <strong>MÍNIMO</strong> sobre una tabla
+          entera. En esta clase das un paso más: vas a lograr que Excel sume
+          o cuente <strong>solo lo que cumple una condición</strong>, que
+          interprete fechas por vos, y que decida entre dos resultados según
+          una regla que vos definís.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#la-base">Ver los datos</a>
+          <a class="btn btn-secondary" href="#funcion-si">Ir a la función SI</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 4</li>
+          <li>CONTAR, SUMAR.SI y CONTAR.SI</li>
+          <li>Funciones de fecha y función SI</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>De sumar todo a sumar lo que importa</h2>
+        <p>
+          Trabajar sobre una base de 79 alumnos de la universidad para
+          repasar las funciones básicas, incorporar CONTAR para totalizar
+          filas, SUMAR.SI y CONTAR.SI para obtener estadísticas por
+          categoría, usar funciones de fecha para extraer el año de
+          ingreso, y aplicar la función SI para clasificar resultados
+          según una condición.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Funciones básicas</span>
+          <span>Funciones condicionales</span>
+          <span>Función SI</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Descargá el archivo <strong>Ejercicio clase 4.xlsx</strong>: vas
+            a encontrar una tabla con 79 alumnos (fecha de ingreso, nombre,
+            carrera, materias aprobadas y facultad). Vamos resolviendo, paso
+            a paso, cada uno de los cuadros de estadísticas que aparecen a
+            la derecha de la tabla.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- LA BASE DE DATOS -->
+    <section class="section" id="la-base">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de tocar una fórmula</p>
+          <h2>Datos a utilizar en esta clase</h2>
+          <p>
+            Abrí el archivo <strong>Ejercicio clase 4.xlsx</strong>. En la
+            primera hoja vas a encontrar información de alumnos de la
+            Universidad: la fecha en la que se inscribieron, su nombre, la
+            carrera que cursan, la cantidad de materias que ya aprobaron y
+            la facultad a la que pertenece esa carrera.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Qué trae la tabla</p>
+            <h3>Cinco columnas, un alumno por fila</h3>
+            <ul>
+              <li><strong>FECHA INGRESO</strong> — cuándo se inscribió</li>
+              <li><strong>ALUMNO</strong> — apellido y nombre</li>
+              <li><strong>CARRERA</strong> — la carrera que cursa</li>
+              <li><strong>MATERIAS APROBADAS</strong> — cuántas materias aprobó</li>
+              <li><strong>FACULTAD</strong> — la facultad de esa carrera</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Un atajo para confiar en los datos</p>
+            <h3>¿Cuántas filas tiene realmente la tabla?</h3>
+            <p>
+              En total hay <strong>79 alumnos</strong>, pero en vez de
+              confiar en el enunciado, conviene comprobarlo vos mismo/a.
+              Hacé clic en cualquier celda con datos de la columna A y
+              presioná <code>Ctrl</code> + flecha hacia abajo: el cursor
+              salta directo a la última fila con información, sin importar
+              cuántas haya.
+            </p>
+            <p>
+              Es el mismo tipo de atajo de teclado que usás para moverte
+              rápido por una planilla larga, solo que en vez de recorrerla
+              celda por celda, salta al final del rango de datos continuo.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Primeras filas de la tabla — y el cuadro de estadísticas, vacío</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">B</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">FECHA INGRESO</div>
+              <div class="excel-cell">ALUMNO</div>
+              <div class="excel-cell">CARRERA</div>
+              <div class="excel-cell">MATERIAS APROB.</div>
+              <div class="excel-cell">FACULTAD</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">14/09/2012</div>
+              <div class="excel-cell">Michia, Daniela</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">16</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">08/04/2014</div>
+              <div class="excel-cell">Cabral, Gabriela</div>
+              <div class="excel-cell">Lic. en Psicología</div>
+              <div class="excel-cell">27</div>
+              <div class="excel-cell">Psicología y R. H.</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell row-h">80</div>
+              <div class="excel-cell">…</div>
+              <div class="excel-cell">…</div>
+              <div class="excel-cell">…</div>
+              <div class="excel-cell">…</div>
+              <div class="excel-cell">…</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo vamos a trabajar</span>
+          <p>
+            A la derecha de esta tabla, en las columnas G y H, el archivo
+            trae varios cuadros vacíos: "Materias aprobadas", "Materias
+            aprobadas por carrera" y "Alumnos por facultad". Cada sección de
+            esta clase completa uno de esos cuadros con una función
+            distinta.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECORDATORIO: QUÉ ES UNA FUNCIÓN -->
+    <section class="section alt" id="que-es-una-funcion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de sumar funciones nuevas</p>
+          <h2>Recordatorio: qué es una función en Excel</h2>
+          <p>
+            En la Clase 1 conociste <code>ENTERO</code> y en la Clase 2
+            trabajaste con <code>SUMA</code>, <code>PROMEDIO</code>,
+            <code>MAX</code> y <code>MIN</code>. Todas comparten la misma
+            estructura, aunque hagan cosas distintas. Antes de sumar cinco
+            funciones más a la lista, repasemos esa estructura común.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="max-width: 480px;">
+          <div class="excel-mock-label">Las tres partes de cualquier función</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">H2</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=SUMA(D2:D80)</span>
+          </div>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1rem;">
+          <article class="simple-card">
+            <h3>El signo =</h3>
+            <p>
+              Le avisa a Excel que lo que sigue hay que calcularlo, no
+              mostrarlo como texto. Sin el <code>=</code> inicial, Excel
+              interpreta la fórmula como una simple palabra escrita en la
+              celda.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>El nombre de la función</h3>
+            <p>
+              Le dice a Excel qué operación aplicar. Cada función tiene un
+              nombre único —<code>SUMA</code>, <code>PROMEDIO</code>,
+              <code>CONTAR</code>, <code>SI</code>— y ese nombre nunca
+              cambia, sin importar sobre qué datos la uses.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>El o los argumentos</h3>
+            <p>
+              Van entre paréntesis y son el dato sobre el que actúa la
+              función: un rango, una celda sola, un texto o incluso otra
+              función. Algunas funciones piden un solo argumento; otras,
+              varios, separados por <code>;</code>.
+            </p>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Función</th>
+                  <th>Qué hace</th>
+                  <th>Dónde la viste</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>=ENTERO(número)</code></td>
+                  <td>Descarta los decimales de un número, sin redondear</td>
+                  <td>Clase 1</td>
+                </tr>
+                <tr>
+                  <td><code>=SUMA(rango)</code></td>
+                  <td>Suma todos los valores del rango</td>
+                  <td>Clase 2</td>
+                </tr>
+                <tr>
+                  <td><code>=PROMEDIO(rango)</code></td>
+                  <td>Calcula el promedio de los valores del rango</td>
+                  <td>Clase 2</td>
+                </tr>
+                <tr>
+                  <td><code>=MAX(rango)</code> / <code>=MIN(rango)</code></td>
+                  <td>Obtiene el valor máximo o mínimo del rango</td>
+                  <td>Clase 2</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Lo que se agrega hoy</span>
+          <p>
+            Todas las funciones de esta clase —<code>CONTAR</code>,
+            <code>SUMAR.SI</code>, <code>CONTAR.SI</code>,
+            <code>AÑO</code>/<code>MES</code>/<code>DIA</code>/<code>HOY</code>
+            y <code>SI</code>— respetan exactamente esta misma estructura:
+            <code>=</code>, nombre, y argumentos entre paréntesis. Lo nuevo
+            no es la forma de escribirlas, sino lo que cada una es capaz de
+            evaluar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUÍA PASO A PASO -->
+    <section class="section" id="guia-resolucion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El mapa completo del ejercicio</p>
+          <h2>Guía paso a paso: cómo se resuelve el ejercicio completo</h2>
+          <p>
+            Este es el recorrido completo, en orden, de los ocho pasos que
+            pide el ejercicio. Cada fila te dice qué cuadro completás, con
+            qué función, y te lleva directo a la sección donde está
+            explicada en detalle. Podés usarla como hoja de ruta mientras
+            trabajás en tu propia planilla.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Paso</th>
+                  <th>Qué completás</th>
+                  <th>Función</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>TOTAL, PROMEDIO, MÁXIMO y MÍNIMO de "Materias aprobadas"</td>
+                  <td><code>SUMA</code> · <code>PROMEDIO</code> · <code>MAX</code> · <code>MIN</code></td>
+                  <td><a href="#repaso-basicas">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>CANTIDAD de alumnos, en el mismo cuadro</td>
+                  <td><code>CONTAR</code></td>
+                  <td><a href="#contar">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Materias aprobadas, sumadas por cada carrera</td>
+                  <td><code>SUMAR.SI</code></td>
+                  <td><a href="#sumar-si">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Cantidad de alumnos, contados por cada facultad</td>
+                  <td><code>CONTAR.SI</code></td>
+                  <td><a href="#contar-si">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Insertar la columna "AÑO INGRESO", después de "FECHA INGRESO"</td>
+                  <td>—</td>
+                  <td><a href="#fechas">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Extraer el año de cada fecha, en las 79 filas</td>
+                  <td><code>AÑO</code></td>
+                  <td><a href="#fechas">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Insertar la columna "MÁS DE 20 MATERIAS", después de "MATERIAS APROBADAS"</td>
+                  <td>—</td>
+                  <td><a href="#funcion-si">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Clasificar cada alumno según si aprobó más de 20 materias</td>
+                  <td><code>SI</code></td>
+                  <td><a href="#funcion-si">Ver el paso →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué los cuadros de estadísticas "se mueven"</span>
+          <p>
+            Los Pasos 1 a 4 los resolvés cuando la tabla todavía tiene su
+            forma original, con los cuadros de estadísticas en las
+            columnas G y H. Recién en el Paso 5 insertás una columna nueva
+            antes de "ALUMNO", y en el Paso 7 insertás otra antes de
+            "FACULTAD": son dos columnas de más, así que todo lo que estaba
+            a la derecha —incluidos esos cuadros— se corre dos lugares,
+            de G/H a <strong>I/J</strong>.
+          </p>
+          <p>
+            No es un error ni hay que rehacer nada: cuando insertás una
+            columna, Excel ajusta solo las referencias de las fórmulas que
+            ya escribiste, para que sigan apuntando a los mismos datos. Si
+            tu planilla ya tiene los cuadros en I/J en vez de en G/H, es
+            justamente porque ya hiciste los Pasos 5 y 7.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Cómo se ve la planilla con el ejercicio completo</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(7, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+              <div class="excel-cell col-h">F</div>
+              <div class="excel-cell col-h">G</div>
+              <div class="excel-cell col-h">H</div>
+              <div class="excel-cell col-h">I</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(7, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">ALUMNO</div>
+              <div class="excel-cell">CARRERA</div>
+              <div class="excel-cell">MATERIAS APROB.</div>
+              <div class="excel-cell">MÁS DE 20 MATERIAS</div>
+              <div class="excel-cell">FACULTAD</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell selected">MATERIAS APROB. POR ALUMNO</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(7, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">Michia, Daniela</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">16</div>
+              <div class="excel-cell">Menos</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+              <div class="excel-cell"></div>
+              <div class="excel-cell">TOTAL</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            Nota: no se muestran las columnas A (FECHA INGRESO) ni B (AÑO
+            INGRESO) para que la tabla entre en pantalla. Los cuadros de
+            estadísticas, valores incluidos, quedan en la columna J.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO FUNCIONES BÁSICAS -->
+    <section class="section alt" id="repaso-basicas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Repaso rápido, antes de lo nuevo</p>
+          <h2>Las funciones básicas, aplicadas a esta tabla</h2>
+          <p>
+            En la Clase 2 usaste SUMA, PROMEDIO, MÁXIMO y MÍNIMO sobre la
+            columna de pacientes anteriores. La lógica es idéntica acá:
+            aplicalas sobre las 79 celdas de <strong>MATERIAS
+            APROBADAS</strong> para completar el primer cuadro de
+            estadísticas.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Ubicá el cuadro</h3>
+            <p>
+              A la derecha de la tabla vas a encontrar un cuadro titulado
+              "MATERIAS APROBADAS", con las filas TOTAL, PROMEDIO, MÁXIMO,
+              MÍNIMO y CANTIDAD, todas vacías.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Sumá y promediá</h3>
+            <p>
+              En la celda de TOTAL escribí <code>=SUMA(D2:D80)</code>, y en
+              PROMEDIO, <code>=PROMEDIO(D2:D80)</code>. El rango cubre las
+              79 filas de datos, sin contar el encabezado de la fila 1.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Máximo y mínimo</h3>
+            <p>
+              Completá MÁXIMO con <code>=MAX(D2:D80)</code> y MÍNIMO con
+              <code>=MIN(D2:D80)</code>, para saber cuántas materias aprobó
+              como mucho y como poco un mismo alumno.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Cuadro "Materias aprobadas" — repaso de funciones básicas</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">H2</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=SUMA(D2:D80)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">G</div>
+              <div class="excel-cell col-h">H</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">TOTAL</div>
+              <div class="excel-cell selected">1.228</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">PROMEDIO</div>
+              <div class="excel-cell">15,54</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell">MÁXIMO</div>
+              <div class="excel-cell">28</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">5</div>
+              <div class="excel-cell">MÍNIMO</div>
+              <div class="excel-cell">4</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">6</div>
+              <div class="excel-cell">CANTIDAD</div>
+              <div class="excel-cell"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>La última fila queda pendiente, a propósito</span>
+          <p>
+            Vas a notar que "CANTIDAD" quedó sin resolver. Ninguna de las
+            cuatro funciones que ya conocés cuenta cuántos alumnos hay: para
+            eso necesitás una función nueva, que es justo el próximo tema.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTAR -->
+    <section class="section" id="contar">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La quinta estadística</p>
+          <h2>CONTAR: cuántas celdas tienen un número</h2>
+          <p>
+            SUMA, PROMEDIO, MÁXIMO y MÍNIMO operan <strong>sobre</strong> los
+            valores de un rango. <strong>CONTAR</strong> es distinta: no le
+            importa cuánto valen las celdas, solo cuántas de ellas
+            <strong>contienen un número</strong>. Por eso sirve para saber
+            cuántos alumnos hay: cada fila con un número en "Materias
+            aprobadas" es un alumno.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Argumento</th>
+                  <th>Qué significa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>RANGO</code> (obligatorio)</td>
+                  <td>
+                    El grupo de celdas a evaluar. Los valores en blanco y de
+                    texto se ignoran: solo se cuentan los números.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Un ejemplo concreto</h3>
+            <p>
+              Para contar cuántos alumnos tienen un valor cargado en
+              "Materias aprobadas", el rango es toda la columna D.
+            </p>
+            <p class="card-example">
+              <strong>Fórmula:</strong> <code>=CONTAR(D:D)</code>
+            </p>
+            <ul>
+              <li>Usar la columna entera (<code>D:D</code>) evita tener que actualizar el rango si se agregan alumnos</li>
+              <li>El encabezado "MATERIAS APROBADAS" es texto, así que CONTAR lo ignora sin que tengas que excluirlo a mano</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda H6 seleccionada — función CONTAR</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">H6</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=CONTAR(D:D)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">G</div>
+              <div class="excel-cell col-h">H</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">6</div>
+              <div class="excel-cell">CANTIDAD ALUMNOS</div>
+              <div class="excel-cell selected">79</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué CONTAR y no SUMA</span>
+          <p>
+            Si usaras <code>=SUMA(D:D)</code> obtendrías 1.228 (la suma de
+            todas las materias aprobadas), no 79. CONTAR no suma ni promedia
+            nada: solo cuenta celdas. Si más adelante necesitás contar
+            también celdas con texto (por ejemplo, cuántos alumnos tienen
+            algo cargado en "Carrera"), la función equivalente para texto es
+            <code>CONTARA</code>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUMAR.SI -->
+    <section class="section alt" id="sumar-si">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Sumar, pero no todo</p>
+          <h2>SUMAR.SI: sumar solo lo que cumple una condición</h2>
+          <p>
+            Ahora el objetivo es distinto: saber cuántas materias
+            aprobadas suman, en total, los alumnos de <strong>cada
+            carrera</strong>. SUMA sola no alcanza, porque sumaría la
+            columna entera sin distinguir carreras. Necesitás una función
+            que sume <strong>solo las filas que cumplan una
+            condición</strong>: que la carrera sea, por ejemplo,
+            "Odontología".
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Argumento</th>
+                  <th>Qué significa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>RANGO</code> (obligatorio)</td>
+                  <td>Las celdas que se van a evaluar contra el criterio (acá, la columna de carreras).</td>
+                </tr>
+                <tr>
+                  <td><code>CRITERIO</code> (obligatorio)</td>
+                  <td>La condición que deben cumplir esas celdas: un número, una referencia de celda o un texto entre comillas.</td>
+                </tr>
+                <tr>
+                  <td><code>RANGO-SUMA</code> (opcional)</td>
+                  <td>Las celdas que realmente se suman cuando se cumple el criterio (acá, la columna de materias aprobadas). Si se omite, Excel suma el rango original.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="max-width: 480px;">
+          <div class="excel-mock-label">Las tres partes de SUMAR.SI</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">H10</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=SUMAR.SI(C:C;G10;D:D)</span>
+          </div>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1rem;">
+          <article class="simple-card">
+            <h3>RANGO: C:C</h3>
+            <p>La columna CARRERA completa, donde Excel va a buscar coincidencias con el criterio.</p>
+          </article>
+          <article class="simple-card featured">
+            <h3>CRITERIO: G10</h3>
+            <p>La celda donde ya está escrito el nombre de la carrera, por ejemplo "Odontología". Usar la celda evita escribir el texto a mano.</p>
+          </article>
+          <article class="simple-card">
+            <h3>RANGO-SUMA: D:D</h3>
+            <p>La columna MATERIAS APROBADAS: los valores que efectivamente se suman cuando la carrera coincide.</p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Importante: comillas para el texto</span>
+          <p>
+            Si el criterio se escribe directamente dentro de la fórmula, y
+            es texto, va entre comillas dobles:
+            <code>=SUMAR.SI(C:C;"Odontología";D:D)</code>. Si en cambio
+            apuntás a una celda que ya contiene ese texto —como
+            <code>G10</code>— no hacen falta comillas: la referencia ya
+            "sabe" qué hay adentro. Con números tampoco se usan comillas.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Resultado — materias aprobadas por carrera</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">G</div>
+              <div class="excel-cell col-h">H</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">10</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell selected">351</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">11</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell">193</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">12</div>
+              <div class="excel-cell">Lic. en Instrumentación Quirúrgica</div>
+              <div class="excel-cell">218</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">13</div>
+              <div class="excel-cell">Lic. en Psicología</div>
+              <div class="excel-cell">197</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">14</div>
+              <div class="excel-cell">Lic. en Terapia Ocupacional</div>
+              <div class="excel-cell">269</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Copiar la fórmula hacia abajo</span>
+          <p>
+            Al arrastrar la fórmula de la celda H10 hasta H14, el criterio
+            (<code>G10</code>) se ajusta solo a <code>G11</code>,
+            <code>G12</code>… porque es una referencia relativa. RANGO y
+            RANGO-SUMA (<code>C:C</code> y <code>D:D</code>) no cambian,
+            porque al hacer referencia a la columna entera, siempre apuntan
+            a los mismos datos. Es el mismo principio de referencias
+            relativas y fijas que trabajaste en la Clase 2.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTAR.SI -->
+    <section class="section" id="contar-si">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Contar, pero no todo</p>
+          <h2>CONTAR.SI: contar solo lo que cumple una condición</h2>
+          <p>
+            El último cuadro pendiente es "Alumnos por facultad": cuántos
+            alumnos pertenecen a cada una de las dos facultades. Acá no
+            interesa sumar materias, sino contar filas que cumplan una
+            condición. <strong>CONTAR.SI</strong> es a CONTAR lo que
+            SUMAR.SI es a SUMA.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Argumento</th>
+                  <th>Qué significa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>RANGO</code> (obligatorio)</td>
+                  <td>El grupo de celdas a contar (acá, la columna FACULTAD).</td>
+                </tr>
+                <tr>
+                  <td><code>CRITERIO</code> (obligatorio)</td>
+                  <td>Número, texto o referencia de celda que determina qué celdas se cuentan.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="takeaways">
+            <h3>Un ejemplo concreto</h3>
+            <p>
+              Para contar los alumnos de "Medicina y Ciencias de la Salud",
+              el rango es la columna E y el criterio, la celda donde ya
+              está escrito el nombre de esa facultad.
+            </p>
+            <p class="card-example">
+              <strong>Fórmula:</strong> <code>=CONTAR.SI(E:E;G19)</code>
+            </p>
+            <ul>
+              <li>CONTAR.SI solo tiene dos argumentos: no existe un "rango a contar" separado, como sí pasa en SUMAR.SI</li>
+              <li>Sirve tanto para columnas de texto como de números</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Cuadro "Alumnos por facultad"</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">H19</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=CONTAR.SI(E:E;G19)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">G</div>
+              <div class="excel-cell col-h">H</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">19</div>
+              <div class="excel-cell">Medicina y Ciencias de la Salud</div>
+              <div class="excel-cell selected">48</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">20</div>
+              <div class="excel-cell">Psicología y Relaciones Humanas</div>
+              <div class="excel-cell">31</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un chequeo rápido para confiar en el resultado</span>
+          <p>
+            48 + 31 = 79, el mismo total de alumnos que ya confirmaste con
+            <code>CONTAR</code>. Sumar los resultados de un CONTAR.SI
+            (o un SUMAR.SI) desagregado por categorías, y compararlos contra
+            el total general, es una forma simple de detectar un error en
+            el criterio antes de entregar el ejercicio.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>SUMAR.SI vs. CONTAR.SI</span>
+          <p>
+            SUMAR.SI suma <strong>valores numéricos</strong> de las filas
+            que cumplen la condición (cuántas materias, en total).
+            CONTAR.SI simplemente cuenta <strong>cuántas filas</strong>
+            cumplen la condición, sin sumar nada (cuántos alumnos). La
+            pregunta "¿cuánto suma?" pide SUMAR.SI; la pregunta "¿cuántos
+            hay?" pide CONTAR.SI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUNCIONES DE FECHA -->
+    <section class="section alt" id="fechas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Un nuevo tipo de dato</p>
+          <h2>Funciones de fecha: AÑO, MES, DÍA y HOY</h2>
+          <p>
+            Por dentro, Excel no guarda una fecha como "14/09/2012": la
+            guarda como un <strong>número de serie</strong>, la cantidad de
+            días transcurridos desde una fecha de referencia. Por eso puede
+            sumar y restar fechas como si fueran números, y también extraer
+            de ellas el año, el mes o el día con una función.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Función</th>
+                  <th>Qué devuelve</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>=HOY()</code></td>
+                  <td>La fecha actual del sistema, sin argumentos entre paréntesis</td>
+                </tr>
+                <tr>
+                  <td><code>=AÑO(Fecha)</code></td>
+                  <td>El año correspondiente a una fecha específica</td>
+                </tr>
+                <tr>
+                  <td><code>=MES(Fecha)</code></td>
+                  <td>El mes correspondiente a una fecha específica</td>
+                </tr>
+                <tr>
+                  <td><code>=DIA(Fecha)</code></td>
+                  <td>El día correspondiente a una fecha específica</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="process-grid" style="margin-top: 1.5rem;">
+          <article class="process-card">
+            <h3>1. Insertá una columna nueva</h3>
+            <p>
+              Hacé clic derecho sobre el encabezado de la columna B (donde
+              está "ALUMNO") y elegí "Insertar". Se abre una columna en
+              blanco entre FECHA INGRESO y ALUMNO. Titulala <strong>AÑO
+              INGRESO</strong>.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Extraé el año de la primera fecha</h3>
+            <p>
+              En la celda B2 escribí <code>=AÑO(A2)</code>. "Número de
+              serie" es, simplemente, la celda que contiene la fecha de la
+              que querés extraer el año.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Copiala a las 79 filas</h3>
+            <p>
+              Hacé doble clic en el controlador de relleno (el cuadradito
+              de la esquina inferior derecha de B2): Excel completa la
+              fórmula automáticamente hasta la última fila con datos, sin
+              que tengas que arrastrar a mano.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda B2 seleccionada — función AÑO</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">B2</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=AÑO(A2)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">B</div>
+              <div class="excel-cell col-h">C</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">FECHA INGRESO</div>
+              <div class="excel-cell">AÑO INGRESO</div>
+              <div class="excel-cell">ALUMNO</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">14/09/2012</div>
+              <div class="excel-cell selected">2012</div>
+              <div class="excel-cell">Michia, Daniela</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">08/04/2014</div>
+              <div class="excel-cell">2014</div>
+              <div class="excel-cell">Cabral, Gabriela</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>HOY() es una función que cambia sola</span>
+          <p>
+            A diferencia de AÑO, MES o DÍA, <code>HOY()</code> no recibe
+            ningún argumento: no hace falta indicarle una celda, porque
+            toma la fecha del sistema en el momento en que se abre el
+            archivo. Combinada con AÑO, por ejemplo
+            <code>=AÑO(HOY())-AÑO(A2)</code> calcula automáticamente cuántos
+            años pasaron desde el ingreso de cada alumno hasta hoy.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUNCIÓN SI -->
+    <section class="section" id="funcion-si">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La primera función lógica de la materia</p>
+          <h2>SI: que Excel decida por vos</h2>
+          <p>
+            El último paso es clasificar a cada alumno según si aprobó
+            <strong>más de 20 materias</strong> o no. Ninguna función vista
+            hasta ahora "decide" nada: todas calculan un número. La función
+            <strong>SI</strong> es distinta, porque funciona como un
+            semáforo: evalúa una condición y, según el resultado, muestra
+            una cosa u otra.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Argumento</th>
+                  <th>Qué significa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>PRUEBA_LÓGICA</code></td>
+                  <td>La condición a evaluar. Da como resultado VERDADERO o FALSO, por ejemplo <code>E2&gt;20</code></td>
+                </tr>
+                <tr>
+                  <td><code>VALOR_VERDADERO</code></td>
+                  <td>Qué mostrar la celda si la condición se cumple. Puede ser texto entre comillas, un número o incluso otra fórmula</td>
+                </tr>
+                <tr>
+                  <td><code>VALOR_FALSO</code></td>
+                  <td>Qué mostrar la celda si la condición no se cumple</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="process-grid" style="margin-top: 1.5rem;">
+          <article class="process-card">
+            <h3>1. Insertá la columna</h3>
+            <p>
+              Insertá una columna nueva después de "MATERIAS APROBADAS" y
+              titulala <strong>MÁS DE 20 MATERIAS</strong>.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Escribí la condición</h3>
+            <p>
+              En la primera celda escribí
+              <code>=SI(E2&gt;20;"Más de 20 aprobadas";"Menos")</code>. Si
+              el valor de E2 es mayor a 20, aparece el primer texto; si no,
+              el segundo.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Copiala hacia abajo</h3>
+            <p>
+              Doble clic en el controlador de relleno, igual que con la
+              función AÑO, para aplicar la fórmula a las 79 filas de un
+              solo movimiento.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Celda F29 seleccionada — función SI</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">F29</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=SI(E29&gt;20;"Más de 20 aprobadas";"Menos")</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+              <div class="excel-cell col-h">F</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">ALUMNO</div>
+              <div class="excel-cell">CARRERA</div>
+              <div class="excel-cell">MATERIAS APROB.</div>
+              <div class="excel-cell">MÁS DE 20 MATERIAS</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">29</div>
+              <div class="excel-cell">Pinto, Claudia</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell">23</div>
+              <div class="excel-cell selected">Más de 20 aprobadas</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">30</div>
+              <div class="excel-cell">Auber, Luida</div>
+              <div class="excel-cell">Lic. en Psicología</div>
+              <div class="excel-cell">9</div>
+              <div class="excel-cell">Menos</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">31</div>
+              <div class="excel-cell">Erdocia, Felipe</div>
+              <div class="excel-cell">Lic. en Terapia Ocupacional</div>
+              <div class="excel-cell">8</div>
+              <div class="excel-cell">Menos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Los operadores de comparación</span>
+          <p>
+            La prueba lógica siempre se arma con un operador de
+            comparación: <code>&gt;</code> mayor que, <code>&lt;</code>
+            menor que, <code>&gt;=</code> mayor o igual, <code>&lt;=</code>
+            menor o igual, <code>=</code> igual a, y <code>&lt;&gt;</code>
+            distinto de. Son los mismos símbolos que usarías para comparar
+            dos números en una hoja de papel.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>El resultado también puede ser un valor lógico</span>
+          <p>
+            SI puede devolver texto (como en este ejercicio), un número, o
+            incluso el resultado de otra función. Y lo que se evalúa en
+            PRUEBA_LÓGICA no tiene por qué ser una comparación simple:
+            puede ser el resultado de otra fórmula, siempre que termine
+            resolviéndose en VERDADERO o FALSO.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section alt" id="errores-comunes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando la fórmula "no anda"</p>
+          <h2>Errores comunes al escribir funciones</h2>
+          <p>
+            En las cinco funciones de esta clase, casi todos los tropiezos
+            se repiten. Antes de pensar que "Excel está mal", revisá esta
+            lista: probablemente el problema esté en la sintaxis.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Error al escribir la fórmula</th>
+                  <th>Por qué pasa</th>
+                  <th>Cómo evitarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Usar coma en vez de punto y coma</td>
+                  <td>En la configuración regional en español, la coma ya se usa como separador decimal (como en <code>15,54</code>), así que Excel reserva el punto y coma para separar argumentos</td>
+                  <td>Escribí <code>;</code> entre RANGO, CRITERIO y RANGO-SUMA, no <code>,</code></td>
+                </tr>
+                <tr>
+                  <td>Olvidar las comillas en un criterio de texto</td>
+                  <td>Sin comillas, Excel interpreta <code>Odontología</code> como el nombre de una celda o de una función que no existe</td>
+                  <td>Todo texto escrito directamente en la fórmula va entre comillas dobles: <code>"Odontología"</code></td>
+                </tr>
+                <tr>
+                  <td>RANGO y RANGO-SUMA de distinto tamaño en SUMAR.SI</td>
+                  <td>Si uno cubre 79 filas y el otro 78, Excel no avisa con un error: simplemente suma los valores de la fila equivocada</td>
+                  <td>Seleccioná ambos rangos con la misma cantidad de filas, o usá la columna entera (<code>C:C</code>, <code>D:D</code>) en los dos</td>
+                </tr>
+                <tr>
+                  <td>Paréntesis sin cerrar o de más</td>
+                  <td>Cada función abre y cierra sus propios paréntesis; en fórmulas con varias funciones anidadas es fácil perder la cuenta</td>
+                  <td>Excel suele proponer una corrección automática al confirmar con <code>Enter</code>: leela antes de aceptarla</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">Cuando el error lo muestra la celda</p>
+          <h2>Los mensajes de error más frecuentes</h2>
+          <p>
+            A veces la fórmula está bien escrita, pero el resultado es un
+            código de error. Cada uno señala un problema distinto.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3><code>#VALOR!</code></h3>
+            <p>
+              Un argumento no es del tipo que la función espera: por
+              ejemplo, <code>=AÑO(A2)</code> cuando A2 está vacía o tiene
+              texto en vez de una fecha.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3><code>#NOMBRE?</code></h3>
+            <p>
+              Excel no reconoce el nombre de la función. Suele deberse a
+              una falta de ortografía (<code>SUMASI</code> en vez de
+              <code>SUMAR.SI</code>) o a un texto sin comillas dentro de la
+              fórmula.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3><code>#REF!</code></h3>
+            <p>
+              La fórmula quedó apuntando a una celda que ya no existe,
+              porque se borró la fila o columna que usaba como referencia.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>El error más peligroso es el que no se ve</span>
+          <p>
+            Un <code>#NOMBRE?</code> o un <code>#VALOR!</code> al menos
+            avisan que algo está mal. El error de RANGO y RANGO-SUMA
+            desparejos, en cambio, entrega un número que parece
+            razonable pero está mal calculado. Por eso conviene el chequeo
+            que ya usaste con CONTAR.SI: sumar los resultados parciales y
+            compararlos contra el total general.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDA DIARIA -->
+    <section class="section" id="vida-diaria">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para llevártelo de acá</p>
+          <h2>Dónde vas a usar estas funciones fuera de la facultad</h2>
+          <p>
+            Estas cinco funciones aparecen en cualquier planilla que mezcle
+            categorías y cantidades, no solo en una lista de alumnos.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Situación</th>
+                  <th>Pregunta que te hacés</th>
+                  <th>Función recomendada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Local de indumentaria</td>
+                  <td>¿Cuántas prendas talle M se vendieron este mes?</td>
+                  <td>CONTAR.SI</td>
+                </tr>
+                <tr>
+                  <td>Depósito de insumos</td>
+                  <td>¿Cuánto stock total hay de la categoría "Descartables"?</td>
+                  <td>SUMAR.SI</td>
+                </tr>
+                <tr>
+                  <td>Legajos de personal</td>
+                  <td>¿En qué año ingresó cada empleado a la institución?</td>
+                  <td>AÑO</td>
+                </tr>
+                <tr>
+                  <td>Control de stock mínimo</td>
+                  <td>¿El producto está por debajo del mínimo o no?</td>
+                  <td>SI</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>La idea de fondo</span>
+          <p>
+            Cada vez que necesites un resultado "para todos los casos",
+            pensá en SUMA, PROMEDIO, MÁXIMO, MÍNIMO o CONTAR. Cada vez que
+            necesites un resultado "solo para un grupo", agregale el
+            ".SI". Y cada vez que necesites que la planilla decida entre
+            dos caminos, ahí entra la función SI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="section alt" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Pensá tu propio uso de estas funciones</h2>
+          <p>
+            En esta clase se profundizó en el uso de funciones. Le
+            proponemos que plantee los usos que haría de esta planilla en
+            su futuro laboral.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>¿Qué datos cuantificaría?</h3>
+            <p>
+              En tu área de la salud, ¿qué información te convendría tener
+              organizada en filas y columnas: pacientes, turnos, insumos,
+              estudios realizados?
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>¿Qué usos le darías?</h3>
+            <p>
+              De las funciones vistas hoy —CONTAR, SUMAR.SI, CONTAR.SI, SI
+              o AÑO/MES/DÍA— ¿cuál resolvería una pregunta real de tu
+              rol profesional?
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Compartilo en el foro</h3>
+            <p>
+              Comparta con sus colegas en el Foro de la Unidad 1 sus
+              apreciaciones al respecto de las cuestiones planteadas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase3.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 3 · Gráficos en Excel</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 5 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 1 · Clase 4</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
