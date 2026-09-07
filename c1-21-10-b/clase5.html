@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 5</title>
+  <meta
+    name="description"
+    content="Clase 5 de Informática Aplicada (C1-21-10, Todas las comisiones): crear y editar tablas, dibujar formas y agruparlas, insertar gráficos vinculados a Excel, y trabajar encabezado, pie de página y numeración en Word."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .actividad-block ul li { font-size: 0.9rem; color: var(--muted); }
+    .actividad-block ul li strong { color: var(--text); }
+
+    .act-resultado {
+      margin-top: 1rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 0.85rem;
+    }
+    .act-resultado-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #16a34a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .act-resultado-label::before { content: "✓"; }
+
+    .act-referencia { margin-top: 1.25rem; }
+    .act-referencia-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+
+    /* ===== DOC MOCKUP GENÉRICO (página blanca tipo Word) ===== */
+    .doc-mock {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.1rem 1.4rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    /* ===== DEMO TABLA ===== */
+    .tabla-demo {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .tabla-demo th, .tabla-demo td {
+      border: 1px solid #9ca3af;
+      padding: 0.45rem 0.6rem;
+      text-align: left;
+    }
+    .tabla-demo thead th {
+      background: #2b579a;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
+    }
+    .tabla-demo tbody tr:nth-child(even) { background: #eef2f7; }
+    .tabla-demo td:first-child, .tabla-demo th:first-child { text-align: center; }
+    .tabla-demo td:last-child, .tabla-demo th:last-child { text-align: right; }
+    .tabla-demo tfoot td {
+      font-weight: 700;
+      border-top: 2px solid #111;
+      background: #fff;
+    }
+
+    /* ===== DEMO FORMAS + GRÁFICO ===== */
+    .formas-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .formas-demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .formas-demo-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.32rem 0.65rem;
+      letter-spacing: 0.03em;
+    }
+    .formas-demo-page {
+      padding: 1.1rem;
+      min-height: 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shapes-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 1rem 1.3rem;
+      border: 1.5px dashed #7c3aed;
+      border-radius: 0.4rem;
+    }
+    .shape-rect {
+      width: 2.4rem; height: 1.6rem;
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      border-radius: 3px;
+    }
+    .shape-oval {
+      width: 1.9rem; height: 1.9rem;
+      background: linear-gradient(135deg, #facc15, #d97706);
+      border-radius: 50%;
+    }
+    .shape-arrow {
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0.8rem 0 0.8rem 1.6rem;
+      border-color: transparent transparent transparent #16a34a;
+    }
+    .shapes-group-caption {
+      position: absolute;
+      bottom: -1.15rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.62rem;
+      color: #7c3aed;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .chart-demo {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+      height: 6rem;
+    }
+    .chart-bar {
+      width: 1.5rem;
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(180deg, #34d399, #059669);
+    }
+
+    /* ===== DEMO ENCABEZADO / PIE DE PÁGINA ===== */
+    .hf-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .hf-demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .hf-demo-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.32rem 0.65rem;
+      letter-spacing: 0.03em;
+      color: #fff;
+    }
+    .hf-demo-page {
+      min-height: 9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hf-demo-header, .hf-demo-footer {
+      font-size: 0.62rem;
+      color: #9ca3af;
+      padding: 0.4rem 0.9rem;
+      border-bottom: 1px dashed #d1d5db;
+    }
+    .hf-demo-footer { border-bottom: none; border-top: 1px dashed #d1d5db; }
+    .hf-demo-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== CORRECTO VS INCORRECTO ===== */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 600px) { .vs-grid { grid-template-columns: 1fr; } }
+    .vs-box {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .vs-header {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .vs-wrong .vs-header { background: #dc2626; color: #fff; }
+    .vs-right .vs-header { background: #16a34a; color: #fff; }
+    .vs-page {
+      background: #fff;
+      padding: 1rem 1.25rem;
+      min-height: 120px;
+      color: #111;
+      font-size: 0.77rem;
+      line-height: 1.55;
+    }
+    .vs-page p { margin: 0.4rem 0 0; }
+    .vs-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.65rem;
+      line-height: 1.5;
+    }
+
+    /* ===== DEMO GENÉRICO (grillas de comparación reutilizables) ===== */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .demo-box-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.32rem 0.65rem;
+      letter-spacing: 0.03em;
+    }
+    .demo-box-body {
+      padding: 1.1rem;
+      min-height: 8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+    }
+
+    /* Fórmulas en tabla */
+    .formula-tag {
+      display: inline-block;
+      background: #111827;
+      color: #34d399;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    /* Tipos de gráfico */
+    .chart-pie {
+      width: 5.2rem; height: 5.2rem;
+      border-radius: 50%;
+      background: conic-gradient(#2563eb 0% 35%, #f59e0b 35% 60%, #16a34a 60% 82%, #dc2626 82% 100%);
+    }
+
+    /* Alinear y distribuir formas */
+    .align-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.6rem;
+      position: relative;
+      padding-bottom: 0.6rem;
+    }
+    .align-row::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      border-bottom: 1.5px dashed #9ca3af;
+    }
+    .align-row .shape-oval, .align-row .shape-rect, .align-row .shape-arrow { margin: 0; }
+
+    /* Planos: forma delante/detrás del texto */
+    .layers-demo {
+      position: relative;
+      width: 100%;
+      min-height: 5.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .layers-shape {
+      position: absolute;
+      left: 0.6rem;
+      width: 3.4rem; height: 2.6rem;
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      border-radius: 4px;
+    }
+    .layers-text {
+      position: relative;
+      font-size: 0.77rem;
+      line-height: 1.55;
+      padding-left: 2.4rem;
+    }
+    .layers-shape.front { z-index: 2; }
+    .layers-text.behind-shape { z-index: 1; }
+
+    /* Marca de agua */
+    .watermark-page {
+      position: relative;
+      overflow: hidden;
+      min-height: 7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .watermark-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-28deg);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: rgba(220, 38, 38, 0.2);
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .watermark-page p {
+      position: relative;
+      font-size: 0.78rem;
+      color: #374151;
+      padding: 0 1rem;
+      text-align: center;
+    }
+
+    /* Bordes de página */
+    .pageborder-page {
+      border: 6px double #2b579a;
+      margin: 0.5rem;
+      min-height: 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #374151;
+    }
+
+    /* Preguntas frecuentes */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Video cards con miniatura (canales que no permiten incrustar) */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#tablas">Tablas</a>
+        <a href="#formas">Formas</a>
+        <a href="#graficos">Gráficos</a>
+        <a href="#encabezado">Encabezado y pie</a>
+        <a href="#errores">Errores comunes</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 2</p>
+        <h1>Tablas y Formas</h1>
+        <p class="lead">
+          Damos un paso más en <strong>Microsoft Word</strong>: aprendé a crear
+          y editar <strong>tablas</strong> para ordenar información en filas y
+          columnas, a dibujar y agrupar <strong>formas</strong>, a insertar un
+          <strong>gráfico vinculado a datos de Excel</strong>, y a configurar
+          <strong>encabezado, pie de página y numeración</strong> — los
+          recursos que le dan a un documento estructura y aspecto profesional.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#tablas">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 5</li>
+          <li>Microsoft Word</li>
+          <li>Tablas y Formas</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Organizar datos en tablas y enriquecer el documento con formas y encabezados</h2>
+        <p>
+          Aprender a crear y editar tablas, dibujar y agrupar formas, insertar
+          un gráfico vinculado a una hoja de Excel, y trabajar encabezado, pie
+          de página y numeración sobre un documento nuevo.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Organizar</span>
+          <span>Ilustrar</span>
+          <span>Encabezar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            Una <strong>tabla</strong> es la herramienta correcta cada vez que
+            necesitás alinear información en filas y columnas — mucho más
+            prolija y fácil de editar que usar tabulaciones o espacios sueltos.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- TABLAS -->
+    <section class="section" id="tablas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Tablas</p>
+          <h2>Crear y Editar Tablas</h2>
+          <p>
+            Una tabla organiza información en una grilla de filas y columnas,
+            en vez de dejarla como un bloque de texto corrido. Word ofrece
+            varios caminos para crearla y una ficha contextual completa para
+            editarla una vez insertada.
+          </p>
+        </div>
+
+        <article class="takeaways" style="margin-bottom:2rem;">
+          <h3>¿Cuándo conviene usar una tabla?</h3>
+          <ul>
+            <li>Cuando los datos tienen una <strong>estructura repetida</strong>: un producto por fila, un dato por columna.</li>
+            <li>Ejemplos típicos: una <strong>factura</strong>, un <strong>horario de clases</strong>, una <strong>lista de precios</strong> o un <strong>cuadro comparativo</strong>.</li>
+            <li>Cada celda funciona como un mini documento de texto: admite su propio formato, y la tabla puede ordenar filas o calcular totales con fórmulas.</li>
+            <li>Es mucho más prolija que alinear texto a mano con tabulaciones o espacios, que se desarman apenas se agrega o quita una palabra.</li>
+          </ul>
+        </article>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Elegir cómo crearla</h3>
+            <p>
+              <strong>Grilla rápida</strong> (Insertar → Tabla → arrastrar sobre
+              la grilla), <strong>Insertar tabla...</strong> (número exacto de
+              filas y columnas) o <strong>Dibujar tabla</strong> (a mano, con el
+              cursor convertido en lápiz) para tablas irregulares.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Cargar los datos</h3>
+            <p>
+              Escribís el contenido celda por celda. Con el cursor en la
+              última celda, <strong>Tab</strong> agrega una fila nueva
+              automáticamente. Si el texto ya existe separado por comas o
+              tabulaciones, usá <strong>Convertir texto en tabla</strong>.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Editarla y darle estilo</h3>
+            <p>
+              Con el cursor adentro aparecen las fichas contextuales
+              <strong>Diseño de tabla</strong> (estilos, bordes, sombreado) y
+              <strong>Presentación</strong> (filas, columnas, combinar celdas,
+              alineación).
+            </p>
+          </article>
+        </div>
+
+        <!-- REFERENCIA: ACCIONES RÁPIDAS -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Referencia rápida · de crear la tabla a editarla</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Acción</th><th>Cómo hacerlo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Insertar tabla (grilla rápida)</td><td>Insertar → Tabla → arrastrar el mouse sobre la grilla para elegir filas y columnas</td></tr>
+                <tr><td>Insertar tabla (medida exacta)</td><td>Insertar → Tabla → <strong>Insertar tabla...</strong> → escribir el número de filas y columnas</td></tr>
+                <tr><td>Dibujar tabla a mano</td><td>Insertar → Tabla → <strong>Dibujar tabla</strong>, el cursor se vuelve lápiz</td></tr>
+                <tr><td>Convertir texto en tabla</td><td>Seleccionar el texto (separado por comas o tabulaciones) → Insertar → Tabla → <strong>Convertir texto en tabla</strong></td></tr>
+                <tr><td>Insertar fila o columna</td><td>Clic derecho sobre una celda → <strong>Insertar</strong> (arriba, abajo, izquierda, derecha)</td></tr>
+                <tr><td>Eliminar fila, columna o tabla</td><td>Clic derecho → <strong>Eliminar</strong></td></tr>
+                <tr><td>Combinar celdas</td><td>Seleccionar dos o más celdas → clic derecho → <strong>Combinar celdas</strong></td></tr>
+                <tr><td>Dividir celdas</td><td>Clic derecho sobre la celda → <strong>Dividir celdas</strong></td></tr>
+                <tr><td>Autoajustar contenido / ventana / ancho fijo</td><td>Presentación → grupo <strong>Autoajustar</strong></td></tr>
+                <tr><td>Alinear texto en la celda</td><td>Presentación → grupo <strong>Alineación</strong> (9 combinaciones)</td></tr>
+                <tr><td>Ordenar datos por columna</td><td>Presentación → Datos → <strong>Ordenar</strong> (ascendente/descendente)</td></tr>
+                <tr><td>Repetir fila de título en tablas largas</td><td>Seleccionar la 1ª fila → Presentación → <strong>Repetir filas de título</strong></td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO TABLA + BUENAS PRÁCTICAS -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.6rem;">Así se ve en el documento</p>
+            <table class="tabla-demo">
+              <thead>
+                <tr><th>Cant.</th><th>Descripción</th><th>Precio unit.</th><th>Subtotal</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2</td><td>Cuaderno A4</td><td>$1.200</td><td>$2.400</td></tr>
+                <tr><td>1</td><td>Cartuchera</td><td>$3.500</td><td>$3.500</td></tr>
+                <tr><td>5</td><td>Lapicera azul</td><td>$450</td><td>$2.250</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><td colspan="3" style="text-align:right;">Total</td><td>$8.150</td></tr>
+              </tfoot>
+            </table>
+          </article>
+          <article class="takeaways">
+            <h3>Buenas prácticas de diseño</h3>
+            <ul>
+              <li>Activá la <strong>fila de encabezado</strong> para que se distinga visualmente del resto de los datos.</li>
+              <li>Elegí un <strong>estilo de tabla</strong> desde Diseño de tabla en vez de colorear celda por celda.</li>
+              <li>Personalizá <strong>bordes y sombreado</strong> a mano solo cuando ningún estilo predefinido te sirva.</li>
+              <li>Alineá a la <strong>derecha</strong> las columnas numéricas y centrá los títulos de encabezado.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- SUMMARY: ORDENAR/FÓRMULA + DEMO -->
+        <div class="summary-grid" style="margin-top:1.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.6rem;">Ordenado por Subtotal (mayor a menor)</p>
+            <table class="tabla-demo" style="font-size:0.78rem;">
+              <thead><tr><th>Cant.</th><th>Descripción</th><th>Subtotal</th></tr></thead>
+              <tbody>
+                <tr><td>3</td><td>Resma de hojas</td><td>$8.400</td></tr>
+                <tr><td>1</td><td>Cartuchera</td><td>$3.500</td></tr>
+                <tr><td>5</td><td>Lapicera azul</td><td>$2.250</td></tr>
+                <tr><td>2</td><td>Cuaderno A4</td><td>$2.400</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><td colspan="2" style="text-align:right;">Total</td><td><span class="formula-tag">=SUM(ABOVE)</span></td></tr>
+              </tfoot>
+            </table>
+          </article>
+          <article class="takeaways">
+            <h3>Ordenar y calcular con fórmulas</h3>
+            <ul>
+              <li><strong>Ordenar:</strong> Presentación → Datos → Ordenar, por cualquier columna, ascendente o descendente.</li>
+              <li><strong>Fórmula:</strong> Presentación → Datos → Fórmula. <span class="formula-tag">=SUM(ABOVE)</span> suma las celdas de arriba; <span class="formula-tag">=SUM(LEFT)</span> suma las de la izquierda.</li>
+              <li>A diferencia de Excel, <strong>no se recalcula sola</strong>: clic derecho sobre el resultado → Actualizar campo (o F9) después de cambiar un valor.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMAS -->
+    <section class="section alt" id="formas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Ilustraciones</p>
+          <h2>Dibujar y Organizar Formas</h2>
+          <p>
+            Además de imágenes, Word permite dibujar formas propias:
+            rectángulos, flechas, llamadas, diagramas de flujo y mucho más.
+            Combinadas y agrupadas, son la base de cualquier esquema, logo o
+            diagrama hecho directamente en el documento.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Elegir y dibujar</h3>
+            <p>
+              Insertar → Ilustraciones → <strong>Formas</strong> → elegí una,
+              el cursor cambia a una cruz. Clic y arrastre para dibujarla
+              (Shift la mantiene proporcionada). Para varias formas juntas,
+              empezá por un <strong>lienzo de dibujo</strong> que las agrupe
+              en un solo bloque.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Darle formato</h3>
+            <p>
+              Con la forma seleccionada, ficha <strong>Formato de forma</strong>:
+              relleno, contorno, efectos y estilos rápidos. Doble clic sobre
+              la forma para escribir texto directamente adentro.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Organizarla</h3>
+            <p>
+              Con dos o más formas seleccionadas: <strong>agrupar</strong> para
+              moverlas juntas, <strong>alinear/distribuir</strong> para que
+              queden parejas, y <strong>ordenar planos</strong> cuando una
+              tapa a otra.
+            </p>
+          </article>
+        </div>
+
+        <!-- REFERENCIA: CATEGORÍAS DE FORMAS -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Catálogo · menú Formas</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Categoría</th><th>Para qué sirve</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Líneas</td><td>Rectas o curvas, con flecha en una o ambas puntas</td></tr>
+                <tr><td>Rectángulos y formas básicas</td><td>Cuadrados, óvalos, triángulos, estrellas</td></tr>
+                <tr><td>Flechas de bloque</td><td>Flechas gruesas para señalar direcciones o pasos</td></tr>
+                <tr><td>Diagrama de flujo</td><td>Símbolos estándar (proceso, decisión, inicio/fin) para diagramar procesos</td></tr>
+                <tr><td>Llamadas</td><td>Globos de diálogo o de pensamiento, para anotaciones</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO FORMAS + TAKEAWAYS -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Agrupar y alinear · comparación visual</p>
+            <div class="formas-demo-grid" style="margin-top:0;">
+              <div class="formas-demo-box">
+                <div class="formas-demo-header">FORMAS AGRUPADAS</div>
+                <div class="formas-demo-page">
+                  <div class="shapes-group">
+                    <div class="shape-rect"></div>
+                    <div class="shape-oval"></div>
+                    <div class="shape-arrow"></div>
+                    <span class="shapes-group-caption">Se mueven juntas</span>
+                  </div>
+                </div>
+              </div>
+              <div class="formas-demo-box">
+                <div class="formas-demo-header" style="background:#065f46;">ALINEADAS Y DISTRIBUIDAS</div>
+                <div class="formas-demo-page">
+                  <div class="align-row">
+                    <div class="shape-oval"></div>
+                    <div class="shape-rect"></div>
+                    <div class="shape-oval" style="width:1.4rem;height:1.4rem;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="takeaways">
+            <h3>Trabajar con varias formas a la vez</h3>
+            <ul>
+              <li><strong>Agrupar:</strong> clic + Shift para seleccionar varias, clic derecho → Agrupar. Es reversible con Desagrupar.</li>
+              <li><strong>Alinear/distribuir:</strong> Formato de forma → Organizar → Alinear, para que queden parejas sin ajustar a ojo.</li>
+              <li><strong>Planos:</strong> Traer al frente / Enviar al fondo cuando dos formas se superponen.</li>
+              <li><strong>Ajuste de texto:</strong> una forma nueva nace "Delante del texto" (puede taparlo) — cambialo a Cuadrado o Detrás del texto si hace falta.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRÁFICOS -->
+    <section class="section" id="graficos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Ilustraciones</p>
+          <h2>Gráficos Vinculados a Datos de Excel</h2>
+          <p>
+            Un gráfico convierte una tabla de números en una imagen fácil de
+            interpretar de un vistazo. En Word, cada gráfico nace vinculado a
+            una hoja de cálculo de Excel que se edita sin salir del documento.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Insertar</h3>
+            <p>
+              Insertar → Ilustraciones → <strong>Gráfico</strong>. Elegís una
+              categoría y un tipo (por ejemplo, Columna → Columna agrupada) y
+              aceptás.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Cargar los datos</h3>
+            <p>
+              Word abre una <strong>hoja de Excel embebida</strong> con datos
+              de ejemplo. La reemplazás por la tuya; después podés reabrirla
+              con clic derecho → <strong>Editar datos</strong> cuando quieras.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Personalizar</h3>
+            <p>
+              Botón <strong>"+"</strong> junto al gráfico para elementos
+              (título, leyenda, etiquetas), y ficha <strong>Diseño de
+              gráfico</strong> para cambiar tipo, estilo y colores.
+            </p>
+          </article>
+        </div>
+
+        <!-- REFERENCIA: QUÉ TIPO DE GRÁFICO USAR -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Elegir bien · ¿qué tipo de gráfico usar?</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Tipo</th><th>Cuándo usarlo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Columnas / Barras</td><td>Comparar valores entre varias categorías (ventas por producto, por ejemplo)</td></tr>
+                <tr><td>Líneas</td><td>Mostrar la evolución de un valor a lo largo del tiempo</td></tr>
+                <tr><td>Circular (torta)</td><td>Mostrar qué porcentaje representa cada parte de un total (máximo 5 o 6 categorías)</td></tr>
+                <tr><td>Área y dispersión</td><td>Tendencias acumuladas o relación entre dos variables numéricas</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO TIPOS DE GRÁFICO + TAKEAWAYS -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Tres tipos, tres lecturas distintas</p>
+            <div class="formas-demo-grid" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));">
+              <div class="formas-demo-box">
+                <div class="formas-demo-header">COLUMNAS</div>
+                <div class="formas-demo-page">
+                  <div class="chart-demo">
+                    <div class="chart-bar" style="height:40%"></div>
+                    <div class="chart-bar" style="height:75%"></div>
+                    <div class="chart-bar" style="height:55%"></div>
+                    <div class="chart-bar" style="height:90%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="formas-demo-box">
+                <div class="formas-demo-header" style="background:#b45309;">CIRCULAR</div>
+                <div class="formas-demo-page">
+                  <div class="chart-pie"></div>
+                </div>
+              </div>
+              <div class="formas-demo-box">
+                <div class="formas-demo-header" style="background:#7c3aed;">LÍNEAS</div>
+                <div class="formas-demo-page">
+                  <svg width="100" height="60" viewBox="0 0 100 60" aria-hidden="true">
+                    <polyline points="5,45 25,30 45,38 65,15 85,20" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="5" cy="45" r="3" fill="#7c3aed"/>
+                    <circle cx="25" cy="30" r="3" fill="#7c3aed"/>
+                    <circle cx="45" cy="38" r="3" fill="#7c3aed"/>
+                    <circle cx="65" cy="15" r="3" fill="#7c3aed"/>
+                    <circle cx="85" cy="20" r="3" fill="#7c3aed"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="takeaways">
+            <h3>Detalles a tener en cuenta</h3>
+            <ul>
+              <li>Los datos quedan <strong>guardados dentro del .docx</strong>, no dependen de que exista el Excel original.</li>
+              <li>El gráfico se comporta como una imagen: tiene manijas para redimensionar y admite <strong>ajuste de texto</strong> (Cuadrado, Estrecho).</li>
+              <li>Si el tipo elegido no representa bien los datos, <strong>Cambiar tipo de gráfico</strong> lo resuelve sin rehacer nada.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENCABEZADO Y PIE DE PÁGINA -->
+    <section class="section alt" id="encabezado">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Encabezado y pie de página</p>
+          <h2>Encabezado, Pie de Página y Numeración</h2>
+          <p>
+            El encabezado y el pie de página son zonas especiales que se
+            repiten en todas las hojas del documento, ideales para el nombre
+            del trabajo, el autor, la fecha o el número de página.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Insertar</h3>
+            <p>
+              Insertar → grupo <strong>Encabezado y pie de página</strong> →
+              elegís un diseño o <strong>Editar encabezado</strong> para uno en
+              blanco. Doble clic afuera para volver al cuerpo del documento.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Agregar numeración y fecha</h3>
+            <p>
+              <strong>Insertar → Número de página</strong> (formato "Página X
+              de Y") y <strong>Fecha y hora</strong>, siempre como campos que
+              se actualizan solos.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Ajustar el diseño</h3>
+            <p>
+              Ficha contextual: <strong>Primera página diferente</strong>,
+              <strong>Páginas pares e impares diferentes</strong>, o
+              <strong>secciones</strong> independientes en documentos largos.
+            </p>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO PRIMERA PÁGINA + TAKEAWAYS -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Primera página diferente · comparación visual</p>
+            <div class="hf-demo-grid" style="margin-top:0;">
+              <div class="hf-demo-box">
+                <div class="hf-demo-label" style="background:#b45309;">PORTADA</div>
+                <div class="hf-demo-page">
+                  <div class="hf-demo-header">&nbsp;</div>
+                  <div class="hf-demo-body">FACTURA</div>
+                  <div class="hf-demo-footer">&nbsp;</div>
+                </div>
+              </div>
+              <div class="hf-demo-box">
+                <div class="hf-demo-label" style="background:#065f46;">PÁGINAS SIGUIENTES</div>
+                <div class="hf-demo-page">
+                  <div class="hf-demo-header">Factura — Comercio Ejemplo</div>
+                  <div class="hf-demo-body">Detalle de productos</div>
+                  <div class="hf-demo-footer">Pág. 2 de 3 &nbsp;·&nbsp; 07/09/2026</div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="takeaways">
+            <h3>Diseño avanzado de encabezado y pie</h3>
+            <ul>
+              <li><strong>Primera página diferente:</strong> la portada queda "limpia" mientras el resto del documento mantiene el suyo.</li>
+              <li><strong>Páginas pares e impares diferentes:</strong> útil en documentos tipo libro, para alternar la posición del número de página.</li>
+              <li><strong>Secciones:</strong> desactivando "Vincular al anterior", cada sección puede mostrar su propio encabezado (por ejemplo, el título de cada capítulo).</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- REFERENCIA: LOGO, MARCA DE AGUA Y BORDES -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Ficha Diseño · terminaciones para toda la hoja</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Elemento</th><th>Cómo agregarlo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Logo en el encabezado</td><td>Cursor dentro del encabezado → Insertar → Imágenes → Este dispositivo; se repite solo en todas las páginas</td></tr>
+                <tr><td>Marca de agua</td><td>Diseño → Fondo de página → Marca de agua (texto tenue como "BORRADOR" o imagen)</td></tr>
+                <tr><td>Bordes de página</td><td>Diseño → Fondo de página → Bordes de página (línea, color, grosor o bordes de arte)</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- DEMO MARCA DE AGUA + BORDES DE PÁGINA -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.5rem;">Así se ven sobre la hoja</p>
+          <div class="demo-grid">
+            <div class="demo-box">
+              <div class="demo-box-header" style="background:#b45309;">MARCA DE AGUA</div>
+              <div class="demo-box-body watermark-page" style="padding:0.9rem;">
+                <span class="watermark-text">BORRADOR</span>
+                <p>El texto de fondo se repite tenue en cada hoja del documento, sin tapar la lectura del contenido real.</p>
+              </div>
+            </div>
+            <div class="demo-box">
+              <div class="demo-box-header" style="background:#7c3aed;">BORDES DE PÁGINA</div>
+              <div class="demo-box-body" style="padding:0;">
+                <div class="pageborder-page" style="width:100%;">Contenido de la hoja</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section" id="errores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de practicar</p>
+          <h2>Errores Comunes de esta Clase</h2>
+          <p>
+            Los tropiezos más frecuentes al trabajar con tablas, formas y
+            encabezado/pie de página por primera vez.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0;">Tabla sin autoajustar vs. tabla con "Autoajustar contenido"</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Columnas de ancho parejo forzado</div>
+            <div class="vs-page">
+              <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:0.72rem;">
+                <tr><td style="border:1px solid #d1d5db;padding:0.3rem;overflow:hidden;">Cant.</td><td style="border:1px solid #d1d5db;padding:0.3rem;overflow:hidden;">Descripción del producto que no entra</td><td style="border:1px solid #d1d5db;padding:0.3rem;overflow:hidden;">$</td></tr>
+              </table>
+              <p>El texto de la descripción se corta o se apila feo porque las tres columnas quedaron con el mismo ancho, sin importar cuánto contenido tiene cada una.</p>
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Autoajustar contenido</div>
+            <div class="vs-page">
+              <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:0.72rem;">
+                <tr><td style="border:1px solid #d1d5db;padding:0.3rem;width:15%;">Cant.</td><td style="border:1px solid #d1d5db;padding:0.3rem;">Descripción del producto</td><td style="border:1px solid #d1d5db;padding:0.3rem;width:15%;">$</td></tr>
+              </table>
+              <p>Presentación → Autoajustar → Autoajustar contenido acomoda cada columna según lo que realmente necesita mostrar.</p>
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Dejar todas las columnas con el mismo ancho "porque sí" es el error más común al crear una tabla nueva. Un clic en <strong>Autoajustar contenido</strong> lo resuelve.</p>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Número de página tipeado a mano vs. campo automático</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Texto "Página 1" tipeado a mano</div>
+            <div class="vs-page">
+              Escribís "Página 1" en el pie de la primera hoja y "Página 2" en
+              la segunda. Si después agregás un párrafo largo y el contenido se
+              corre a otra página, <strong>todos los números quedan mal</strong>
+              y hay que corregirlos uno por uno.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Campo Insertar número de página</div>
+            <div class="vs-page">
+              Insertar → Número de página inserta un <strong>campo</strong> que
+              Word calcula solo. Si el documento crece o se achica, el número
+              en cada hoja se actualiza automáticamente, sin tocar nada a mano.
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Cualquier dato que Word pueda calcular por vos (número de página, fecha, total de páginas) conviene insertarlo como <strong>campo</strong>, nunca tipeado.</p>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Forma tapando el texto vs. forma con el ajuste correcto</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Forma "Delante del texto" por defecto</div>
+            <div class="vs-page">
+              <div class="layers-demo">
+                <div class="layers-shape front"></div>
+                <p class="layers-text">Esta descripción queda tapada por el rectángulo que dibujaste, porque toda forma nueva se inserta con ajuste "Delante del texto".</p>
+              </div>
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Ajuste "Detrás del texto" o "Cuadrado"</div>
+            <div class="vs-page">
+              <div class="layers-demo">
+                <div class="layers-shape" style="opacity:0.35;"></div>
+                <p class="layers-text behind-shape">El texto se lee completo porque la forma pasó a "Detrás del texto" (para usarla como fondo decorativo) o a "Cuadrado" (para que el texto la rodee).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Toda forma o cuadro de texto nuevo nace con ajuste <strong>Delante del texto</strong> — si tapa contenido, "Opciones de diseño" (la flor al lado de la forma) te deja cambiarlo en un clic.</p>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section alt" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+          <p>
+            Respuestas rápidas a las consultas más habituales de esta clase.
+          </p>
+        </div>
+
+        <details class="faq-item">
+          <summary>¿Por qué mi tabla ocupa todo el ancho de la hoja apenas la inserto?</summary>
+          <p>
+            Porque el ajuste por defecto es <strong>Autoajustar ventana</strong>.
+            Si preferís que cada columna tenga solo el ancho que necesita su
+            contenido, cambialo a <strong>Autoajustar contenido</strong> desde
+            Presentación → Autoajustar.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Cómo agrego una fila nueva sin usar ningún menú?</summary>
+          <p>
+            Ubicá el cursor en la última celda de la tabla (abajo a la derecha)
+            y presioná <strong>Tab</strong>. Word agrega automáticamente una
+            fila nueva debajo, lista para escribir.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Dibujé una forma y ahora no puedo hacerle clic para seleccionarla, ¿qué pasa?</summary>
+          <p>
+            Es probable que haya quedado <strong>detrás</strong> del texto o de
+            otra forma. Abrí el <strong>Panel de selección</strong> (Formato de
+            forma → Organizar → Panel de selección) para ver todos los objetos
+            del documento y seleccionarla por su nombre en la lista.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Si borro la hoja de Excel original, ¿se rompe mi gráfico de Word?</summary>
+          <p>
+            No. Al insertar el gráfico, Word guarda una copia de los datos
+            dentro del propio archivo .docx. La hoja de Excel embebida es
+            independiente del archivo que pudiste haber usado para copiar
+            datos; siempre se puede reabrir con "Editar datos".
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Cómo hago para que la numeración empiece en 1 recién en la segunda página?</summary>
+          <p>
+            Activá <strong>Primera página diferente</strong> en la ficha
+            contextual de Encabezado y pie, y dejá esa primera página (la
+            portada) sin número. Si además querés que la segunda página
+            arranque literalmente en "1" en vez de "2", usá <strong>Insertar →
+            Número de página → Formato del número de página → Iniciar en 1</strong>.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Puedo tener un encabezado distinto para cada parte de un documento largo?</summary>
+          <p>
+            Sí. Insertá un <strong>salto de sección</strong> (Diseño → Saltos)
+            donde empiece cada parte y, dentro del encabezado de la sección
+            nueva, desactivá <strong>Vincular al anterior</strong>. A partir de
+            ahí, cada sección tiene su propio encabezado independiente.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Un ejercicio breve para aplicar los contenidos centrales de esta
+            clase: una tabla, un logo con formas y un encabezado con
+            numeración automática.
+          </p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio · Tablas, formas y encabezado/pie de página</p>
+          <h3>Creamos una "Factura" simple</h3>
+          <p style="font-size:0.9rem;color:var(--muted);">
+            Abrí un documento nuevo en Word y armá una factura de un comercio
+            inventado, siguiendo estos cuatro pasos:
+          </p>
+          <ul>
+            <li><strong>1. Tabla:</strong> insertá una tabla de 4 columnas (Cantidad, Descripción, Precio, Subtotal) y 3 filas de productos, con la fila de encabezado activada.</li>
+            <li><strong>2. Logo:</strong> dibujá 2 formas simples (por ejemplo un rectángulo con el nombre del comercio y un óvalo al lado) y agrupalas.</li>
+            <li><strong>3. Encabezado y pie:</strong> escribí el nombre del comercio en el encabezado, y agregá el número de página en el pie.</li>
+            <li><strong>4. Guardá</strong> el archivo como <strong>Factura</strong> y compartilo en el foro de la Unidad.</li>
+          </ul>
+          <p class="card-example"><strong>Actividad complementaria:</strong> agregá una fila de "Total" y calculala con Presentación → Fórmula → <span class="formula-tag">=SUM(ABOVE)</span>.</p>
+
+          <div class="act-referencia">
+            <p class="act-referencia-label">Referencia visual · así podría quedar tu Factura</p>
+            <div class="doc-mock">
+              <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.9rem;">
+                <div class="shapes-group" style="padding:0.5rem 0.7rem;gap:0.35rem;">
+                  <div class="shape-rect" style="width:1.6rem;height:1.1rem;"></div>
+                  <div class="shape-oval" style="width:1.1rem;height:1.1rem;"></div>
+                </div>
+                <p class="art-title" style="margin:0;">COMERCIO EJEMPLO — FACTURA</p>
+              </div>
+              <table class="tabla-demo">
+                <thead>
+                  <tr><th>Cant.</th><th>Descripción</th><th>Precio unit.</th><th>Subtotal</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>2</td><td>Cuaderno A4</td><td>$1.200</td><td>$2.400</td></tr>
+                  <tr><td>1</td><td>Cartuchera</td><td>$3.500</td><td>$3.500</td></tr>
+                  <tr><td>5</td><td>Lapicera azul</td><td>$450</td><td>$2.250</td></tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" style="text-align:right;">
+                      Total <span style="font-weight:400;font-size:0.62rem;color:#9ca3af;">(con la actividad complementaria)</span>
+                    </td>
+                    <td>$8.150</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <p style="margin:0.8rem 0 0;font-size:0.68rem;color:#9ca3af;text-align:center;">Página 1 de 1</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Insertar tabla</h3>
+            <p>
+              Insertar → Tabla. Grilla rápida, cuadro de diálogo con filas y
+              columnas exactas, o dibujarla a mano.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Editar tabla</h3>
+            <p>
+              Ficha Presentación: insertar/eliminar filas y columnas, combinar
+              celdas, autoajustar contenido.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Estilos de tabla</h3>
+            <p>
+              Ficha Diseño de tabla. Activá la fila de encabezado para que se
+              distinga del resto de los datos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Formas y agrupar</h3>
+            <p>
+              Insertar → Formas. Seleccioná varias y agrupalas para moverlas y
+              redimensionarlas como una unidad.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Gráfico vinculado a Excel</h3>
+            <p>
+              Insertar → Gráfico. Se edita desde una hoja de Excel embebida y
+              se actualiza solo.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Encabezado, pie y numeración</h3>
+            <p>
+              Insertar → Encabezado / Pie de página / Número de página. Usá
+              siempre campos automáticos, nunca texto tipeado.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Ordenar y fórmulas</h3>
+            <p>
+              Presentación → Ordenar (por columna) y Fórmula
+              (<span class="formula-tag" style="font-size:0.68rem;">=SUM(ABOVE)</span>)
+              para calcular totales dentro de la tabla.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Alinear y ordenar planos</h3>
+            <p>
+              Formato de forma → Alinear/Distribuir, y Traer al frente /
+              Enviar al fondo para formas superpuestas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Tipos de gráfico</h3>
+            <p>
+              Columnas para comparar, líneas para evolución en el tiempo,
+              circular para partes de un total.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Marca de agua y bordes de página</h3>
+            <p>
+              Diseño → Fondo de página. Un texto tenue de fondo o un marco
+              decorativo repetido en todas las hojas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual de la cátedra para reforzar los conceptos de
+            esta clase. Sus canales no permiten reproducirlos incrustados en
+            otros sitios, así que se abren en YouTube al hacer clic.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/fQpMthIgfyI" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/fQpMthIgfyI/hqdefault.jpg" alt="Miniatura del video Crear Tablas en Microsoft Word" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Crear Tablas en Microsoft Word</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">Silvherinformatica · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/pZ03eg0GbGo" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/pZ03eg0GbGo/hqdefault.jpg" alt="Miniatura del video 11.3. Dibujar formas y gráficos de datos" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">11.3. Dibujar formas y Gráficos de datos</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">aulaclic · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/uFaodxlEHoY" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/uFaodxlEHoY/hqdefault.jpg" alt="Miniatura del video 8.2. Encabezado y pie de página" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">8.2. Encabezado y pie de página</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">aulaclic · Ver en YouTube ↗</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase4.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 4 · Párrafo y Estilos</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 6 · SmartArt - Portada</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 2 · Clase 5</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
