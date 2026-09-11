@@ -1,0 +1,25 @@
+=== Sorted by FECHA ascending (top 5) — para ordenar-simple ===
+18/01/2011 | Gonzalez, Noelia | Odontología | Medicina y Ciencias de la Salud
+01/03/2011 | Rios, Gerardo | Lic. en Terapia Ocupacional | Psicología y Relaciones Humanas
+11/03/2011 | Uria, Valeria | Odontología | Medicina y Ciencias de la Salud
+02/09/2011 | Galeano, Carla | Odontología | Medicina y Ciencias de la Salud
+01/02/2012 | Dorta, Gonzalo | Lic. en Instrumentación Quirúrgica | Medicina y Ciencias de la Salud
+
+=== Sorted by FACULTAD asc, luego FECHA desc (top 5) — para ordenar-multiple ===
+15/06/2020 | Cwiluk, Paola | Lic. en Instrumentación Quirúrgica | Medicina y Ciencias de la Salud
+06/03/2020 | Balderrama, Rebeca | Odontología | Medicina y Ciencias de la Salud
+20/02/2020 | Gutierrez, Natalia | Odontología | Medicina y Ciencias de la Salud
+10/02/2020 | Arregui, Federico | Odontología | Medicina y Ciencias de la Salud
+19/12/2019 | Buttafuoco, Fernando | Odontología | Medicina y Ciencias de la Salud
+
+=== Filas reales: AÑO INGRESO=2019, MATERIAS>15, CARRERA en Nutricion/Psicologia ===
+fila11 | 15/08/2019 | 2019 | Quispe, Giovanna | Lic. en Nutrición | 26 | Medicina y Ciencias de la Salud
+fila14 | 20/11/2019 | 2019 | Breccia, Nicolas | Lic. en Psicología | 27 | Psicología y Relaciones Humanas
+fila72 | 23/12/2019 | 2019 | Palacios, Rocio | Lic. en Psicología | 23 | Psicología y Relaciones Humanas
+
+=== Filas 47 y 76 (paso 7, Odontologia 2015) con fecha real ===
+fila47 | 22/09/2015 | 2015 | Constantin, Tomas | Odontología | 23 | Medicina y Ciencias de la Salud
+fila76 | 20/10/2015 | 2015 | Vescio, Paola | Odontología | 17 | Medicina y Ciencias de la Salud
+
+=== Fila 2 (Michia Daniela) con fecha real ===
+fila2 | 14/09/2012 | 2012 | Michia, Daniela | Odontología | 16 | Medicina y Ciencias de la Salud

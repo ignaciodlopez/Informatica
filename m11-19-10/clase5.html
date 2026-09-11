@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 5</title>
+  <meta
+    name="description"
+    content="Clase 5 de Informática Aplicada (M11-19-10), Unidad 1: qué es una base de datos en Excel, cómo crear, renombrar y mover información entre hojas de cálculo, ordenar por uno o varios criterios, aplicar y combinar filtros con lógica Y/O, deshacer cambios e imprimir lo filtrado en orientación horizontal."
+  />
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#mapa">Mapa de la clase</a>
+        <a href="#base-datos">Bases de datos</a>
+        <a href="#hojas">Hojas de cálculo</a>
+        <a href="#ordenar-simple">Ordenar</a>
+        <a href="#ordenar-multiple">Varios criterios</a>
+        <a href="#deshacer">Deshacer</a>
+        <a href="#filtros">Activar filtros</a>
+        <a href="#filtro-simple">Filtrar</a>
+        <a href="#quitar-filtros">Quitar filtros</a>
+        <a href="#filtro-avanzado">Combinar filtros</a>
+        <a href="#imprimir">Imprimir</a>
+        <a href="#errores-comunes">Errores comunes</a>
+        <a href="#vida-diaria">Vida diaria</a>
+        <a href="#video">Video</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 1</p>
+        <h1>Filtros y ordenamiento de planillas</h1>
+        <p class="lead">
+          En esta clase cambia el enfoque: hasta ahora sumaste, contaste
+          y graficaste una tabla entera. Hoy vas a tratarla como lo que
+          realmente es, una
+          <strong>base de datos</strong>, y vas a aprender a hacerle
+          preguntas puntuales: ordenarla según lo que te interese ver
+          primero, y quedarte solo con las filas que cumplen las
+          condiciones que definas, sin borrar ni mover un solo dato.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa">Ver el mapa de la clase</a>
+          <a class="btn btn-secondary" href="#filtro-avanzado">Ir a filtros combinados</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 5 · Unidad 1</li>
+          <li>Hojas, ordenar y filtrar</li>
+          <li>Combinar criterios e imprimir</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>De una tabla fija a una base que responde preguntas</h2>
+        <p>
+          Vas a crear una hoja nueva para separar los datos del análisis,
+          ordenar la tabla de alumnos por uno y por varios criterios
+          (deshaciendo esos cambios cuando haga falta), activar filtros
+          para aislar subconjuntos de filas, combinar condiciones con
+          lógica Y/O, e imprimir exactamente lo que filtraste.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Hojas de cálculo</span>
+          <span>Ordenar</span>
+          <span>Filtrar e imprimir</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Continuá desde el archivo de la Clase 4, con las columnas AÑO
+            INGRESO y MÁS DE 20 MATERIAS ya resueltas, y guardalo como
+            <strong>Clase 5.xlsx</strong>. Vamos a ir transformando esa
+            misma tabla de 79 alumnos, paso a paso, en los cuadros de
+            ejemplo de cada sección.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- MAPA DE LA CLASE -->
+    <section class="section" id="mapa">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>El mapa de la clase de hoy, en nueve pasos</h2>
+          <p>
+            Esta es la hoja de ruta completa: vas a seguir trabajando
+            sobre la misma tabla de 79 alumnos de la Clase 4, y cada fila
+            de esta tabla te lleva directo a la sección donde se explica
+            ese paso en detalle.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Paso</th>
+                  <th>Qué vas a hacer</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Crear la hoja ESTADISTICAS y mover ahí los cuadros de estadísticas</td>
+                  <td><a href="#hojas">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Ordenar la tabla por FECHA INGRESO, de menor a mayor</td>
+                  <td><a href="#ordenar-simple">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Ordenar por FACULTAD y, dentro de cada una, por FECHA INGRESO</td>
+                  <td><a href="#ordenar-multiple">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Deshacer los dos ordenamientos anteriores</td>
+                  <td><a href="#deshacer">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Activar el filtro automático sobre la tabla</td>
+                  <td><a href="#filtros">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Filtrar los alumnos de Odontología ingresados en 2015</td>
+                  <td><a href="#filtro-simple">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Quitar los filtros aplicados</td>
+                  <td><a href="#quitar-filtros">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Combinar tres condiciones a la vez: año, materias aprobadas y carrera</td>
+                  <td><a href="#filtro-avanzado">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Imprimir lo filtrado, con la hoja en orientación horizontal</td>
+                  <td><a href="#imprimir">Ver el paso →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué empezar por acá</span>
+          <p>
+            Antes de entrar en el porqué de cada herramienta, conviene
+            tener claro el recorrido completo. Podés volver a esta tabla
+            en cualquier momento de la clase para ubicarte, o para saltar
+            directo al paso que te interese repasar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ ES UNA BASE DE DATOS -->
+    <section class="section alt" id="base-datos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de ordenar y filtrar</p>
+          <h2>Qué es una base de datos, dentro de Excel</h2>
+          <p>
+            Aunque vengas usando la tabla de alumnos desde la Clase 2 sin
+            haberla llamado nunca así, esa tabla es una <strong>base de
+            datos</strong>. En Excel, ese nombre no exige nada
+            complicado: alcanza con organizar la información en filas y
+            columnas, siguiendo dos roles bien definidos.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Los dos roles de una tabla</p>
+            <h3>Campos y registros</h3>
+            <ul>
+              <li><strong>Campo</strong> — cada columna, un dato en concreto (FECHA INGRESO, CARRERA, MATERIAS APROBADAS…)</li>
+              <li><strong>Registro</strong> — cada fila, un caso completo: todos los datos de un mismo alumno</li>
+            </ul>
+            <p>
+              Ordenar y filtrar siempre trabajan sobre esta estructura: se
+              ordenan o se filtran <em>registros completos</em>, tomando
+              como criterio el valor de uno o más <em>campos</em>.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para que Excel la reconozca como tal</p>
+            <h3>Tres condiciones simples</h3>
+            <ul>
+              <li>La primera fila tiene un encabezado de texto, único, por cada columna</li>
+              <li>No hay filas ni columnas completamente vacías en medio de los datos</li>
+              <li>Cada columna guarda un solo tipo de dato: fechas, números o texto, sin mezclar</li>
+            </ul>
+            <p>
+              La tabla de alumnos cumple las tres, por eso Excel puede
+              detectar sola dónde empieza y dónde termina cuando ordenás o
+              filtrás, sin que tengas que seleccionar el rango a mano.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">La misma tabla, leída como base de datos</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">G</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell selected">FECHA INGRESO</div>
+              <div class="excel-cell selected">ALUMNO</div>
+              <div class="excel-cell selected">CARRERA</div>
+              <div class="excel-cell selected">FACULTAD</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">14/09/2012</div>
+              <div class="excel-cell">Michia, Daniela</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            La fila resaltada es el encabezado de <strong>campos</strong>;
+            la fila 2 completa es un <strong>registro</strong>: los datos
+            de un único alumno, Daniela Michia. Por espacio, quedan
+            afuera las columnas B, E y F: AÑO INGRESO, MATERIAS
+            APROBADAS y MÁS DE 20 MATERIAS.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOJAS DE CÁLCULO -->
+    <section class="section" id="hojas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El libro tiene más de una página</p>
+          <h2>Hojas de cálculo: crear, renombrar y mover datos</h2>
+          <p>
+            Hasta ahora trabajaste siempre en una sola hoja. Pero un
+            archivo de Excel es un <strong>libro</strong>, y un libro
+            puede tener varias <strong>hojas</strong>, cada una con su
+            propia pestaña abajo a la izquierda. Antes de ordenar la
+            tabla, conviene mover los tres cuadros de estadísticas de la
+            Clase 4 a una hoja aparte, para que no estorben.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Creá una hoja nueva</h3>
+            <p>
+              Hacé clic en el ícono <code>+</code> junto a la pestaña
+              actual, o clic derecho sobre la pestaña &gt; "Insertar" &gt;
+              "Hoja de cálculo". Aparece una pestaña nueva, vacía, al lado
+              de la que ya tenías.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Renombrala</h3>
+            <p>
+              Doble clic sobre el nombre de la pestaña nueva (queda
+              editable) y escribí <strong>ESTADISTICAS</strong>. El mismo
+              doble clic sirve para corregir el nombre de cualquier hoja,
+              en cualquier momento.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Movete entre hojas</h3>
+            <p>
+              Un clic sobre cualquier pestaña te lleva a esa hoja al
+              instante. Cada hoja tiene sus propias columnas A, B, C…, así
+              que dos hojas distintas pueden tener datos distintos en la
+              misma celda, por ejemplo B2.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Tu hoja original también tiene un nombre por defecto</span>
+          <p>
+            Si venís trabajando sobre el archivo de la Clase 4 tal como
+            se descarga, la hoja con la tabla de alumnos probablemente
+            todavía se llama <strong>Hoja2</strong>, el nombre genérico
+            que le pone Excel. Aprovechá el mismo doble clic que acabás
+            de usar para renombrarla como <strong>MATERIAS
+            APROBADAS</strong>: de acá en adelante, esta guía se refiere
+            a ella con ese nombre.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="max-width: 480px;">
+          <div class="excel-mock-label">Pestañas del libro, después de renombrar y crear ESTADISTICAS</div>
+          <div class="excel-ribbon-tabs" style="padding: 0.6rem 0.6rem;">
+            <span class="excel-ribbon-tab active">MATERIAS APROBADAS</span>
+            <span class="excel-ribbon-tab">ESTADISTICAS</span>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Ahora sí, mové los cuadros de estadísticas</span>
+          <p>
+            En la hoja MATERIAS APROBADAS, seleccioná el rango que ocupan
+            los tres cuadros armados en la Clase 4 ("MATERIAS APROBADAS
+            POR ALUMNO", "MATERIAS APROBADAS POR CARRERA" y "ALUMNOS POR
+            FACULTAD", en las columnas I y J). Cortalos con
+            <code>Ctrl</code> + <code>X</code>, andá a la pestaña
+            ESTADISTICAS, ubicate en la celda B1 y pegalos con
+            <code>Ctrl</code> + <code>V</code>.
+          </p>
+          <p>
+            Excel ajusta solas las fórmulas al moverlas de hoja: donde
+            antes decían, por ejemplo, <code>=SUMA(D:D)</code>, ahora dicen
+            <code>=SUMA('MATERIAS APROBADAS'!D:D)</code>, agregando el
+            nombre de la hoja de origen antes del signo <code>!</code>.
+            Los resultados no cambian, solo se aclara de dónde vienen los
+            datos.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>Por qué separar los datos del análisis</span>
+          <p>
+            Los cuadros de estadísticas estaban pegados a la derecha de la
+            tabla de alumnos porque fue el lugar donde los armaste. Pero
+            en un rato vas a ordenar y filtrar esa tabla, y un cuadro de
+            resumen al lado se vuelve una distracción visual, aunque las
+            fórmulas sigan funcionando igual. Separar "los datos" de "el
+            análisis" en hojas distintas es una práctica habitual al
+            trabajar con planillas más grandes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDENAR: UN CRITERIO -->
+    <section class="section alt" id="ordenar-simple">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La primera herramienta para "leer" una base de datos</p>
+          <h2>Ordenar por un solo criterio</h2>
+          <p>
+            Ordenar reorganiza las filas completas de la tabla según el
+            valor de una columna, sin romper la correspondencia entre los
+            datos de un mismo alumno. Vamos a ordenar la tabla por
+            <strong>FECHA INGRESO</strong>, de la fecha más antigua a la
+            más reciente.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Ubicate dentro de la tabla</h3>
+            <p>
+              Hacé clic en cualquier celda con datos, en cualquier
+              columna. No hace falta seleccionar toda la tabla: Excel
+              reconoce sola dónde empieza y dónde termina, gracias a que
+              cumple las condiciones de la sección anterior.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Abrí el cuadro Ordenar</h3>
+            <p>
+              En la pestaña <strong>Datos</strong>, grupo "Ordenar y
+              filtrar", hacé clic en <strong>Ordenar</strong>. Se abre un
+              cuadro de diálogo con la casilla "Mis datos tienen
+              encabezados" ya tildada.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Elegí columna y orden</h3>
+            <p>
+              En "Ordenar por" elegí FECHA INGRESO, dejá "Valores de
+              celda" en "Ordenar según", y en "Orden" elegí "De más
+              antiguos a más recientes". Aceptar.
+            </p>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Campo del cuadro</th>
+                  <th>Valor elegido</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ordenar por</td>
+                  <td>FECHA INGRESO</td>
+                </tr>
+                <tr>
+                  <td>Ordenar según</td>
+                  <td>Valores de celda</td>
+                </tr>
+                <tr>
+                  <td>Orden</td>
+                  <td>De más antiguos a más recientes</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Primeras filas, después de ordenar por FECHA INGRESO</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">G</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell selected">18/01/2011</div>
+              <div class="excel-cell">Gonzalez, Noelia</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">01/03/2011</div>
+              <div class="excel-cell">Rios, Gerardo</div>
+              <div class="excel-cell">Lic. en Terapia Ocup.</div>
+              <div class="excel-cell">Psicología y R. H.</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell">11/03/2011</div>
+              <div class="excel-cell">Uria, Valeria</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            Por espacio, no se incluyen las columnas B (AÑO INGRESO), E
+            (MATERIAS APROBADAS) ni F (MÁS DE 20 MATERIAS).
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>El error más común al ordenar</span>
+          <p>
+            Si en lugar de hacer clic dentro de la tabla seleccionás a
+            mano solo la columna FECHA INGRESO y le das a ordenar, Excel
+            te va a preguntar si querés "Ampliar la selección" o
+            "Continuar con la selección actual". Elegí siempre
+            <strong>ampliar la selección</strong>: si ordenás una sola
+            columna, esa columna se reordena sola y el resto de la tabla
+            queda igual, así que cada alumno termina con datos de otro.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDENAR: VARIOS CRITERIOS -->
+    <section class="section" id="ordenar-multiple">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cuando un solo criterio no alcanza</p>
+          <h2>Ordenar por varios criterios, con niveles</h2>
+          <p>
+            Ahora el pedido es más específico: agrupar a los alumnos por
+            <strong>FACULTAD</strong>, en orden alfabético, y que dentro de
+            cada facultad queden ordenados por <strong>FECHA
+            INGRESO</strong>, del ingreso más reciente al más antiguo. Eso
+            son dos criterios a la vez, uno principal y otro que
+            desempata dentro del primero.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Primer nivel: FACULTAD</h3>
+            <p>
+              En el cuadro Ordenar, dejá "Ordenar por" en FACULTAD, con
+              orden "A a Z". Este es el criterio que manda: agrupa toda la
+              tabla en dos grandes bloques, uno por facultad.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Agregá un nivel</h3>
+            <p>
+              Hacé clic en <strong>Agregar nivel</strong>. Aparece una
+              fila nueva que empieza con "Luego por", en vez de "Ordenar
+              por": ese "luego" indica que solo actúa como desempate.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Segundo nivel: FECHA INGRESO</h3>
+            <p>
+              En "Luego por" elegí FECHA INGRESO, con orden "De más
+              recientes a más antiguos". Dentro de cada facultad, los
+              alumnos quedan ordenados por esta fecha.
+            </p>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nivel</th>
+                  <th>Columna</th>
+                  <th>Orden</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1 — Ordenar por</td>
+                  <td>FACULTAD</td>
+                  <td>A a Z</td>
+                </tr>
+                <tr>
+                  <td>2 — Luego por</td>
+                  <td>FECHA INGRESO</td>
+                  <td>De más recientes a más antiguos</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Primeras filas, ordenadas por FACULTAD y luego por FECHA INGRESO</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">G</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">15/06/2020</div>
+              <div class="excel-cell">Cwiluk, Paola</div>
+              <div class="excel-cell">Lic. en Instr. Quirúrg.</div>
+              <div class="excel-cell selected">Medicina y C. Salud</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">06/03/2020</div>
+              <div class="excel-cell">Balderrama, Rebeca</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell">20/02/2020</div>
+              <div class="excel-cell">Gutierrez, Natalia</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            Todas las filas visibles pertenecen a "Medicina y Ciencias de
+            la Salud" (primer criterio), y dentro de esa facultad las
+            fechas bajan de 2020 en adelante (segundo criterio). Recién
+            cuando termine ese bloque, va a empezar el de "Psicología y
+            Relaciones Humanas". Tampoco entran en esta vista las
+            columnas B, E y F: AÑO INGRESO, MATERIAS APROBADAS y MÁS DE
+            20 MATERIAS.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>El orden de los niveles importa</span>
+          <p>
+            Si invirtieras los niveles —ordenar primero por FECHA INGRESO
+            y luego por FACULTAD— el resultado sería otro: la tabla
+            quedaría agrupada por fecha, y dentro de cada fecha exacta se
+            desempataría por facultad. El nivel de arriba en el cuadro
+            Ordenar siempre es el criterio principal; los de abajo solo
+            deciden qué pasa cuando el de arriba empata.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESHACER -->
+    <section class="section alt" id="deshacer">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Volver atrás sin miedo</p>
+          <h2>Deshacer: recuperar el orden original</h2>
+          <p>
+            Ya viste dos formas distintas de ordenar la misma tabla, y
+            ninguna de las dos es "la definitiva": fueron ejercicios para
+            practicar. Para dejar la tabla como estaba antes de ordenarla,
+            no hace falta escribir nada de nuevo: alcanza con deshacer.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>El atajo de siempre</h3>
+            <p>
+              <code>Ctrl</code> + <code>Z</code> deshace la última acción
+              realizada. Cada vez que lo presionás, retrocedés un paso más
+              en el historial de cambios del archivo.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>Dos ordenamientos, dos pasos</h3>
+            <p>
+              Como aplicaste dos ordenamientos distintos (por FECHA
+              INGRESO, y después por FACULTAD y FECHA INGRESO), hacen
+              falta <strong>dos</strong> <code>Ctrl</code> + <code>Z</code>
+              para volver a la tabla sin ordenar.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Y si te pasaste, Rehacer</h3>
+            <p>
+              <code>Ctrl</code> + <code>Y</code> hace exactamente lo
+              contrario: vuelve a aplicar el paso que acabás de deshacer,
+              por si te arrepentiste de haber retrocedido.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un historial que no es eterno</span>
+          <p>
+            El historial de deshacer solo existe mientras el archivo está
+            abierto: se pierde por completo al cerrarlo, aunque no hayas
+            guardado. Por eso, antes de probar un cambio grande del que no
+            estés seguro, conviene guardar una copia del archivo (o al
+            menos guardar el estado actual) para tener a qué volver.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVAR FILTROS -->
+    <section class="section" id="filtros">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ver menos, para entender mejor</p>
+          <h2>Activar el filtro automático</h2>
+          <p>
+            Ordenar cambia el <em>orden</em> de las filas, pero las
+            mantiene todas visibles. Filtrar hace algo distinto: oculta
+            temporalmente las filas que no te interesan en este momento,
+            sin borrarlas ni moverlas. Para empezar a filtrar, primero hay
+            que activar la herramienta.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Ubicate en la tabla</h3>
+            <p>
+              Igual que para ordenar, hacé clic en cualquier celda con
+              datos. Excel vuelve a detectar sola el rango completo de la
+              tabla.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Activá el filtro</h3>
+            <p>
+              En la pestaña <strong>Datos</strong>, grupo "Ordenar y
+              filtrar", hacé clic en <strong>Filtro</strong>. El atajo de
+              teclado es <code>Ctrl</code> + <code>Shift</code> +
+              <code>L</code>.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Buscá las flechas</h3>
+            <p>
+              Cada celda del encabezado suma una pequeña flecha
+              desplegable. Esa flecha es la puerta de entrada a los
+              criterios de filtro de esa columna en particular.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Encabezado con el filtro activado</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: repeat(4, 1fr);">
+              <div class="excel-cell">FECHA INGRESO ▾</div>
+              <div class="excel-cell">CARRERA ▾</div>
+              <div class="excel-cell">MATERIAS APROB. ▾</div>
+              <div class="excel-cell">FACULTAD ▾</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Filtrar no borra nada</span>
+          <p>
+            Con el filtro activo, las filas que no cumplen un criterio
+            simplemente se ocultan: siguen ahí, con sus fórmulas y sus
+            datos intactos, y vuelven a aparecer apenas quites el filtro.
+            Vas a notar, además, que los números de fila de las filas
+            visibles quedan en color azul y salteados: es la señal de que
+            hay un filtro aplicado.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTRAR POR UN CRITERIO -->
+    <section class="section alt" id="filtro-simple">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La primera pregunta concreta</p>
+          <h2>Filtrar por un criterio, en dos columnas</h2>
+          <p>
+            Con el filtro ya activo, el objetivo es encontrar a los
+            alumnos que estudian <strong>Odontología</strong> y que
+            ingresaron en <strong>2015</strong>. Son dos condiciones, cada
+            una en una columna distinta.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Filtrá por CARRERA</h3>
+            <p>
+              Hacé clic en la flecha de CARRERA. En la lista de valores,
+              destildá <strong>"Seleccionar todo"</strong> y volvé a
+              tildar solo <strong>"Odontología"</strong>. Aceptar.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Filtrá por AÑO INGRESO</h3>
+            <p>
+              Hacé clic en la flecha de AÑO INGRESO y repetí la
+              operación: destildá "Seleccionar todo" y tildá solo
+              <strong>"2015"</strong>. Aceptar.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Mirá el resultado</h3>
+            <p>
+              Quedan visibles solo los alumnos que cumplen las dos
+              condiciones <strong>a la vez</strong>: Odontología, ingreso
+              2015.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Resultado — Odontología, ingresados en 2015</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">G</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">47</div>
+              <div class="excel-cell">22/09/2015</div>
+              <div class="excel-cell">Constantin, Tomas</div>
+              <div class="excel-cell selected">Odontología</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">76</div>
+              <div class="excel-cell">20/10/2015</div>
+              <div class="excel-cell">Vescio, Paola</div>
+              <div class="excel-cell selected">Odontología</div>
+              <div class="excel-cell">Medicina y C. Salud</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            Los números de fila 47 y 76 confirman que son dos alumnos
+            salteados de en medio de la tabla original, no filas
+            consecutivas: el resto simplemente está oculto. Como en los
+            mocks anteriores, las columnas B, E y F (AÑO INGRESO,
+            MATERIAS APROBADAS y MÁS DE 20 MATERIAS) quedan afuera por
+            espacio.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Filtrar por dos columnas siempre combina con Y</span>
+          <p>
+            Cuando aplicás un criterio en CARRERA y otro en AÑO INGRESO,
+            Excel no muestra "uno u otro": exige que la fila cumpla
+            <strong>ambas</strong> condiciones para quedar visible. Un
+            alumno de Odontología ingresado en 2013 desaparece igual que
+            uno de Nutrición ingresado en 2015.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUITAR FILTROS -->
+    <section class="section" id="quitar-filtros">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Volver a ver todo</p>
+          <h2>Quitar los filtros aplicados</h2>
+          <p>
+            Antes de armar el próximo filtro, hay que partir de cero. Excel
+            ofrece dos formas de "limpiar" un filtro, y no son lo mismo.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Opción 1</p>
+            <h3>Borrar el criterio, columna por columna</h3>
+            <p>
+              En la pestaña Datos, botón <strong>Borrar</strong> (dentro
+              de "Ordenar y filtrar"): quita todos los criterios
+              aplicados y vuelve a mostrar todas las filas, pero deja las
+              flechas desplegables activas en el encabezado, listas para
+              un filtro nuevo.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Opción 2</p>
+            <h3>Apagar el filtro por completo</h3>
+            <p>
+              Volver a hacer clic en el botón <strong>Filtro</strong> (el
+              mismo que usaste para activarlo) quita las flechas del
+              encabezado por completo, junto con cualquier criterio
+              aplicado. Para volver a filtrar, hay que activarlo de
+              nuevo.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cuál conviene usar</span>
+          <p>
+            Si vas a seguir filtrando la misma tabla dentro de un rato,
+            usá <strong>Borrar</strong>: te ahorra reactivar las flechas.
+            Si ya terminaste de trabajar con filtros por esta sesión,
+            apagar el botón Filtro deja la planilla más "limpia" a la
+            vista.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTROS COMBINADOS -->
+    <section class="section alt" id="filtro-avanzado">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Tres condiciones, una sola tabla</p>
+          <h2>Combinar filtros con lógica Y / O</h2>
+          <p>
+            El último filtro es el más completo de la clase: encontrar a
+            los alumnos que ingresaron en <strong>2019</strong>, que
+            tienen <strong>más de 15 materias aprobadas</strong>, y que
+            cursan <strong>Lic. en Nutrición o Lic. en Psicología</strong>.
+            Tres condiciones, repartidas en tres columnas, y una de ellas
+            admite dos valores válidos.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Columna</th>
+                  <th>Tipo de filtro</th>
+                  <th>Criterio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AÑO INGRESO</td>
+                  <td>Lista de valores</td>
+                  <td>Tildar solo "2019"</td>
+                </tr>
+                <tr>
+                  <td>MATERIAS APROBADAS</td>
+                  <td>Filtro de número</td>
+                  <td>"Mayor que" 15</td>
+                </tr>
+                <tr>
+                  <td>CARRERA</td>
+                  <td>Lista de valores</td>
+                  <td>Tildar "Lic. en Nutrición" y "Lic. en Psicología"</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="process-grid" style="margin-top: 1.5rem;">
+          <article class="process-card">
+            <h3>1. Un valor exacto</h3>
+            <p>
+              En AÑO INGRESO, destildá "Seleccionar todo" y tildá solo
+              "2019", igual que en el filtro anterior.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Un umbral numérico</h3>
+            <p>
+              En MATERIAS APROBADAS, abrí "Filtros de número" &gt; "Mayor
+              que…" y escribí 15. A diferencia de una lista de valores,
+              esta opción compara el número sin que tengas que tildar uno
+              por uno.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Dos valores a la vez</h3>
+            <p>
+              En CARRERA, destildá "Seleccionar todo" y tildá
+              <strong>ambas</strong> carreras: "Lic. en Nutrición" y "Lic.
+              en Psicología".
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Resultado — 2019, más de 15 materias, Nutrición o Psicología</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">A</div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">11</div>
+              <div class="excel-cell selected">15/08/2019</div>
+              <div class="excel-cell">Quispe, Giovanna</div>
+              <div class="excel-cell selected">Lic. en Nutrición</div>
+              <div class="excel-cell selected">26</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">14</div>
+              <div class="excel-cell">20/11/2019</div>
+              <div class="excel-cell">Breccia, Nicolas</div>
+              <div class="excel-cell selected">Lic. en Psicología</div>
+              <div class="excel-cell selected">27</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">72</div>
+              <div class="excel-cell">23/12/2019</div>
+              <div class="excel-cell">Palacios, Rocio</div>
+              <div class="excel-cell selected">Lic. en Psicología</div>
+              <div class="excel-cell selected">23</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            Igual que antes, quedan afuera las columnas B (AÑO INGRESO),
+            F (MÁS DE 20 MATERIAS) y G (FACULTAD), por espacio.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Dónde está el Y y dónde está el O</span>
+          <p>
+            Entre columnas distintas, los filtros siempre se combinan con
+            <strong>Y</strong>: una fila necesita cumplir la condición de
+            AÑO INGRESO, <em>y</em> la de MATERIAS APROBADAS, <em>y</em>
+            la de CARRERA, todas juntas. Pero dentro de una misma
+            columna, tildar más de un valor combina con <strong>O</strong>:
+            una fila entra si su carrera es Nutrición <em>o</em>
+            Psicología, sin necesidad de ser las dos cosas a la vez —algo
+            imposible, además, porque cada alumno cursa una sola carrera.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>Filtros de número vs. lista de valores</span>
+          <p>
+            Para "2019" alcanza con tildar un valor de una lista corta. Pero
+            para "más de 15" tildar valores uno por uno sería poco
+            práctico: habría que tildar 16, 17, 18… hasta el máximo. Por
+            eso las columnas numéricas ofrecen "Filtros de número", con
+            opciones como Mayor que, Menor que, Entre o Por encima del
+            promedio, que comparan el valor en lugar de buscarlo en una
+            lista.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPRIMIR -->
+    <section class="section" id="imprimir">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Llevar el resultado fuera de la pantalla</p>
+          <h2>Imprimir lo filtrado, en orientación horizontal</h2>
+          <p>
+            Con el filtro anterior todavía activo, el último paso es
+            imprimir exactamente esas filas visibles, sin las que quedaron
+            ocultas. Como la tabla tiene siete columnas con nombres y
+            carreras largas, en orientación vertical (retrato) algunas
+            columnas se cortarían al pasar a papel.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Cambiá la orientación</h3>
+            <p>
+              En la pestaña <strong>Disposición de página</strong>,
+              botón <strong>Orientación</strong>, elegí
+              <strong>Horizontal</strong>. También podés hacerlo desde
+              Archivo &gt; Imprimir &gt; Configurar página.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Andá a Archivo &gt; Imprimir</h3>
+            <p>
+              La vista previa de la derecha se actualiza al instante y
+              muestra solo las filas que pasaron el filtro: son las
+              únicas que se van a imprimir.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Revisá antes de imprimir</h3>
+            <p>
+              Fijate que ninguna columna quede cortada en el borde de la
+              hoja. Si hace falta, ajustá los márgenes o la escala desde
+              "Configurar página", antes de mandar la impresión.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Excel imprime lo que ves, no lo que existe</span>
+          <p>
+            Esta es la razón principal para filtrar antes de imprimir: no
+            hace falta copiar las filas que te interesan a otra hoja para
+            entregar solo esa información. Alcanza con dejar el filtro
+            aplicado y con imprimir; las filas ocultas por el filtro no
+            salen en el papel, exactamente igual que en pantalla.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>La vista previa es gratis, el papel no</span>
+          <p>
+            Revisar la vista previa de impresión antes de confirmar cuesta
+            un segundo y evita desperdiciar una hoja con una columna
+            cortada por la mitad o con una tabla que se parte en dos
+            páginas sin necesidad.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section alt" id="errores-comunes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando el resultado "no parece correcto"</p>
+          <h2>Errores comunes al ordenar y filtrar</h2>
+          <p>
+            A diferencia de una función mal escrita, ordenar o filtrar
+            distinto de lo que pensabas casi nunca muestra un mensaje de
+            error: la planilla simplemente hace otra cosa. Por eso
+            conviene conocer de antemano los tropiezos más frecuentes.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lo que pasa</th>
+                  <th>Por qué ocurre</th>
+                  <th>Cómo evitarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ordenar descoordina la tabla</td>
+                  <td>Se seleccionó a mano solo una columna antes de ordenar, en vez de dejar que Excel detecte la tabla completa</td>
+                  <td>Hacer clic en una sola celda de la tabla, no seleccionar una columna, y elegir "Ampliar la selección" si Excel lo pregunta</td>
+                </tr>
+                <tr>
+                  <td>Un cálculo "ignora" filas que sí existen</td>
+                  <td>Se confunde una fila oculta por un filtro con una fila borrada, y se arma otra fórmula pensando que esos datos ya no están</td>
+                  <td>Recordar que el filtro solo oculta: para volver a contar con esas filas alcanza con quitar el filtro, no hay que recuperar nada</td>
+                </tr>
+                <tr>
+                  <td>El ordenamiento con varios niveles no da lo esperado</td>
+                  <td>Se cargaron los niveles al revés: el criterio que debía desempatar quedó como principal</td>
+                  <td>Revisar que el nivel de arriba, "Ordenar por", sea siempre el criterio más importante, y los "Luego por" los de desempate</td>
+                </tr>
+                <tr>
+                  <td>Un filtro deja la tabla vacía</td>
+                  <td>Se combinaron dos valores de columnas distintas que ninguna fila cumple a la vez (por ejemplo, una carrera y una facultad que no se corresponden)</td>
+                  <td>Revisar, columna por columna, qué criterios quedaron activos —la flecha con un embudo señala las columnas filtradas— y sacar el que sobra</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un chequeo rápido, igual que en la Clase 4</span>
+          <p>
+            Si tenés dudas sobre si un filtro combinado está bien armado,
+            contá manualmente las filas visibles y comparalas con lo que
+            esperás encontrar. Es el mismo hábito de verificación que
+            usaste con CONTAR.SI: un resultado que "parece razonable" no
+            es lo mismo que un resultado correcto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDA DIARIA -->
+    <section class="section" id="vida-diaria">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para llevártelo de acá</p>
+          <h2>Dónde vas a ordenar y filtrar fuera de la facultad</h2>
+          <p>
+            Ordenar y filtrar son, probablemente, las dos herramientas de
+            Excel que más se usan en el día a día de cualquier trabajo que
+            maneje listas: de pacientes, de productos, de turnos o de
+            clientes.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Situación</th>
+                  <th>Pregunta que te hacés</th>
+                  <th>Herramienta recomendada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Agenda de turnos</td>
+                  <td>¿Cuál es el próximo turno, y cuáles vienen después?</td>
+                  <td>Ordenar por fecha y hora, de más próximo a más lejano</td>
+                </tr>
+                <tr>
+                  <td>Depósito de insumos</td>
+                  <td>¿Qué productos están por debajo del stock mínimo?</td>
+                  <td>Filtro de número, "Menor que", sobre la columna de stock</td>
+                </tr>
+                <tr>
+                  <td>Base de pacientes</td>
+                  <td>¿Cuáles son de una obra social puntual y no vinieron en los últimos seis meses?</td>
+                  <td>Filtro combinado con Y, entre columna de obra social y columna de fecha</td>
+                </tr>
+                <tr>
+                  <td>Reporte para un superior</td>
+                  <td>¿Cómo le entrego solo la información de una sucursal, sin tocar la planilla completa?</td>
+                  <td>Filtrar por esa sucursal, e imprimir directamente lo filtrado</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>La idea de fondo</span>
+          <p>
+            Cada vez que una lista crezca lo suficiente como para que ya
+            no puedas "verla toda de un vistazo", ordenarla te ayuda a
+            leerla mejor, y filtrarla te ayuda a quedarte solo con la
+            parte que te interesa en ese momento, sin perder de vista que
+            el resto sigue estando ahí.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO RECOMENDADO -->
+    <section class="section alt" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para repasar todo junto</p>
+          <h2>Video recomendado</h2>
+          <p>
+            Como apoyo para esta clase, te dejamos la videoclase del
+            profesor sobre filtros y ordenamiento de planillas. Mirala
+            antes de resolver el ejercicio para familiarizarte con la
+            estructura de la clase, o después, como repaso de todo lo
+            visto.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/poqXALKyykU"
+                title="Video recomendado — Unidad 1, Clase 5: Filtros y ordenamiento de planillas"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE DE LA CLASE -->
+    <section class="section" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Practicá lo de hoy en tu propio archivo</h2>
+          <p>
+            Ya viste los nueve pasos de la clase explicados y resueltos
+            con ejemplos. Ahora te toca a vos: abrí el mismo archivo que
+            venís usando desde la Clase 4 y aplicá cada herramienta sobre
+            tu propia tabla de 79 alumnos, en el mismo orden del
+            <a href="#mapa">mapa del principio</a>.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>1. Abrí tu archivo</h3>
+            <p>
+              Retomá el Excel de la Clase 4, con las columnas AÑO INGRESO
+              y MÁS DE 20 MATERIAS ya resueltas, y guardalo como
+              <strong>Clase 5.xlsx</strong> antes de empezar a
+              modificarlo.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>2. Repetí los nueve pasos</h3>
+            <p>
+              Recorré el mapa del principio de la clase y reproducí cada
+              paso en tu propia planilla: crear la hoja ESTADISTICAS,
+              ordenar por uno y por varios criterios, deshacer, activar y
+              combinar filtros, e imprimir el resultado del paso 9.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>3. Comparalo con esta guía</h3>
+            <p>
+              Si algún resultado no te coincide con los mocks de esta
+              clase, revisá primero la sección "Errores comunes": ahí
+              están los tropiezos más frecuentes al ordenar y filtrar.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué conviene hacerlo en tu propio archivo</span>
+          <p>
+            Leer los pasos no es lo mismo que ejecutarlos. Practicar cada
+            ordenamiento y cada filtro en tu propia tabla, con tus
+            propias manos sobre el teclado, es lo que te va a dejar la
+            destreza necesaria para resolverlo solo/a en una evaluación.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase4.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 4 · Funciones</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 6 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 1 · Clase 5</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
