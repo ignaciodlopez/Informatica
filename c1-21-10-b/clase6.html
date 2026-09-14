@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 6</title>
+  <meta
+    name="description"
+    content="Clase 6 de Informática Aplicada (C1-21-10, Todas las comisiones): insertar y editar SmartArt, aplicar viñetas y numeración, trabajar con modelos y formas 3D, e insertar una portada en Word."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* Actividades */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .actividad-block ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .actividad-block ul li { font-size: 0.9rem; color: var(--muted); }
+    .actividad-block ul li strong { color: var(--text); }
+
+    .act-referencia { margin-top: 1.25rem; }
+    .act-referencia-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+    }
+
+    /* ===== DOC MOCKUP GENÉRICO (página blanca tipo Word) ===== */
+    .doc-mock {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1.1rem 1.4rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    /* ===== DEMO SMARTART (jerarquía) ===== */
+    .sa-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .sa-node {
+      background: linear-gradient(135deg, #2b579a, #1e3a6d);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.4rem 0.7rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      white-space: nowrap;
+    }
+    .sa-row {
+      display: flex;
+      gap: 0.7rem;
+      position: relative;
+    }
+    .sa-row::before {
+      content: "";
+      position: absolute;
+      top: -0.5rem;
+      left: 10%;
+      right: 10%;
+      border-top: 1.5px solid #9ca3af;
+    }
+    .sa-row .sa-node { background: linear-gradient(135deg, #3b82f6, #2563eb); font-weight: 600; }
+    .sa-node.sa-sub { font-size: 0.6rem; padding: 0.3rem 0.55rem; background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+
+    /* ===== DEMO SMARTART PANEL DE TEXTO ===== */
+    .sa-panel-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.74rem;
+    }
+    @media (max-width: 520px) { .sa-panel-demo { grid-template-columns: 1fr; } }
+    .sa-panel-text {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 0.85rem 1rem;
+    }
+    .sa-panel-text ul { margin: 0; padding-left: 1rem; }
+    .sa-panel-text li { margin-bottom: 0.35rem; }
+    .sa-panel-text li.lvl2 { list-style: circle; margin-left: 0.7rem; font-size: 0.92em; color: #9ca3af; }
+    .sa-panel-graphic {
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+    }
+
+    /* ===== DEMO LISTAS (viñetas / numeración / multinivel) ===== */
+    .list-demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .list-demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .list-demo-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 0.32rem 0.65rem;
+      letter-spacing: 0.03em;
+    }
+    .list-demo-body {
+      padding: 0.9rem 1.1rem;
+      font-size: 0.78rem;
+      color: #111;
+      min-height: 6.5rem;
+    }
+    .list-demo-body ul, .list-demo-body ol {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+    .list-demo-body li { margin-bottom: 0.3rem; }
+    .list-demo-body ol.multinivel li ol,
+    .list-demo-body ol.multinivel li ul {
+      margin-top: 0.3rem;
+      padding-left: 1.1rem;
+      font-size: 0.94em;
+      color: #4b5563;
+    }
+
+    /* ===== DEMO 3D (cubo / rotación) ===== */
+    .cube-demo {
+      width: 4.2rem;
+      height: 4.2rem;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(-18deg) rotateY(28deg);
+    }
+    .cube-face {
+      position: absolute;
+      width: 4.2rem;
+      height: 4.2rem;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .cube-face.front { background: linear-gradient(135deg, #60a5fa, #2563eb); transform: translateZ(2.1rem); }
+    .cube-face.back  { background: linear-gradient(135deg, #1e40af, #1e3a8a); transform: rotateY(180deg) translateZ(2.1rem); }
+    .cube-face.right { background: linear-gradient(135deg, #3b82f6, #1d4ed8); transform: rotateY(90deg) translateZ(2.1rem); }
+    .cube-face.left  { background: linear-gradient(135deg, #1d4ed8, #1e3a8a); transform: rotateY(-90deg) translateZ(2.1rem); }
+    .cube-face.top   { background: linear-gradient(135deg, #93c5fd, #3b82f6); transform: rotateX(90deg) translateZ(2.1rem); }
+    .cube-face.bottom{ background: linear-gradient(135deg, #1e3a8a, #1e293b); transform: rotateX(-90deg) translateZ(2.1rem); }
+    .cube-demo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 32rem;
+      min-height: 8rem;
+    }
+    .rotate-arrow {
+      font-size: 0.62rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 0.4rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== DEMO PORTADA ===== */
+    .cover-demo-box {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .cover-demo-header {
+      background: #2b579a;
+      color: #fff;
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 0.32rem 0.65rem;
+      letter-spacing: 0.03em;
+    }
+    .cover-demo-page {
+      min-height: 12rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem 1.1rem;
+      background: linear-gradient(180deg, #eef2ff 0%, #ffffff 55%);
+    }
+    .cover-demo-top {
+      font-size: 0.6rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .cover-demo-mid { text-align: center; }
+    .cover-demo-mid h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #1e3a8a;
+      line-height: 1.3;
+    }
+    .cover-demo-mid p {
+      margin: 0.3rem 0 0;
+      font-size: 0.68rem;
+      color: #6b7280;
+    }
+    .cover-demo-bottom {
+      font-size: 0.66rem;
+      color: #374151;
+      text-align: right;
+    }
+
+    /* ===== CORRECTO VS INCORRECTO ===== */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 600px) { .vs-grid { grid-template-columns: 1fr; } }
+    .vs-box {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .vs-header {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .vs-wrong .vs-header { background: #dc2626; color: #fff; }
+    .vs-right .vs-header { background: #16a34a; color: #fff; }
+    .vs-page {
+      background: #fff;
+      padding: 1rem 1.25rem;
+      min-height: 120px;
+      color: #111;
+      font-size: 0.77rem;
+      line-height: 1.55;
+    }
+    .vs-page p { margin: 0.4rem 0 0; }
+    .vs-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.65rem;
+      line-height: 1.5;
+    }
+
+    /* Preguntas frecuentes */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Video cards con miniatura (canales que no permiten incrustar) */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#smartart">SmartArt</a>
+        <a href="#listas">Viñetas y numeración</a>
+        <a href="#objetos3d">Objetos 3D</a>
+        <a href="#portada">Portada</a>
+        <a href="#errores">Errores comunes</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 2</p>
+        <h1>SmartArt y Portada</h1>
+        <p class="lead">
+          Seguimos enriqueciendo documentos en <strong>Microsoft Word</strong>:
+          convertí texto en un diagrama profesional con <strong>SmartArt</strong>,
+          ordená listas con <strong>viñetas y numeración</strong>, incorporá
+          <strong>objetos y formas 3D</strong>, y cerrá el trabajo con una
+          <strong>portada</strong> prediseñada — los últimos recursos para que
+          un documento se vea completo y prolijo de la primera a la última hoja.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#smartart">Ver contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 6</li>
+          <li>Microsoft Word</li>
+          <li>SmartArt y Portada</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Convertir texto en diagramas y darle a un documento un cierre profesional</h2>
+        <p>
+          Aprender a insertar y editar SmartArt, aplicar viñetas y numeración
+          (incluida la lista multinivel), trabajar con objetos y formas 3D, e
+          insertar una portada sobre un documento nuevo.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Diagramar</span>
+          <span>Ordenar</span>
+          <span>Presentar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            Un <strong>SmartArt</strong> es la herramienta correcta cuando un
+            párrafo describe pasos, niveles o relaciones — un diagrama se lee
+            de un vistazo mucho más rápido que un texto corrido.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SMARTART -->
+    <section class="section" id="smartart">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Ilustraciones</p>
+          <h2>Insertar y Editar SmartArt</h2>
+          <p>
+            Un SmartArt convierte un texto o una idea en un diagrama visual:
+            listas, procesos, ciclos, jerarquías (organigramas), relaciones,
+            matrices o pirámides. Se edita como cualquier forma, pero mantiene
+            los niveles de información ordenados automáticamente.
+          </p>
+        </div>
+
+        <article class="takeaways" style="margin-bottom:2rem;">
+          <h3>¿Cuándo conviene usar un SmartArt?</h3>
+          <ul>
+            <li>Cuando un párrafo enumera <strong>pasos de un proceso</strong>, <strong>niveles de una jerarquía</strong> o <strong>partes de un todo</strong>.</li>
+            <li>Ejemplos típicos: el <strong>organigrama</strong> de una empresa, los pasos para inscribirse a una materia, o las causas y consecuencias de un hecho histórico.</li>
+            <li>Cada forma del SmartArt admite texto, imágenes y su propio color, y todo el conjunto se reordena solo si agregás o quitás un elemento.</li>
+            <li>Si la relación entre las ideas es simple, alcanza con una <strong>lista con viñetas</strong>; el SmartArt suma cuando además interesa mostrar jerarquía o secuencia.</li>
+          </ul>
+        </article>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Insertar y elegir tipo</h3>
+            <p>
+              Insertar → Ilustraciones → <strong>SmartArt</strong>. En el
+              cuadro de diálogo, elegí una categoría a la izquierda (Lista,
+              Proceso, Ciclo, Jerarquía...) y un diseño específico, y aceptá.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Cargar el texto</h3>
+            <p>
+              Escribí directamente dentro de cada forma, o abrí el
+              <strong>Panel de texto</strong> (flecha a la izquierda del
+              gráfico) y tipeá una lista con viñetas: <strong>Tab</strong>
+              baja un nivel, <strong>Shift+Tab</strong> lo sube.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Diseñarlo</h3>
+            <p>
+              Con el SmartArt seleccionado, ficha <strong>Diseño de
+              SmartArt</strong>: agregar/quitar formas, cambiar colores y
+              elegir un estilo (plano, con sombra, en 3D).
+            </p>
+          </article>
+        </div>
+
+        <!-- REFERENCIA: CATEGORÍAS DE SMARTART -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Catálogo · categorías de SmartArt</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Categoría</th><th>Para qué sirve</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Lista</td><td>Ideas relacionadas sin un orden estricto ni jerarquía entre ellas</td></tr>
+                <tr><td>Proceso</td><td>Pasos que se siguen en orden, uno después del otro</td></tr>
+                <tr><td>Ciclo</td><td>Pasos que se repiten en un bucle continuo, sin un punto final</td></tr>
+                <tr><td>Jerarquía</td><td>Relaciones de dependencia o niveles, como un organigrama</td></tr>
+                <tr><td>Relación</td><td>Conexiones entre ideas, como diagramas de Venn o convergencia</td></tr>
+                <tr><td>Matriz / Pirámide</td><td>Partes de un todo, o niveles proporcionales de mayor a menor</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO JERARQUÍA + PANEL DE TEXTO -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.6rem;">Así se ve un SmartArt de Jerarquía</p>
+            <div class="sa-demo">
+              <div class="sa-node">Revolución Industrial</div>
+              <div class="sa-row">
+                <div class="sa-node sa-sub">Causas</div>
+                <div class="sa-node sa-sub">Proceso</div>
+                <div class="sa-node sa-sub">Consecuencias</div>
+              </div>
+            </div>
+          </article>
+          <article class="takeaways">
+            <h3>Buenas prácticas al armar un SmartArt</h3>
+            <ul>
+              <li>Cargá el texto desde el <strong>Panel de texto</strong>: es más rápido y evita perder la jerarquía entre niveles.</li>
+              <li>No abuses de la <strong>cantidad de formas</strong>: si tenés más de 6 u 8 ideas, conviene dividirlas en dos SmartArt.</li>
+              <li>Elegí un <strong>estilo de color</strong> acorde al resto del documento, en vez de dejar el predeterminado siempre.</li>
+              <li>El SmartArt admite <strong>ajuste de texto</strong> como cualquier objeto: podés moverlo, agrandarlo o centrarlo en la página.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- SUMMARY: PANEL DE TEXTO -->
+        <div class="summary-grid" style="margin-top:1.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.6rem;">Panel de texto → gráfico, en tiempo real</p>
+            <div class="sa-panel-demo">
+              <div class="sa-panel-text">
+                <ul>
+                  <li>Causas</li>
+                  <li class="lvl2">Recursos naturales</li>
+                  <li class="lvl2">Capital disponible</li>
+                  <li>Proceso</li>
+                  <li>Consecuencias</li>
+                </ul>
+              </div>
+              <div class="sa-panel-graphic">
+                <div class="sa-demo" style="gap:0.5rem;">
+                  <div class="sa-node" style="font-size:0.6rem;">Causas</div>
+                  <div class="sa-row" style="gap:0.4rem;">
+                    <div class="sa-node sa-sub">Recursos</div>
+                    <div class="sa-node sa-sub">Capital</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="takeaways">
+            <h3>Cómo leer los niveles del Panel de texto</h3>
+            <ul>
+              <li>Cada línea del panel es una <strong>forma</strong> del SmartArt; el nivel de sangría define si es una forma principal o una subordinada.</li>
+              <li><strong>Enter</strong> agrega una forma nueva en el mismo nivel; <strong>Tab</strong> la convierte en subordinada de la anterior.</li>
+              <li>Si un diseño no admite un nivel extra, Word avisa con una línea de advertencia — hay que cambiar de diseño o simplificar el texto.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIÑETAS Y NUMERACIÓN -->
+    <section class="section alt" id="listas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Inicio · grupo Párrafo</p>
+          <h2>Viñetas, Numeración y Lista Multinivel</h2>
+          <p>
+            Cuando un texto enumera elementos, convertirlo en lista lo hace
+            mucho más fácil de leer que dejarlo como párrafos separados por
+            comas o saltos de línea sueltos.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Seleccionar el texto</h3>
+            <p>
+              Seleccioná los párrafos que van a formar la lista (uno por
+              renglón). Si vas a empezar de cero, ubicá el cursor donde
+              querés que arranque.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Elegir el tipo</h3>
+            <p>
+              Inicio → Párrafo → <strong>Viñetas</strong>,
+              <strong>Numeración</strong> o <strong>Lista multinivel</strong>.
+              La flecha junto a cada botón abre una galería de estilos.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Personalizar</h3>
+            <p>
+              <strong>Definir nueva viñeta</strong> (símbolo o imagen propia)
+              o <strong>Definir nuevo formato de número</strong> (1, a, i,
+              números romanos...) para cada nivel de la lista.
+            </p>
+          </article>
+        </div>
+
+        <!-- REFERENCIA: CUÁNDO USAR CADA TIPO -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">¿Viñetas, numeración o multinivel?</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Tipo de lista</th><th>Cuándo usarla</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Viñetas</td><td>Ítems sin un orden obligatorio entre sí (ingredientes, características, ejemplos)</td></tr>
+                <tr><td>Numeración</td><td>Ítems que siguen un orden o una secuencia de pasos (instrucciones, ranking)</td></tr>
+                <tr><td>Lista multinivel</td><td>Ítems con subniveles propios, como un índice o un esquema con subtemas</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO LOS TRES TIPOS -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.75rem;">Los tres tipos, lado a lado</p>
+            <div class="list-demo-grid" style="margin-top:0;">
+              <div class="list-demo-box">
+                <div class="list-demo-header">VIÑETAS</div>
+                <div class="list-demo-body">
+                  <ul>
+                    <li>Recursos naturales</li>
+                    <li>Capital disponible</li>
+                    <li>Mano de obra</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="list-demo-box">
+                <div class="list-demo-header" style="background:#065f46;">NUMERACIÓN</div>
+                <div class="list-demo-body">
+                  <ol>
+                    <li>Abrir el documento</li>
+                    <li>Seleccionar el texto</li>
+                    <li>Aplicar el estilo</li>
+                  </ol>
+                </div>
+              </div>
+              <div class="list-demo-box">
+                <div class="list-demo-header" style="background:#7c3aed;">MULTINIVEL</div>
+                <div class="list-demo-body">
+                  <ol class="multinivel">
+                    <li>Causas
+                      <ol style="list-style:lower-alpha;">
+                        <li>Recursos</li>
+                        <li>Capital</li>
+                      </ol>
+                    </li>
+                    <li>Consecuencias</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="takeaways">
+            <h3>Detalles que conviene recordar</h3>
+            <ul>
+              <li><strong>Tab</strong> y <strong>Shift+Tab</strong> también funcionan en listas normales para bajar o subir un ítem de nivel dentro de la multinivel.</li>
+              <li><strong>Enter</strong> en la última línea sigue la lista; <strong>Enter dos veces</strong> (o el botón de viñetas) la corta.</li>
+              <li>Se puede convertir un texto ya escrito en lista en cualquier momento: seleccionalo y aplicá el botón correspondiente.</li>
+              <li>Si reordenás los ítems (cortar y pegar, o mover una fila), la <strong>numeración se recalcula sola</strong>.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBJETOS 3D -->
+    <section class="section" id="objetos3d">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Ilustraciones</p>
+          <h2>Modelos y Formas 3D</h2>
+          <p>
+            Además de imágenes planas, Word admite objetos con volumen: un
+            <strong>modelo 3D</strong> real que se puede rotar en cualquier
+            ángulo, o una <strong>forma con apariencia 3D</strong> (como un
+            cubo o un cilindro) con relleno de imagen.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Camino 1 · Modelo 3D real</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Insertar</h3>
+            <p>
+              Insertar → Ilustraciones → <strong>Modelos 3D</strong> → desde
+              archivo (.fbx, .obj, .glb) o desde el <strong>catálogo en
+              línea</strong> de Microsoft.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Girarlo</h3>
+            <p>
+              Con el modelo seleccionado aparece un <strong>controlador
+              circular</strong> en el centro: arrastralo para rotar el
+              objeto en cualquier eje y elegir el ángulo que mejor se vea.
+            </p>
+          </article>
+        </div>
+
+        <p class="eyebrow" style="margin:1.75rem 0 0.75rem;">Camino 2 · Forma con apariencia 3D (más liviana)</p>
+        <div class="process-grid">
+          <article class="process-card" style="grid-column: 1 / -1;">
+            <h3>Formas básicas + relleno de imagen</h3>
+            <p>
+              Insertar → Formas → <strong>Formas básicas</strong> (cubo,
+              cilindro, cono...) → dibujarla → clic derecho →
+              <strong>Formato de forma → Relleno con imagen</strong>. No es
+              un modelo real ni se rota en el espacio, pero da un efecto de
+              volumen sin el peso de un archivo 3D.
+            </p>
+          </article>
+        </div>
+
+        <!-- REFERENCIA: MODELO 3D VS FORMA 3D -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Dos caminos distintos hacia el "3D"</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Elemento</th><th>Qué es y cuándo usarlo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Modelo 3D real</td><td>Objeto con volumen genuino (Insertar → Modelos 3D). Se rota en cualquier ángulo con el controlador circular; ideal para mostrar un producto o pieza desde varios lados</td></tr>
+                <tr><td>Forma con apariencia 3D</td><td>Una forma plana (cubo, cilindro) a la que se le aplica relleno de imagen o efectos de bisel; da un efecto visual de volumen sin ser un modelo real</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO CUBO + TAKEAWAYS -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.6rem;">Forma "Cubo" con relleno de imagen</p>
+            <div class="cube-demo-wrap">
+              <div class="cube-demo">
+                <div class="cube-face front"></div>
+                <div class="cube-face back"></div>
+                <div class="cube-face right"></div>
+                <div class="cube-face left"></div>
+                <div class="cube-face top"></div>
+                <div class="cube-face bottom"></div>
+              </div>
+            </div>
+            <p class="rotate-arrow">↻ el controlador circular gira el objeto</p>
+          </article>
+          <article class="takeaways">
+            <h3>Detalles a tener en cuenta</h3>
+            <ul>
+              <li>Un modelo 3D <strong>pesa más</strong> que una imagen normal: conviene usarlo cuando realmente aporta (mostrar un objeto desde varios ángulos).</li>
+              <li>Admite <strong>ajuste de texto</strong> igual que una imagen o una forma (Cuadrado, cercano, delante/detrás del texto).</li>
+              <li>Si la computadora es lenta para modelos 3D reales, la <strong>forma con relleno de imagen</strong> logra un efecto similar con mucho menos peso.</li>
+              <li>Formato de forma → <strong>Efectos → Bisel</strong> agrega profundidad extra a cualquier forma, sin necesidad de un modelo 3D.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTADA -->
+    <section class="section alt" id="portada">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Páginas</p>
+          <h2>Insertar una Portada</h2>
+          <p>
+            Word incluye una galería de portadas prediseñadas: una hoja
+            especial que se agrega automáticamente al principio del
+            documento, con espacios listos para completar el título, el
+            autor y la fecha.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Insertar</h3>
+            <p>
+              Insertar → Páginas → <strong>Portada</strong> → elegí un diseño
+              de la galería. Se inserta siempre como la primera página, sin
+              importar dónde esté el cursor.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Completar los campos</h3>
+            <p>
+              Hacé clic sobre cada marcador de posición (título, subtítulo,
+              autor, fecha) y escribí el dato real. Son campos vinculados a
+              las <strong>propiedades del documento</strong>.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Personalizar o quitarla</h3>
+            <p>
+              Cambiá colores e imágenes como cualquier otro objeto. Para
+              sacarla: Insertar → Portada → <strong>Quitar portada
+              actual</strong> (no basta con borrar el texto a mano).
+            </p>
+          </article>
+        </div>
+
+        <!-- SUMMARY: DEMO PORTADA + TAKEAWAYS -->
+        <div class="summary-grid" style="margin-top:2.25rem;">
+          <article class="table-card">
+            <p class="eyebrow" style="margin-bottom:0.6rem;">Así se ve una portada académica</p>
+            <div class="cover-demo-box">
+              <div class="cover-demo-header">PORTADA</div>
+              <div class="cover-demo-page">
+                <p class="cover-demo-top">Universidad · Materia</p>
+                <div class="cover-demo-mid">
+                  <h4>Revolución Industrial</h4>
+                  <p>Trabajo práctico — Unidad 2</p>
+                </div>
+                <p class="cover-demo-bottom">Nombre del alumno · Fecha</p>
+              </div>
+            </div>
+          </article>
+          <article class="takeaways">
+            <h3>Elementos de una buena portada</h3>
+            <ul>
+              <li><strong>Título del trabajo</strong> bien visible, en el tamaño de fuente más grande de toda la hoja.</li>
+              <li><strong>Datos institucionales</strong>: materia, comisión o cátedra, y el nombre de la facultad o universidad.</li>
+              <li><strong>Autor y fecha</strong>, siempre presentes para identificar quién entregó el trabajo y cuándo.</li>
+              <li>Activá <strong>Primera página diferente</strong> (visto en la clase anterior) para que la portada no muestre el encabezado ni el número de página del resto del documento.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section" id="errores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de practicar</p>
+          <h2>Errores Comunes de esta Clase</h2>
+          <p>
+            Los tropiezos más frecuentes al trabajar con SmartArt, listas,
+            objetos 3D y portada por primera vez.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0;">Texto tipeado en cada forma vs. texto cargado desde el Panel de texto</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Clic forma por forma, a los ponchazos</div>
+            <div class="vs-page">
+              Vas haciendo doble clic en cada forma del SmartArt para
+              escribir el texto. Si el diseño tiene niveles, es fácil
+              equivocarse y cargar una idea secundaria como si fuera
+              principal — y reordenarlas después es tedioso.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Panel de texto, con Tab y Shift+Tab</div>
+            <div class="vs-page">
+              Escribís todo el contenido en el Panel de texto como una lista
+              normal, usando <strong>Tab</strong> para bajar un nivel. El
+              SmartArt arma el diagrama solo, con la jerarquía correcta
+              desde el primer intento.
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">El Panel de texto (flecha a la izquierda del SmartArt) es más rápido y evita perder la relación entre niveles al momento de reordenar ideas.</p>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Numeración tipeada a mano vs. numeración automática</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — "1." "2." "3." escritos como texto</div>
+            <div class="vs-page">
+              Escribís "1.", "2." y "3." al principio de cada renglón. Si
+              después insertás un ítem nuevo en el medio, <strong>hay que
+              corregir todos los números</strong> uno por uno, a mano.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Botón Numeración de Word</div>
+            <div class="vs-page">
+              Aplicás el botón <strong>Numeración</strong> de la ficha
+              Inicio. Word gestiona los números como un campo: al agregar,
+              borrar o reordenar un ítem, <strong>toda la lista se
+              renumera sola</strong>.
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Igual que con el número de página de la clase anterior: cualquier secuencia que Word pueda calcular por vos conviene dejarla en manos de una herramienta automática, nunca tipeada.</p>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Portada con encabezado repetido vs. portada limpia</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — La portada muestra el número de página</div>
+            <div class="vs-page">
+              Insertaste la portada, pero como el encabezado y el pie de
+              página ya estaban definidos para todo el documento, la tapa
+              queda con un <strong>"Página 1 de 5"</strong> pisando el
+              diseño prolijo de la portada.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Primera página diferente activada</div>
+            <div class="vs-page">
+              Con <strong>Primera página diferente</strong> activado (ficha
+              contextual de Encabezado y pie), la portada queda totalmente
+              libre de encabezado, pie y numeración, mientras el resto del
+              documento los conserva.
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Es un error muy común al combinar por primera vez portada con encabezado/pie de página: conviene revisar siempre cómo queda la tapa después de insertar ambos elementos.</p>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section alt" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+          <p>
+            Respuestas rápidas a las consultas más habituales de esta clase.
+          </p>
+        </div>
+
+        <details class="faq-item">
+          <summary>¿Puedo agregar o quitar cajas dentro de un SmartArt ya creado?</summary>
+          <p>
+            Sí. Con el SmartArt seleccionado, ficha <strong>Diseño de
+            SmartArt → Agregar forma</strong> (antes o después de la
+            seleccionada). Para quitar una, seleccioná su borde y presioná
+            <strong>Suprimir</strong>.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Cómo cambio una lista con viñetas por una numerada sin volver a escribir el texto?</summary>
+          <p>
+            Seleccioná la lista completa y hacé clic directamente en el
+            botón <strong>Numeración</strong>. Word convierte el formato al
+            instante, conservando todo el texto y el orden de los ítems.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Qué diferencia hay entre una forma "Cubo" y un modelo 3D real de Word?</summary>
+          <p>
+            La forma "Cubo" (Insertar → Formas → Formas básicas) es un dibujo
+            plano con efecto de volumen simulado; se le puede aplicar relleno
+            de imagen pero no rota en el espacio. Un <strong>modelo 3D</strong>
+            (Insertar → Modelos 3D) es un objeto con volumen real, que se
+            puede girar en cualquier eje con el controlador circular.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Mi computadora es lenta, ¿puedo insertar modelos 3D igual?</summary>
+          <p>
+            Los modelos 3D consumen más recursos que una imagen normal y
+            pueden hacer que Word ande lento en equipos viejos. Si es tu
+            caso, una <strong>forma con relleno de imagen o efecto de
+            bisel</strong> logra un resultado visual parecido con mucho
+            menos peso.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Puedo reemplazar la imagen o el color de una portada prediseñada?</summary>
+          <p>
+            Sí, cada elemento de la portada (imagen, franjas de color,
+            rectángulos) se comporta como un objeto independiente: hacé clic
+            para seleccionarlo y usá Formato de imagen o Formato de forma
+            para cambiarlo, igual que con cualquier otro gráfico del
+            documento.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Cómo armo una lista multinivel con subniveles en letras o números romanos?</summary>
+          <p>
+            Aplicá <strong>Lista multinivel</strong> y elegí uno de los
+            estilos de la galería, o entrá a <strong>Definir nueva lista
+            multinivel</strong> para configurar vos mismo el formato de cada
+            nivel (números, letras, romanos). Usá <strong>Tab</strong> para
+            bajar de nivel y <strong>Shift+Tab</strong> para subir.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Trabajamos sobre el documento <strong>"Ejercicio 2 - Revolución
+            Industrial"</strong> disponible en la plataforma, en la carpeta
+            de esta clase. Aplicá sobre ese texto las herramientas nuevas de
+            hoy, además de repasar lo aprendido en clases anteriores.
+          </p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio · SmartArt, viñetas, objetos 3D y portada</p>
+          <h3>Completamos el informe sobre la Revolución Industrial</h3>
+          <p style="font-size:0.9rem;color:var(--muted);">
+            Abrí el archivo "Ejercicio 2 - Revolucion Industrial.docx" que
+            bajaste de la plataforma. Ese documento trae más consignas de las
+            que vimos hasta ahora (márgenes, WordArt, columnas, letra
+            capital...) que iremos completando en próximas clases; por hoy,
+            concentrate solo en estos pasos:
+          </p>
+          <ul>
+            <li><strong>1. Viñetas:</strong> convertí en una lista con viñetas el párrafo que enumera las consecuencias económicas de la Revolución Industrial.</li>
+            <li><strong>2. SmartArt:</strong> con el bloque de texto "El proceso de industrialización", armá un SmartArt de tipo <strong>Jerarquía</strong> o <strong>Lista</strong> que muestre los países y el orden en que se fueron incorporando.</li>
+            <li><strong>3. Forma 3D:</strong> insertá una forma <strong>Cubo</strong> (Insertar → Formas → Formas básicas) y aplicale relleno con una imagen alusiva a la industrialización.</li>
+            <li><strong>4. Portada:</strong> agregá una portada prediseñada al inicio del documento, con el título del trabajo, la materia y tu nombre, y activá Primera página diferente si hace falta.</li>
+            <li><strong>5. Guardá</strong> el archivo y compartilo en el foro de la Unidad.</li>
+          </ul>
+          <p class="card-example"><strong>Actividad complementaria:</strong> armá una <strong>Lista multinivel</strong> a modo de índice, usando los subtítulos del texto ("El proceso de industrialización", "Consecuencias de la Revolución Industrial") como primer nivel, y agregando debajo de cada uno los subtemas relacionados como segundo nivel.</p>
+
+          <div class="act-referencia">
+            <p class="act-referencia-label">Referencia visual · así podría quedar tu portada</p>
+            <div class="doc-mock">
+              <div class="cover-demo-page" style="min-height:9rem;">
+                <p class="cover-demo-top">Universidad · Informática Aplicada</p>
+                <div class="cover-demo-mid">
+                  <h4>Revolución Industrial</h4>
+                  <p>Trabajo práctico — Unidad 2</p>
+                </div>
+                <p class="cover-demo-bottom">Nombre y Apellido · Fecha</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Insertar SmartArt</h3>
+            <p>
+              Insertar → SmartArt. Elegí una categoría (Lista, Proceso,
+              Ciclo, Jerarquía, Relación, Pirámide) según lo que quieras
+              representar.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Panel de texto</h3>
+            <p>
+              Cargá el contenido como una lista con Tab/Shift+Tab para
+              definir niveles: el diagrama se arma automáticamente.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Diseño de SmartArt</h3>
+            <p>
+              Agregar o quitar formas, cambiar colores y aplicar un estilo
+              distinto sin perder el contenido.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Viñetas y numeración</h3>
+            <p>
+              Inicio → Párrafo. Viñetas para ítems sin orden, numeración
+              para secuencias, siempre con renumerado automático.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Lista multinivel</h3>
+            <p>
+              Ideal para esquemas con subtemas. Tab baja de nivel,
+              Shift+Tab sube.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Modelos 3D</h3>
+            <p>
+              Insertar → Modelos 3D. Se rotan con el controlador circular en
+              cualquier ángulo.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Formas con relleno de imagen</h3>
+            <p>
+              Formas básicas (cubo, cilindro) + Relleno con imagen: efecto
+              de volumen sin el peso de un modelo 3D real.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Insertar portada</h3>
+            <p>
+              Insertar → Portada. Se agrega como primera página, con campos
+              listos para completar.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Quitar o personalizar la portada</h3>
+            <p>
+              Insertar → Portada → Quitar portada actual. Los elementos se
+              editan como cualquier imagen o forma.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Portada + Primera página diferente</h3>
+            <p>
+              Combiná ambas para que la tapa quede libre de encabezado, pie
+              y numeración.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual de la cátedra para reforzar los conceptos de
+            esta clase. Sus canales no permiten reproducirlos incrustados en
+            otros sitios, así que se abren en YouTube al hacer clic.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/hdok6Ib_Ixw" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/hdok6Ib_Ixw/hqdefault.jpg" alt="Miniatura del video 12. Dibujar Organigramas" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">12. Dibujar Organigramas</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">aulaclic · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/270K00d5niU" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/270K00d5niU/hqdefault.jpg" alt="Miniatura del video 6.4. Listas de viñetas y numeradas" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">6.4. Listas de viñetas y numeradas</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">aulaclic · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/EiyBKff2-eM" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/EiyBKff2-eM/hqdefault.jpg" alt="Miniatura del video Agregar modelos 3D en Word" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Agregar modelos 3D en Word</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">DavidIbiza · Ver en YouTube ↗</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/n4ZE5A_J1ss" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/n4ZE5A_J1ss/hqdefault.jpg" alt="Miniatura del video Cómo hacer una Portada en Word paso a paso" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Cómo hacer una Portada en Word paso a paso</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Tío Tech · Ver en YouTube ↗</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase5.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 5 · Tablas y Formas</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 7 · Referencias y Tabla de contenido</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 2 · Clase 6</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
