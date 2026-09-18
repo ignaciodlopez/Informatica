@@ -591,9 +591,8 @@
           <h2>BUSCARV y BUSCARH</h2>
           <p>
             Hasta acá, todas las fórmulas trabajaron con datos de la misma
-            fila. Pero muchas veces el dato que necesitás no está en la
-            tabla de alumnos, sino en <strong>otra tabla</strong>,
-            relacionado por un valor en común. Por ejemplo, ya sabés la
+            fila. Pero muchas veces el dato que necesitás está en
+            <strong>otra tabla</strong>. Por ejemplo, ya sabés la
             <strong>CARRERA</strong> de cada alumno: ¿cómo conseguís
             automáticamente cuántos <strong>años dura</strong> esa
             carrera, sin escribirlo a mano 79 veces y sin arriesgarte a
@@ -601,22 +600,59 @@
           </p>
         </div>
 
-        <div class="hero-note">
-          <span>La tabla de referencia</span>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>BUSCARV: búsqueda vertical</h3>
+            <p>
+              <strong>Busca un dato en la primera columna de una
+              tabla</strong> y te trae otro dato de la misma fila. Por
+              ejemplo: buscás "Lic. en Nutrición" y te devuelve "4", los
+              años de esa carrera. Se usa cuando las opciones están
+              escritas hacia abajo, una por fila.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>BUSCARH: búsqueda horizontal</h3>
+            <p>
+              <strong>Busca un dato en la primera fila de una tabla</strong>
+              y te trae otro dato de la misma columna. Hace lo mismo que
+              BUSCARV; lo único que cambia es la forma de la tabla: las
+              opciones están escritas hacia el costado, una por columna.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo elegir entre las dos</span>
           <p>
-            Armás una tabla chica y sin repetir, con la relación entre
-            cada carrera y su duración en años. En este ejemplo va en las
-            columnas J y K, empezando en la fila 2.
+            Mirá cómo está armada tu tabla de referencia. Si las opciones
+            van una debajo de otra, usás BUSCARV, que es la más común.
+            Si van una al lado de otra, usás BUSCARH. Primero vemos
+            BUSCARV paso a paso, y al final BUSCARH.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>BUSCARV · Paso 1: armá la tabla de referencia</span>
+          <p>
+            Es una tabla chica, sin repetir, que relaciona cada carrera
+            con su duración en años. En este ejemplo va en las columnas J
+            y K: los títulos en la fila 1 y los datos de la fila 2 a la 6.
           </p>
         </div>
 
         <div class="excel-mock" aria-hidden="true">
-          <div class="excel-mock-label">Rango J2:K6 — tabla de referencia CARRERA / DURACIÓN</div>
+          <div class="excel-mock-label">Tabla de referencia — columnas J y K</div>
           <div class="excel-grid">
             <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
               <div class="excel-cell corner"></div>
               <div class="excel-cell col-h">J</div>
               <div class="excel-cell col-h">K</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">CARRERA</div>
+              <div class="excel-cell">DURACIÓN (años)</div>
             </div>
             <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
               <div class="excel-cell row-h">2</div>
@@ -651,35 +687,44 @@
           </p>
         </div>
 
-        <div class="summary-grid" style="margin-top: 1.5rem;">
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>BUSCARV · Paso 2: escribí la fórmula</span>
+          <p>
+            En la celda I2, al lado de los datos del primer alumno,
+            escribí <code>=BUSCARV(D2;$J$2:$K$6;2;FALSO)</code>. La
+            fórmula tiene cuatro partes, separadas por punto y coma:
+          </p>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1rem;">
           <article class="table-card" style="grid-column: 1 / -1;">
             <table>
               <thead>
                 <tr>
-                  <th>Argumento de BUSCARV</th>
-                  <th>Qué significa</th>
+                  <th>Parte de la fórmula</th>
+                  <th>Qué le indicás a Excel</th>
                   <th>En el ejemplo</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td><code>VALOR_BUSCADO</code></td>
-                  <td>El dato que querés encontrar, siempre en la primera columna del rango</td>
-                  <td><code>D2</code> (la carrera del alumno)</td>
+                  <td>Qué dato querés encontrar</td>
+                  <td><code>D2</code>, la carrera del alumno</td>
                 </tr>
                 <tr>
                   <td><code>MATRIZ_BUSCAR_EN</code></td>
-                  <td>El rango completo de la tabla de referencia, con referencias absolutas para poder copiarlo</td>
+                  <td>Dónde buscarlo: la tabla de referencia, sin los títulos</td>
                   <td><code>$J$2:$K$6</code></td>
                 </tr>
                 <tr>
                   <td><code>INDICADOR_COLUMNAS</code></td>
-                  <td>Qué columna del rango devolver, contando desde 1 en la primera</td>
-                  <td><code>2</code> (la columna K, DURACIÓN)</td>
+                  <td>De qué columna de esa tabla traer el resultado, contando desde 1 en la primera</td>
+                  <td><code>2</code>, la columna K (DURACIÓN)</td>
                 </tr>
                 <tr>
                   <td><code>ORDENADO</code></td>
-                  <td>FALSO exige una coincidencia exacta; VERDADERO (u omitirlo) busca una aproximada</td>
+                  <td>Si la coincidencia tiene que ser exacta: <code>FALSO</code> la exige</td>
                   <td><code>FALSO</code></td>
                 </tr>
               </tbody>
@@ -687,7 +732,16 @@
           </article>
         </div>
 
-        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>BUSCARV · Paso 3: copiá la fórmula hacia abajo</span>
+          <p>
+            Excel toma la carrera de cada alumno, la busca en la columna J
+            y trae el número de la columna K. Copiá la fórmula con el
+            controlador de relleno y se completa para los 79 alumnos.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1rem;">
           <div class="excel-mock-label">Celda I2 seleccionada — función BUSCARV</div>
           <div class="excel-formula-bar">
             <span class="excel-name-box">I2</span>
@@ -721,81 +775,75 @@
             </div>
           </div>
           <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
-            El valor buscado (columna D, con línea punteada) se compara
-            contra la primera columna del rango J2:K6; al encontrarlo,
-            BUSCARV trae el dato de la segunda columna de ese mismo
-            renglón.
+            La carrera de la columna D (con línea punteada) se busca en
+            la columna J de la tabla de referencia; al encontrarla,
+            BUSCARV trae el dato de la columna K, en esa misma fila.
           </p>
         </div>
 
-        <div class="hero-note" style="margin-top: 1.5rem;">
-          <span>Por qué el rango lleva referencias absolutas</span>
-          <p>
-            Igual que aprendiste en la Clase 2 con <code>$</code>, la
-            tabla de referencia tiene que quedar fija al copiar la
-            fórmula hacia abajo: todas las filas deben buscar en el mismo
-            J2:K6. Si el rango quedara relativo, en la fila 3 buscaría en
-            J3:K7, un rango corrido que ya no contiene los datos
-            completos.
-          </p>
-        </div>
-
-        <div class="hero-note" style="margin-top: 1rem;">
-          <span>FALSO, casi siempre</span>
-          <p>
-            Con FALSO, BUSCARV exige que el valor buscado exista
-            exactamente en la tabla de referencia; si no lo encuentra,
-            devuelve el error <code>#N/D</code> en vez de inventar un
-            resultado aproximado. Es el comportamiento que casi siempre
-            conviene con datos de texto, como nombres de carreras. Dejar
-            el argumento en VERDADERO (o vacío) solo tiene sentido con
-            listas numéricas ordenadas, como franjas de sueldo o de edad.
-          </p>
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <h3>Por qué lleva signos $</h3>
+            <p>
+              La tabla de referencia tiene que quedar fija al copiar la
+              fórmula: todas las filas deben buscar en el mismo J2:K6.
+              Sin <code>$</code>, en la fila 3 buscaría en J3:K7, un rango
+              corrido que ya no contiene todos los datos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Por qué termina en FALSO</h3>
+            <p>
+              Con FALSO, Excel exige una coincidencia exacta; si no
+              encuentra la carrera, devuelve el error <code>#N/D</code> en
+              vez de inventar un resultado. Es lo que conviene con textos.
+              VERDADERO solo sirve con números ordenados, como franjas de
+              edad.
+            </p>
+          </article>
         </div>
 
         <div class="section-head" style="margin-top: 2.5rem;">
-          <p class="eyebrow">La misma idea, pero de costado</p>
-          <h2>BUSCARH: igual que BUSCARV, en horizontal</h2>
+          <p class="eyebrow">La misma idea, de costado</p>
+          <h2>BUSCARH: lo mismo, con la tabla en horizontal</h2>
           <p>
-            BUSCARH hace exactamente lo mismo que BUSCARV, con una sola
-            diferencia: la tabla de referencia está organizada en
-            <strong>filas</strong> en lugar de columnas, y el resultado se
-            busca contando renglones hacia abajo en vez de columnas hacia
-            la derecha.
+            BUSCARH sirve cuando la tabla de referencia tiene las opciones
+            escritas <strong>en una fila</strong>, una al lado de la otra,
+            en lugar de una debajo de otra. Los pasos son los mismos que
+            en BUSCARV; solo cambia que el resultado se cuenta en
+            <strong>filas hacia abajo</strong> y no en columnas hacia la
+            derecha.
           </p>
         </div>
 
-        <div class="excel-compare" aria-hidden="true">
-          <figure>
-            <figcaption>BUSCARV — tabla en columnas</figcaption>
-            <div class="excel-mock">
-              <div class="excel-grid">
-                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
-                  <div class="excel-cell col-h">Odontología</div>
-                  <div class="excel-cell col-h">Nutrición</div>
-                </div>
-                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
-                  <div class="excel-cell selected">5</div>
-                  <div class="excel-cell selected">4</div>
-                </div>
-              </div>
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Tabla de referencia en horizontal — rango J1:N2</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">J</div>
+              <div class="excel-cell col-h">K</div>
+              <div class="excel-cell col-h">L</div>
+              <div class="excel-cell col-h">M</div>
+              <div class="excel-cell col-h">N</div>
             </div>
-          </figure>
-          <figure>
-            <figcaption>BUSCARH — tabla en filas</figcaption>
-            <div class="excel-mock">
-              <div class="excel-grid">
-                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
-                  <div class="excel-cell row-h">Odontología</div>
-                  <div class="excel-cell row-h">Nutrición</div>
-                </div>
-                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
-                  <div class="excel-cell selected">5</div>
-                  <div class="excel-cell selected">4</div>
-                </div>
-              </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell">Lic. en Instr. Quirúrgica</div>
+              <div class="excel-cell">Lic. en Psicología</div>
+              <div class="excel-cell">Lic. en Terapia Ocup.</div>
             </div>
-          </figure>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(5, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">5</div>
+              <div class="excel-cell">4</div>
+              <div class="excel-cell">3</div>
+              <div class="excel-cell">5</div>
+              <div class="excel-cell">4</div>
+            </div>
+          </div>
         </div>
 
         <div class="summary-grid" style="margin-top: 1.5rem;">
@@ -803,22 +851,31 @@
             <table>
               <thead>
                 <tr>
+                  <th></th>
                   <th>BUSCARV</th>
                   <th>BUSCARH</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><strong>Fórmula del ejemplo</strong></td>
                   <td><code>=BUSCARV(D2;$J$2:$K$6;2;FALSO)</code></td>
                   <td><code>=BUSCARH(D2;$J$1:$N$2;2;FALSO)</code></td>
                 </tr>
                 <tr>
-                  <td>Busca el valor en la <strong>primera columna</strong> del rango</td>
-                  <td>Busca el valor en la <strong>primera fila</strong> del rango</td>
+                  <td><strong>Dónde busca el valor</strong></td>
+                  <td>En la <strong>primera columna</strong> de la tabla</td>
+                  <td>En la <strong>primera fila</strong> de la tabla</td>
                 </tr>
                 <tr>
-                  <td>El tercer argumento cuenta <strong>columnas</strong> hacia la derecha</td>
-                  <td>El tercer argumento cuenta <strong>filas</strong> hacia abajo</td>
+                  <td><strong>Qué cuenta el tercer argumento</strong></td>
+                  <td><strong>Columnas</strong>, hacia la derecha</td>
+                  <td><strong>Filas</strong>, hacia abajo</td>
+                </tr>
+                <tr>
+                  <td><strong>Cuándo se usa</strong></td>
+                  <td>Las opciones van una debajo de otra</td>
+                  <td>Las opciones van una al lado de otra</td>
                 </tr>
               </tbody>
             </table>
@@ -828,14 +885,12 @@
         <div class="hero-note" style="margin-top: 1.5rem;">
           <span>Por qué BUSCARV es, en la práctica, la más usada</span>
           <p>
-            La mayoría de las tablas que se arman en Excel crecen hacia
-            abajo, agregando filas —un alumno nuevo, un producto nuevo,
-            una venta nueva—, no hacia la derecha. Por eso las tablas de
-            referencia casi siempre se organizan en columnas, y BUSCARV
-            termina siendo la función que más se usa día a día. BUSCARH
-            aparece cuando la información de referencia ya viene
-            organizada en filas, por ejemplo un cronograma con los meses
-            del año como encabezados.
+            La mayoría de las tablas en Excel crecen hacia abajo, con un
+            alumno, un producto o una venta nueva por fila. Por eso las
+            tablas de referencia casi siempre se arman en columnas y
+            BUSCARV es la que más vas a usar. BUSCARH aparece cuando la
+            información ya viene en filas, por ejemplo un cronograma con
+            los meses del año como encabezados.
           </p>
         </div>
       </div>
@@ -1027,18 +1082,18 @@
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Cierre de la clase</p>
-          <h2>Practicá, y después reflexioná en el foro</h2>
+          <h2>Practicá lo de hoy en tu propio archivo</h2>
           <p>
             Ya viste el Asistente para funciones, la función SI anidada y
             las funciones BUSCARV/BUSCARH explicados y resueltos con
             ejemplos. Ahora te toca a vos: practicalos en tu propio
-            archivo y compartí tu mirada en el foro de la Unidad.
+            archivo.
           </p>
         </div>
 
-        <div class="card-grid three">
+        <div class="card-grid">
           <article class="simple-card">
-            <h3>1. Practicá en tu archivo</h3>
+            <h3>Practicá en tu archivo</h3>
             <p>
               Sobre el Excel que venís usando desde la Clase 5, agregá una
               columna con una función SI anidada de tres niveles, y otra
@@ -1046,36 +1101,67 @@
               armada por vos.
             </p>
           </article>
-          <article class="simple-card featured">
-            <h3>2. Respondé para el foro</h3>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Cómo tendría que quedar tu planilla</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: repeat(5, 1fr);">
+              <div class="excel-cell col-h">ALUMNO</div>
+              <div class="excel-cell col-h">CARRERA</div>
+              <div class="excel-cell col-h">MATERIAS</div>
+              <div class="excel-cell col-h">NIVEL (nueva)</div>
+              <div class="excel-cell col-h">AÑOS (nueva)</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: repeat(5, 1fr);">
+              <div class="excel-cell">Pinto, Claudia</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell">23</div>
+              <div class="excel-cell selected">Avanzado</div>
+              <div class="excel-cell selected">4</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: repeat(5, 1fr);">
+              <div class="excel-cell">Gimenez, Sofia</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell">15</div>
+              <div class="excel-cell selected">Intermedio</div>
+              <div class="excel-cell selected">4</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: repeat(5, 1fr);">
+              <div class="excel-cell">Auber, Luida</div>
+              <div class="excel-cell">Lic. en Psicología</div>
+              <div class="excel-cell">9</div>
+              <div class="excel-cell selected">Inicial</div>
+              <div class="excel-cell selected">5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top: 1rem;">
+          <article class="simple-card">
+            <h3>Columna NIVEL: SI anidada</h3>
             <p>
-              La actividad de esta clase te pide reflexionar, no solo
-              resolver: ¿el Asistente para funciones te ayudó a usar
-              funciones? ¿Cómo? ¿Cuántas opciones puede evaluar la función
-              SI, y cómo se resuelve cuando hacen falta más? ¿Qué usos le
-              darías a estas herramientas en tu futuro rol profesional?
+              Según las materias aprobadas, devuelve Avanzado, Intermedio
+              o Inicial.
             </p>
           </article>
           <article class="simple-card">
-            <h3>3. Compartilo con tus colegas</h3>
+            <h3>Columna AÑOS: BUSCARV</h3>
             <p>
-              Subí tus respuestas al foro de dudas y debates de la
-              Unidad 1, y leé también los aportes de tus compañeros: es la
-              forma de comparar distintos usos posibles para la misma
-              herramienta.
+              Toma la carrera de cada alumno y trae su duración desde tu
+              tabla de referencia.
             </p>
           </article>
         </div>
 
         <div class="hero-note" style="margin-top: 1.5rem;">
-          <span>Por qué esta clase cierra con una reflexión</span>
+          <span>Qué te tenés que llevar de esta clase</span>
           <p>
             A diferencia de otras clases, hoy el objetivo no es que la
             planilla "dé un resultado específico", sino que incorpores
             una forma de pensar: identificar cuántas opciones tiene un
             problema, y elegir la herramienta adecuada —una SI simple, una
-            SI anidada, o una BUSCARV— según ese número. Esa decisión es
-            la que te van a pedir que expliques en el foro.
+            SI anidada, o una BUSCARV— según ese número.
           </p>
         </div>
       </div>
