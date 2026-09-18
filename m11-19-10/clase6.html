@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 6</title>
+  <meta
+    name="description"
+    content="Clase 6 de Informática Aplicada (M11-19-10), Unidad 1: cómo usar el Asistente para funciones de Excel, la función SI() anidada para elegir entre más de dos opciones, y las funciones BUSCARV y BUSCARH para relacionar datos entre tablas."
+  />
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#mapa">Mapa de la clase</a>
+        <a href="#asistente">Asistente</a>
+        <a href="#repaso-si">Repaso de SI</a>
+        <a href="#si-anidada">SI anidada</a>
+        <a href="#mas-niveles">Más niveles</a>
+        <a href="#buscarv-buscarh">BUSCARV / BUSCARH</a>
+        <a href="#errores-comunes">Errores comunes</a>
+        <a href="#vida-diaria">Vida diaria</a>
+        <a href="#video">Video</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 1</p>
+        <h1>Más sobre funciones</h1>
+        <p class="lead">
+          En la Clase 4 conociste la función <strong>SI</strong>, capaz de
+          elegir entre dos opciones. Hoy vas a llevarla más lejos: qué
+          hacer cuando hay <strong>tres o más</strong> opciones posibles, y
+          cómo el <strong>Asistente para funciones</strong> te ayuda a
+          construir cualquier fórmula sin memorizar su sintaxis exacta. Como
+          cierre, vas a conocer <strong>BUSCARV</strong> y
+          <strong>BUSCARH</strong>, dos funciones pensadas para traer un
+          dato desde otra tabla a partir de un valor en común.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa">Ver el mapa de la clase</a>
+          <a class="btn btn-secondary" href="#si-anidada">Ir a SI anidada</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 6 · Unidad 1</li>
+          <li>Asistente y SI anidada</li>
+          <li>BUSCARV y BUSCARH</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>De "elegir entre dos" a "elegir entre muchas", sin perderte</h2>
+        <p>
+          Vas a aprender a abrir el Asistente para funciones para escribir
+          cualquier fórmula guiado por Excel, a anidar una función SI
+          dentro de otra para resolver problemas de tres o más opciones, y
+          a usar BUSCARV/BUSCARH para relacionar dos tablas distintas a
+          partir de un dato compartido, como la carrera de un alumno y su
+          facultad.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Asistente para funciones</span>
+          <span>SI anidada</span>
+          <span>BUSCARV / BUSCARH</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Podés seguir sobre el mismo archivo de la Clase 5, guardado
+            como <strong>Clase 6.xlsx</strong>, y usar la tabla de 79
+            alumnos como base de los ejemplos. Lo importante hoy no es el
+            resultado de una tabla puntual, sino la mecánica de cada
+            herramienta: practicala también sobre cualquier otra planilla
+            que tengas a mano.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- MAPA DE LA CLASE -->
+    <section class="section" id="mapa">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>El mapa de la clase de hoy, en seis pasos</h2>
+          <p>
+            Esta es la hoja de ruta completa. Cada fila de esta tabla te
+            lleva directo a la sección donde se explica ese paso en
+            detalle, así que podés volver acá en cualquier momento para
+            ubicarte.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Paso</th>
+                  <th>Qué vas a hacer</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Insertar una función con el Asistente, sin escribirla de memoria</td>
+                  <td><a href="#asistente">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Repasar la estructura de la función SI vista en la Clase 4</td>
+                  <td><a href="#repaso-si">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Anidar una función SI dentro de otra para resolver tres opciones</td>
+                  <td><a href="#si-anidada">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Extender la misma lógica a cuatro opciones o más</td>
+                  <td><a href="#mas-niveles">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Traer un dato desde otra tabla con BUSCARV y con BUSCARH</td>
+                  <td><a href="#buscarv-buscarh">Ver el paso →</a></td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Revisar los errores más comunes de las tres herramientas</td>
+                  <td><a href="#errores-comunes">Ver el paso →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué empezar por acá</span>
+          <p>
+            Las tres herramientas de hoy resuelven el mismo tipo de
+            problema práctico: "necesito una fórmula más potente de la
+            que puedo armar a mano, o más precisa de la que ya conozco".
+            Verlas juntas, en orden, ayuda a entender cuándo conviene cada
+            una.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASISTENTE PARA FUNCIONES -->
+    <section class="section alt" id="asistente">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Una ayuda para no memorizar sintaxis</p>
+          <h2>El Asistente para funciones</h2>
+          <p>
+            Hasta ahora escribiste cada función a mano: <code>=SUMA(...)</code>,
+            <code>=CONTAR.SI(...)</code>, <code>=SI(...)</code>. Funciona
+            bien cuando ya conocés la función de memoria, pero Excel tiene
+            más de 480 funciones, y nadie las recuerda todas con sus
+            argumentos exactos. Para esos casos existe el
+            <strong>Asistente para funciones</strong>: un cuadro de
+            diálogo que te guía función por función, argumento por
+            argumento.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Seleccioná la celda</h3>
+            <p>
+              Ubicate en la celda donde querés que aparezca el resultado,
+              igual que antes de escribir cualquier fórmula.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Hacé clic en el ícono fx</h3>
+            <p>
+              Es el botón <strong>Insertar función</strong>, con el
+              símbolo <code>fx</code>, ubicado justo a la izquierda de la
+              barra de fórmulas.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Elegí la función</h3>
+            <p>
+              Se abre el cuadro <strong>Insertar función</strong>: buscá
+              por nombre o navegá por categorías hasta encontrar la que
+              necesitás.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>4. Completá los argumentos</h3>
+            <p>
+              Se abre un segundo cuadro, <strong>Argumentos de
+              función</strong>, con una casilla por cada dato que pide la
+              función.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Barra de fórmulas — ubicación del botón fx</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">A1</span>
+            <span class="excel-fx" style="border: 1px solid var(--accent); border-radius: 4px; margin: 0.25rem 0 0.25rem 0.4rem; padding: 0.15rem 0.5rem;">fx</span>
+            <span class="excel-formula-value" style="color: var(--muted); font-style: italic;">Insertar función…</span>
+          </div>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cuadro</th>
+                  <th>Qué muestra</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Buscar una función</td>
+                  <td>Un renglón para describir en palabras lo que querés hacer (por ejemplo, "sumar si se cumple una condición") y un botón "Ir" que sugiere funciones relacionadas</td>
+                </tr>
+                <tr>
+                  <td>O seleccionar una categoría</td>
+                  <td>Una lista desplegable con grupos como Financiera, Fecha y hora, Matemáticas y trigonométricas, Estadísticas, Búsqueda y referencia, Texto, Lógica o Todo</td>
+                </tr>
+                <tr>
+                  <td>Seleccionar una función</td>
+                  <td>El listado de funciones de la categoría elegida. Al pasar por cada una, aparece una descripción breve de qué hace</td>
+                </tr>
+                <tr>
+                  <td>Argumentos de función</td>
+                  <td>Una casilla por cada argumento, con su nombre y una descripción de qué tipo de dato espera cada una al seleccionarla</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Si no aparece en la lista</span>
+          <p>
+            La función que buscás puede no estar en la categoría que
+            elegiste. Antes de asumir que Excel no la tiene, probá la
+            categoría <strong>Todo</strong>: ahí figuran, en orden
+            alfabético, todas las funciones habilitadas en la versión de
+            Excel que estés usando.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>El resultado es exactamente el mismo</span>
+          <p>
+            Escribir <code>=SUMA(B2:B10)</code> a mano o armarla con el
+            Asistente produce la misma fórmula en la celda. La diferencia
+            no está en el resultado, sino en el camino: el Asistente sirve
+            para explorar funciones nuevas o recordar el orden exacto de
+            los argumentos de una que usás poco.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO RÁPIDO DE SI -->
+    <section class="section" id="repaso-si">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de anidar, repasemos la base</p>
+          <h2>Repaso: la estructura de la función SI</h2>
+          <p>
+            En la Clase 4 usaste SI para clasificar a cada alumno según
+            sus materias aprobadas. Antes de complicarla, conviene tener
+            fresca su estructura de tres argumentos.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Argumento</th>
+                  <th>Qué significa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>PRUEBA_LÓGICA</code></td>
+                  <td>Una comparación que da como resultado VERDADERO o FALSO, por ejemplo <code>E2&gt;20</code></td>
+                </tr>
+                <tr>
+                  <td><code>VALOR_SI_VERDADERO</code></td>
+                  <td>Qué devuelve la función cuando la prueba lógica se cumple</td>
+                </tr>
+                <tr>
+                  <td><code>VALOR_SI_FALSO</code></td>
+                  <td>Qué devuelve la función cuando la prueba lógica no se cumple</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Con qué se arma una prueba lógica</p>
+            <h3>VALOR — comparador — VALOR</h3>
+            <ul>
+              <li>Texto entre comillas, por ejemplo <code>"Aprobado"</code></li>
+              <li>Un número, por ejemplo <code>345</code></li>
+              <li>El contenido de una celda, por ejemplo <code>A18</code></li>
+              <li>El resultado de otra función, por ejemplo <code>SUMA(C14:D20)</code></li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Los seis comparadores lógicos</p>
+            <h3>Los mismos que usarías en papel</h3>
+            <ul>
+              <li><code>&gt;</code> mayor que</li>
+              <li><code>&lt;</code> menor que</li>
+              <li><code>=</code> igual a</li>
+              <li><code>&gt;=</code> mayor o igual que</li>
+              <li><code>&lt;=</code> menor o igual que</li>
+              <li><code>&lt;&gt;</code> distinto a</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>El límite que vas a resolver hoy</span>
+          <p>
+            SI siempre devuelve <em>una de dos</em> cosas: lo de
+            VALOR_SI_VERDADERO o lo de VALOR_SI_FALSO. Nunca una tercera.
+            Cuando un problema tiene tres o más resultados posibles —como
+            "mayor", "menor" o "igual"— una sola función SI se queda
+            corta. Ahí es donde entra la función SI anidada.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SI ANIDADA -->
+    <section class="section alt" id="si-anidada">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cuando dos opciones no alcanzan</p>
+          <h2>La función SI anidada</h2>
+          <p>
+            "Anidar" una función es escribirla adentro de otra, en lugar
+            de dentro de una celda aparte. Para resolver un problema de
+            tres opciones, la idea es simple: en el argumento
+            VALOR_SI_FALSO de la primera función SI, en vez de escribir un
+            texto o un número, escribís una <strong>segunda función
+            SI</strong> completa.
+          </p>
+        </div>
+
+        <div class="hero-note">
+          <span>El problema de hoy</span>
+          <p>
+            En la Clase 4 agregaste la columna <strong>MÁS DE 20
+            MATERIAS</strong>, con dos resultados posibles: "Más de 20
+            aprobadas" o "Menos". Ahora el pedido es más fino: clasificar
+            a cada alumno en <strong>tres</strong> niveles de avance según
+            sus materias aprobadas (columna E), en una nueva columna
+            <strong>NIVEL DE AVANCE</strong> (columna H).
+          </p>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Condición sobre MATERIAS APROBADAS</th>
+                  <th>Resultado en NIVEL DE AVANCE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Más de 20</td>
+                  <td>"Avanzado"</td>
+                </tr>
+                <tr>
+                  <td>Entre 10 y 20 (inclusive)</td>
+                  <td>"Intermedio"</td>
+                </tr>
+                <tr>
+                  <td>Menos de 10</td>
+                  <td>"Inicial"</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="process-grid" style="margin-top: 1.5rem;">
+          <article class="process-card">
+            <h3>1. Resolvé la primera condición</h3>
+            <p>
+              Empezá por la más fácil de aislar: "¿aprobó más de 20
+              materias?". Si es VERDADERO, el resultado es "Avanzado". Si
+              es FALSO, todavía quedan dos opciones por resolver.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. En el FALSO, metés otra SI</h3>
+            <p>
+              En vez de escribir un texto en VALOR_SI_FALSO, escribís una
+              nueva función <code>SI(...)</code> completa, con su propia
+              prueba lógica: "¿aprobó 10 o más?".
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Cerrás con el último caso</h3>
+            <p>
+              Si esa segunda condición también es FALSO, ya solo queda una
+              posibilidad: "Inicial". Ese es el VALOR_SI_FALSO de la
+              función interna.
+            </p>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Celda H2 seleccionada — función SI anidada</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">H2</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value">=SI(E2&gt;20;"Avanzado";SI(E2&gt;=10;"Intermedio";"Inicial"))</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">E</div>
+              <div class="excel-cell col-h">H</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">ALUMNO</div>
+              <div class="excel-cell">CARRERA</div>
+              <div class="excel-cell">MATERIAS APROB.</div>
+              <div class="excel-cell">NIVEL DE AVANCE</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">Pinto, Claudia</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell ref">23</div>
+              <div class="excel-cell selected">Avanzado</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">Gimenez, Sofia</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell ref">15</div>
+              <div class="excel-cell selected">Intermedio</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(4, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell">Auber, Luida</div>
+              <div class="excel-cell">Lic. en Psicología</div>
+              <div class="excel-cell ref">9</div>
+              <div class="excel-cell selected">Inicial</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            La columna E (resaltada con línea punteada) es la que se
+            evalúa en las dos pruebas lógicas; la columna H muestra el
+            resultado de la fórmula anidada, ya copiada hacia abajo.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Leela de adentro hacia afuera, o de afuera hacia adentro</span>
+          <p>
+            <code>=SI(E2&gt;20;"Avanzado";SI(E2&gt;=10;"Intermedio";"Inicial"))</code>
+            se lee así: "si E2 es mayor a 20, mostrá Avanzado; si no,
+            evaluá esta otra pregunta: si E2 es mayor o igual a 10,
+            mostrá Intermedio, y si tampoco eso se cumple, mostrá
+            Inicial". La segunda función SI solo se evalúa cuando la
+            primera dio FALSO, nunca antes.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>El orden de las condiciones importa</span>
+          <p>
+            Por eso la primera condición evaluada es "mayor a 20", la más
+            exigente. Si en cambio empezaras preguntando "¿es mayor o
+            igual a 10?", un alumno con 23 materias también cumpliría esa
+            condición y quedaría clasificado como "Intermedio", porque la
+            función se detiene en la primera prueba lógica que da
+            VERDADERO y nunca llega a evaluar las siguientes.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>Importante: el texto siempre va entre comillas</span>
+          <p>
+            Cualquier texto que escribas directamente en un argumento de
+            una función —"Avanzado", "Intermedio", "Inicial"— tiene que
+            ir entre comillas dobles. Sin ellas, Excel intenta
+            interpretarlo como el nombre de una celda o de otra función, y
+            devuelve un error.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÁS DE TRES NIVELES -->
+    <section class="section" id="mas-niveles">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">La misma idea, un escalón más</p>
+          <h2>¿Y si hacen falta cuatro opciones o más?</h2>
+          <p>
+            La lógica de anidar no se detiene en dos niveles. Cada vez que
+            necesites una opción más, agregás una función SI nueva dentro
+            del VALOR_SI_FALSO de la anterior, como si fueran cajones que
+            se abren uno dentro de otro.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Cuatro niveles — ejemplo con una condición extra</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">H2</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value" style="white-space: normal; font-size: 0.7rem;">=SI(E2&gt;25;"Excelente";SI(E2&gt;20;"Avanzado";SI(E2&gt;=10;"Intermedio";"Inicial")))</span>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un paréntesis de cierre por cada SI que abriste</span>
+          <p>
+            Cada <code>SI(</code> que agregás necesita su propio
+            paréntesis de cierre <code>)</code> al final de la fórmula. En
+            el ejemplo de cuatro niveles hay tres funciones SI, así que la
+            fórmula termina con tres paréntesis de cierre seguidos. Excel
+            resalta con el mismo color cada par de paréntesis mientras
+            escribís, para ayudarte a llevar la cuenta.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>Cuándo conviene parar</span>
+          <p>
+            Excel permite anidar funciones SI hasta 64 niveles, pero en la
+            práctica una fórmula con más de tres o cuatro se vuelve
+            difícil de leer y de corregir. Cuando un problema tiene muchas
+            categorías posibles —por ejemplo, clasificar una nota en A, B,
+            C, D o F— suele convenir otra función, como BUSCARV contra
+            una tabla de referencia, que vas a conocer en la próxima
+            sección.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSCARV Y BUSCARH -->
+    <section class="section alt" id="buscarv-buscarh">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Traer un dato desde otra tabla</p>
+          <h2>BUSCARV y BUSCARH</h2>
+          <p>
+            Hasta acá, todas las fórmulas trabajaron con datos de la misma
+            fila. Pero muchas veces el dato que necesitás no está en la
+            tabla de alumnos, sino en <strong>otra tabla</strong>,
+            relacionado por un valor en común. Por ejemplo, ya sabés la
+            <strong>CARRERA</strong> de cada alumno: ¿cómo conseguís
+            automáticamente cuántos <strong>años dura</strong> esa
+            carrera, sin escribirlo a mano 79 veces y sin arriesgarte a
+            un error de tipeo?
+          </p>
+        </div>
+
+        <div class="hero-note">
+          <span>La tabla de referencia</span>
+          <p>
+            Armás una tabla chica y sin repetir, con la relación entre
+            cada carrera y su duración en años. En este ejemplo va en las
+            columnas J y K, empezando en la fila 2.
+          </p>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true">
+          <div class="excel-mock-label">Rango J2:K6 — tabla de referencia CARRERA / DURACIÓN</div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">J</div>
+              <div class="excel-cell col-h">K</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">Odontología</div>
+              <div class="excel-cell">5</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">Lic. en Nutrición</div>
+              <div class="excel-cell">4</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">4</div>
+              <div class="excel-cell">Lic. en Instr. Quirúrgica</div>
+              <div class="excel-cell">3</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">5</div>
+              <div class="excel-cell">Lic. en Psicología</div>
+              <div class="excel-cell">5</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(2, 1fr);">
+              <div class="excel-cell row-h">6</div>
+              <div class="excel-cell">Lic. en Terapia Ocup.</div>
+              <div class="excel-cell">4</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            Los años de duración son ilustrativos, pensados para practicar
+            la mecánica de BUSCARV; no representan la duración real de
+            cada carrera en la UAI.
+          </p>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Argumento de BUSCARV</th>
+                  <th>Qué significa</th>
+                  <th>En el ejemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>VALOR_BUSCADO</code></td>
+                  <td>El dato que querés encontrar, siempre en la primera columna del rango</td>
+                  <td><code>D2</code> (la carrera del alumno)</td>
+                </tr>
+                <tr>
+                  <td><code>MATRIZ_BUSCAR_EN</code></td>
+                  <td>El rango completo de la tabla de referencia, con referencias absolutas para poder copiarlo</td>
+                  <td><code>$J$2:$K$6</code></td>
+                </tr>
+                <tr>
+                  <td><code>INDICADOR_COLUMNAS</code></td>
+                  <td>Qué columna del rango devolver, contando desde 1 en la primera</td>
+                  <td><code>2</code> (la columna K, DURACIÓN)</td>
+                </tr>
+                <tr>
+                  <td><code>ORDENADO</code></td>
+                  <td>FALSO exige una coincidencia exacta; VERDADERO (u omitirlo) busca una aproximada</td>
+                  <td><code>FALSO</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="excel-mock" aria-hidden="true" style="margin-top: 1.5rem;">
+          <div class="excel-mock-label">Celda I2 seleccionada — función BUSCARV</div>
+          <div class="excel-formula-bar">
+            <span class="excel-name-box">I2</span>
+            <span class="excel-fx">fx</span>
+            <span class="excel-formula-value" style="white-space: normal; font-size: 0.72rem;">=BUSCARV(D2;$J$2:$K$6;2;FALSO)</span>
+          </div>
+          <div class="excel-grid">
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell corner"></div>
+              <div class="excel-cell col-h">C</div>
+              <div class="excel-cell col-h">D</div>
+              <div class="excel-cell col-h">I</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">1</div>
+              <div class="excel-cell">ALUMNO</div>
+              <div class="excel-cell">CARRERA</div>
+              <div class="excel-cell">DURACIÓN (BUSCARV)</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">2</div>
+              <div class="excel-cell">Pinto, Claudia</div>
+              <div class="excel-cell ref">Lic. en Nutrición</div>
+              <div class="excel-cell selected">4</div>
+            </div>
+            <div class="excel-row" style="grid-template-columns: 1.6rem repeat(3, 1fr);">
+              <div class="excel-cell row-h">3</div>
+              <div class="excel-cell">Auber, Luida</div>
+              <div class="excel-cell ref">Lic. en Psicología</div>
+              <div class="excel-cell selected">5</div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--muted); margin: 0.75rem 0 0;">
+            El valor buscado (columna D, con línea punteada) se compara
+            contra la primera columna del rango J2:K6; al encontrarlo,
+            BUSCARV trae el dato de la segunda columna de ese mismo
+            renglón.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué el rango lleva referencias absolutas</span>
+          <p>
+            Igual que aprendiste en la Clase 2 con <code>$</code>, la
+            tabla de referencia tiene que quedar fija al copiar la
+            fórmula hacia abajo: todas las filas deben buscar en el mismo
+            J2:K6. Si el rango quedara relativo, en la fila 3 buscaría en
+            J3:K7, un rango corrido que ya no contiene los datos
+            completos.
+          </p>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>FALSO, casi siempre</span>
+          <p>
+            Con FALSO, BUSCARV exige que el valor buscado exista
+            exactamente en la tabla de referencia; si no lo encuentra,
+            devuelve el error <code>#N/D</code> en vez de inventar un
+            resultado aproximado. Es el comportamiento que casi siempre
+            conviene con datos de texto, como nombres de carreras. Dejar
+            el argumento en VERDADERO (o vacío) solo tiene sentido con
+            listas numéricas ordenadas, como franjas de sueldo o de edad.
+          </p>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <p class="eyebrow">La misma idea, pero de costado</p>
+          <h2>BUSCARH: igual que BUSCARV, en horizontal</h2>
+          <p>
+            BUSCARH hace exactamente lo mismo que BUSCARV, con una sola
+            diferencia: la tabla de referencia está organizada en
+            <strong>filas</strong> en lugar de columnas, y el resultado se
+            busca contando renglones hacia abajo en vez de columnas hacia
+            la derecha.
+          </p>
+        </div>
+
+        <div class="excel-compare" aria-hidden="true">
+          <figure>
+            <figcaption>BUSCARV — tabla en columnas</figcaption>
+            <div class="excel-mock">
+              <div class="excel-grid">
+                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
+                  <div class="excel-cell col-h">Odontología</div>
+                  <div class="excel-cell col-h">Nutrición</div>
+                </div>
+                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
+                  <div class="excel-cell selected">5</div>
+                  <div class="excel-cell selected">4</div>
+                </div>
+              </div>
+            </div>
+          </figure>
+          <figure>
+            <figcaption>BUSCARH — tabla en filas</figcaption>
+            <div class="excel-mock">
+              <div class="excel-grid">
+                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
+                  <div class="excel-cell row-h">Odontología</div>
+                  <div class="excel-cell row-h">Nutrición</div>
+                </div>
+                <div class="excel-row" style="grid-template-columns: repeat(2, 1fr);">
+                  <div class="excel-cell selected">5</div>
+                  <div class="excel-cell selected">4</div>
+                </div>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>BUSCARV</th>
+                  <th>BUSCARH</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>=BUSCARV(D2;$J$2:$K$6;2;FALSO)</code></td>
+                  <td><code>=BUSCARH(D2;$J$1:$N$2;2;FALSO)</code></td>
+                </tr>
+                <tr>
+                  <td>Busca el valor en la <strong>primera columna</strong> del rango</td>
+                  <td>Busca el valor en la <strong>primera fila</strong> del rango</td>
+                </tr>
+                <tr>
+                  <td>El tercer argumento cuenta <strong>columnas</strong> hacia la derecha</td>
+                  <td>El tercer argumento cuenta <strong>filas</strong> hacia abajo</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué BUSCARV es, en la práctica, la más usada</span>
+          <p>
+            La mayoría de las tablas que se arman en Excel crecen hacia
+            abajo, agregando filas —un alumno nuevo, un producto nuevo,
+            una venta nueva—, no hacia la derecha. Por eso las tablas de
+            referencia casi siempre se organizan en columnas, y BUSCARV
+            termina siendo la función que más se usa día a día. BUSCARH
+            aparece cuando la información de referencia ya viene
+            organizada en filas, por ejemplo un cronograma con los meses
+            del año como encabezados.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section" id="errores-comunes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando la fórmula "no anda"</p>
+          <h2>Errores comunes de la clase</h2>
+          <p>
+            Las tres herramientas de hoy son más potentes que las
+            anteriores, y también más sensibles a un detalle mal escrito.
+            Esta lista reúne los tropiezos más frecuentes.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lo que pasa</th>
+                  <th>Por qué ocurre</th>
+                  <th>Cómo evitarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Excel marca un paréntesis de más o de menos</td>
+                  <td>Cada función SI anidada abre un paréntesis que necesita su propio cierre, y es fácil perder la cuenta con tres o más niveles</td>
+                  <td>Contar los <code>SI(</code> de la fórmula y verificar que haya exactamente esa cantidad de paréntesis de cierre al final</td>
+                </tr>
+                <tr>
+                  <td>Todos los alumnos quedan clasificados en la misma categoría</td>
+                  <td>Las condiciones se escribieron en un orden que hace que la primera prueba lógica ya capture casos que debían caer en una categoría posterior</td>
+                  <td>Ordenar las condiciones de la más exigente a la menos exigente, como "mayor a 20" antes que "mayor o igual a 10"</td>
+                </tr>
+                <tr>
+                  <td>BUSCARV devuelve <code>#N/D</code></td>
+                  <td>El valor buscado no existe de forma exacta en la primera columna del rango, por ejemplo por un espacio de más o una tilde distinta</td>
+                  <td>Revisar que el texto de VALOR_BUSCADO coincida letra por letra con algún valor de la tabla de referencia</td>
+                </tr>
+                <tr>
+                  <td>BUSCARV trae datos correctos en la fila 2, pero incorrectos al copiar hacia abajo</td>
+                  <td>El rango de la tabla de referencia se escribió sin el signo <code>$</code>, así que se corrió al copiar la fórmula</td>
+                  <td>Usar referencias absolutas en MATRIZ_BUSCAR_EN, por ejemplo <code>$J$2:$K$6</code>, igual que con SUMAR.SI en la Clase 4</td>
+                </tr>
+                <tr>
+                  <td>Un texto en la fórmula da error en lugar de mostrarse</td>
+                  <td>El texto se escribió sin comillas dobles, y Excel intenta interpretarlo como el nombre de una celda</td>
+                  <td>Todo texto escrito directamente en un argumento va entre comillas: <code>"Avanzado"</code>, nunca <code>Avanzado</code> a secas</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un chequeo rápido, igual que en las clases anteriores</span>
+          <p>
+            Antes de copiar una fórmula anidada o una BUSCARV a las 79
+            filas, probala en dos o tres casos donde ya sabés el
+            resultado esperado. Si coincide, recién ahí copiala hacia
+            abajo con el controlador de relleno.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDA DIARIA -->
+    <section class="section alt" id="vida-diaria">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para llevártelo de acá</p>
+          <h2>Dónde vas a usar esto fuera de la facultad</h2>
+          <p>
+            SI anidada y BUSCARV son, junto con las funciones de la Clase
+            4, el corazón de gran parte de las planillas que se usan en
+            ámbitos de salud y de gestión en general.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Situación</th>
+                  <th>Pregunta que te hacés</th>
+                  <th>Herramienta recomendada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Clasificar un signo vital</td>
+                  <td>¿La presión de un paciente está en rango normal, alta o en emergencia?</td>
+                  <td>SI anidada, con un nivel por cada franja de valores</td>
+                </tr>
+                <tr>
+                  <td>Ficha de pacientes y obras sociales</td>
+                  <td>¿A qué plan de cobertura corresponde la obra social de este paciente?</td>
+                  <td>BUSCARV contra una tabla de referencia de obras sociales y planes</td>
+                </tr>
+                <tr>
+                  <td>Calificar un resultado de laboratorio</td>
+                  <td>¿El valor está dentro de lo esperado, es levemente alto o requiere alerta?</td>
+                  <td>SI anidada con tres o cuatro niveles, según el estudio</td>
+                </tr>
+                <tr>
+                  <td>Armar una fórmula que no usás seguido</td>
+                  <td>¿Cuál era el orden exacto de los argumentos de esta función?</td>
+                  <td>Asistente para funciones, para no tener que buscarlo aparte</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>La idea de fondo</span>
+          <p>
+            Cuanto más grande y variada es la información que manejás, más
+            frecuente es necesitar más de dos categorías, o cruzar datos
+            entre dos tablas distintas. SI anidada y BUSCARV son,
+            justamente, las dos formas más directas de resolver esos dos
+            problemas en Excel.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS RECOMENDADOS -->
+    <section class="section" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para repasar todo junto</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Como apoyo para esta clase, te dejamos dos videos: uno sobre
+            la función SI() anidada, y otro sobre las diferencias entre
+            BUSCAR, BUSCARV y BUSCARH. Mirálos antes de resolver la
+            actividad para familiarizarte con la mecánica de cada
+            función, o después, como repaso de todo lo visto.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/rJ2JsgYpx5k"
+                title="Video recomendado — Unidad 1, Clase 6: Función SI anidada en Excel"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/SyedoXZMyHs"
+                title="Video recomendado — Unidad 1, Clase 6: Diferencias entre BUSCAR, BUSCARV y BUSCARH"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Si el video no coincide exactamente con esta guía</span>
+          <p>
+            Es normal que un video use otra tabla de ejemplo o nombres de
+            columna distintos: lo importante es la mecánica de la
+            función, que es la misma que viste acá. Si tenés dudas sobre
+            el video puntual asignado en la plataforma, consultalo con tu
+            docente.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIERRE DE LA CLASE -->
+    <section class="section alt" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Practicá, y después reflexioná en el foro</h2>
+          <p>
+            Ya viste el Asistente para funciones, la función SI anidada y
+            las funciones BUSCARV/BUSCARH explicados y resueltos con
+            ejemplos. Ahora te toca a vos: practicalos en tu propio
+            archivo y compartí tu mirada en el foro de la Unidad.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>1. Practicá en tu archivo</h3>
+            <p>
+              Sobre el Excel que venís usando desde la Clase 5, agregá una
+              columna con una función SI anidada de tres niveles, y otra
+              columna que use BUSCARV contra una tabla de referencia
+              armada por vos.
+            </p>
+          </article>
+          <article class="simple-card featured">
+            <h3>2. Respondé para el foro</h3>
+            <p>
+              La actividad de esta clase te pide reflexionar, no solo
+              resolver: ¿el Asistente para funciones te ayudó a usar
+              funciones? ¿Cómo? ¿Cuántas opciones puede evaluar la función
+              SI, y cómo se resuelve cuando hacen falta más? ¿Qué usos le
+              darías a estas herramientas en tu futuro rol profesional?
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>3. Compartilo con tus colegas</h3>
+            <p>
+              Subí tus respuestas al foro de dudas y debates de la
+              Unidad 1, y leé también los aportes de tus compañeros: es la
+              forma de comparar distintos usos posibles para la misma
+              herramienta.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Por qué esta clase cierra con una reflexión</span>
+          <p>
+            A diferencia de otras clases, hoy el objetivo no es que la
+            planilla "dé un resultado específico", sino que incorpores
+            una forma de pensar: identificar cuántas opciones tiene un
+            problema, y elegir la herramienta adecuada —una SI simple, una
+            SI anidada, o una BUSCARV— según ese número. Esa decisión es
+            la que te van a pedir que expliques en el foro.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase5.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 5 · Filtros y ordenamiento</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Clase 7 · Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 1 · Clase 6</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
