@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 7</title>
+  <meta
+    name="description"
+    content="Clase 7 de Informática Aplicada (C1-21-10, Todas las comisiones): insertar vínculos y marcadores, notas al pie y al final, y crear y actualizar una tabla de contenido en Word."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+
+    /* ===== "AHORA VOS" / PREDICCIÓN ===== */
+    .now-box {
+      margin-top: 1.75rem;
+      border: 2px dashed var(--accent);
+      background: var(--accent-soft);
+      border-radius: 14px;
+      padding: 1rem 1.25rem 1.1rem;
+    }
+    .now-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.35rem;
+    }
+    .now-box p { margin: 0.25rem 0 0; font-size: 0.92rem; color: var(--text); line-height: 1.6; }
+    .now-box ol { margin: 0.5rem 0 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text); line-height: 1.7; }
+    kbd {
+      display: inline-block;
+      padding: 0.05rem 0.45rem;
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.8em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .predict {
+      margin-top: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 5px solid #7c3aed;
+      border-radius: 0.6rem;
+      padding: 0.1rem 1.1rem;
+    }
+    .predict summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.8rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .predict summary::-webkit-details-marker { display: none; }
+    .predict summary::before { content: "🤔 "; }
+    .predict[open] summary::before { content: "💡 "; }
+    .predict p { margin: 0 0 0.9rem; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ===== HOJA DE RUTA ===== */
+    .rm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+      gap: 0.9rem;
+    }
+    .rm-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--c);
+      border-radius: 14px;
+      padding: 0.95rem 1rem 1.05rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .rm-card h3 { margin: 0.3rem 0 0.3rem; font-size: 1rem; }
+    .rm-card p { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ===== GANCHO: BUSCAR EN UN DOCUMENTO LARGO ===== */
+    .hook {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .hook-pages {
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      gap: 4px;
+      margin: 0.9rem 0 1rem;
+    }
+    .hook-pages span {
+      aspect-ratio: 3 / 4;
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 2px;
+      position: relative;
+    }
+    .hook-pages span::after {
+      content: "";
+      position: absolute;
+      left: 18%; right: 18%; top: 22%;
+      height: 3px;
+      background: #cbd5e1;
+      box-shadow: 0 5px 0 #cbd5e1, 0 10px 0 #cbd5e1;
+    }
+    .hook-pages span.scan { background: #fde68a; border-color: #f59e0b; }
+    .hook-pages span.target { background: #bbf7d0; border-color: #16a34a; box-shadow: 0 0 0 2px #16a34a; }
+    .hook-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+    .hook-clock {
+      margin-left: auto;
+      font-weight: 800;
+      font-size: 1.15rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+    .hook-clock small { font-weight: 500; font-size: 0.7rem; color: var(--muted); }
+    .lab-btn {
+      cursor: pointer;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .lab-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+    .lab-btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .lab-btn:focus-visible, .quiz-opt:focus-visible, .dlg-tab:focus-visible {
+      outline: 3px solid #f59e0b;
+      outline-offset: 2px;
+    }
+
+    /* ===== TRES PREGUNTAS (REGLA MNEMOTÉCNICA) ===== */
+    .three-q {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .q-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.1rem 1.15rem 1.2rem;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+    }
+    .q-card .q-ico { font-size: 2.1rem; line-height: 1; }
+    .q-card .q-ask { margin: 0.55rem 0 0.15rem; font-size: 1.02rem; font-weight: 800; color: var(--text); }
+    .q-card .q-tool { margin: 0; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c); }
+    .q-card .q-txt { margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* ===== QUIZ ===== */
+    .quiz-q {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.05rem 1.25rem 1.1rem;
+      margin-top: 1rem;
+    }
+    .quiz-title { margin: 0 0 0.7rem; font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .quiz-opts { display: grid; gap: 0.5rem; }
+    .quiz-opt {
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      font-size: 0.88rem;
+      color: var(--text);
+      background: var(--surface-soft);
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 0.6rem 0.85rem;
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .quiz-opt:hover:not(:disabled) { border-color: var(--primary); }
+    .quiz-opt:disabled { cursor: default; }
+    .quiz-opt.ok { background: #dcfce7; border-color: #16a34a; color: #14532d; }
+    .quiz-opt.bad { background: #fee2e2; border-color: #dc2626; color: #7f1d1d; }
+    .quiz-fb { margin: 0.75rem 0 0; font-size: 0.85rem; line-height: 1.55; color: var(--muted); }
+    .quiz-fb strong { color: var(--text); }
+    .quiz-score {
+      margin-top: 1.1rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 14px;
+      background: var(--primary-soft);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    /* ===== DIÁLOGO INSERTAR VÍNCULO ===== */
+    .dlg {
+      background: #f0f0f0;
+      border: 1px solid #9ca3af;
+      border-radius: 6px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.2);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #111;
+      overflow: hidden;
+      font-size: 0.78rem;
+    }
+    .dlg-title {
+      background: #fff;
+      padding: 0.45rem 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      border-bottom: 1px solid #d1d5db;
+    }
+    .dlg-body { display: grid; grid-template-columns: 9.5rem 1fr; min-height: 13.5rem; }
+    @media (max-width: 560px) { .dlg-body { grid-template-columns: 1fr; } }
+    .dlg-side { background: #e5e7eb; padding: 0.55rem 0.4rem; display: flex; flex-direction: column; gap: 0.3rem; }
+    .dlg-side small { font-size: 0.66rem; color: #4b5563; padding-left: 0.3rem; }
+    .dlg-tab {
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.74rem;
+      text-align: left;
+      color: #111;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      padding: 0.45rem 0.5rem;
+      line-height: 1.25;
+    }
+    .dlg-tab:hover { background: #d1d5db; }
+    .dlg-tab.on { background: #fff; border-color: #2b579a; box-shadow: inset 3px 0 0 #2b579a; font-weight: 700; }
+    .dlg-main { background: #fff; padding: 0.8rem 1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+    .dlg-field { display: grid; grid-template-columns: 6.2rem 1fr; gap: 0.5rem; align-items: center; }
+    .dlg-field label { font-size: 0.72rem; color: #374151; }
+    .dlg-input {
+      border: 1px solid #9ca3af;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      background: #fff;
+      border-radius: 2px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .dlg-input.hl { border-color: #2b579a; box-shadow: 0 0 0 2px rgba(43,87,154,0.25); }
+    .dlg-list { border: 1px solid #9ca3af; padding: 0.35rem 0.5rem; font-size: 0.72rem; line-height: 1.6; background: #fff; }
+    .dlg-list .sel { background: #2b579a; color: #fff; padding: 0 0.25rem; }
+    .dlg-note {
+      margin-top: auto;
+      font-size: 0.72rem;
+      color: #1e3a8a;
+      background: #eff6ff;
+      border-left: 3px solid #2b579a;
+      padding: 0.4rem 0.6rem;
+      line-height: 1.45;
+    }
+    .dlg-foot { background: #f0f0f0; padding: 0.5rem 0.8rem; display: flex; gap: 0.5rem; justify-content: flex-end; border-top: 1px solid #d1d5db; }
+    .dlg-foot span { border: 1px solid #9ca3af; background: #e5e7eb; padding: 0.18rem 1.1rem; font-size: 0.72rem; border-radius: 2px; }
+    .dlg-foot span.ok { background: #dbeafe; border-color: #2b579a; }
+
+    /* ===== ANATOMÍA DE UN VÍNCULO ===== */
+    .link-anatomy {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .la-box {
+      flex: 1 1 11rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      text-align: center;
+    }
+    .la-box small { display: block; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .la-box .la-link { color: #0563c1; text-decoration: underline; font-weight: 600; font-size: 0.95rem; }
+    .la-box .la-url { font-family: Consolas, monospace; font-size: 0.78rem; color: var(--text); word-break: break-all; }
+    .la-arrow { align-self: center; font-size: 1.6rem; color: var(--primary); }
+
+    /* ===== DIAGRAMA MARCADOR ===== */
+    .bm-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.2rem; }
+    .bm-wrap svg { width: 100%; height: auto; display: block; }
+    .bm-wrap text { font-family: 'Segoe UI', system-ui, sans-serif; }
+
+    /* ===== NOTAS AL PIE / AL FINAL ===== */
+    .fn-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 0.9rem; }
+    .fn-switch button {
+      cursor: pointer;
+      border: 0;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      background: var(--surface);
+      color: var(--muted);
+    }
+    .fn-switch button.on { background: var(--primary); color: #fff; }
+    .fn-pages { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .fn-pages { grid-template-columns: 1fr; } }
+    .fn-page {
+      background: #fff;
+      color: #111;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 0.9rem 1.1rem 0.8rem;
+      min-height: 15.5rem;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.65;
+    }
+    .fn-page .fn-pg-label { font-size: 0.62rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.5rem; }
+    .fn-page p { margin: 0 0 0.4rem; }
+    .fn-ref {
+      cursor: pointer;
+      color: #0563c1;
+      font-weight: 800;
+      font-size: 0.7em;
+      vertical-align: super;
+      padding: 0 1px;
+    }
+    .fn-notes { margin-top: auto; border-top: 1px solid #111; width: 45%; padding-top: 0.35rem; min-height: 1.2rem; }
+    .fn-notes.wide { width: 100%; border-top: 0; }
+    .fn-note { font-size: 0.7rem; line-height: 1.5; color: #374151; border-radius: 3px; padding: 0 0.2rem; }
+    .fn-note.flash { background: #fde68a; }
+    .fn-empty { color: #9ca3af; font-style: italic; font-size: 0.72rem; }
+
+    /* ===== ANATOMÍA DE UN DOCUMENTO PROFESIONAL ===== */
+    .doc-flow { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: stretch; justify-content: center; }
+    .df-page {
+      flex: 1 1 8.5rem;
+      max-width: 12rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.8rem 0.85rem 0.9rem;
+      text-align: center;
+      border-top: 4px solid var(--c);
+    }
+    .df-page .df-ico { font-size: 1.6rem; }
+    .df-page h4 { margin: 0.3rem 0 0.15rem; font-size: 0.9rem; }
+    .df-page p { margin: 0; font-size: 0.74rem; color: var(--muted); line-height: 1.45; }
+    .df-page .df-when { display: inline-block; margin-top: 0.4rem; font-size: 0.64rem; font-weight: 800; padding: 0.08rem 0.5rem; border-radius: 999px; background: var(--c); color: #fff; }
+    .df-arrow { align-self: center; font-size: 1.3rem; color: var(--muted); }
+
+    /* ===== ACTIVIDADES ===== */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .progress { height: 0.7rem; background: var(--surface-soft); border-radius: 999px; overflow: hidden; margin: 0.4rem 0 0.2rem; }
+    .progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0; }
+    .chk-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .chk-list li { background: var(--surface-soft); border-radius: 12px; padding: 0.7rem 0.9rem; }
+    .chk-list label { display: flex; gap: 0.7rem; cursor: pointer; align-items: flex-start; }
+    .chk-list input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--accent); flex: none; }
+    .chk-list .chk-txt { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+    .chk-list .chk-txt small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+    .chk-list input:checked + .chk-txt { opacity: 0.6; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
+    .chk-list input:checked + .chk-txt small { text-decoration: none; }
+
+    .vs-page kbd, .fn-page kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    [data-theme="dark"] .la-box .la-link { color: #7db8ff; }
+
+    /* ===== CORRECTO VS INCORRECTO ===== */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 600px) { .vs-grid { grid-template-columns: 1fr; } }
+    .vs-box {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+    .vs-header {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .vs-wrong .vs-header { background: #dc2626; color: #fff; }
+    .vs-right .vs-header { background: #16a34a; color: #fff; }
+    .vs-page {
+      background: #fff;
+      padding: 1rem 1.25rem;
+      min-height: 120px;
+      color: #111;
+      font-size: 0.77rem;
+      line-height: 1.55;
+    }
+    .vs-page p { margin: 0.4rem 0 0; }
+    .vs-page .fake-link { color: #0563c1; text-decoration: underline; }
+    .vs-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.65rem;
+      line-height: 1.5;
+    }
+
+    /* Preguntas frecuentes */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Video cards con miniatura */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+    .video-ask { margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .video-ask b { color: var(--primary); }
+    .video-ans { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+    .video-ans summary { cursor: pointer; font-weight: 700; color: var(--primary); }
+    .video-ans p { margin: 0.4rem 0 0; line-height: 1.55; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#ruta">Contenidos</a>
+        <a href="#repaso">Repaso</a>
+        <a href="#vinculos">Vínculos</a>
+        <a href="#notas">Notas al pie y al final</a>
+        <a href="#toc">Tabla de contenido</a>
+        <a href="#errores">Errores comunes</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#ticket">Ticket de salida</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 2</p>
+        <h1>Referencias: Vínculos, Notas y Tabla de contenido</h1>
+        <p class="lead">
+          Hoy le damos a un documento de <strong>Microsoft Word</strong> las
+          herramientas de un trabajo académico serio: <strong>vínculos</strong>
+          para saltar a donde queramos con un clic, <strong>notas al pie y al
+          final</strong> para aclarar y citar sin ensuciar el texto, y una
+          <strong>tabla de contenido</strong> que se arma sola y se actualiza
+          con un botón.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ruta">Ver los contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 7</li>
+          <li>Microsoft Word</li>
+          <li>Ficha Referencias</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Que tu documento se pueda navegar, citar y ordenar solo</h2>
+        <p>
+          Insertar vínculos y marcadores, agregar notas al pie y al final, y
+          crear, actualizar y personalizar una tabla de contenido automática.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Enlazar</span>
+          <span>Citar</span>
+          <span>Indexar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Idea clave</span>
+          <p>
+            Todo lo de hoy sigue la misma regla: <strong>no lo escribas a
+            mano si Word puede calcularlo por vos</strong> — números de nota,
+            números de página del índice y direcciones de vínculos.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HOJA DE RUTA -->
+    <section class="section" id="ruta">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Lo que vamos a ver</p>
+          <h2>Contenidos de la clase</h2>
+          <p>
+            Cada bloque sigue el mismo ritmo: <strong>miramos → probamos
+            nosotros → practicás vos</strong>. Word abierto desde el
+            principio: se aprende haciendo, no mirando.
+          </p>
+        </div>
+
+        <div class="rm-grid">
+          <article class="rm-card" style="--c:#7c3aed;">
+            <h3>Repaso</h3>
+            <p>Lo que vimos la clase pasada y el problema que resuelve la clase de hoy.</p>
+          </article>
+          <article class="rm-card" style="--c:#2563eb;">
+            <h3>Vínculos</h3>
+            <p>Web, lugares del documento, archivos y correos. Marcadores y el atajo <kbd>Ctrl</kbd>+<kbd>K</kbd>.</p>
+          </article>
+          <article class="rm-card" style="--c:#0d9488;">
+            <h3>Notas</h3>
+            <p>Nota al pie vs. nota al final, y cómo se numeran solas.</p>
+          </article>
+          <article class="rm-card" style="--c:#b45309;">
+            <h3>Tabla de contenido</h3>
+            <p>Estilos de título, índice automático, actualizarlo y personalizarlo.</p>
+          </article>
+          <article class="rm-card" style="--c:#db2777;">
+            <h3>Práctica</h3>
+            <p>Cinco pasos sobre el "Ejercicio 2 · Revolución Industrial".</p>
+          </article>
+          <article class="rm-card" style="--c:#475569;">
+            <h3>Ticket de salida</h3>
+            <p>5 preguntas para comprobar qué te llevás de hoy.</p>
+          </article>
+        </div>
+
+        <!-- 3 PREGUNTAS -->
+        <p class="eyebrow" style="margin:2.25rem 0 0;">Tres preguntas, tres herramientas: el hilo de toda la clase</p>
+        <div class="three-q">
+          <article class="q-card" style="--c:#2563eb;">
+            <div class="q-ico">🔗</div>
+            <p class="q-ask">¿Adónde voy?</p>
+            <p class="q-tool">Vínculo</p>
+            <p class="q-txt">Un clic me lleva a una web, a otra parte del documento, a un archivo o a un correo.</p>
+          </article>
+          <article class="q-card" style="--c:#0d9488;">
+            <div class="q-ico">📝</div>
+            <p class="q-ask">¿De dónde salió eso?</p>
+            <p class="q-tool">Nota al pie / al final</p>
+            <p class="q-txt">Aclaro, defino o cito la fuente sin interrumpir el texto principal.</p>
+          </article>
+          <article class="q-card" style="--c:#b45309;">
+            <div class="q-ico">📑</div>
+            <p class="q-ask">¿Qué hay y en qué página?</p>
+            <p class="q-tool">Tabla de contenido</p>
+            <p class="q-txt">Un índice automático con los títulos del documento y sus números de página.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO -->
+    <section class="section alt" id="repaso">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para empezar</p>
+          <h2>Lo que vimos la clase pasada</h2>
+          <p>
+            En la Clase 6 trabajamos sobre el documento <strong>"Revolución
+            Industrial"</strong> y le sumamos recursos para que se vea
+            completo y ordenado. Un repaso rápido antes de seguir.
+          </p>
+        </div>
+
+        <div class="card-grid two-col-grid">
+          <article class="simple-card">
+            <h3>SmartArt</h3>
+            <p>
+              Convierte un texto en un diagrama (lista, proceso, jerarquía…).
+              Se carga desde el <strong>Panel de texto</strong> y se diseña
+              desde la ficha Diseño de SmartArt.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Viñetas y numeración</h3>
+            <p>
+              Ordenan las enumeraciones. La <strong>numeración automática</strong>
+              se recalcula sola si agregás, borrás o movés ítems.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Modelos y formas 3D</h3>
+            <p>
+              Un modelo 3D real se rota en cualquier ángulo; una forma con
+              relleno de imagen simula volumen con menos peso.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Portada</h3>
+            <p>
+              Insertar → Páginas → Portada. Va siempre como primera hoja y,
+              con <strong>Primera página diferente</strong>, queda sin
+              encabezado ni numeración.
+            </p>
+          </article>
+        </div>
+
+        <article class="takeaways" style="margin-top:1.5rem;">
+          <h3>Y lo que une todo: dejar que Word calcule por vos</h3>
+          <ul>
+            <li>Una numeración o un número de página <strong>tipeado a mano</strong> es solo texto: si el documento cambia, queda mal.</li>
+            <li>Cuando lo arma una herramienta de Word, <strong>se corrige solo</strong>. Esa misma idea es la de la clase de hoy.</li>
+            <li>Hoy le sumamos al documento la parte que lo hace <strong>navegable y citable</strong>: vínculos, notas y un índice.</li>
+          </ul>
+        </article>
+
+        <!-- GANCHO -->
+        <p class="eyebrow" style="margin:2.25rem 0 0.6rem;">El problema de hoy · probalo vos</p>
+        <div class="hook">
+          <p style="margin:0;font-size:0.92rem;color:var(--text);">
+            Este informe tiene <strong>40 páginas</strong> y el <strong>Capítulo 4</strong>
+            está en la página 27. Elegí cómo llegar:
+          </p>
+          <div class="hook-pages" id="hookPages" aria-hidden="true"></div>
+          <div class="hook-actions">
+            <button class="lab-btn" id="hookScroll">🐌 Bajar página por página</button>
+            <button class="lab-btn primary" id="hookJump">⚡ Ctrl+clic en el índice</button>
+            <div class="hook-clock" id="hookClock" aria-live="polite">⏱ 0:00 <small>(tiempo simulado)</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VÍNCULOS -->
+    <section class="section" id="vinculos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Vínculos</p>
+          <h2>Vínculos y Marcadores</h2>
+          <p>
+            Un vínculo (o hipervínculo) es una <strong>puerta</strong>: el
+            texto es el cartel que ves, y el destino es la habitación a la
+            que entrás al hacer <kbd>Ctrl</kbd>+clic. Sirve para navegar
+            dentro del documento o para salir hacia otros lugares.
+          </p>
+          <p>
+            Sin vínculos, un documento es como una hoja impresa: quien lo
+            lee tiene que buscar por su cuenta lo que le interesa. Con
+            vínculos, el mismo documento se vuelve <strong>navegable</strong>:
+            el lector salta a la fuente, vuelve al índice o te escribe un
+            mail con un solo clic. Funcionan mientras el documento se lee
+            en pantalla, y se conservan si lo guardás como PDF.
+          </p>
+        </div>
+
+        <div class="card-grid three" style="margin-bottom:2.25rem;">
+          <article class="simple-card featured">
+            <h3>¿Para qué sirve?</h3>
+            <p>
+              Para <strong>ampliar información sin agrandar el texto</strong>:
+              en vez de copiar un artículo entero, dejás el vínculo y quien
+              quiera profundizar lo abre. También conecta partes del mismo
+              documento entre sí.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>¿Cuándo lo uso?</h3>
+            <p>
+              Al citar una <strong>fuente de internet</strong>, al armar un
+              "Volver al índice" en documentos largos, al ofrecer un
+              contacto por correo o al remitir a un archivo complementario.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>En nuestro documento</h3>
+            <p>
+              Vamos a vincular "Revolución Neolítica" con una página de
+              Wikipedia y a crear un "Volver al índice" al final del
+              trabajo, usando un <strong>marcador</strong>.
+            </p>
+          </article>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.75rem;">Un vínculo siempre tiene dos partes</p>
+        <div class="link-anatomy">
+          <div class="la-box">
+            <small>1 · Lo que se ve</small>
+            <span class="la-link">Revolución Neolítica</span>
+          </div>
+          <div class="la-arrow" aria-hidden="true">→</div>
+          <div class="la-box">
+            <small>2 · Adónde lleva</small>
+            <span class="la-url">https://es.wikipedia.org/wiki/Revolución_neolítica</span>
+          </div>
+        </div>
+
+        <details class="predict">
+          <summary>Antes de seguir: ¿cuántos tipos de destino te imaginás que puede tener un vínculo?</summary>
+          <p>Pensalo un momento y después tocá cada pestaña del cuadro de abajo. Son <strong>cuatro</strong>: página web o archivo, un lugar del mismo documento, un documento nuevo y una dirección de correo.</p>
+        </details>
+
+        <!-- DIÁLOGO INTERACTIVO -->
+        <p class="eyebrow" style="margin:2rem 0 0.75rem;">El cuadro "Insertar hipervínculo" · tocá cada opción de la izquierda</p>
+        <div class="dlg" id="dlg">
+          <div class="dlg-title"><span>Insertar hipervínculo</span><span>✕</span></div>
+          <div class="dlg-body">
+            <div class="dlg-side" role="tablist" aria-label="Vincular a">
+              <small>Vincular a:</small>
+              <button class="dlg-tab on" role="tab" data-k="web">Archivo o página web existente</button>
+              <button class="dlg-tab" role="tab" data-k="doc">Lugar de este documento</button>
+              <button class="dlg-tab" role="tab" data-k="new">Crear nuevo documento</button>
+              <button class="dlg-tab" role="tab" data-k="mail">Dirección de correo electrónico</button>
+            </div>
+            <div class="dlg-main" id="dlgMain"></div>
+          </div>
+          <div class="dlg-foot"><span class="ok">Aceptar</span><span>Cancelar</span></div>
+        </div>
+
+        <p class="eyebrow" style="margin:2.25rem 0 0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Seleccionar el texto</h3>
+            <p>
+              Marcá la palabra o frase que va a funcionar como "cartel".
+              Elegí un texto que <strong>diga adónde lleva</strong>, no un
+              "hacé clic aquí".
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Abrir el cuadro</h3>
+            <p>
+              Insertar → Vínculos → <strong>Vínculo</strong>, o el atajo
+              <kbd>Ctrl</kbd>+<kbd>K</kbd>. También: clic derecho →
+              Vínculo.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Elegir el destino</h3>
+            <p>
+              Escogé una de las cuatro opciones de la izquierda, completá
+              la dirección o el lugar y aceptá. El texto pasa a
+              <strong>azul y subrayado</strong>.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>4. Probarlo</h3>
+            <p>
+              Mantené <kbd>Ctrl</kbd> y hacé clic sobre el vínculo. Si no
+              te lleva al lugar correcto, clic derecho →
+              <strong>Editar vínculo</strong>.
+            </p>
+          </article>
+        </div>
+
+        <!-- MARCADOR -->
+        <div style="margin-top:2.5rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Marcadores · para llegar a un lugar exacto del documento</p>
+          <div class="section-head" style="margin-bottom:1rem;">
+            <p>
+              Para que un vínculo interno sepa adónde ir, ese lugar tiene que
+              estar "marcado". Un <strong>marcador</strong> es como clavar
+              una banderita invisible en un punto del texto: después, el
+              vínculo apunta a la banderita.
+            </p>
+            <p>
+              El marcador no se ve en la hoja ni cambia el formato del
+              texto: solo le pone un <strong>nombre</strong> a ese lugar
+              para que Word pueda encontrarlo. Es ideal para vínculos del
+              tipo "Ir a la conclusión" o "Volver al principio", y no
+              depende del número de página: aunque el texto se mueva, el
+              marcador se mueve con él.
+            </p>
+          </div>
+
+          <div class="bm-wrap">
+            <svg viewBox="0 0 640 190" role="img" aria-label="Un vínculo en la página 1 lleva al marcador 'Conclusion' en la página 3">
+              <!-- páginas -->
+              <g>
+                <rect x="20" y="20" width="150" height="150" rx="4" fill="#fff" stroke="#cbd5e1"/>
+                <rect x="245" y="20" width="150" height="150" rx="4" fill="#fff" stroke="#cbd5e1"/>
+                <rect x="470" y="20" width="150" height="150" rx="4" fill="#fff" stroke="#cbd5e1"/>
+                <text x="95" y="184" font-size="11" text-anchor="middle" fill="#6b7280">Página 1</text>
+                <text x="320" y="184" font-size="11" text-anchor="middle" fill="#6b7280">Página 2</text>
+                <text x="545" y="184" font-size="11" text-anchor="middle" fill="#6b7280">Página 3</text>
+              </g>
+              <!-- líneas de texto -->
+              <g stroke="#e5e7eb" stroke-width="5" stroke-linecap="round">
+                <line x1="36" y1="40" x2="154" y2="40"/><line x1="36" y1="54" x2="140" y2="54"/>
+                <line x1="261" y1="40" x2="379" y2="40"/><line x1="261" y1="54" x2="360" y2="54"/><line x1="261" y1="68" x2="379" y2="68"/>
+                <line x1="486" y1="40" x2="604" y2="40"/><line x1="486" y1="54" x2="590" y2="54"/>
+                <line x1="486" y1="120" x2="600" y2="120"/><line x1="486" y1="134" x2="580" y2="134"/>
+              </g>
+              <!-- vínculo -->
+              <text x="36" y="96" font-size="13" fill="#0563c1" text-decoration="underline" font-weight="600">Ir a la conclusión</text>
+              <line x1="36" y1="99" x2="150" y2="99" stroke="#0563c1" stroke-width="1.2"/>
+              <text x="36" y="118" font-size="10" fill="#6b7280">Ctrl + clic</text>
+              <!-- flecha -->
+              <path d="M150 92 C 260 20, 400 20, 476 96" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="6 5"/>
+              <polygon points="476,96 464,95 470,84" fill="#2563eb"/>
+              <!-- marcador -->
+              <g>
+                <line x1="490" y1="80" x2="490" y2="112" stroke="#dc2626" stroke-width="2.5"/>
+                <polygon points="490,80 514,88 490,96" fill="#dc2626"/>
+                <text x="500" y="108" font-size="12" font-weight="700" fill="#111" dx="0">Conclusion</text>
+              </g>
+              <text x="545" y="152" font-size="10" text-anchor="middle" fill="#dc2626" font-weight="700">← marcador</text>
+            </svg>
+          </div>
+
+          <div class="process-grid" style="margin-top:1.25rem;">
+            <article class="process-card">
+              <h3>1. Marcar el destino</h3>
+              <p>
+                Seleccioná el título o texto de destino → Insertar →
+                Vínculos → <strong>Marcador</strong> (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>F5</kbd>).
+                Escribí un nombre y presioná <strong>Agregar</strong>.
+              </p>
+            </article>
+            <article class="process-card">
+              <h3>2. Reglas del nombre</h3>
+              <p>
+                <strong>Sin espacios</strong> y empezando con una letra:
+                <code>Conclusion</code> o <code>Capitulo_3</code> sirven;
+                <code>Capítulo 3</code> no.
+              </p>
+            </article>
+            <article class="process-card">
+              <h3>3. Vincularlo</h3>
+              <p>
+                En el texto que actúa de cartel: <kbd>Ctrl</kbd>+<kbd>K</kbd> →
+                <strong>Lugar de este documento</strong> → elegí el marcador
+                de la lista → Aceptar.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <!-- REFERENCIA -->
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Tabla de referencia · los cuatro destinos</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Destino</th><th>Se usa para…</th><th>Ejemplo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Archivo o página web</td><td>Abrir un sitio o un archivo (PDF, Excel…)</td><td>Un artículo de Wikipedia como fuente</td></tr>
+                <tr><td>Lugar de este documento</td><td>Saltar a un título, una hoja o un marcador (parecido a un índice)</td><td>"Volver al índice" al final del informe</td></tr>
+                <tr><td>Crear nuevo documento</td><td>Vincular a un archivo que todavía no existe y crearlo en el momento</td><td>Un anexo</td></tr>
+                <tr><td>Dirección de correo</td><td>Abrir el programa de mail con el destinatario y el asunto ya cargados</td><td>"Consultas al docente"</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top:2rem;">
+          <article class="takeaways">
+            <h3>Buenas prácticas con vínculos</h3>
+            <ul>
+              <li><strong>Texto descriptivo:</strong> "Ver Revolución Neolítica en Wikipedia" dice mucho más que "clic aquí".</li>
+              <li>Si pegás una dirección web y apretás <kbd>Espacio</kbd> o <kbd>Enter</kbd>, Word la convierte sola en vínculo.</li>
+              <li><strong>Información en pantalla</strong> (botón del cuadro): un cartelito que aparece al pasar el mouse por encima.</li>
+              <li>Para quitarlo: clic derecho → <strong>Quitar hipervínculo</strong>. El texto se queda, sin el vínculo.</li>
+            </ul>
+          </article>
+          <article class="takeaways">
+            <h3>Cuidado con…</h3>
+            <ul>
+              <li>Un vínculo a un <strong>archivo de tu compu</strong> se rompe si mandás el documento a otra persona: ella no tiene ese archivo en esa carpeta.</li>
+              <li>Si usaste los <strong>estilos de título</strong> (los vemos en el bloque de la tabla de contenido), Word los lista solo como destinos en "Lugar de este documento".</li>
+              <li>En el mismo grupo hay una tercera herramienta: <strong>Referencia cruzada</strong> (para frases como "ver Figura 2" que se actualizan solas).</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="now-box">
+          <p class="now-tag">Ahora vos</p>
+          <ol>
+            <li>Abrí el "Ejercicio 2 - Revolución Industrial" en Word.</li>
+            <li>Seleccioná las palabras <strong>"Revolución Neolítica"</strong> y presioná <kbd>Ctrl</kbd>+<kbd>K</kbd>.</li>
+            <li>En Dirección pegá el enlace de la página de Wikipedia sobre ese tema (buscala en el navegador y copiá la dirección).</li>
+            <li>Aceptá y probá con <kbd>Ctrl</kbd>+clic. ¿Se abrió el navegador? ¡Listo!</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTAS -->
+    <section class="section alt" id="notas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Referencias · grupo Notas al pie</p>
+          <h2>Notas al pie y Notas al final</h2>
+          <p>
+            Una nota agrega una <strong>aclaración, definición o fuente</strong>
+            sin cortar el hilo del texto principal. En el texto queda un
+            numerito y la explicación aparece en otro lugar. La diferencia
+            entre los dos tipos es <em>dónde</em> aparece esa explicación.
+          </p>
+          <p>
+            En un trabajo académico casi siempre hay algo para aclarar, o
+            un dato del que hay que decir de dónde salió. Si lo ponés entre
+            paréntesis en el medio del párrafo, cortás la lectura; si lo
+            omitís, el dato queda sin respaldo. La nota resuelve las dos
+            cosas: el texto principal se lee <strong>de corrido</strong> y
+            la aclaración está a mano para quien la necesite.
+          </p>
+        </div>
+
+        <div class="card-grid three" style="margin-bottom:2.25rem;">
+          <article class="simple-card featured">
+            <h3>¿Para qué sirve?</h3>
+            <p>
+              Para <strong>definir un término, aclarar un dato o citar una
+              fuente</strong> sin interrumpir el párrafo. Word las numera
+              solo y las reacomoda si el texto cambia de lugar.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>¿Al pie o al final?</h3>
+            <p>
+              La <strong>nota al pie</strong> se lee sin cambiar de hoja,
+              por eso conviene para aclaraciones cortas. La
+              <strong>nota al final</strong> junta todo en un solo lugar:
+              sirve para listas de fuentes o citas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>En nuestro documento</h3>
+            <p>
+              Vamos a aclarar qué fue el "Zollverein" y la "Revolución
+              Bolchevique" con notas al pie, y a dejar la fuente del texto
+              en una nota al final.
+            </p>
+          </article>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0.6rem;">Probalo · cambiá de tipo de nota y mirá dónde cae la explicación</p>
+        <div class="fn-switch" role="group" aria-label="Tipo de nota">
+          <button class="on" data-mode="pie">Nota al pie</button>
+          <button data-mode="final">Nota al final</button>
+        </div>
+        <div class="fn-pages" id="fnDemo">
+          <div class="fn-page">
+            <p class="fn-pg-label">Página 1</p>
+            <p>
+              Entre las potencias que se industrializaron tempranamente,
+              Prusia creó un mercado común, el <strong>Zollverein</strong><sup class="fn-ref" data-n="0" tabindex="0" role="button" aria-label="Nota 1">1</sup>.
+              Rusia, en cambio, lo hizo sobre todo a partir de la
+              <strong>Revolución Bolchevique</strong><sup class="fn-ref" data-n="1" tabindex="0" role="button" aria-label="Nota 2">2</sup>,
+              en los años 20 y 30 del siglo XX.
+            </p>
+            <div class="fn-notes" id="fnPie"></div>
+          </div>
+          <div class="fn-page">
+            <p class="fn-pg-label">Página 3 · última hoja</p>
+            <p style="color:#9ca3af;">…Conclusiones del trabajo…</p>
+            <div class="fn-notes wide" id="fnEnd" style="margin-top:auto;"></div>
+          </div>
+        </div>
+        <p class="vs-caption">Tocá los numeritos del texto: la nota correspondiente se ilumina. En Word, hacer <strong>doble clic</strong> sobre el numerito te lleva a la nota (y al revés).</p>
+
+        <details class="predict">
+          <summary>¿Y si agrego una nota nueva entre la 1 y la 2?</summary>
+          <p>Word renumera todo solo: la nueva pasa a ser la 2 y la que era 2 pasa a 3. Por eso nunca se tipea el número a mano.</p>
+        </details>
+
+        <p class="eyebrow" style="margin:2.25rem 0 0.75rem;">Paso a paso</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Ubicar el cursor</h3>
+            <p>
+              Hacé clic justo <strong>después</strong> de la palabra o frase
+              que querés aclarar (por ejemplo, después de "Zollverein").
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Insertar la nota</h3>
+            <p>
+              Referencias → grupo Notas al pie →
+              <strong>Insertar nota al pie</strong> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd>)
+              o <strong>Insertar nota al final</strong> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>).
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Escribir la nota</h3>
+            <p>
+              El cursor salta solo al pie de la hoja (o al final del
+              documento). Escribí la explicación y volvé al texto con
+              <strong>doble clic</strong> en el número.
+            </p>
+          </article>
+        </div>
+
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Comparación</p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th></th><th>Nota al pie</th><th>Nota al final</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Aparece…</td><td>Abajo de la misma página</td><td>Al final de todo el documento</td></tr>
+                <tr><td>Numeración inicial</td><td>1, 2, 3…</td><td>i, ii, iii… (números romanos)</td></tr>
+                <tr><td>Atajo</td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd></td></tr>
+                <tr><td>Ideal para</td><td>Aclaraciones breves que conviene leer en el momento</td><td>Listas de fuentes o citas que se consultan aparte</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top:2rem;">
+          <article class="takeaways">
+            <h3>Moverse entre notas</h3>
+            <ul>
+              <li>Referencias → <strong>Siguiente nota al pie</strong> (con su flecha desplegable): salta a la siguiente o anterior nota, al pie o al final.</li>
+              <li><strong>Mostrar notas</strong> te lleva directo a la zona de las notas.</li>
+              <li>Podés tener <strong>notas al pie y al final en el mismo documento</strong>: van numeradas por separado.</li>
+            </ul>
+          </article>
+          <article class="takeaways">
+            <h3>Cambiar el formato</h3>
+            <ul>
+              <li>Clic en la flechita del rincón del grupo Notas al pie para abrir el cuadro <strong>Notas al pie y notas al final</strong>.</li>
+              <li>Ahí elegís el <strong>formato del número</strong> (1, a, i, símbolos), desde qué número arranca y si se reinicia en cada página o sección.</li>
+              <li><strong>Para borrar una nota</strong>, borrá el numerito dentro del texto; el texto de abajo desaparece con él.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="now-box">
+          <p class="now-tag">Ahora vos</p>
+          <ol>
+            <li>En el ejercicio, ubicá el cursor justo después de <strong>"Zollverein"</strong>.</li>
+            <li>Presioná <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> y escribí: <em>"Unión aduanera de los estados alemanes, impulsada por Prusia desde 1834."</em></li>
+            <li>Volvé al texto con doble clic en el número y agregá una segunda nota en <strong>"Revolución Bolchevique"</strong>.</li>
+            <li>Comprobá que la primera es <strong>1</strong> y la segunda <strong>2</strong>, sin que las hayas numerado vos.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABLA DE CONTENIDO -->
+    <section class="section" id="toc">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Referencias · grupo Tabla de contenido</p>
+          <h2>Tabla de contenido</h2>
+          <p>
+            La tabla de contenido es el <strong>índice</strong> del documento:
+            lista los títulos con su número de página y cada línea es un
+            vínculo. Word la arma sola, pero necesita un dato clave: saber
+            <em>cuáles</em> son los títulos.
+          </p>
+          <p>
+            En un documento de varias páginas, el índice suele ser lo
+            primero que mira el lector: le muestra de un vistazo cómo está
+            organizado el trabajo y le permite ir directo a la parte que
+            busca. Armarlo a mano lleva tiempo y queda mal apenas cambia
+            una página. La tabla automática lo resuelve en segundos y, si
+            el documento cambia, se actualiza con un botón.
+          </p>
+        </div>
+
+        <div class="card-grid three" style="margin-bottom:2.25rem;">
+          <article class="simple-card featured">
+            <h3>¿Para qué sirve?</h3>
+            <p>
+              Para <strong>mostrar la estructura</strong> del documento y
+              <strong>navegarlo</strong>: cada línea del índice es un
+              vínculo que lleva a ese título con <kbd>Ctrl</kbd>+clic.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>¿Cómo sabe Word qué poner?</h3>
+            <p>
+              Lee los <strong>estilos de título</strong> (Título 1, 2, 3…).
+              Cada nivel se sangra distinto: los subtítulos aparecen
+              corridos hacia la derecha, debajo de su título principal.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>En nuestro documento</h3>
+            <p>
+              El índice va en la hoja que sigue a la portada y toma los
+              cuatro títulos del texto: dos principales y dos
+              subtítulos.
+            </p>
+          </article>
+        </div>
+
+        <article class="takeaways" style="margin-bottom:2rem;">
+          <h3>Paso 0 · Los estilos de título (la base de todo)</h3>
+          <ul>
+            <li>Word <strong>no reconoce un título por cómo se ve</strong> (negrita, tamaño grande, mayúsculas), sino por el <strong>estilo</strong> que tiene aplicado.</li>
+            <li>Los estilos están en Inicio → grupo <strong>Estilos</strong>: <strong>Título 1</strong> para los títulos principales, <strong>Título 2</strong> para los subtítulos, <strong>Título 3</strong> para los subniveles.</li>
+            <li>Atajos: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>, <kbd>2</kbd> o <kbd>3</kbd> para aplicar Título 1, 2 o 3 al párrafo donde está el cursor.</li>
+            <li>Para chequear: Vista → <strong>Panel de navegación</strong>. Si un título no aparece ahí, tampoco va a aparecer en el índice.</li>
+          </ul>
+        </article>
+
+        <p class="eyebrow" style="margin:2.25rem 0 0.75rem;">Paso a paso en Word</p>
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Aplicar los estilos</h3>
+            <p>
+              Cursor en cada título → Inicio → Estilos → <strong>Título 1</strong>
+              o <strong>Título 2</strong>. Revisalo en Vista → Panel de navegación.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Preparar la hoja</h3>
+            <p>
+              El índice suele ir al principio, en su propia hoja: ubicá
+              el cursor donde querés que arranque, usá Insertar →
+              <strong>Página en blanco</strong> y después colocá el cursor
+              en esa hoja nueva.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Insertar la tabla</h3>
+            <p>
+              Referencias → <strong>Tabla de contenido</strong> → elegí una
+              <strong>Tabla automática</strong> de la galería. Se genera al
+              instante con sus números de página.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>4. Actualizarla</h3>
+            <p>
+              Clic dentro de la tabla → <strong>Actualizar tabla</strong> (o
+              <kbd>F9</kbd>) → elegí qué actualizar. Hacelo <strong>siempre antes de entregar</strong>.
+            </p>
+          </article>
+        </div>
+
+        <div style="margin-top:2.25rem;">
+          <p class="eyebrow" style="margin-bottom:0.75rem;">Las opciones que tenés que conocer</p>
+          <p style="margin:0 0 1rem;font-size:0.92rem;color:var(--muted);line-height:1.65;">
+            Una vez insertada la tabla, Word ofrece varias opciones para
+            tenerla al día y darle el aspecto que necesitás. Hay una
+            diferencia importante entre <strong>actualizar</strong> (poner
+            al día el contenido) y <strong>personalizar</strong> (cambiar
+            cómo se ve o qué niveles muestra).
+          </p>
+          <article class="table-card">
+            <table>
+              <thead>
+                <tr><th>Opción</th><th>Qué hace</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Tabla automática 1 / 2</td><td>Se arma sola con los títulos del documento y se puede actualizar. Es la que se usa siempre</td></tr>
+                <tr><td>Tabla manual</td><td>Es solo un molde que se escribe a mano: <strong>no se actualiza</strong> ni tiene vínculos. Conviene evitarla</td></tr>
+                <tr><td>Actualizar solo los números de página</td><td>Corrige las páginas, pero no incorpora títulos nuevos ni cambios de texto</td></tr>
+                <tr><td>Actualizar toda la tabla</td><td>Vuelve a leer todo el documento: títulos nuevos, cambios de texto y páginas</td></tr>
+                <tr><td>Tabla de contenido personalizada</td><td>Permite elegir cuántos <strong>niveles mostrar</strong>, el carácter de relleno (puntos, línea…), si se muestran los números de página y modificar el formato de cada nivel</td></tr>
+                <tr><td>Quitar tabla de contenido</td><td>La elimina completa, de una sola vez</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top:2rem;">
+          <article class="takeaways">
+            <h3>Trucos y detalles</h3>
+            <ul>
+              <li>En la tabla, <kbd>Ctrl</kbd>+clic sobre una línea te lleva a esa parte del documento.</li>
+              <li>Por defecto muestra <strong>3 niveles</strong>: si usás Título 4 y no aparece, en "Tabla de contenido personalizada" cambiá <em>Mostrar niveles</em> a 4.</li>
+              <li>No edites el texto dentro del índice: se pierde al actualizar. Si un título está mal, corregilo <strong>en el documento</strong> y actualizá.</li>
+              <li>Modificar el formato de un nivel del índice no cambia cómo se ve ese título en el documento.</li>
+            </ul>
+          </article>
+          <article class="takeaways">
+            <h3>Cuándo actualizar</h3>
+            <ul>
+              <li>Después de <strong>agregar, borrar o mover</strong> texto que cambie las páginas.</li>
+              <li>Después de <strong>cambiar el texto de un título</strong> o aplicar estilos nuevos.</li>
+              <li>Siempre como último paso antes de guardar y entregar el trabajo.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="now-box">
+          <p class="now-tag">Ahora vos</p>
+          <ol>
+            <li>En el ejercicio, aplicá <strong>Título 1</strong> a "EL PROCESO DE INDUSTRIALIZACIÓN" y <strong>Título 2</strong> a "La extensión de la 1ª Revolución Industrial".</li>
+            <li>Abrí Vista → <strong>Panel de navegación</strong> y comprobá que los dos títulos aparecen.</li>
+            <li>Insertá una página en blanco al principio y, en ella, una <strong>Tabla automática</strong> (Referencias → Tabla de contenido).</li>
+            <li>Probá <kbd>Ctrl</kbd>+clic sobre una línea del índice: ¿te lleva al título?</li>
+          </ol>
+        </div>
+
+        <!-- ANATOMÍA -->
+        <p class="eyebrow" style="margin:2.5rem 0 0.75rem;">El documento completo: todo lo que aprendiste, en su lugar</p>
+        <div class="doc-flow">
+          <div class="df-page" style="--c:#7c3aed;">
+            <div class="df-ico">🎓</div>
+            <h4>Portada</h4>
+            <p>Título, materia, autor y fecha.</p>
+            <span class="df-when">Clase 6</span>
+          </div>
+          <div class="df-arrow" aria-hidden="true">→</div>
+          <div class="df-page" style="--c:#b45309;">
+            <div class="df-ico">📑</div>
+            <h4>Tabla de contenido</h4>
+            <p>Índice automático con vínculos.</p>
+            <span class="df-when">Hoy</span>
+          </div>
+          <div class="df-arrow" aria-hidden="true">→</div>
+          <div class="df-page" style="--c:#2563eb;">
+            <div class="df-ico">📄</div>
+            <h4>Cuerpo del trabajo</h4>
+            <p>Títulos con estilo, vínculos y notas al pie.</p>
+            <span class="df-when">Hoy</span>
+          </div>
+          <div class="df-arrow" aria-hidden="true">→</div>
+          <div class="df-page" style="--c:#0d9488;">
+            <div class="df-ico">📚</div>
+            <h4>Cierre</h4>
+            <p>Notas al final con las fuentes.</p>
+            <span class="df-when">Hoy</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section alt" id="errores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de practicar</p>
+          <h2>Errores Comunes de esta Clase</h2>
+          <p>
+            Los tropiezos más frecuentes al trabajar con vínculos, notas y
+            tabla de contenido por primera vez.
+          </p>
+        </div>
+
+        <p class="eyebrow" style="margin-bottom:0;">Títulos con formato a mano vs. estilos de título</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Negrita y tamaño grande "a ojo"</div>
+            <div class="vs-page">
+              Los títulos se ven grandes y en negrita, pero son texto
+              normal con formato manual. Al insertar el índice aparece
+              <strong>"No se encontraron entradas de tabla de contenido"</strong>
+              o faltan capítulos.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Estilos Título 1, 2, 3</div>
+            <div class="vs-page">
+              Aplicás <strong>Título 1</strong> o <strong>Título 2</strong>
+              desde Inicio → Estilos. Word entiende la estructura y el
+              índice (y el Panel de navegación) se arman completos.
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Si dudás, abrí Vista → Panel de navegación: lo que no aparezca ahí no tiene estilo de título.</p>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Índice tipeado a mano vs. tabla automática</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Índice escrito con puntitos y números</div>
+            <div class="vs-page">
+              Escribís cada título, los puntitos y la página a mano (o usás
+              "Tabla manual"). Al agregar un párrafo, <strong>los números
+              quedan mal</strong> y no hay vínculos para navegar.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Tabla automática + Actualizar</div>
+            <div class="vs-page">
+              Insertás una <strong>Tabla automática</strong> y la actualizás
+              con <kbd>F9</kbd> cuando cambia el documento. Los números
+              siempre coinciden y cada línea es un vínculo.
+            </div>
+          </div>
+        </div>
+        <p class="vs-caption">Es la misma idea del número de página automático de la Clase 5: si Word puede calcularlo, dejalo en sus manos.</p>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Texto del vínculo: vago vs. descriptivo</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — "Hacé clic aquí"</div>
+            <div class="vs-page">
+              Para ampliar el tema, <span class="fake-link">hacé clic aquí</span>.<br>
+              Nadie sabe adónde lleva si lee el documento impreso o si
+              recorre solo los vínculos.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Texto que dice el destino</div>
+            <div class="vs-page">
+              Para ampliar el tema, leé el artículo sobre la
+              <span class="fake-link">Revolución Neolítica en Wikipedia</span>.<br>
+              El lector sabe qué va a encontrar antes de hacer clic.
+            </div>
+          </div>
+        </div>
+
+        <p class="eyebrow" style="margin:2rem 0 0;">Número de nota escrito a mano vs. nota real de Word</p>
+        <div class="vs-grid">
+          <div class="vs-box vs-wrong">
+            <div class="vs-header">✗ MAL — Superíndice y nota tipeados</div>
+            <div class="vs-page">
+              Escribís "Zollverein<sup>1</sup>" con superíndice y abajo,
+              en otro renglón, "1 Unión aduanera…". <strong>No queda
+              conectado</strong>: si movés el texto, la nota no lo sigue y
+              la numeración se rompe.
+            </div>
+          </div>
+          <div class="vs-box vs-right">
+            <div class="vs-header">✓ BIEN — Referencias → Insertar nota al pie</div>
+            <div class="vs-page">
+              Word coloca el número, crea la nota al pie de la hoja
+              correcta y <strong>renumera todo solo</strong> si agregás,
+              borrás o movés una nota.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section" id="actividades">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Seguimos con el documento <strong>"Ejercicio 2 - Revolución
+            Industrial"</strong>. Son cinco pasos, uno por cada herramienta
+            de hoy. Tildá cada uno a medida que lo completás.
+          </p>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio · Referencias sobre la Revolución Industrial</p>
+          <h3>Tu lista de control</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="chkBar"><div id="chkFill"></div></div>
+          <p class="progress-label" id="chkLabel">0 de 5 pasos completados</p>
+
+          <ul class="chk-list" id="chkList">
+            <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Títulos con estilo.</strong> Aplicá <strong>Título 1</strong> a "EL PROCESO DE INDUSTRIALIZACIÓN" y a "CONSECUENCIAS DE LA REVOLUCION INDUSTRIAL", y <strong>Título 2</strong> a "La extensión de la 1ª Revolución Industrial" y a "Consecuencias económicas".</span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Tabla de contenido.</strong> Después de la portada, insertá una página en blanco y agregá una <strong>Tabla automática</strong> (Referencias → Tabla de contenido).</span></label></li>
+            <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Dos notas al pie.</strong> Una en "Zollverein" y otra en "Revolución Bolchevique", con una aclaración breve cada una.</span></label></li>
+            <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Un vínculo.</strong> En "Revolución Neolítica", insertá un vínculo a una página de Wikipedia sobre ese tema.</span></label></li>
+            <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Actualizar y compartir.</strong> Actualizá la tabla (<kbd>F9</kbd>), probá con <kbd>Ctrl</kbd>+clic y subí el archivo al <strong>Foro de la Unidad</strong>.</span></label></li>
+          </ul>
+
+          <p class="card-example"><strong>Si terminás antes:</strong> agregá una <strong>nota al final</strong> con la fuente del texto, y un "Volver al índice" al final del documento con un vínculo a un <strong>marcador</strong> puesto en el título del índice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+          <p>
+            Respuestas rápidas a las consultas más habituales de esta clase.
+          </p>
+        </div>
+
+        <details class="faq-item">
+          <summary>Hago clic en el vínculo y no pasa nada. ¿Está roto?</summary>
+          <p>
+            No: en Word hay que mantener presionada la tecla <strong>Ctrl</strong>
+            mientras hacés clic. Esto evita que se abran vínculos cuando
+            solo querés editar el texto.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Cómo saco el azul y subrayado de un vínculo?</summary>
+          <p>
+            Si querés <strong>conservar el vínculo</strong> pero cambiar su
+            aspecto, modificá el estilo <strong>Hipervínculo</strong> desde
+            el panel de Estilos: el cambio se aplica a todos los vínculos
+            del documento. Si en cambio querés eliminar el vínculo, usá
+            clic derecho → <strong>Quitar hipervínculo</strong>: el texto
+            queda como texto común.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Mi índice dice "No se encontraron entradas de tabla de contenido". ¿Por qué?</summary>
+          <p>
+            Porque ningún párrafo del documento tiene un estilo de título.
+            Aplicá <strong>Título 1</strong> / <strong>Título 2</strong>
+            a tus títulos y volvé a actualizar la tabla.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Puse un Título 4 y no aparece en el índice.</summary>
+          <p>
+            La tabla muestra 3 niveles por defecto. Entrá a Referencias →
+            Tabla de contenido → <strong>Tabla de contenido personalizada</strong>
+            y cambiá <strong>Mostrar niveles</strong> a 4. Después actualizá
+            la tabla.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Cómo borro una nota al pie?</summary>
+          <p>
+            Borrá el <strong>numerito que quedó en el texto</strong>
+            (con Suprimir o Retroceso). La nota de abajo desaparece sola y
+            las demás se renumeran. Si solo borrás el texto de la nota, el
+            numerito queda.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Si mando mi documento por mail, ¿funcionan los vínculos?</summary>
+          <p>
+            Los vínculos a <strong>páginas web</strong>, a <strong>lugares
+            del mismo documento</strong> y a <strong>correos</strong>
+            funcionan en cualquier computadora. Los vínculos a
+            <strong>archivos de tu compu</strong> solo funcionan si el otro
+            tiene ese archivo en la misma ruta, así que conviene evitarlos.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+          <p>Los conceptos más importantes que vimos en esta clase.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card featured">
+            <h3>Insertar un vínculo</h3>
+            <p>
+              Seleccionar el texto → <kbd>Ctrl</kbd>+<kbd>K</kbd>. Cuatro
+              destinos: web/archivo, lugar del documento, documento nuevo y
+              correo. Se sigue con <kbd>Ctrl</kbd>+clic.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Marcadores</h3>
+            <p>
+              Insertar → Marcador. Nombre sin espacios. Son los destinos
+              exactos para vínculos dentro del documento.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Texto del vínculo</h3>
+            <p>
+              Que diga adónde lleva. Evitá "clic aquí" y los vínculos a
+              archivos locales.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Nota al pie</h3>
+            <p>
+              <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd>. Aparece abajo de
+              la misma hoja, numerada 1, 2, 3…
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Nota al final</h3>
+            <p>
+              <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>. Junta todo al
+              final del documento, numerada i, ii, iii…
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Estilos de título</h3>
+            <p>
+              Título 1, 2, 3 (Inicio → Estilos). Es lo que Word usa para
+              reconocer los títulos. Se revisan en el Panel de navegación.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Tabla de contenido</h3>
+            <p>
+              Referencias → Tabla de contenido → Tabla automática. Cada
+              línea es un vínculo (<kbd>Ctrl</kbd>+clic).
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Actualizar la tabla</h3>
+            <p>
+              <kbd>F9</kbd> con la tabla seleccionada. "Solo números de
+              página" o "toda la tabla". Siempre antes de entregar.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Tabla personalizada</h3>
+            <p>
+              Elegí niveles a mostrar, carácter de relleno, números de
+              página y formato de cada nivel.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>La regla de oro</h3>
+            <p>
+              Si Word puede calcularlo, no lo escribas a mano: números de
+              nota, páginas del índice y direcciones.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKET DE SALIDA -->
+    <section class="section" id="ticket">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Ticket de salida</h2>
+          <p>
+            Cinco preguntas rápidas para saber qué te llevás de hoy. Volver a
+            responder sin mirar los apuntes es lo que hace que los conceptos
+            queden.
+          </p>
+        </div>
+
+        <div class="quiz" data-quiz="exit">
+          <div class="quiz-q" data-ans="1" data-exp="Ctrl+K abre el cuadro Insertar hipervínculo. (Ctrl+L alinea a la izquierda y Ctrl+H abre Reemplazar.)">
+            <p class="quiz-title">1. ¿Qué atajo abre el cuadro para insertar un vínculo?</p>
+            <div class="quiz-opts">
+              <button class="quiz-opt"><kbd>Ctrl</kbd>+<kbd>L</kbd></button>
+              <button class="quiz-opt"><kbd>Ctrl</kbd>+<kbd>K</kbd></button>
+              <button class="quiz-opt"><kbd>Ctrl</kbd>+<kbd>H</kbd></button>
+            </div>
+            <p class="quiz-fb" aria-live="polite"></p>
+          </div>
+
+          <div class="quiz-q" data-ans="0" data-exp="La nota al pie aparece abajo de la misma hoja donde está el numerito; la nota al final junta todo al terminar el documento. Las dos se numeran solas.">
+            <p class="quiz-title">2. ¿Cuál es la diferencia entre una nota al pie y una nota al final?</p>
+            <div class="quiz-opts">
+              <button class="quiz-opt">La nota al pie va abajo de la página; la nota al final, al terminar el documento</button>
+              <button class="quiz-opt">La nota al pie va al terminar el documento; la nota al final, abajo de cada página</button>
+              <button class="quiz-opt">La nota al pie se numera sola; la nota al final hay que numerarla a mano</button>
+            </div>
+            <p class="quiz-fb" aria-live="polite"></p>
+          </div>
+
+          <div class="quiz-q" data-ans="2" data-exp="Word arma la tabla con los párrafos que tienen estilo Título 1, 2, 3… El tamaño, la negrita o las mayúsculas no cuentan.">
+            <p class="quiz-title">3. ¿Qué necesita Word para saber qué va en la tabla de contenido?</p>
+            <div class="quiz-opts">
+              <button class="quiz-opt">Que los títulos estén en negrita y en letra grande</button>
+              <button class="quiz-opt">Que los títulos estén escritos en mayúsculas</button>
+              <button class="quiz-opt">Que los títulos tengan un estilo aplicado (Título 1, 2…)</button>
+            </div>
+            <p class="quiz-fb" aria-live="polite"></p>
+          </div>
+
+          <div class="quiz-q" data-ans="1" data-exp="La tabla no se actualiza sola al 100%. Hay que hacer clic en ella y elegir Actualizar tabla (F9) → Actualizar toda la tabla, para que tome también los títulos nuevos.">
+            <p class="quiz-title">4. Agregaste dos páginas y un título nuevo, pero el índice muestra lo de antes. ¿Qué hacés?</p>
+            <div class="quiz-opts">
+              <button class="quiz-opt">Corrijo a mano los números y escribo el título nuevo dentro del índice</button>
+              <button class="quiz-opt">Hago clic en la tabla y elijo Actualizar tabla → Actualizar toda la tabla</button>
+              <button class="quiz-opt">Inserto otra tabla de contenido debajo de la anterior</button>
+            </div>
+            <p class="quiz-fb" aria-live="polite"></p>
+          </div>
+
+          <div class="quiz-q" data-ans="0" data-exp="El nombre de un marcador no puede tener espacios ni empezar con un número. Usá letras, números o guion bajo: Capitulo_3.">
+            <p class="quiz-title">5. ¿Cuál de estos es un nombre válido para un marcador?</p>
+            <div class="quiz-opts">
+              <button class="quiz-opt">Capitulo_3</button>
+              <button class="quiz-opt">Capitulo 3</button>
+              <button class="quiz-opt">3_Capitulo</button>
+            </div>
+            <p class="quiz-fb" aria-live="polite"></p>
+          </div>
+          <p class="quiz-score" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos recomendados</h2>
+          <p>
+            Material audiovisual para reforzar cada bloque de la clase. Se
+            abren en YouTube al hacer clic. Miralos con la <strong>consigna
+            de visionado</strong>: mirar con una pregunta en mente ayuda a
+            prestar atención a lo importante.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://www.youtube.com/watch?v=MM6lQMXa5IE" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/MM6lQMXa5IE/hqdefault.jpg" alt="Miniatura del video Cómo insertar vínculos en Word" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Cómo insertar vínculos en Word | 22</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">Miguel Vela · Ver en YouTube ↗</p>
+              <p class="video-ask"><b>Consigna:</b> ¿cuáles son las cuatro opciones de la columna "Vincular a"? ¿Qué tenés que hacer antes para vincular a un título?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>Archivo o página web, lugar de este documento, crear nuevo documento y dirección de correo. Para vincular a un lugar exacto, antes hay que ponerle un <strong>marcador</strong> (Insertar → Marcador), salvo que sea un título con estilo, que Word ya lista solo.</p></details>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://www.youtube.com/watch?v=9rQ8Nnr4jzQ" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/9rQ8Nnr4jzQ/hqdefault.jpg" alt="Miniatura del video Notas al pie de página y final de documento en Word" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Notas al pie de página y Final de documento en Word (Microsoft 365)</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">David itesm · Ver en YouTube ↗</p>
+              <p class="video-ask"><b>Consigna:</b> ¿cómo se numeran las notas y qué botón te permite saltar de una a otra?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>Word las numera solo en orden. Para recorrerlas se usa <strong>Siguiente nota al pie</strong> (con su menú para ir a la anterior, o a las notas al final).</p></details>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://www.youtube.com/watch?v=GCNwjwtHr5Y" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/GCNwjwtHr5Y/hqdefault.jpg" alt="Miniatura del video Curso de Word 365 - Crear tabla de contenido" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Curso de Word 365 · 17.1. Crear tabla de contenido, modificar el formato y actualizarla</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">aulaclic · Ver en YouTube ↗</p>
+              <p class="video-ask"><b>Consigna:</b> el título de nivel 4 no aparecía en el índice. ¿Por qué y cómo se soluciona?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>La tabla mostraba solo 3 niveles. Se soluciona en <strong>Tabla de contenido personalizada → Mostrar niveles</strong>, subiéndolo a 4.</p></details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase6.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 6 · SmartArt y Portada</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 2 · Clase 7</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    /* ===== Quizzes (ticket de salida) ===== */
+    document.querySelectorAll('.quiz').forEach(quiz => {
+      const qs = quiz.querySelectorAll('.quiz-q');
+      const score = quiz.querySelector('.quiz-score');
+      let answered = 0, right = 0;
+
+      qs.forEach(q => {
+        const ans = parseInt(q.dataset.ans, 10);
+        const opts = q.querySelectorAll('.quiz-opt');
+        const fb = q.querySelector('.quiz-fb');
+
+        opts.forEach((btn, i) => {
+          btn.addEventListener('click', () => {
+            opts.forEach(o => o.disabled = true);
+            opts[ans].classList.add('ok');
+            if (i === ans) {
+              right++;
+              fb.innerHTML = '<strong>✓ ¡Correcto!</strong> ' + q.dataset.exp;
+            } else {
+              btn.classList.add('bad');
+              fb.innerHTML = '<strong>✗ Casi.</strong> ' + q.dataset.exp;
+            }
+            answered++;
+            if (answered === qs.length) {
+              const total = qs.length;
+              let msg;
+              if (right === total) msg = '🎉 ¡Todas correctas!';
+              else if (right >= total / 2) msg = '👍 ¡Buen trabajo!';
+              else msg = '💪 Repasá las explicaciones y seguimos.';
+              score.textContent = msg + ' Acertaste ' + right + ' de ' + total + '.';
+              score.style.display = 'block';
+            }
+          });
+        });
+      });
+    });
+
+    /* ===== Gancho: buscar en un documento largo ===== */
+    (function () {
+      const box = document.getElementById('hookPages');
+      const clock = document.getElementById('hookClock');
+      const total = 40, target = 27;
+      let timer = null;
+      const pages = [];
+      for (let i = 1; i <= total; i++) {
+        const s = document.createElement('span');
+        box.appendChild(s);
+        pages.push(s);
+      }
+      const fmt = s => '⏱ ' + Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0') + ' <small>(tiempo simulado)</small>';
+      function reset() {
+        clearInterval(timer);
+        pages.forEach(p => p.className = '');
+      }
+      document.getElementById('hookScroll').addEventListener('click', () => {
+        reset();
+        let i = 0;
+        clock.innerHTML = fmt(0);
+        timer = setInterval(() => {
+          if (i > 0) pages[i - 1].className = '';
+          pages[i].className = i === target - 1 ? 'target' : 'scan';
+          clock.innerHTML = fmt((i + 1) * 2);
+          if (i === target - 1) clearInterval(timer);
+          i++;
+        }, 70);
+      });
+      document.getElementById('hookJump').addEventListener('click', () => {
+        reset();
+        pages[target - 1].className = 'target';
+        clock.innerHTML = fmt(1);
+      });
+    })();
+
+    /* ===== Cuadro Insertar hipervínculo ===== */
+    (function () {
+      const data = {
+        web: {
+          html: '<div class="dlg-field"><label>Texto:</label><div class="dlg-input">Revolución Neolítica</div></div>' +
+                '<div class="dlg-field"><label>Buscar en:</label><div class="dlg-input">Documentos</div></div>' +
+                '<div class="dlg-field"><label>Dirección:</label><div class="dlg-input hl">https://es.wikipedia.org/wiki/Revolución_neolítica</div></div>',
+          note: 'Para <strong>abrir una página web</strong> (pegá la dirección) o <strong>un archivo</strong> de tu compu (botón "Buscar en"). Lo más usado.'
+        },
+        doc: {
+          html: '<div class="dlg-field"><label>Texto:</label><div class="dlg-input">Volver al índice</div></div>' +
+                '<div class="dlg-field" style="align-items:start"><label>Lugar:</label><div class="dlg-list">' +
+                'Principio del documento<br>▸ Encabezados<br>&nbsp;&nbsp;&nbsp;EL PROCESO DE INDUSTRIALIZACIÓN<br>&nbsp;&nbsp;&nbsp;CONSECUENCIAS DE LA REVOLUCION…<br>▾ Marcadores<br>&nbsp;&nbsp;&nbsp;<span class="sel">Indice</span></div></div>',
+          note: 'Salta a <strong>otro punto del mismo documento</strong>: un título con estilo, el principio, o un <strong>marcador</strong> que pusiste vos.'
+        },
+        new: {
+          html: '<div class="dlg-field"><label>Texto:</label><div class="dlg-input">Anexo</div></div>' +
+                '<div class="dlg-field"><label>Nombre:</label><div class="dlg-input hl">Anexo.docx</div></div>' +
+                '<div class="dlg-field"><label>Cuándo:</label><div class="dlg-input">◉ Modificar el documento nuevo más tarde</div></div>',
+          note: 'Crea un archivo nuevo en blanco y deja el vínculo hecho. Se usa menos, pero sirve para armar un anexo.'
+        },
+        mail: {
+          html: '<div class="dlg-field"><label>Texto:</label><div class="dlg-input">Escribile al docente</div></div>' +
+                '<div class="dlg-field"><label>Correo:</label><div class="dlg-input hl">mailto:docente@ejemplo.com</div></div>' +
+                '<div class="dlg-field"><label>Asunto:</label><div class="dlg-input hl">Consulta sobre el TP</div></div>',
+          note: 'Abre el programa de correo con el <strong>destinatario y el asunto ya cargados</strong>.'
+        }
+      };
+      const main = document.getElementById('dlgMain');
+      const tabs = document.querySelectorAll('#dlg .dlg-tab');
+      function show(k) {
+        main.innerHTML = data[k].html + '<div class="dlg-note">' + data[k].note + '</div>';
+        tabs.forEach(t => {
+          const on = t.dataset.k === k;
+          t.classList.toggle('on', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      }
+      tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.k)));
+      show('web');
+    })();
+
+    /* ===== Demo notas al pie / al final ===== */
+    (function () {
+      const notes = [
+        'Unión aduanera de los estados alemanes, impulsada por Prusia desde 1834.',
+        'Revolución de octubre de 1917, que llevó al poder al partido bolchevique.'
+      ];
+      const pie = document.getElementById('fnPie');
+      const end = document.getElementById('fnEnd');
+      const refs = document.querySelectorAll('#fnDemo .fn-ref');
+      const btns = document.querySelectorAll('.fn-switch button');
+      const roman = ['i', 'ii'];
+      let mode = 'pie';
+
+      function render() {
+        const isPie = mode === 'pie';
+        const html = notes.map((t, i) => '<div class="fn-note" data-n="' + i + '"><sup>' + (isPie ? i + 1 : roman[i]) + '</sup> ' + t + '</div>').join('');
+        pie.innerHTML = isPie ? html : '<span class="fn-empty">(sin notas al pie)</span>';
+        end.innerHTML = isPie
+          ? '<span class="fn-empty">(sin notas al final)</span>'
+          : '<div style="border-top:1px solid #111;width:45%;margin-bottom:0.35rem;"></div>' + html;
+        refs.forEach((r, i) => r.textContent = isPie ? i + 1 : roman[i]);
+        btns.forEach(b => b.classList.toggle('on', b.dataset.mode === mode));
+      }
+      function flash(i) {
+        const el = document.querySelector('#fnDemo .fn-note[data-n="' + i + '"]');
+        if (!el) return;
+        el.classList.add('flash');
+        setTimeout(() => el.classList.remove('flash'), 1400);
+      }
+      btns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.mode; render(); }));
+      refs.forEach(r => {
+        r.addEventListener('click', () => flash(parseInt(r.dataset.n, 10)));
+        r.addEventListener('keydown', e => { if (e.key === 'Enter') flash(parseInt(r.dataset.n, 10)); });
+      });
+      render();
+    })();
+
+    /* ===== Lista de control de la actividad ===== */
+    (function () {
+      const KEY = 'c1-clase7-checklist-v2';
+      const boxes = document.querySelectorAll('#chkList input[type="checkbox"]');
+      const fill = document.getElementById('chkFill');
+      const bar = document.getElementById('chkBar');
+      const label = document.getElementById('chkLabel');
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+      function update() {
+        let done = 0;
+        boxes.forEach(b => { if (b.checked) done++; });
+        const pct = Math.round(done / boxes.length * 100);
+        fill.style.width = pct + '%';
+        bar.setAttribute('aria-valuenow', pct);
+        label.textContent = done === boxes.length
+          ? '🎉 ¡Completaste los ' + boxes.length + ' pasos! Subilo al Foro.'
+          : done + ' de ' + boxes.length + ' pasos completados';
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    })();
+  </script>
+</body>
+</html>
