@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Repaso Unidad 1</title>
+  <meta
+    name="description"
+    content="Informática Aplicada (M11-19-10): repaso general de la Unidad 1 para preparar el parcial. Fórmulas, referencias, funciones, gráficos, ordenamiento, filtros, SI anidada y BUSCARV, con ejercicios de práctica."
+  />
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .quiz { display: grid; gap: 0.75rem; }
+    .quiz details {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: 1rem 1.25rem;
+    }
+    .quiz summary { cursor: pointer; font-weight: 600; color: var(--text); }
+    .quiz details[open] summary { margin-bottom: 0.75rem; color: var(--primary); }
+    .quiz details p { margin: 0.5rem 0 0; color: var(--muted); }
+    .quiz details code {
+      background: var(--surface-soft);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.85rem;
+      color: var(--primary);
+    }
+    [data-theme="dark"] .quiz details { background: var(--surface) !important; }
+    [data-theme="dark"] .quiz details code { background: rgba(255, 255, 255, 0.1); color: #93c5fd; }
+    .quiz-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#repaso">Repaso por clase</a>
+        <a href="#referencias">Referencias</a>
+        <a href="#formulas">Fórmulas</a>
+        <a href="#elegir">Qué usar</a>
+        <a href="#errores">Errores</a>
+        <a href="#practica">Práctica</a>
+        <a href="#modelo">Modelo de parcial</a>
+        <a href="#parcial">Para el parcial</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 1</p>
+        <h1>Repaso general de la Unidad 1</h1>
+        <p class="lead">
+          Esta clase junta en un solo lugar todo lo que viste en la
+          Unidad 1: <strong>fórmulas y referencias</strong>,
+          <strong>funciones</strong>, <strong>gráficos</strong>,
+          <strong>ordenamiento y filtros</strong>, y las funciones
+          <strong>SI anidada</strong> y <strong>BUSCARV</strong>. Incluye
+          un <strong>modelo de parcial</strong> para practicar. Cubre
+          <strong>solo la Unidad 1</strong>: no incluye temas de otras
+          unidades. No
+          reemplaza a las clases: es el mapa para saber qué repasar y
+          cómo practicarlo antes del parcial.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa">Ver el mapa del repaso</a>
+          <a class="btn btn-secondary" href="#modelo">Ir al modelo de parcial</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Repaso de toda la Unidad 1</li>
+          <li>Ejercicios con respuestas</li>
+          <li>Modelo de parcial</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Llegar al parcial sabiendo qué herramienta usar en cada caso</h2>
+        <p>
+          En el parcial no alcanza con recordar cómo se escribe una
+          fórmula: hay que decidir <strong>cuál</strong> corresponde. Por
+          eso el repaso se ordena por preguntas ("¿cuento o sumo?",
+          "¿ordeno o filtro?") además de por clase.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Fórmulas</span>
+          <span>Funciones</span>
+          <span>Gráficos</span>
+          <span>Filtros</span>
+          <span>Modelo de parcial</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo estudiar con esta clase</span>
+          <p>
+            Leé el repaso, y después practicá sobre tu propio archivo de
+            la Clase 6 <strong>sin mirar la guía</strong>. Recién cuando
+            algo no te salga, volvé a la clase indicada en cada sección.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- MAPA -->
+    <section class="section" id="mapa">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>El mapa del repaso</h2>
+          <p>
+            Cada fila resume qué se vio en una clase y te lleva a su
+            repaso. Si ya dominás un tema, saltalo; si te trabás, la
+            última columna te dice a qué clase volver.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Clase</th>
+                  <th>Tema central</th>
+                  <th>Repaso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Qué es Excel, celdas y rangos, formato, primera fórmula</td>
+                  <td><a href="#c1">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Copiar fórmulas, referencias relativas/absolutas, SUMA, PROMEDIO, MAX, MIN</td>
+                  <td><a href="#c2">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Gráficos: tipos, partes, columnas y circular</td>
+                  <td><a href="#c3">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CONTAR, SUMAR.SI, CONTAR.SI, funciones de fecha y SI</td>
+                  <td><a href="#c4">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Hojas, ordenar, filtros combinados e impresión</td>
+                  <td><a href="#c5">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Asistente para funciones, SI anidada, BUSCARV y BUSCARH</td>
+                  <td><a href="#c6">Ver repaso →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO POR CLASE -->
+    <section class="section alt" id="repaso">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Lo esencial de cada clase</p>
+          <h2>Repaso clase por clase</h2>
+          <p>
+            Solo lo que tenés que saber de memoria o poder reconstruir.
+            El detalle paso a paso está en cada clase.
+          </p>
+        </div>
+
+        <!-- CLASE 1 -->
+        <h3 id="c1" style="margin: 2rem 0 1rem; scroll-margin-top: 112px;">Clase 1 · Crear y dar formato a las planillas</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Conceptos</h3>
+            <ul>
+              <li><strong>Planilla de cálculo:</strong> programa que organiza datos en filas y columnas y calcula con fórmulas. Excel es el más usado (VisiCalc, 1979, fue la primera).</li>
+              <li><strong>Celda:</strong> cruce de una columna (letra) y una fila (número), por ejemplo <code>C4</code>.</li>
+              <li><strong>Rango:</strong> grupo de celdas, por ejemplo <code>A1:G1</code> (de A1 a G1).</li>
+              <li><strong>Barra de fórmulas:</strong> muestra el contenido real de la celda seleccionada.</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Habilidades</h3>
+            <ul>
+              <li>Ingresar datos y confirmar con <code>Enter</code> (o <code>Tab</code> para ir a la derecha).</li>
+              <li>Seleccionar celdas sueltas (<code>Ctrl</code>), rangos grandes (<code>Shift</code>), filas y columnas enteras.</li>
+              <li>Dar formato: negrita, color, bordes y <strong>Combinar y centrar</strong> para los títulos.</li>
+              <li>Toda fórmula empieza con <code>=</code> y usa <strong>referencias</strong>, no números: <code>=C4+D4+F4-E4</code>.</li>
+              <li>Función <code>=ENTERO(número)</code>: descarta los decimales, <code>=ENTERO(4.8)</code> da 4.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- CLASE 2 -->
+        <h3 id="c2" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 2 · Copiar fórmulas y funciones básicas</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Copiar fórmulas y referencias</h3>
+            <ul>
+              <li>El <strong>controlador de relleno</strong> (cuadradito de la esquina de la celda) copia la fórmula, no el resultado. Doble clic lo arrastra hasta el final de la tabla.</li>
+              <li><strong>Relativa</strong> (<code>G2</code>): se mueve al copiar.</li>
+              <li><strong>Absoluta</strong> (<code>$G$2</code>): queda fija. Se escribe con <code>F4</code>.</li>
+              <li><strong>Mixta</strong> (<code>$G2</code> o <code>G$2</code>): se fija solo la columna o solo la fila.</li>
+              <li>Ejemplo típico: <code>=ENTERO(D4*$G$2)</code>, donde G2 guarda el porcentaje.</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Funciones de resumen</h3>
+            <ul>
+              <li><code>=SUMA(D4:D9)</code>: suma el rango.</li>
+              <li><code>=PROMEDIO(D4:D9)</code>: media aritmética.</li>
+              <li><code>=MAX(D4:D9)</code> y <code>=MIN(D4:D9)</code>: el mayor y el menor.</li>
+              <li>Estructura: <code>=NOMBRE(argumentos)</code>. El botón <strong>Autosuma (Σ)</strong> arma la suma sola.</li>
+              <li>Celdas salteadas: <code>=SUMA(D4:D9,F4:F9)</code> o con <code>Ctrl</code>.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- CLASE 3 -->
+        <h3 id="c3" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 3 · Gráficos en Excel</h3>
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Si querés mostrar…</th>
+                  <th>Usá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Comparar valores entre categorías (por ejemplo pacientes por provincia)</td><td>Columnas o barras</td></tr>
+                <tr><td>Cómo cambia algo a lo largo del tiempo</td><td>Líneas</td></tr>
+                <tr><td>Qué parte del total representa cada categoría</td><td>Circular (torta)</td></tr>
+                <tr><td>Acumulado en el tiempo</td><td>Área</td></tr>
+                <tr><td>Relación entre dos variables numéricas</td><td>Dispersión (XY)</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <div class="two-col" style="margin-top: 1rem;">
+          <article class="simple-card">
+            <h3>Partes de un gráfico</h3>
+            <p>
+              Título, área de trazado, serie de datos, ejes, líneas de
+              cuadrícula, leyenda y etiquetas de datos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Cómo se crea</h3>
+            <p>
+              Seleccionás el rango (con los rótulos), vas a
+              <strong>Insertar</strong> y elegís el tipo. Después
+              personalizás cada elemento: relleno, título, ejes,
+              etiquetas. El circular solo sirve para <strong>una
+              serie</strong> que suma un total.
+            </p>
+          </article>
+        </div>
+
+        <!-- CLASE 4 -->
+        <h3 id="c4" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 4 · Funciones</h3>
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Función</th>
+                  <th>Qué hace</th>
+                  <th>Ejemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>CONTAR</td><td>Cuenta las celdas que tienen un <strong>número</strong></td><td><code>=CONTAR(D:D)</code></td></tr>
+                <tr><td>SUMAR.SI</td><td>Suma solo las filas que cumplen un criterio</td><td><code>=SUMAR.SI(C:C;"Odontología";D:D)</code></td></tr>
+                <tr><td>CONTAR.SI</td><td>Cuenta solo las celdas que cumplen un criterio</td><td><code>=CONTAR.SI(E:E;G19)</code></td></tr>
+                <tr><td>AÑO / MES / DIA</td><td>Extrae una parte de una fecha</td><td><code>=AÑO(A2)</code></td></tr>
+                <tr><td>HOY</td><td>Devuelve la fecha actual (sin argumentos)</td><td><code>=AÑO(HOY())-AÑO(A2)</code></td></tr>
+                <tr><td>SI</td><td>Elige entre dos resultados según una condición</td><td><code>=SI(E2&gt;20;"Más de 20 aprobadas";"Menos")</code></td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>Recordá</span>
+          <p>
+            <strong>SUMAR.SI tiene tres argumentos:</strong> RANGO (donde
+            se evalúa el criterio), CRITERIO y RANGO-SUMA (lo que se
+            suma). <strong>CONTAR.SI tiene dos:</strong> RANGO y
+            CRITERIO. La función <strong>SI</strong> tiene tres:
+            PRUEBA_LÓGICA, VALOR_VERDADERO y VALOR_FALSO. Los operadores de
+            comparación son <code>&gt;</code>, <code>&lt;</code>,
+            <code>&gt;=</code>, <code>&lt;=</code>, <code>=</code> y
+            <code>&lt;&gt;</code> (distinto), y los textos van entre
+            comillas.
+          </p>
+        </div>
+
+        <!-- CLASE 5 -->
+        <h3 id="c5" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 5 · Filtros y ordenamiento</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Base de datos en Excel</h3>
+            <ul>
+              <li><strong>Campo:</strong> cada columna. <strong>Registro:</strong> cada fila completa.</li>
+              <li>Para que Excel la reconozca: encabezados de texto únicos en la primera fila, sin filas/columnas vacías en el medio y un solo tipo de dato por columna.</li>
+              <li>Cada hoja es una pestaña del libro: se crea, se renombra y se mueve información entre ellas. Una fórmula puede apuntar a otra hoja: <code>='MATERIAS APROBADAS'!D:D</code>.</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Ordenar</h3>
+            <ul>
+              <li>Con una celda de la tabla seleccionada, <strong>Datos &gt; Ordenar</strong>.</li>
+              <li>Un criterio: columna y orden (A a Z, menor a mayor…).</li>
+              <li>Varios criterios: <strong>Agregar nivel</strong>. Se aplican en orden: primero FACULTAD y, dentro de cada una, FECHA INGRESO.</li>
+              <li>Para volver atrás: <code>Ctrl+Z</code>.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="two-col" style="margin-top: 1rem;">
+          <article class="simple-card">
+            <h3>Filtrar</h3>
+            <ul>
+              <li>Activar con <code>Ctrl+Shift+L</code> o <strong>Datos &gt; Filtro</strong>: aparecen flechas en el encabezado.</li>
+              <li><strong>Entre columnas distintas: Y.</strong> La fila debe cumplir todas las condiciones.</li>
+              <li><strong>Dentro de una misma columna: O.</strong> Si tildás dos carreras, entra una u otra.</li>
+              <li>Filtros de número: "Mayor que…", "Entre…".</li>
+              <li><strong>Borrar</strong> quita los criterios y deja las flechas; apagar el botón <strong>Filtro</strong> quita también las flechas.</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Imprimir lo filtrado</h3>
+            <ul>
+              <li><strong>Archivo &gt; Imprimir</strong>.</li>
+              <li>Cambiar la orientación a <strong>horizontal</strong> si la tabla es ancha.</li>
+              <li>Revisar la vista previa antes de imprimir: solo salen las filas visibles.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- CLASE 6 -->
+        <h3 id="c6" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 6 · Más sobre funciones</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Asistente para funciones y SI anidada</h3>
+            <ul>
+              <li><strong>Asistente:</strong> seleccionás la celda, clic en <strong>fx</strong>, elegís la función y completás los argumentos.</li>
+              <li><strong>SI anidada:</strong> una SI dentro del VALOR_SI_FALSO de otra. Sirve para tres o más opciones.</li>
+              <li>Se ordenan las condiciones de la más exigente a la menos exigente.</li>
+              <li>Cada <code>SI(</code> necesita su paréntesis de cierre.</li>
+            </ul>
+            <p style="margin-top: 0.75rem;"><code>=SI(E2&gt;20;"Avanzado";SI(E2&gt;=10;"Intermedio";"Inicial"))</code></p>
+          </article>
+          <article class="simple-card">
+            <h3>BUSCARV y BUSCARH</h3>
+            <ul>
+              <li><strong>BUSCARV:</strong> busca en la <em>primera columna</em> de una tabla y trae un dato de la misma fila.</li>
+              <li><strong>BUSCARH:</strong> igual, pero busca en la <em>primera fila</em> y trae un dato de la misma columna.</li>
+              <li>Cuatro argumentos: VALOR_BUSCADO, MATRIZ_BUSCAR_EN, INDICADOR_COLUMNAS y ORDENADO.</li>
+              <li>La matriz lleva <code>$</code> para que no se corra, y <strong>FALSO</strong> exige coincidencia exacta.</li>
+            </ul>
+            <p style="margin-top: 0.75rem;"><code>=BUSCARV(D2;$J$2:$K$6;2;FALSO)</code></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCIAS -->
+    <section class="section" id="referencias">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">El tema que más se pregunta</p>
+          <h2>Referencias: relativa, absoluta y mixta</h2>
+          <p>
+            Es la base de todas las fórmulas que se copian. Si tenés una
+            fórmula en <code>H4</code> que apunta a <code>D4</code> y la
+            copiás una fila más abajo, esto es lo que pasa:
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Cómo se escribe</th>
+                  <th>Al copiar una fila hacia abajo…</th>
+                  <th>Cuándo se usa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Relativa</td>
+                  <td><code>D4</code></td>
+                  <td>Pasa a <code>D5</code></td>
+                  <td>El dato cambia en cada fila</td>
+                </tr>
+                <tr>
+                  <td>Absoluta</td>
+                  <td><code>$G$2</code></td>
+                  <td>Sigue siendo <code>$G$2</code></td>
+                  <td>Un valor único: un porcentaje, la tabla de BUSCARV</td>
+                </tr>
+                <tr>
+                  <td>Mixta (fila fija)</td>
+                  <td><code>D$4</code></td>
+                  <td>Sigue siendo <code>D$4</code>, pero la columna sí cambia al copiar a la derecha</td>
+                  <td>Tablas de doble entrada</td>
+                </tr>
+                <tr>
+                  <td>Mixta (columna fija)</td>
+                  <td><code>$D4</code></td>
+                  <td>Pasa a <code>$D5</code>; la columna D queda fija al copiar a la derecha</td>
+                  <td>Tablas de doble entrada</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Truco para el parcial</span>
+          <p>
+            Antes de copiar una fórmula preguntate: <strong>"¿esta
+            celda tiene que ser la misma en todas las filas?"</strong>. Si
+            la respuesta es sí, va con <code>$</code>. Los casos
+            clásicos: el porcentaje de incremento (Clase 2), el rango de
+            una tabla de referencia en BUSCARV (Clase 6) y la celda de
+            criterio cuando la copiás hacia abajo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMULAS -->
+    <section class="section alt" id="formulas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para tener a mano</p>
+          <h2>Cuadro resumen de todas las funciones</h2>
+          <p>
+            Las quince funciones de la unidad, con su estructura. En
+            Excel en español los argumentos se separan con
+            <strong>punto y coma</strong> (<code>;</code>).
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Función</th>
+                  <th>Estructura</th>
+                  <th>Devuelve</th>
+                  <th>Clase</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>ENTERO</td><td><code>=ENTERO(número)</code></td><td>El número sin decimales</td><td>1</td></tr>
+                <tr><td>SUMA</td><td><code>=SUMA(rango)</code></td><td>La suma de los valores</td><td>2</td></tr>
+                <tr><td>PROMEDIO</td><td><code>=PROMEDIO(rango)</code></td><td>La media aritmética</td><td>2</td></tr>
+                <tr><td>MAX</td><td><code>=MAX(rango)</code></td><td>El valor más alto</td><td>2</td></tr>
+                <tr><td>MIN</td><td><code>=MIN(rango)</code></td><td>El valor más bajo</td><td>2</td></tr>
+                <tr><td>CONTAR</td><td><code>=CONTAR(rango)</code></td><td>Cuántas celdas tienen números</td><td>4</td></tr>
+                <tr><td>SUMAR.SI</td><td><code>=SUMAR.SI(rango;criterio;rango_suma)</code></td><td>La suma de lo que cumple el criterio</td><td>4</td></tr>
+                <tr><td>CONTAR.SI</td><td><code>=CONTAR.SI(rango;criterio)</code></td><td>Cuántas celdas cumplen el criterio</td><td>4</td></tr>
+                <tr><td>AÑO</td><td><code>=AÑO(fecha)</code></td><td>El año de una fecha</td><td>4</td></tr>
+                <tr><td>MES</td><td><code>=MES(fecha)</code></td><td>El mes (1 a 12)</td><td>4</td></tr>
+                <tr><td>DIA</td><td><code>=DIA(fecha)</code></td><td>El día del mes</td><td>4</td></tr>
+                <tr><td>HOY</td><td><code>=HOY()</code></td><td>La fecha de hoy</td><td>4</td></tr>
+                <tr><td>SI</td><td><code>=SI(prueba;si_verdadero;si_falso)</code></td><td>Uno de dos resultados</td><td>4</td></tr>
+                <tr><td>BUSCARV</td><td><code>=BUSCARV(valor;matriz;columna;FALSO)</code></td><td>Un dato de otra tabla, buscando hacia abajo</td><td>6</td></tr>
+                <tr><td>BUSCARH</td><td><code>=BUSCARH(valor;matriz;fila;FALSO)</code></td><td>Un dato de otra tabla, buscando hacia el costado</td><td>6</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUE USAR -->
+    <section class="section" id="elegir">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cómo se piensa un ejercicio</p>
+          <h2>¿Qué herramienta uso?</h2>
+          <p>
+            En el parcial casi nunca te dicen "usá SUMAR.SI". Te dicen
+            qué quieren obtener. Esta tabla traduce el pedido en la
+            herramienta.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Si el enunciado pide…</th>
+                  <th>Usá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>El total, el promedio, el máximo o el mínimo de una columna</td><td>SUMA, PROMEDIO, MAX, MIN</td></tr>
+                <tr><td>Cuántos registros hay con datos numéricos</td><td>CONTAR</td></tr>
+                <tr><td>Cuánto suman <em>solo</em> los de cierta carrera, provincia, etc.</td><td>SUMAR.SI</td></tr>
+                <tr><td>Cuántos hay de cierta carrera, provincia, etc.</td><td>CONTAR.SI</td></tr>
+                <tr><td>Una columna nueva que diga "sí/no" o dos categorías</td><td>SI</td></tr>
+                <tr><td>Una columna nueva con tres o más categorías (bajo/medio/alto)</td><td>SI anidada</td></tr>
+                <tr><td>Traer un dato desde otra tabla usando un valor en común</td><td>BUSCARV (o BUSCARH si la tabla es horizontal)</td></tr>
+                <tr><td>El año en que ingresó cada alumno</td><td>AÑO</td></tr>
+                <tr><td>Aplicar el mismo porcentaje a toda una columna</td><td>Referencia absoluta <code>$</code></td></tr>
+                <tr><td>Mostrar la evolución en el tiempo</td><td>Gráfico de líneas</td></tr>
+                <tr><td>Mostrar qué porcentaje del total es cada categoría</td><td>Gráfico circular</td></tr>
+                <tr><td>Ver la tabla en cierto orden sin perder filas</td><td>Ordenar</td></tr>
+                <tr><td>Ver solo algunos registros y ocultar el resto</td><td>Filtro</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <h3>Ordenar vs. filtrar</h3>
+            <p>
+              <strong>Ordenar</strong> reacomoda todas las filas y no
+              oculta ninguna. <strong>Filtrar</strong> oculta las que no
+              cumplen y no cambia el orden. Ninguna de las dos borra
+              datos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>CONTAR vs. CONTAR.SI vs. SUMAR.SI</h3>
+            <p>
+              CONTAR cuenta todo lo numérico. CONTAR.SI cuenta solo lo
+              que cumple una condición. SUMAR.SI no cuenta: <strong>suma
+              los valores</strong> de otra columna en las filas que
+              cumplen la condición.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES -->
+    <section class="section alt" id="errores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando la fórmula "no anda"</p>
+          <h2>Errores más frecuentes de toda la unidad</h2>
+          <p>
+            Reconocerlos por el mensaje te ahorra minutos en el parcial.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lo que ves</th>
+                  <th>Qué significa</th>
+                  <th>Cómo se arregla</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>#####</code></td><td>La columna es muy angosta para mostrar el número</td><td>Ensanchar la columna con doble clic en el borde del encabezado</td></tr>
+                <tr><td><code>#DIV/0!</code></td><td>Se dividió por cero o por una celda vacía</td><td>Revisar la celda que funciona de divisor</td></tr>
+                <tr><td><code>#NOMBRE?</code></td><td>Excel no reconoce algo: función mal escrita o texto sin comillas</td><td>Revisar la ortografía de la función y poner comillas a los textos</td></tr>
+                <tr><td><code>#¡VALOR!</code></td><td>Se operó con un dato del tipo equivocado, por ejemplo texto en una suma con <code>+</code></td><td>Revisar que las celdas contengan lo que la fórmula espera</td></tr>
+                <tr><td><code>#REF!</code></td><td>La fórmula apunta a una celda que fue eliminada</td><td>Reescribir la referencia</td></tr>
+                <tr><td><code>#N/D</code></td><td>BUSCARV no encontró el valor buscado</td><td>Revisar que exista idéntico en la primera columna de la tabla, sin espacios de más</td></tr>
+                <tr><td>El resultado cambia mal al copiar</td><td>Falta un <code>$</code></td><td>Fijar con <code>F4</code> lo que no debe moverse</td></tr>
+                <tr><td>Los filtros no muestran lo esperado</td><td>Quedó un criterio viejo activo en otra columna</td><td>Usar <strong>Borrar</strong> y empezar de cero</td></tr>
+                <tr><td>Excel se queja de un paréntesis</td><td>Falta cerrar alguna SI anidada</td><td>Contar <code>SI(</code> y paréntesis de cierre: deben coincidir</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRACTICA -->
+    <section class="section" id="practica">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ahora practicá</p>
+          <h2>Ejercicios de autoevaluación</h2>
+          <p>
+            Intentá resolver cada uno <strong>antes</strong> de abrir la
+            respuesta. Todos suponen la tabla de alumnos de las clases
+            anteriores, con esta distribución de columnas: A = FECHA
+            INGRESO, B = AÑO INGRESO, C = ALUMNO, D = CARRERA, E =
+            MATERIAS APROBADAS, G = FACULTAD, datos desde la fila 2.
+          </p>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 0.75rem;">A. Fórmulas y funciones</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 4</span>¿Cómo cuento cuántos alumnos cursan Odontología?</summary>
+            <p><code>=CONTAR.SI(D:D;"Odontología")</code>. Cuenta las celdas de CARRERA que valen "Odontología". Si el criterio está escrito en otra celda, por ejemplo G19, se escribe <code>=CONTAR.SI(D:D;G19)</code>.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 4</span>¿Cómo sumo las materias aprobadas solo de Lic. en Nutrición?</summary>
+            <p><code>=SUMAR.SI(D:D;"Lic. en Nutrición";E:E)</code>. El primer rango es donde se evalúa el criterio (CARRERA); el último, lo que se suma (MATERIAS APROBADAS).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 4</span>¿Cómo obtengo el año de la fecha de la celda A2?</summary>
+            <p><code>=AÑO(A2)</code>. Devuelve, por ejemplo, 2012 si la fecha es 14/09/2012.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 4</span>Quiero una columna que diga "Aprobado" si las materias son más de 20 y "En curso" si no.</summary>
+            <p><code>=SI(E2&gt;20;"Aprobado";"En curso")</code>, y se copia hacia abajo. Fijate que los textos van entre comillas y que hay dos resultados posibles, así que alcanza una sola SI.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 2</span>En G2 está un incremento del 8%. ¿Cómo calculo el incremento de D4 para que se pueda copiar hacia abajo?</summary>
+            <p><code>=ENTERO(D4*$G$2)</code>. D4 es relativa porque cada fila tiene su propio valor; $G$2 es absoluta porque el porcentaje es el mismo para todas. Sin los <code>$</code>, al copiar la fórmula pasaría a G3, G4…, celdas vacías, y daría 0.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 2</span>¿Qué pasa si escribo =SUMA(D4:D9) en D10 y luego inserto una fila entre la 5 y la 6?</summary>
+            <p>Excel extiende el rango automáticamente a <code>D4:D10</code> (la suma se desplaza a D11), porque la fila insertada queda dentro del rango. Si la insertás fuera del rango, no se incluye.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">B. SI anidada y BUSCARV</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>Clasificá a cada alumno según sus materias: más de 20 "Avanzado", de 10 a 20 "Intermedio", menos de 10 "Inicial".</summary>
+            <p><code>=SI(E2&gt;20;"Avanzado";SI(E2&gt;=10;"Intermedio";"Inicial"))</code>. La primera SI separa a los avanzados; en su FALSO se anida la segunda, que separa Intermedio de Inicial. Dos categorías más que la simple: una SI más.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>¿Qué está mal en =SI(E2&gt;=10;"Intermedio";SI(E2&gt;20;"Avanzado";"Inicial"))?</summary>
+            <p>El orden de las condiciones. Un alumno con 25 materias cumple <code>E2&gt;=10</code> en la primera prueba, así que devuelve "Intermedio" y nunca llega a evaluar la segunda. Siempre se empieza por la condición más exigente.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>Tengo una tabla de referencia CARRERA/DURACIÓN en J2:K6. ¿Cómo traigo la duración de la carrera que está en D2?</summary>
+            <p><code>=BUSCARV(D2;$J$2:$K$6;2;FALSO)</code>. D2 es el valor buscado; $J$2:$K$6 la tabla, sin encabezados y con <code>$</code>; 2 la columna de donde se trae el dato; FALSO exige coincidencia exacta.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>Mi BUSCARV funciona en la fila 2 pero da #N/D a partir de la fila 5. ¿Por qué?</summary>
+            <p>Lo más probable es que faltaron los <code>$</code> en la matriz: al copiar, el rango se corrió hacia abajo y dejó afuera algunas carreras. La solución es escribir <code>$J$2:$K$6</code> y volver a copiar.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>¿Cuándo uso BUSCARH en lugar de BUSCARV?</summary>
+            <p>Cuando la tabla de referencia tiene los valores a buscar escritos en una <strong>fila</strong> (uno al lado del otro) en vez de una columna. La lógica es la misma; el tercer argumento pasa a ser el número de fila.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">C. Gráficos, orden y filtros</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 3</span>Tengo la cantidad de alumnos por facultad y quiero ver qué porcentaje del total es cada una. ¿Qué gráfico elijo?</summary>
+            <p>Un gráfico <strong>circular</strong>, con etiquetas de datos en porcentaje. Sirve porque muestra partes de un total. Para comparar cantidades exactas entre facultades convendría más uno de columnas.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>¿Cómo ordeno por FACULTAD y, dentro de cada facultad, por FECHA INGRESO?</summary>
+            <p>Datos &gt; Ordenar. En el primer nivel, columna FACULTAD; después <strong>Agregar nivel</strong> y elegís FECHA INGRESO de menor a mayor. El orden de los niveles importa: el primero manda.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>Quiero ver a los alumnos de Nutrición o Psicología ingresados en 2019. ¿Cómo lo filtro?</summary>
+            <p>Activás el filtro. En CARRERA tildás las dos carreras (O dentro de una columna) y en AÑO INGRESO solo 2019. Entre las dos columnas se aplica Y automáticamente.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>Apliqué un filtro y las filas 3, 4 y 5 no aparecen. ¿Se borraron?</summary>
+            <p>No, están ocultas. Los números de fila salteados lo confirman. Con <strong>Borrar</strong> en Datos vuelven a verse todas.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>¿Cuál es la diferencia entre "Borrar" y apagar el botón Filtro?</summary>
+            <p>Borrar quita los criterios pero deja las flechas activas para filtrar de nuevo. Apagar el botón Filtro quita las flechas y los criterios.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">D. Conceptos</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 1</span>¿Qué diferencia hay entre una celda, un rango y una hoja?</summary>
+            <p>Celda: una intersección (<code>B3</code>). Rango: un grupo de celdas (<code>A1:G1</code>). Hoja: cada pestaña del libro, con su propia cuadrícula de celdas.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 1</span>¿Por qué se usa =C4+D4 y no =5+3?</summary>
+            <p>Porque con referencias, si cambia el dato de C4 o D4 el resultado se actualiza solo. Con números escritos dentro de la fórmula habría que reescribirla cada vez.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>¿Qué requisitos tiene que cumplir una tabla para funcionar como base de datos?</summary>
+            <p>Encabezados de texto únicos en la primera fila, sin filas ni columnas vacías en el medio, y un solo tipo de dato por columna.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODELO DE PARCIAL -->
+    <section class="section alt" id="modelo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Simulacro</p>
+          <h2>Modelo de parcial</h2>
+          <p>
+            Un ejercicio práctico y corto, del estilo del parcial, para
+            resolver en Excel en unos 20 o 30 minutos. Armalo desde cero,
+            resolvé las consignas <strong>sin mirar la resolución</strong>
+            y después comparás tus resultados.
+          </p>
+        </div>
+
+        <div class="hero-note">
+          <span>Enunciado · Internaciones de una clínica</span>
+          <p>
+            Guardá el libro como <strong>Parcial.xlsx</strong> y cargá
+            estos datos: el título en A1, los encabezados en la fila 2 y
+            los pacientes desde la fila 3 (A3 a E12).
+          </p>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>PACIENTE</th>
+                  <th>FECHA INGRESO</th>
+                  <th>SERVICIO</th>
+                  <th>DÍAS INTERNADO</th>
+                  <th>COSTO POR DÍA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Pérez, Ana</td><td>12/03/2023</td><td>Cardiología</td><td>3</td><td>8000</td></tr>
+                <tr><td>Gómez, Luis</td><td>05/07/2022</td><td>Pediatría</td><td>5</td><td>5000</td></tr>
+                <tr><td>Ruiz, Marta</td><td>21/01/2023</td><td>Cardiología</td><td>8</td><td>8000</td></tr>
+                <tr><td>Díaz, Jorge</td><td>14/11/2022</td><td>Traumatología</td><td>2</td><td>6500</td></tr>
+                <tr><td>Sosa, Laura</td><td>30/05/2023</td><td>Pediatría</td><td>12</td><td>5000</td></tr>
+                <tr><td>Luna, Pedro</td><td>09/09/2022</td><td>Traumatología</td><td>6</td><td>6500</td></tr>
+                <tr><td>Vega, Sofía</td><td>18/02/2023</td><td>Cardiología</td><td>1</td><td>8000</td></tr>
+                <tr><td>Mora, Diego</td><td>25/08/2023</td><td>Pediatría</td><td>4</td><td>5000</td></tr>
+                <tr><td>Ibarra, Rosa</td><td>03/04/2022</td><td>Traumatología</td><td>9</td><td>6500</td></tr>
+                <tr><td>Paz, Hugo</td><td>16/12/2022</td><td>Cardiología</td><td>7</td><td>8000</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2rem;">
+          <h3>Consignas</h3>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>N.º</th>
+                  <th>Consigna</th>
+                  <th>Contenido que evalúa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>Escribir "Internaciones" en A1 y combinarlo y centrarlo sobre A1:G1. Poner los encabezados en negrita, con color y bordes.</td><td>Clase 1</td></tr>
+                <tr><td>2</td><td>En la columna F (<strong>COSTO TOTAL</strong>), calcular los días internado por el costo por día.</td><td>Clase 1</td></tr>
+                <tr><td>3</td><td>En la columna G (<strong>TIPO</strong>), poner "Larga" si estuvo más de 5 días y "Corta" si no.</td><td>Clase 4 · SI</td></tr>
+                <tr><td>4</td><td>Debajo de la tabla (desde la fila 14), calcular el total de días internados, el promedio de días y el máximo de días.</td><td>Clase 2 · SUMA, PROMEDIO, MAX</td></tr>
+                <tr><td>5</td><td>Calcular cuántos pacientes se atendieron en Cardiología y cuánto suman los costos totales de Pediatría.</td><td>Clase 4 · CONTAR.SI, SUMAR.SI</td></tr>
+                <tr><td>6</td><td>Hacer un gráfico de columnas con los días internado de cada paciente, con título.</td><td>Clase 3</td></tr>
+                <tr><td>7</td><td>Ordenar la tabla por DÍAS INTERNADO, de mayor a menor.</td><td>Clase 5 · Ordenar</td></tr>
+                <tr><td>8</td><td>Filtrar los pacientes de Cardiología. Borrar el filtro al terminar.</td><td>Clase 5 · Filtros</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">Resolución</h3>
+        <p style="color: var(--muted); margin: 0 0 1rem;">
+          Abrí cada respuesta solo después de intentar la consigna. Las
+          fórmulas están escritas para la fila 3, donde está el primer
+          paciente, y se copian hacia abajo hasta la fila 12.
+        </p>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">1</span>Título y formato</summary>
+            <p>Seleccioná A1:G1 y usá <strong>Combinar y centrar</strong>. Escribí "Internaciones" en negrita. Encabezados con negrita, relleno de color y bordes.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">2</span>COSTO TOTAL</summary>
+            <p><code>=D3*E3</code> y copiar hacia abajo. Resultados: 24000, 25000, 64000, 13000, 60000, 39000, 8000, 20000, 58500, 56000.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">3</span>TIPO</summary>
+            <p><code>=SI(D3&gt;5;"Larga";"Corta")</code> y copiar hacia abajo. Resultados: Corta, Corta, Larga, Corta, Larga, Larga, Corta, Corta, Larga, Larga. Ojo con Gómez, Luis: tiene exactamente 5 días, no más de 5, así que es "Corta".</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">4</span>Total, promedio y máximo</summary>
+            <p><code>=SUMA(D3:D12)</code> → 57. <code>=PROMEDIO(D3:D12)</code> → 5,7. <code>=MAX(D3:D12)</code> → 12.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">5</span>Cardiología y Pediatría</summary>
+            <p><code>=CONTAR.SI(C3:C12;"Cardiología")</code> → 4. <code>=SUMAR.SI(C3:C12;"Pediatría";F3:F12)</code> → 105000.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">6</span>Gráfico de columnas</summary>
+            <p>Seleccioná los nombres (A2:A12), mantené <code>Ctrl</code> y seleccioná los días (D2:D12). Insertar &gt; Gráfico de columnas y agregá un título, por ejemplo "Días de internación por paciente". La columna más alta es la de Sosa, Laura (12 días).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">7</span>Ordenar</summary>
+            <p>Con una celda de la tabla seleccionada: Datos &gt; Ordenar, columna DÍAS INTERNADO, de mayor a menor. Orden: Sosa (12), Ibarra (9), Ruiz (8), Paz (7), Luna (6), Gómez (5), Mora (4), Pérez (3), Díaz (2), Vega (1).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">8</span>Filtro</summary>
+            <p>Activá el filtro y, en SERVICIO, dejá tildado solo Cardiología. Quedan 4 pacientes: Pérez, Ruiz, Vega y Paz. Al terminar usá <strong>Borrar</strong>.</p>
+          </details>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo autoevaluarte</span>
+          <p>
+            Si tus resultados coinciden con los de la resolución, la
+            consigna está bien. El costo total de todos los pacientes
+            tiene que dar <strong>367500</strong>. Si no coincide,
+            revisá los rangos y el signo <code>&gt;</code> de la SI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARCIAL -->
+    <section class="section" id="parcial">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para llegar tranquilo</p>
+          <h2>Consejos para el parcial</h2>
+          <p>
+            Prácticas concretas que evitan los errores más comunes en un
+            examen de planilla de cálculo.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Leé todo el enunciado primero</h3>
+            <p>
+              Antes de escribir nada, identificá qué columnas tenés, qué
+              te piden y qué herramienta corresponde a cada pedido. Así
+              evitás rehacer una tabla por una columna que faltaba.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. Probá antes de copiar</h3>
+            <p>
+              Verificá la fórmula en una o dos filas donde ya sepas el
+              resultado. Recién después copiala a toda la columna.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Usá referencias, no números</h3>
+            <p>
+              Si el enunciado da un porcentaje o un valor de referencia,
+              ponelo en una celda y apuntá a ella con <code>$</code>.
+              Escribirlo dentro de la fórmula suele restar puntos.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>4. Cuidá la presentación</h3>
+            <p>
+              Título combinado y centrado, encabezados en negrita,
+              columnas con ancho suficiente y gráficos con título y
+              etiquetas. También forma parte de lo que se evalúa.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>5. Guardá seguido</h3>
+            <p>
+              <code>Ctrl+G</code> cada vez que completes un punto. Perder 20
+              minutos de trabajo por un cierre inesperado es evitable.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>6. Revisá al final</h3>
+            <p>
+              Buscá mensajes de error (<code>#</code>) en las columnas,
+              confirmá que los filtros estén borrados si no se pedían y
+              que el gráfico apunte al rango correcto.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Importante</span>
+          <p>
+            Esta clase es un resumen armado a partir del material de la
+            Unidad 1 y cubre solo esa unidad, no
+            otras. Si tu docente indica temas puntuales del
+            parcial, priorizalos por sobre este repaso.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase6.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 6 · Más sobre funciones</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 1 · Repaso</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
