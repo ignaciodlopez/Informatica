@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Primer Parcial</title>
+  <meta
+    name="description"
+    content="Repaso general de las Unidades 1 y 2 de Informática Aplicada (C1-21-10) para preparar el primer parcial: Informática, Sistemas Operativos, Internet y Microsoft Word, con ejercicios de autoevaluación y un modelo de parcial."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    .quiz { display: grid; gap: 0.75rem; }
+    .quiz details {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: 1rem 1.25rem;
+    }
+    .quiz summary { cursor: pointer; font-weight: 600; color: var(--text); }
+    .quiz details[open] summary { margin-bottom: 0.75rem; color: var(--primary); }
+    .quiz details p { margin: 0.5rem 0 0; color: var(--muted); }
+    .quiz details code, .quiz details kbd {
+      background: var(--surface-soft);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.85rem;
+      color: var(--primary);
+    }
+    [data-theme="dark"] .quiz details { background: var(--surface) !important; }
+    [data-theme="dark"] .quiz details code, [data-theme="dark"] .quiz details kbd { background: rgba(255, 255, 255, 0.1); color: #93c5fd; }
+    .quiz-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-right: 0.5rem;
+    }
+    kbd {
+      display: inline-block;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 0.3rem;
+      padding: 0.1em 0.5em;
+      font-size: 0.82em;
+      font-family: monospace;
+    }
+    .kbd-combo { display: inline-block; white-space: nowrap; }
+    .shortcuts-table td:first-child { white-space: nowrap; }
+    #mapa td:last-child { white-space: nowrap; }
+    .icon-row { display: flex; gap: 0.6rem; margin: 1rem 0 0; flex-wrap: wrap; justify-content: center; }
+    .icon-row img { width: 48px; height: 48px; border-radius: 10px; border: 1px solid var(--line); }
+    .icon-row img.icon-photo { object-fit: cover; }
+    .icon-row img.icon-logo { object-fit: contain; background: var(--surface-soft); padding: 7px; }
+    .parcial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#repaso">Repaso por clase</a>
+        <a href="#atajos">Atajos</a>
+        <a href="#elegir">Qué usar</a>
+        <a href="#errores">Errores</a>
+        <a href="#practica">Práctica</a>
+        <a href="#modelo">Modelo de parcial</a>
+        <a href="#parcial">Para el parcial</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="parcial-badge">Evaluación</div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones</p>
+        <h1>Primer Parcial: repaso de las Unidades 1 y 2</h1>
+        <p class="lead">
+          Esta clase junta en un solo lugar todo lo que viste en la
+          <strong>Unidad 1</strong> (Informática, Sistemas Operativos e
+          Internet) y en la <strong>Unidad 2</strong> (Microsoft Word):
+          hardware y software, memoria, redes y navegación, y todas las
+          herramientas de Word, desde el formato de texto hasta los
+          vínculos, las notas y la tabla de contenido. Incluye un
+          <strong>modelo de parcial</strong> con parte teórica y parte
+          práctica. No reemplaza a las clases: es el mapa para saber qué
+          repasar y cómo practicarlo antes del parcial.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa">Ver el mapa del repaso</a>
+          <a class="btn btn-secondary" href="#modelo">Ir al modelo de parcial</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Repaso de las Unidades 1 y 2</li>
+          <li>Ejercicios con respuestas</li>
+          <li>Modelo de parcial</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Llegar al parcial con la teoría y la práctica de Word firmes</h2>
+        <p>
+          El primer parcial suele tener dos partes: preguntas conceptuales
+          sobre la <strong>Unidad 1</strong> y un ejercicio práctico en
+          <strong>Word</strong> sobre la Unidad 2. Por eso este repaso
+          también se divide en esas dos mitades, además de organizarse por
+          clase.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Hardware y Software</span>
+          <span>Internet</span>
+          <span>Word: texto</span>
+          <span>Word: objetos</span>
+          <span>Modelo de parcial</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo estudiar con esta clase</span>
+          <p>
+            Leé el repaso y después practicá abriendo Word sin mirar la
+            guía: escribí un texto corto y aplicá formato, insertá una
+            tabla, un vínculo y una nota al pie. Recién cuando algo no te
+            salga, volvé a la clase indicada en cada sección.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- MAPA -->
+    <section class="section" id="mapa">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>El mapa del repaso</h2>
+          <p>
+            Cada fila resume qué se vio en una clase y te lleva a su
+            repaso. Si ya dominás un tema, saltalo; si te trabás, la
+            última columna te dice a qué clase volver.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Unidad</th>
+                  <th>Clase</th>
+                  <th>Tema central</th>
+                  <th>Repaso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>Datos e información, hardware y software, tipos de PC, periféricos, CPU, RAM, ROM, unidades de medida, Sistemas Operativos y Panel de Control</td>
+                  <td><a href="#c1">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>Internet, modelo cliente-servidor, IP y DNS, tipos de redes y conexión, navegadores, URL y seguridad</td>
+                  <td><a href="#c2">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>Procesador de textos, interfaz de Word, párrafos, selección de texto, formato de fuente y de párrafo</td>
+                  <td><a href="#c3">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>Imágenes desde archivo y en línea, ajuste de texto, video en línea, columnas y letra capital</td>
+                  <td><a href="#c4">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>Tablas, formas, gráficos vinculados a Excel, encabezado, pie de página y numeración</td>
+                  <td><a href="#c5">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>6</td>
+                  <td>SmartArt, viñetas, numeración y lista multinivel, modelos y formas 3D, portada</td>
+                  <td><a href="#c6">Ver repaso →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>7</td>
+                  <td>Vínculos y marcadores, notas al pie y al final, estilos de título y tabla de contenido</td>
+                  <td><a href="#c7">Ver repaso →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO POR CLASE -->
+    <section class="section alt" id="repaso">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Lo esencial de cada clase</p>
+          <h2>Repaso clase por clase</h2>
+          <p>
+            Solo lo que tenés que saber de memoria o poder reconstruir. El
+            detalle paso a paso está en cada clase.
+          </p>
+        </div>
+
+        <!-- CLASE 1 -->
+        <h3 id="c1" style="margin: 2rem 0 1rem; scroll-margin-top: 112px;">Clase 1 · Introducción a la Informática y Sistemas Operativos</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Datos, hardware y software</h3>
+            <ul>
+              <li><strong>Dato:</strong> valor aislado, sin contexto (por ejemplo "25"). <strong>Información:</strong> surge cuando los datos se organizan o interpretan ("25 estudiantes asistieron a clase").</li>
+              <li>Todo sistema computacional procesa en tres etapas: <strong>entrada</strong> (teclado, mouse, escáner), <strong>procesamiento</strong> (CPU, memoria) y <strong>salida</strong> (pantalla, informes).</li>
+              <li><strong>Hardware:</strong> parte física, se puede tocar (gabinete, monitor, teclado, placa madre). <strong>Software:</strong> parte lógica, no se toca (Windows, Word, un navegador).</li>
+              <li><strong>Software de sistema</strong> (administra el equipo: Windows, Linux, drivers) vs. <strong>software de aplicación</strong> (resuelve tareas del usuario: Word, Excel, Chrome).</li>
+              <li>Tipos de computadoras: <strong>analógicas</strong> (magnitudes continuas), <strong>digitales</strong> (0 y 1, las más usadas hoy) e <strong>híbridas</strong> (combinan ambas).</li>
+            </ul>
+            <div class="icon-row" aria-hidden="true">
+              <img class="icon-photo" src="img/cpu.jpg" alt="CPU" title="CPU" loading="lazy">
+              <img class="icon-photo" src="img/ram.jpg" alt="Memoria RAM" title="Memoria RAM" loading="lazy">
+              <img class="icon-photo" src="img/rom.jpg" alt="Memoria ROM" title="Memoria ROM" loading="lazy">
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>Componentes, memoria y Sistema Operativo</h3>
+            <ul>
+              <li>Periféricos: de <strong>entrada</strong> (teclado, mouse), <strong>salida</strong> (monitor, impresora), <strong>entrada/salida</strong> (pantalla táctil), <strong>comunicación</strong> (placa de red, router) y <strong>almacenamiento</strong> (disco, pendrive).</li>
+              <li><strong>CPU:</strong> procesa y ejecuta instrucciones. <strong>RAM:</strong> temporal y volátil, se borra al apagar. <strong>ROM:</strong> permanente, guarda lo necesario para el arranque.</li>
+              <li>Un <strong>Sistema Operativo</strong> administra los recursos del equipo, ofrece la interfaz al usuario y es el puente hacia el hardware. Ejemplos: Windows, Linux, macOS, Android, iOS.</li>
+              <li>Distinción clave: MS-DOS (sin entorno gráfico, comandos de texto) frente a Windows, Linux y macOS (con entorno gráfico).</li>
+              <li>El <strong>Panel de Control</strong> de Windows concentra la configuración: sistema y seguridad, redes e internet, hardware y sonido, programas, cuentas de usuario, apariencia y personalización.</li>
+            </ul>
+            <div class="icon-row" aria-hidden="true">
+              <img class="icon-logo" src="img/windows.svg" alt="Windows" title="Windows" loading="lazy">
+              <img class="icon-logo" src="img/linux.png" alt="Linux" title="Linux" loading="lazy">
+              <img class="icon-logo" src="img/macos.svg" alt="macOS" title="macOS" loading="lazy">
+            </div>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Unidad</th>
+                  <th>Equivalencia</th>
+                  <th>Uso habitual</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Bit</td><td>Unidad mínima</td><td>Valor binario 0 o 1</td></tr>
+                <tr><td>Byte</td><td>8 bits</td><td>Un carácter</td></tr>
+                <tr><td>KB</td><td>1.024 bytes</td><td>Archivos de texto pequeños</td></tr>
+                <tr><td>MB</td><td>1.024 KB</td><td>Fotos y canciones</td></tr>
+                <tr><td>GB</td><td>1.024 MB</td><td>Videos y capacidad de pendrives</td></tr>
+                <tr><td>TB</td><td>1.024 GB</td><td>Discos y grandes volúmenes de datos</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <p style="color: var(--muted); margin: 0.75rem 0 0;">Ojo: cada unidad equivale a <strong>1.024</strong> de la anterior, no a 1.000.</p>
+
+        <!-- CLASE 2 -->
+        <h3 id="c2" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 2 · Internet: la red de redes</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Qué es Internet y cómo viaja la información</h3>
+            <ul>
+              <li><strong>Internet</strong> es la infraestructura (cables, antenas, routers, protocolos); la <strong>World Wide Web</strong> es uno de sus servicios, nacido en 1991. "Navegar" es usar la Web, no toda Internet.</li>
+              <li>Modelo <strong>cliente-servidor</strong>: el cliente (tu compu o celular) pide, el servidor (donde está alojada la página) responde.</li>
+              <li><strong>Dirección IP:</strong> número único de cada dispositivo (por ejemplo 190.15.201.4). <strong>DNS:</strong> traduce nombres de dominio (www.educ.ar) a esa IP.</li>
+              <li>Historia breve: 1969 ARPANET, 1973-1983 protocolo TCP/IP, 1989-1991 nace la WWW (Tim Berners-Lee), años 90-2000 Internet masivo.</li>
+            </ul>
+            <div class="icon-row" aria-hidden="true">
+              <img class="icon-photo" src="img/network-cables.jpg" alt="Cables de red" title="Cables de red" loading="lazy">
+              <img class="icon-photo" src="img/servers.jpg" alt="Sala de servidores" title="Servidores" loading="lazy">
+            </div>
+          </article>
+          <article class="simple-card">
+            <h3>Redes, conexión y navegación segura</h3>
+            <ul>
+              <li><strong>LAN:</strong> red local (casa, oficina). <strong>WAN:</strong> red amplia; Internet es la WAN más grande.</li>
+              <li><strong>Módem:</strong> traduce la señal del proveedor en datos utilizables. <strong>Router:</strong> reparte esa conexión entre varios dispositivos, por cable o Wifi.</li>
+              <li>URL: <code>https://www.educ.ar/recursos/buscar</code> = <strong>protocolo</strong> (https, cifrado) + <strong>dominio</strong> + <strong>ruta</strong> + <strong>recurso</strong>.</li>
+              <li>Seguridad: contraseñas largas y distintas por servicio, verificación en dos pasos, cuidado con el <strong>phishing</strong>, revisar el candado/HTTPS antes de ingresar datos.</li>
+            </ul>
+            <div class="icon-row" aria-hidden="true">
+              <img class="icon-photo" src="img/router.jpg" alt="Router" title="Router" loading="lazy">
+              <img class="icon-logo" src="img/chrome.svg" alt="Chrome" title="Chrome" loading="lazy">
+              <img class="icon-logo" src="img/firefox.svg" alt="Firefox" title="Firefox" loading="lazy">
+            </div>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo de conexión</th>
+                  <th>Cómo funciona</th>
+                  <th>Velocidad aproximada</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Dial-up</td><td>Línea telefónica tradicional, la ocupa por completo</td><td>Muy baja (hasta 56 kbps)</td></tr>
+                <tr><td>ADSL</td><td>Línea telefónica, sin ocupar el teléfono</td><td>Media (hasta 20-25 Mbps)</td></tr>
+                <tr><td>Cable módem</td><td>Red del servicio de TV por cable</td><td>Alta (decenas a cientos de Mbps)</td></tr>
+                <tr><td>Fibra óptica</td><td>Pulsos de luz por cables de vidrio</td><td>Muy alta (cientos de Mbps a varios Gbps)</td></tr>
+                <tr><td>Satelital</td><td>Satélite en órbita, útil en zonas rurales</td><td>Variable, mayor latencia</td></tr>
+                <tr><td>Móvil (3G/4G/5G)</td><td>Red de antenas de telefonía celular</td><td>Media a muy alta según generación</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <!-- CLASE 3 -->
+        <h3 id="c3" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 3 · Crear documentos en Word</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Word y sus párrafos</h3>
+            <ul>
+              <li><strong>Procesador de textos</strong> (Word): crea, edita, formatea e imprime documentos, a diferencia de un editor de texto simple (Bloc de notas).</li>
+              <li>Interfaz: barra de título, <strong>cinta de opciones</strong> (fichas con grupos de comandos: Inicio, Insertar, Diseño...), área de trabajo (hoja A4, márgenes de 2,5cm) y barra de estado.</li>
+              <li>Un <strong>párrafo</strong> termina con <code>Enter</code>. Word ajusta el texto solo al borde derecho (salto de línea automático): <strong>no</strong> se presiona Enter al final de cada línea, solo al final de cada párrafo.</li>
+              <li>Guardar: <kbd>Ctrl</kbd>+<kbd>G</kbd>. Guardar como: <kbd>F12</kbd>. Nuevo: <kbd>Ctrl</kbd>+<kbd>U</kbd>. Abrir: <kbd>Ctrl</kbd>+<kbd>A</kbd>.</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Selección y formato</h3>
+            <ul>
+              <li>Selección con mouse: doble clic = palabra, triple clic = párrafo, clic en el margen izquierdo = línea.</li>
+              <li>Selección con teclado: <kbd>Shift</kbd>+flechas (carácter/línea), <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+flecha (palabra), <kbd>Ctrl</kbd>+<kbd>E</kbd> (todo el documento).</li>
+              <li>Formato de fuente: tipo, tamaño (en puntos), <strong>negrita</strong> <kbd>Ctrl</kbd>+<kbd>N</kbd>, <strong>cursiva</strong> <kbd>Ctrl</kbd>+<kbd>K</kbd>, <strong>subrayado</strong> <kbd>Ctrl</kbd>+<kbd>S</kbd>.</li>
+              <li>Formato de párrafo: alineación izquierda <kbd>Ctrl</kbd>+<kbd>Q</kbd>, centrada <kbd>Ctrl</kbd>+<kbd>T</kbd>, derecha <kbd>Ctrl</kbd>+<kbd>D</kbd>, justificada <kbd>Ctrl</kbd>+<kbd>J</kbd>; además interlineado, sangría, sombreado y bordes.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="hero-note" style="margin-top: 1rem;">
+          <span>Ojo con los atajos</span>
+          <p>
+            En Word en español los atajos de formato NO son los mismos que
+            en inglés: acá negrita es <kbd>Ctrl</kbd>+<kbd>N</kbd> (no
+            <code>Ctrl+B</code>), cursiva es <kbd>Ctrl</kbd>+<kbd>K</kbd>
+            (no <code>Ctrl+I</code>) y guardar es
+            <kbd>Ctrl</kbd>+<kbd>G</kbd> (no <code>Ctrl+S</code>).
+          </p>
+        </div>
+
+        <!-- CLASE 4 -->
+        <h3 id="c4" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 4 · Párrafo y Estilos</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Imágenes y video</h3>
+            <ul>
+              <li>Insertar imagen: <strong>Insertar → Ilustraciones → Imágenes</strong>, desde archivo o "Imágenes en línea" (buscador de Bing).</li>
+              <li>Toda imagen nace "En línea con el texto" (se comporta como una letra gigante). Con el ícono de <strong>Opciones de diseño</strong> ("la flor") se elige el ajuste: <strong>Cuadrado</strong> (el más usado, rodea la imagen) o <strong>Estrecho</strong> (sigue el contorno).</li>
+              <li>Video en línea: <strong>Insertar → Multimedia → Vídeo en línea</strong>; se comporta como una imagen (se redimensiona y admite ajuste de texto), solo se reproduce en pantalla.</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Columnas y letra capital</h3>
+            <ul>
+              <li>Columnas: seleccionar el texto primero, después <strong>Diseño → Columnas</strong>. Error típico: no seleccionar y que se apliquen a todo el documento.</li>
+              <li>Letra capital: cursor dentro del párrafo (sin seleccionar la letra), <strong>Insertar → Texto → Letra capital</strong>, opción "En texto" o "En margen".</li>
+              <li>Combo típico de "artículo de revista": columnas + letra capital + una imagen chica.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- CLASE 5 -->
+        <h3 id="c5" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 5 · Tablas y Formas</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Tablas</h3>
+            <ul>
+              <li>Insertar: grilla rápida (arrastrando), "Insertar tabla..." (medida exacta) o "Convertir texto en tabla".</li>
+              <li>Con clic derecho: insertar o eliminar filas/columnas, combinar o dividir celdas. <kbd>Tab</kbd> en la última celda agrega una fila nueva.</li>
+              <li><strong>Autoajustar contenido</strong> (columnas según lo que escribís) vs. "Autoajustar ventana" (ancho parejo forzado, el error más común).</li>
+              <li>Fórmulas: <code>=SUM(ABOVE)</code> suma lo de arriba, <code>=SUM(LEFT)</code> lo de la izquierda. No se recalculan solas: clic derecho → <strong>Actualizar campo</strong> (o <kbd>F9</kbd>).</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Formas, gráficos y encabezado/pie</h3>
+            <ul>
+              <li>Formas: <strong>Insertar → Ilustraciones → Formas</strong>; <kbd>Shift</kbd> mantiene la proporción al dibujar. Con dos o más seleccionadas se pueden agrupar, alinear y ordenar planos.</li>
+              <li>Gráfico vinculado a Excel: <strong>Insertar → Gráfico</strong>; los datos quedan guardados dentro del .docx, aunque se borre el Excel original.</li>
+              <li>Encabezado, pie y numeración: <strong>Insertar → Encabezado y pie de página</strong>; el número de página se inserta como <strong>campo</strong>, nunca a mano. "Primera página diferente" deja la portada sin encabezado.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- CLASE 6 -->
+        <h3 id="c6" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 6 · SmartArt y Portada</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>SmartArt, viñetas y listas</h3>
+            <ul>
+              <li>SmartArt sirve cuando un párrafo describe pasos, jerarquías o partes de un todo: <strong>Insertar → Ilustraciones → SmartArt</strong>. El <strong>Panel de texto</strong> con <kbd>Tab</kbd>/<kbd>Shift</kbd>+<kbd>Tab</kbd> maneja los niveles.</li>
+              <li><strong>Viñetas:</strong> ítems sin orden. <strong>Numeración:</strong> ítems con secuencia (se renumera sola). <strong>Lista multinivel:</strong> ítems con subniveles, como un índice.</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Objetos 3D y portada</h3>
+            <ul>
+              <li><strong>Modelo 3D real</strong> (Insertar → Modelos 3D): rota con un controlador circular, pesa más. <strong>Forma con relleno de imagen</strong>: más liviana, simula volumen (bisel).</li>
+              <li>Portada: <strong>Insertar → Páginas → Portada</strong>, se inserta siempre como primera página; para sacarla, "Quitar portada actual" (no basta borrar el texto a mano).</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- CLASE 7 -->
+        <h3 id="c7" style="margin: 2.5rem 0 1rem; scroll-margin-top: 112px;">Clase 7 · Referencias y Tabla de contenido</h3>
+        <div class="two-col">
+          <article class="simple-card">
+            <h3>Vínculos, marcadores y notas</h3>
+            <ul>
+              <li>Vínculo: texto seleccionado + <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>K</kbd> (o clic derecho → Vínculo). Cuatro destinos: archivo o página web, lugar de este documento, nuevo documento, o dirección de correo. Se prueba con <kbd>Ctrl</kbd>+clic.</li>
+              <li>Marcador: "banderita" en un punto del documento (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>F5</kbd>); el nombre no lleva espacios y empieza con letra.</li>
+              <li><strong>Nota al pie</strong> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd>, numeración 1,2,3, abajo de la página) vs. <strong>nota al final</strong> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>, numeración i,ii,iii, al final del documento).</li>
+            </ul>
+          </article>
+          <article class="simple-card">
+            <h3>Tabla de contenido</h3>
+            <ul>
+              <li>Word reconoce un título por el <strong>estilo</strong> aplicado (Título 1, Título 2, Título 3 — <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd>), no por cómo se ve a simple vista.</li>
+              <li><strong>Referencias → Tabla de contenido → Tabla automática.</strong> Se actualiza con clic derecho → "Actualizar tabla" (o <kbd>F9</kbd>), siempre antes de entregar.</li>
+              <li>La "Tabla manual" no se actualiza sola y no tiene vínculos: conviene evitarla.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATAJOS -->
+    <section class="section" id="atajos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para tener a mano</p>
+          <h2>Cuadro resumen de atajos de teclado en Word</h2>
+          <p>
+            Los atajos de la versión en español de Word no siempre
+            coinciden con los que se ven en tutoriales en inglés. Estos son
+            los que se usaron en la Unidad 2.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="table-card">
+            <table class="shortcuts-table">
+              <thead>
+                <tr><th>Atajo</th><th>Acción</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>N</kbd></span></td><td>Negrita</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>K</kbd></span></td><td>Cursiva</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>S</kbd></span></td><td>Subrayado</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Q</kbd></span></td><td>Alinear a la izquierda</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>T</kbd></span></td><td>Centrar</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>D</kbd></span></td><td>Alinear a la derecha</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>J</kbd></span></td><td>Justificar</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>E</kbd></span></td><td>Seleccionar todo</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>G</kbd></span></td><td>Guardar</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>F12</kbd></span></td><td>Guardar como</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>A</kbd></span></td><td>Abrir documento</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Z</kbd></span> / <span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Y</kbd></span></td><td>Deshacer / Rehacer</td></tr>
+              </tbody>
+            </table>
+          </article>
+          <article class="table-card">
+            <table class="shortcuts-table">
+              <thead>
+                <tr><th>Atajo</th><th>Acción</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>K</kbd></span></td><td>Insertar vínculo</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>F5</kbd></span></td><td>Insertar marcador</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></span></td><td>Insertar nota al pie</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd></span></td><td>Insertar nota al final</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd></span></td><td>Aplicar estilo Título 1</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>2</kbd></span></td><td>Aplicar estilo Título 2</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>3</kbd></span></td><td>Aplicar estilo Título 3</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>F9</kbd></span></td><td>Actualizar campo (tabla de contenido, fórmula de tabla)</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Ctrl</kbd>+clic</span></td><td>Seguir un vínculo</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Tab</kbd></span></td><td>En una tabla: agregar fila; en SmartArt/lista multinivel: bajar de nivel</td></tr>
+                <tr><td><span class="kbd-combo"><kbd>Shift</kbd>+<kbd>Tab</kbd></span></td><td>Subir de nivel en SmartArt/lista multinivel</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUE USAR -->
+    <section class="section alt" id="elegir">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cómo se piensa un ejercicio</p>
+          <h2>¿Qué herramienta uso en Word?</h2>
+          <p>
+            En el parcial casi nunca te dicen el nombre exacto del comando.
+            Te describen lo que necesitás lograr. Esta tabla traduce el
+            pedido en la herramienta correspondiente.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr><th>Si el enunciado pide…</th><th>Usá</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Alinear información en filas y columnas (factura, horario)</td><td>Tabla</td></tr>
+                <tr><td>Que el texto rodee una imagen</td><td>Ajuste de texto "Cuadrado" (o "Estrecho")</td></tr>
+                <tr><td>Un texto en dos o tres columnas, estilo diario</td><td>Diseño → Columnas (con el texto seleccionado)</td></tr>
+                <tr><td>Una letra grande al inicio de un párrafo, estilo revista</td><td>Letra capital</td></tr>
+                <tr><td>Mostrar pasos de un proceso o un organigrama</td><td>SmartArt</td></tr>
+                <tr><td>Una lista sin orden obligatorio</td><td>Viñetas</td></tr>
+                <tr><td>Una lista con orden o secuencia</td><td>Numeración</td></tr>
+                <tr><td>Un índice con subtemas</td><td>Lista multinivel</td></tr>
+                <tr><td>Una hoja de presentación con título, materia y autor</td><td>Portada (Insertar → Páginas → Portada)</td></tr>
+                <tr><td>Llevar al lector a una página web, a otra parte del documento o a un mail</td><td>Vínculo (<span class="kbd-combo"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>K</kbd></span>)</td></tr>
+                <tr><td>Aclarar un término sin cortar el texto principal</td><td>Nota al pie o nota al final</td></tr>
+                <tr><td>Un índice automático con número de página</td><td>Estilos de título + Tabla de contenido</td></tr>
+                <tr><td>Un gráfico de columnas, torta o líneas con datos numéricos</td><td>Gráfico vinculado a Excel</td></tr>
+                <tr><td>Un logo o un dibujo simple armado a mano</td><td>Formas agrupadas</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <h3>Nota al pie vs. nota al final</h3>
+            <p>
+              La <strong>nota al pie</strong> se lee sin cambiar de hoja:
+              sirve para aclaraciones breves. La <strong>nota al
+              final</strong> junta todo al terminar el documento: sirve
+              para listas de fuentes o citas.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Viñetas vs. numeración vs. multinivel</h3>
+            <p>
+              Viñetas cuando el orden no importa. Numeración cuando sí
+              importa (instrucciones, ranking). Multinivel cuando además
+              hay subniveles, como en un índice con subtemas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES -->
+    <section class="section" id="errores">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando algo "no anda"</p>
+          <h2>Errores más frecuentes de las dos unidades</h2>
+          <p>
+            Reconocerlos de entrada te ahorra minutos en el parcial.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr><th>Lo que pasa</th><th>Por qué</th><th>Cómo se arregla</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>La RAM pierde todo lo que estaba abierto al apagar</td><td>Es una memoria temporal y volátil por diseño</td><td>Guardar en un disco (o en la nube) antes de apagar</td></tr>
+                <tr><td>Un vínculo no funciona al abrirlo en otra compu</td><td>Apunta a un archivo local del equipo original</td><td>Vincular a la web, al documento o a un mail, no a un archivo local</td></tr>
+                <tr><td>El párrafo se corta raro al escribir</td><td>Se presionó Enter al final de cada línea en vez de cada párrafo</td><td>Dejar que Word ajuste solo; Enter solo al terminar el párrafo</td></tr>
+                <tr><td>Al insertar una imagen, el texto se corta o desaparece</td><td>La imagen quedó "En línea con el texto"</td><td>Cambiar el ajuste de texto a Cuadrado o Estrecho</td></tr>
+                <tr><td>Las columnas se aplicaron a todo el documento</td><td>No se seleccionó el texto antes de Diseño → Columnas</td><td>Seleccionar el texto primero</td></tr>
+                <tr><td>Una tabla ocupa todo el ancho de la hoja</td><td>Quedó en "Autoajustar ventana" (el valor por defecto)</td><td>Presentación → Autoajustar contenido</td></tr>
+                <tr><td>La tabla de contenido sale vacía</td><td>Ningún párrafo tiene aplicado un estilo de título</td><td>Aplicar Título 1/2/3 y volver a insertar la tabla</td></tr>
+                <tr><td>El índice no refleja un título nuevo</td><td>No se actualizó después de escribir</td><td>Clic en la tabla → Actualizar tabla → toda la tabla (o <kbd>F9</kbd>)</td></tr>
+                <tr><td>Una forma tapa el texto</td><td>Nace con ajuste "Delante del texto"</td><td>Cambiar el ajuste a Cuadrado o Detrás del texto</td></tr>
+                <tr><td>El número de página se descuadra al agregar una hoja</td><td>Se escribió el número a mano en vez de insertarlo como campo</td><td>Insertar → Número de página (se recalcula solo)</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRACTICA -->
+    <section class="section alt" id="practica">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ahora practicá</p>
+          <h2>Ejercicios de autoevaluación</h2>
+          <p>
+            Intentá responder cada uno <strong>antes</strong> de abrir la
+            respuesta.
+          </p>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 0.75rem;">A. Informática, hardware y software (Clase 1)</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 1</span>¿Cuál es la diferencia entre un dato y la información?</summary>
+            <p>El dato es un valor aislado, sin contexto suficiente ("25"). La información surge cuando esos datos se organizan o interpretan ("25 estudiantes asistieron a clase").</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 1</span>¿Por qué la memoria RAM se considera "volátil" y la ROM no?</summary>
+            <p>La RAM guarda temporalmente lo que se está usando: si se corta la energía, se pierde. La ROM guarda información permanente necesaria para el arranque, que no se borra al apagar.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 1</span>Clasificá estos elementos como hardware o software: el mouse, Windows, la placa madre, Word.</summary>
+            <p>Hardware: mouse y placa madre (se tocan). Software: Windows y Word (programas, parte lógica).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 1</span>Un pendrive de 32 GB, ¿cuántos MB son aproximadamente?</summary>
+            <p>32.768 MB (32 × 1.024), porque cada unidad equivale a 1.024 de la anterior, no a 1.000.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">B. Internet (Clase 2)</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 2</span>¿Internet y la World Wide Web son lo mismo?</summary>
+            <p>No. Internet es la infraestructura (cables, routers, protocolos); la Web es uno de los servicios que corre sobre ella, junto con el correo, el streaming o la mensajería.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 2</span>¿Para qué sirve el DNS?</summary>
+            <p>Traduce los nombres de dominio que escribimos (como www.educ.ar) a la dirección IP numérica real del servidor.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 2</span>¿Cuál es la diferencia entre un módem y un router?</summary>
+            <p>El módem traduce la señal que llega del proveedor (teléfono, cable o fibra) en datos utilizables. El router reparte esa conexión entre varios dispositivos, por cable o Wifi.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 2</span>Antes de ingresar una contraseña en un sitio, ¿qué deberías chequear?</summary>
+            <p>Que la dirección empiece con <code>https://</code> y que aparezca el candado en la barra, señal de que la conexión está cifrada.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">C. Word: texto y formato (Clase 3)</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 3</span>¿Cuándo hay que presionar Enter al escribir un texto largo en Word?</summary>
+            <p>Solo al final de cada párrafo. Word ajusta el texto solo al llegar al borde derecho; si se presiona Enter en cada línea, el párrafo se corta mal al cambiar el tamaño de letra o los márgenes.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 3</span>¿Qué atajo aplica negrita en Word en español?</summary>
+            <p><kbd>Ctrl</kbd>+<kbd>N</kbd> (no <code>Ctrl+B</code>, que es el atajo en la versión en inglés).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 3</span>¿Cómo justifico un párrafo para que ambos bordes queden parejos?</summary>
+            <p><kbd>Ctrl</kbd>+<kbd>J</kbd>, o Inicio → Párrafo → botón Justificar.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">D. Word: imágenes, columnas y letra capital (Clase 4)</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 4</span>Insertaste una imagen y el texto de alrededor desapareció. ¿Qué pasó?</summary>
+            <p>La imagen quedó con el ajuste "En línea con el texto" (se comporta como una letra gigante). Hay que abrir Opciones de diseño y elegir Cuadrado o Estrecho.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 4</span>Quisiste poner solo un párrafo en dos columnas, pero se aplicó a todo el documento. ¿Por qué?</summary>
+            <p>No se seleccionó el texto antes de ir a Diseño → Columnas. Si no hay selección, Word aplica el cambio a todo el documento.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 4</span>¿Dónde tiene que estar el cursor para aplicar una letra capital?</summary>
+            <p>Dentro del párrafo al que se le quiere aplicar (no hace falta seleccionar la letra). Insertar → Texto → Letra capital.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">E. Word: tablas, formas y encabezados (Clase 5)</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>¿Cómo sumo automáticamente los valores de una columna dentro de una tabla de Word?</summary>
+            <p>Con la fórmula <code>=SUM(ABOVE)</code> en la celda debajo de la columna. Como no se recalcula sola, hay que actualizarla con clic derecho → Actualizar campo (o <kbd>F9</kbd>) si cambia algún valor.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>Si se borra el archivo de Excel original, ¿se rompe el gráfico insertado en Word?</summary>
+            <p>No. Word guarda una copia de los datos dentro del propio .docx al insertar el gráfico.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 5</span>¿Cómo hago que la portada no tenga el número de página del resto del documento?</summary>
+            <p>Activando "Primera página diferente" en las opciones de Encabezado y pie de página.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">F. Word: SmartArt, listas, 3D y portada (Clase 6)</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>Tenés un párrafo que describe los pasos de una inscripción. ¿Qué herramienta usás para mostrarlo visualmente?</summary>
+            <p>Un SmartArt de la categoría Proceso, cargando el texto desde el Panel de texto.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>¿Cuándo conviene usar numeración en vez de viñetas?</summary>
+            <p>Cuando el orden de los ítems importa, como en una lista de instrucciones o un ranking. La numeración además se recalcula sola si se reordenan los ítems.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 6</span>¿Cómo se quita una portada insertada con la galería de Word?</summary>
+            <p>Con Insertar → Portada → "Quitar portada actual". Borrar el texto a mano no elimina el diseño de la portada.</p>
+          </details>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">G. Word: vínculos, notas y tabla de contenido (Clase 7)</h3>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">Clase 7</span>¿Cuáles son los cuatro destinos posibles de un vínculo en Word?</summary>
+            <p>Archivo o página web existente, lugar de este documento, nuevo documento, y dirección de correo electrónico.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 7</span>¿Qué diferencia hay entre nota al pie y nota al final?</summary>
+            <p>La nota al pie aparece abajo de la misma página (numeración 1, 2, 3…). La nota al final se junta al terminar todo el documento (numeración i, ii, iii…).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 7</span>Escribiste los títulos en negrita y tamaño grande, pero la tabla de contenido sale vacía. ¿Por qué?</summary>
+            <p>Word arma la tabla de contenido a partir de los <strong>estilos</strong> de título (Título 1, Título 2…), no de cómo se ve el texto a simple vista. Hay que aplicar esos estilos desde Inicio → Estilos.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">Clase 7</span>Agregaste un título nuevo al documento pero no aparece en el índice. ¿Qué hacés?</summary>
+            <p>Clic dentro de la tabla de contenido → Actualizar tabla → "Actualizar toda la tabla" (o <kbd>F9</kbd>).</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODELO DE PARCIAL -->
+    <section class="section alt" id="modelo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Simulacro</p>
+          <h2>Modelo de parcial</h2>
+          <p>
+            Un modelo del estilo del parcial, con una parte teórica sobre
+            la Unidad 1 y un ejercicio práctico en Word sobre la Unidad 2,
+            para resolver en 30 a 40 minutos. Resolvé las consignas
+            <strong>sin mirar la resolución</strong> y después comparás.
+          </p>
+        </div>
+
+        <div class="section-head" style="margin-top: 1rem;">
+          <h3>Parte A · Opción múltiple (Unidad 1)</h3>
+        </div>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">1</span>La memoria que se borra al apagar la computadora es…</summary>
+            <p>La <strong>RAM</strong>. Es temporal y volátil, guarda lo que se está usando en el momento. La ROM, en cambio, conserva lo necesario para el arranque aunque se apague el equipo.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">2</span>Windows, Linux y macOS son ejemplos de…</summary>
+            <p><strong>Sistemas Operativos</strong>: software que administra los recursos del equipo y hace de puente entre el hardware y el usuario.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">3</span>Un mouse, un escáner y un micrófono son periféricos de…</summary>
+            <p><strong>Entrada</strong>: ingresan datos desde el exterior hacia la computadora.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">4</span>¿Qué diferencia a Internet de la World Wide Web?</summary>
+            <p>Internet es la infraestructura de redes y protocolos; la Web es uno de los servicios que funciona sobre ella (junto con el correo, el streaming, la mensajería).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">5</span>El elemento que traduce un nombre de dominio en una dirección IP se llama…</summary>
+            <p><strong>DNS</strong> (Sistema de Nombres de Dominio).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">6</span>Antes de escribir una contraseña en un sitio web, ¿qué es lo primero que conviene revisar?</summary>
+            <p>Que la dirección empiece con <strong>https://</strong> y que aparezca el candado, señal de que la conexión está cifrada.</p>
+          </details>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <h3>Parte B · Ejercicio práctico en Word (Unidad 2)</h3>
+        </div>
+
+        <div class="hero-note">
+          <span>Enunciado · Un breve informe sobre energías renovables</span>
+          <p>
+            Abrí un documento nuevo, guardalo como <strong>Parcial.docx</strong> y
+            escribí (o pegá) tres o cuatro párrafos cortos sobre energías
+            renovables, con un título. Después aplicá las siguientes
+            consignas.
+          </p>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>N.º</th>
+                  <th>Consigna</th>
+                  <th>Contenido que evalúa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>Poner el título centrado, en negrita y con un tamaño de fuente mayor al del cuerpo.</td><td>Clase 3 · Formato de fuente y párrafo</td></tr>
+                <tr><td>2</td><td>Justificar los párrafos del cuerpo e insertarles una sangría de primera línea.</td><td>Clase 3 · Formato de párrafo</td></tr>
+                <tr><td>3</td><td>Aplicar una letra capital al primer párrafo.</td><td>Clase 4 · Letra capital</td></tr>
+                <tr><td>4</td><td>Insertar una imagen relacionada con el tema, con ajuste de texto Cuadrado.</td><td>Clase 4 · Imágenes y ajuste de texto</td></tr>
+                <tr><td>5</td><td>Poner en dos columnas el segundo párrafo, con línea entre columnas.</td><td>Clase 4 · Columnas</td></tr>
+                <tr><td>6</td><td>Agregar una tabla de 3 filas y 2 columnas comparando dos energías renovables (por ejemplo, solar y eólica).</td><td>Clase 5 · Tablas</td></tr>
+                <tr><td>7</td><td>Agregar un encabezado con tu nombre y un pie de página con el número de página.</td><td>Clase 5 · Encabezado y pie</td></tr>
+                <tr><td>8</td><td>Convertir la lista de tipos de energía renovable en viñetas.</td><td>Clase 6 · Viñetas</td></tr>
+                <tr><td>9</td><td>Insertar una portada con título, materia y tu nombre, con "Primera página diferente" activado.</td><td>Clase 6 · Portada</td></tr>
+                <tr><td>10</td><td>Aplicar estilo Título 1 al título principal, insertar una tabla de contenido automática después de la portada y actualizarla.</td><td>Clase 7 · Estilos y tabla de contenido</td></tr>
+                <tr><td>11</td><td>Insertar un vínculo en alguna palabra clave hacia una página web relacionada.</td><td>Clase 7 · Vínculos</td></tr>
+                <tr><td>12</td><td>Agregar una nota al pie aclarando algún término técnico del texto.</td><td>Clase 7 · Notas al pie</td></tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <h3 style="margin: 2rem 0 0.75rem;">Resolución</h3>
+        <p style="color: var(--muted); margin: 0 0 1rem;">
+          Abrí cada respuesta solo después de intentar la consigna.
+        </p>
+        <div class="quiz">
+          <details>
+            <summary><span class="quiz-tag">1-2</span>Título y párrafos</summary>
+            <p>Título: seleccionalo, <kbd>Ctrl</kbd>+<kbd>T</kbd> para centrar, <kbd>Ctrl</kbd>+<kbd>N</kbd> para negrita, y subí el tamaño con el botón A↑. Párrafos: <kbd>Ctrl</kbd>+<kbd>J</kbd> para justificar, y en Párrafo → Sangría elegir "Primera línea".</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">3</span>Letra capital</summary>
+            <p>Cursor dentro del primer párrafo (sin seleccionar nada) → Insertar → Texto → Letra capital → "En texto".</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">4</span>Imagen</summary>
+            <p>Insertar → Ilustraciones → Imágenes → Este dispositivo (o Imágenes en línea) → una vez insertada, clic en el ícono de Opciones de diseño → Cuadrado.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">5</span>Columnas</summary>
+            <p>Seleccionar todo el segundo párrafo → Diseño → Columnas → Dos → Más columnas... → tildar "Línea entre columnas".</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">6</span>Tabla</summary>
+            <p>Insertar → Tabla → arrastrar 2 columnas x 3 filas. Cargar encabezados (por ejemplo "Energía" y "Característica") y completar las filas.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">7</span>Encabezado y pie</summary>
+            <p>Insertar → Encabezado y pie de página → Editar encabezado → escribir el nombre. Doble clic en el pie → Insertar → Número de página (nunca escribirlo a mano).</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">8</span>Viñetas</summary>
+            <p>Seleccionar la lista de tipos de energía → Inicio → Párrafo → botón Viñetas.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">9</span>Portada</summary>
+            <p>Insertar → Páginas → Portada → elegir un diseño → completar título, materia y nombre en los marcadores de posición. Activar "Primera página diferente" en Encabezado y pie para que la portada no repita el encabezado del resto.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">10</span>Estilos y tabla de contenido</summary>
+            <p>Seleccionar el título del informe → Inicio → Estilos → Título 1 (o <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd>). Insertar una página en blanco después de la portada → Referencias → Tabla de contenido → Tabla automática. Antes de entregar: clic en la tabla → Actualizar tabla.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">11</span>Vínculo</summary>
+            <p>Seleccionar una palabra clave (por ejemplo "energía solar") → <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>K</kbd> → pestaña "Archivo o página web existente" → pegar la dirección → Aceptar. Probar con <kbd>Ctrl</kbd>+clic.</p>
+          </details>
+          <details>
+            <summary><span class="quiz-tag">12</span>Nota al pie</summary>
+            <p>Cursor después del término técnico → Referencias → Insertar nota al pie (o <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd>) → escribir la aclaración.</p>
+          </details>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Cómo autoevaluarte</span>
+          <p>
+            Revisá que la tabla de contenido muestre el título con el
+            número de página correcto, que el vínculo funcione con
+            <kbd>Ctrl</kbd>+clic y que la portada no tenga el encabezado ni
+            el número de página del resto del documento. Si algo no
+            coincide, es casi siempre porque falta actualizar un campo
+            (<kbd>F9</kbd>) o aplicar un estilo de título.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARCIAL -->
+    <section class="section" id="parcial">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para llegar tranquilo</p>
+          <h2>Consejos para el parcial</h2>
+          <p>
+            Prácticas concretas que evitan los errores más comunes en un
+            examen que combina teoría y práctica en Word.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <h3>1. Leé todo el enunciado primero</h3>
+            <p>
+              Identificá qué te piden en cada consigna antes de escribir
+              nada. Muchas veces conviene resolver primero el formato de
+              texto y recién después los objetos (imágenes, tablas,
+              SmartArt) para no tener que rehacerlos.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>2. No escribas a mano lo que Word puede calcular</h3>
+            <p>
+              Números de página, numeración de listas, números de nota al
+              pie y números de página del índice: siempre como campo o
+              herramienta automática, nunca tipeados.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>3. Usá estilos de título desde el principio</h3>
+            <p>
+              Si el ejercicio pide tabla de contenido, aplicá Título 1/2/3
+              a medida que escribís, no al final: es más fácil no
+              olvidarse de ninguno.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>4. Revisá el ajuste de texto de cada objeto</h3>
+            <p>
+              Imágenes, formas, gráficos, videos y modelos 3D nacen con un
+              ajuste por defecto que puede no ser el que necesitás.
+              Confirmá "Cuadrado" o "Estrecho" en cada uno.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>5. Guardá seguido</h3>
+            <p>
+              <kbd>Ctrl</kbd>+<kbd>G</kbd> cada vez que completes un
+              punto. Perder minutos de trabajo por un cierre inesperado es
+              evitable.
+            </p>
+          </article>
+          <article class="process-card">
+            <h3>6. Actualizá antes de entregar</h3>
+            <p>
+              Tabla de contenido (<kbd>F9</kbd>), fórmulas de tabla, y
+              probá que los vínculos funcionen con <kbd>Ctrl</kbd>+clic
+              antes de guardar la versión final.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Importante</span>
+          <p>
+            Esta clase es un resumen armado a partir del material de las
+            Unidades 1 y 2 y cubre solo esas unidades, no otras. Si tu
+            docente indica temas puntuales del parcial, priorizalos por
+            sobre este repaso.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase7.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 7 · Referencias y Tabla de contenido</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Primer Parcial</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+</body>
+</html>
