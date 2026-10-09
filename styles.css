@@ -1680,3 +1680,348 @@ blockquote {
 [data-theme="dark"] blockquote {
   color: var(--muted) !important;
 }
+
+/* ── MOCKUPS ILUSTRATIVOS DE POWERPOINT ──────────────────────── */
+.ppt-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 800px) {
+  .ppt-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ppt-figure {
+  margin: 0;
+}
+
+.ppt-figure figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.ppt-slide {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2937;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4% 5%;
+  text-align: center;
+  font-family: "Calibri", "Segoe UI", Arial, sans-serif;
+  line-height: 1.2;
+  container-type: inline-size;
+}
+
+.ppt-slide .ppt-title {
+  margin: 0;
+  font-size: 7cqw;
+  font-weight: 700;
+}
+
+.ppt-slide .ppt-title.upper {
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.ppt-slide ul {
+  margin: 0;
+  padding-left: 1.1em;
+  text-align: left;
+  font-size: 3.6cqw;
+}
+
+.ppt-slide li {
+  margin: 0 0 0.35em;
+}
+
+.ppt-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #8a97a8;
+  background: #e8edf4;
+  color: #5f6b7a;
+  font-size: 3cqw;
+  text-align: center;
+  padding: 0.3em;
+}
+
+.ppt-slide.fondo {
+  background: linear-gradient(180deg, #1d4f9c 0%, #0a1226 55%, #000000 100%);
+}
+
+.ppt-slide.fondo .ppt-title {
+  color: #ffe600;
+  font-size: 8.5cqw;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.ppt-slide.fondo .ppt-img {
+  margin-top: 4%;
+  width: 34%;
+  height: 40%;
+  background: #1b2740;
+  border-color: #6f7f99;
+  color: #b7c4d8;
+}
+
+.ppt-slide.titulo-objetos .ppt-title {
+  color: #e8731c;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.ppt-slide.titulo-objetos ul {
+  margin-top: 4%;
+  color: #1c5fb4;
+  font-weight: 700;
+  text-align: center;
+  list-style-position: inside;
+  padding: 0;
+}
+
+.ppt-wordart {
+  font-size: 9cqw;
+  font-weight: 800;
+  color: #8fb08a;
+  letter-spacing: 0.02em;
+  text-shadow: 1px 1px 0 #3f6b3a, 2px 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+.ppt-box {
+  margin-top: 4%;
+  padding: 3% 4%;
+  width: 78%;
+  border: 2px solid #3b6fb6;
+  background: linear-gradient(180deg, #e1f7d5 0%, #b9eaa0 100%);
+  color: #33423a;
+  font-size: 3.6cqw;
+  font-weight: 700;
+}
+
+.ppt-slide.formas {
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.ppt-slide.formas .ppt-title {
+  font-size: 8cqw;
+  color: #111827;
+}
+
+.ppt-arrow-down {
+  width: 5cqw;
+  height: 10cqw;
+  margin: 2cqw 0 0 14cqw;
+  background: #4a7fc1;
+  clip-path: polygon(30% 0, 70% 0, 70% 55%, 100% 55%, 50% 100%, 0 55%, 30% 55%);
+}
+
+.ppt-callout {
+  position: absolute;
+  left: 8%;
+  bottom: 8%;
+  width: 52%;
+  padding: 3% 4%;
+  border-radius: 50%;
+  background: #3b72b8;
+  color: #ffffff;
+  font-size: 3cqw;
+  font-weight: 700;
+  text-align: left;
+}
+
+.ppt-slide.formas .ppt-img.a {
+  position: absolute;
+  right: 5%;
+  top: 6%;
+  width: 22%;
+  height: 24%;
+}
+
+.ppt-slide.formas .ppt-img.b {
+  position: absolute;
+  right: 5%;
+  bottom: 6%;
+  width: 22%;
+  height: 34%;
+}
+
+.ppt-slide.dos-objetos {
+  justify-content: flex-start;
+}
+
+.ppt-slide.dos-objetos .ppt-title {
+  font-size: 7cqw;
+}
+
+.ppt-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4%;
+  width: 100%;
+  margin-top: 4%;
+  align-items: center;
+}
+
+.ppt-two .ppt-img {
+  height: 30cqw;
+  border: 2px solid #1f2937;
+  background: #ffffff;
+}
+
+.ppt-two ul {
+  font-size: 3.2cqw;
+}
+
+.ppt-grid-img {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3%;
+  width: 78%;
+  margin-top: 3%;
+  padding: 3%;
+  border: 3px solid #ffffff;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #c6ccd6, 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.ppt-grid-img .ppt-img {
+  height: 12cqw;
+}
+
+.ppt-slide.postura {
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.ppt-slide.postura .ppt-title {
+  text-align: center;
+  font-size: 6.5cqw;
+  font-weight: 500;
+}
+
+.ppt-vertical {
+  display: flex;
+  align-items: stretch;
+  gap: 3%;
+  margin-top: 4%;
+  flex: 1;
+}
+
+.ppt-vertical-label {
+  flex: 0 0 11%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #8cb85c;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 3.3cqw;
+}
+
+.ppt-vertical-label span {
+  display: block;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+}
+
+.ppt-vertical ul {
+  font-size: 2.9cqw;
+  flex: 1;
+}
+
+/* Ventana de PowerPoint */
+.ppt-window-body {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  background: var(--surface-soft);
+  min-height: 12rem;
+}
+
+.ppt-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.6rem 0.5rem;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+
+.ppt-thumb {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #ffffff;
+}
+
+.ppt-thumb.active {
+  border: 2px solid var(--accent);
+}
+
+.ppt-work {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+}
+
+.ppt-work .ppt-slide {
+  max-width: 24rem;
+  border-style: dashed;
+}
+
+.ppt-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.65rem;
+  color: var(--muted);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.ppt-status strong {
+  color: var(--accent);
+}
+
+@media (max-width: 560px) {
+  .ppt-window-body {
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+  }
+}
+
+.step-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.step-list li {
+  margin-bottom: 0.45rem;
+  line-height: 1.55;
+}
+
+.step-list strong {
+  color: var(--text);
+}
