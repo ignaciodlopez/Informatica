@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 8</title>
+  <meta
+    name="description"
+    content="Clase 8 de Informática Aplicada (C1-21-10, Todas las comisiones): primeros pasos en Excel. La planilla de cálculo, tipos de datos y formatos, validación, copiar y pegar, teclado, fórmulas y funciones básicas, hojas y objetos."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== ACTIVIDADES ===== */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .progress { height: 0.7rem; background: var(--surface-soft); border-radius: 999px; overflow: hidden; margin: 0.4rem 0 0.2rem; }
+    .progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0; }
+    .chk-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .chk-list li { background: var(--surface-soft); border-radius: 12px; padding: 0.7rem 0.9rem; }
+    .chk-list label { display: flex; gap: 0.7rem; cursor: pointer; align-items: flex-start; }
+    .chk-list input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--accent); flex: none; }
+    .chk-list .chk-txt { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+    .chk-list .chk-txt small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+    .chk-list input:checked + .chk-txt { opacity: 0.6; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
+    .chk-list input:checked + .chk-txt small { text-decoration: none; }
+
+    .vs-page kbd, .fn-page kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    [data-theme="dark"] .la-box .la-link { color: #7db8ff; }
+
+    /* Preguntas frecuentes */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Video cards con miniatura */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+    .video-ask { margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .video-ask b { color: var(--primary); }
+    .video-ans { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+    .video-ans summary { cursor: pointer; font-weight: 700; color: var(--primary); }
+    .video-ans p { margin: 0.4rem 0 0; line-height: 1.55; }
+
+    /* ===== EXCEL DE BOLSILLO (ventana simulada) ===== */
+    .xl {
+      background: #fff;
+      color: #111;
+      border: 1px solid #9ca3af;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: none;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.78rem;
+      margin-top: 0.75rem;
+    }
+    .xl kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    .xl-title { background: #217346; color: #fff; padding: 0.4rem 0.8rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; }
+    .xl-title b { font-weight: 600; }
+    .xl-ribbon { background: #f3f3f3; border-bottom: 1px solid #d4d4d4; display: flex; flex-wrap: wrap; gap: 0; padding: 0 0.4rem; font-size: 0.72rem; overflow-x: auto; white-space: nowrap; }
+    .xl-ribbon span { padding: 0.4rem 0.65rem; color: #374151; }
+    .xl-ribbon span.on { color: #217346; font-weight: 700; border-bottom: 3px solid #217346; background: #fff; }
+    .xl-tools { background: #fff; border-bottom: 1px solid #d4d4d4; padding: 0.35rem 0.7rem; display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; align-items: center; font-size: 0.7rem; color: #4b5563; }
+    .xl-tools i { font-style: normal; border: 1px solid #d4d4d4; border-radius: 3px; padding: 0.05rem 0.4rem; background: #fafafa; color: #111; }
+    .xl-fbar { display: flex; align-items: stretch; border-bottom: 1px solid #d4d4d4; background: #fff; }
+    .xl-name { width: 5.6rem; flex: none; border-right: 1px solid #d4d4d4; padding: 0.3rem 0.5rem; font-weight: 600; background: #fff; display: flex; align-items: center; }
+    .xl-fx { flex: none; width: 2.2rem; display: flex; align-items: center; justify-content: center; font-style: italic; font-weight: 700; color: #6b7280; border-right: 1px solid #d4d4d4; font-family: Georgia, serif; }
+    .xl-input { flex: 1; min-width: 0; border: 0; padding: 0.3rem 0.55rem; font: inherit; background: #fff; color: #111; outline: none; }
+    .xl-input:focus { box-shadow: inset 0 0 0 2px #217346; }
+    .xl-scroll { overflow: auto; max-height: 21rem; outline: none; position: relative; background: #fff; }
+    .xl-scroll:focus-visible { box-shadow: inset 0 0 0 3px #f59e0b; }
+    table.xl-grid { border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 0.78rem; user-select: none; }
+    .xl-grid th, .xl-grid td { border-right: 1px solid #d4d4d4; border-bottom: 1px solid #d4d4d4; height: 1.45rem; padding: 0 0.35rem; white-space: nowrap; line-height: 1.45rem; box-sizing: border-box; }
+    .xl-grid thead th { position: sticky; top: 0; z-index: 3; background: #e6e6e6; font-weight: 500; text-align: center; color: #374151; }
+    .xl-grid th.rh { position: sticky; left: 0; z-index: 2; background: #e6e6e6; width: 2.4rem; min-width: 2.4rem; text-align: center; font-weight: 500; color: #374151; padding: 0; }
+    .xl-grid thead th.corner { left: 0; z-index: 4; }
+    .xl-grid th.hl { background: #d3e8dc !important; color: #14532d; font-weight: 700; }
+    .xl-grid thead th.hl { border-bottom: 2px solid #217346; }
+    .xl-grid th.rh.hl { border-right: 2px solid #217346; }
+    .xl-grid td { cursor: cell; position: relative; background: #fff; }
+    .xl-grid td > span { display: block; overflow: hidden; text-overflow: clip; }
+    .xl-grid td > span.spill { overflow: visible; position: relative; z-index: 1; }
+    .xl-grid td.num { text-align: right; }
+    .xl-grid td.err { text-align: center; }
+    .xl-grid td.inrange { background: #e4f1ea; }
+    .xl-grid td.active { background: #fff; box-shadow: inset 0 0 0 2px #217346; z-index: 1; }
+    .xl-grid td.target { background: #fde68a; }
+    .xl-grid td.target.active { background: #fff; }
+    .xl-grid td.hdr { font-weight: 700; background: #f3f4f6; }
+    .xl-rz { position: absolute; top: 0; right: -3px; width: 7px; height: 100%; cursor: col-resize; z-index: 5; }
+    .xl-rz:hover { background: rgba(33,115,70,0.35); }
+    .xl-sheets { display: flex; align-items: center; background: #f3f3f3; border-top: 1px solid #d4d4d4; padding: 0.25rem 0.5rem 0; gap: 0.25rem; }
+    .xl-sheets span { padding: 0.25rem 0.9rem; font-size: 0.72rem; color: #374151; }
+    .xl-sheets span.on { background: #fff; color: #217346; font-weight: 700; border-bottom: 3px solid #217346; border-radius: 3px 3px 0 0; }
+    .xl-sheets span.plus { font-weight: 800; color: #217346; padding: 0.2rem 0.6rem; }
+    .xl-status { background: #217346; color: #fff; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: 0.25rem 0.8rem; font-size: 0.7rem; }
+    .xl-hint { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    .xl-hint kbd { font-size: 0.78em; }
+    .xl-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 0; }
+    .xl-chip {
+      cursor: pointer;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .xl-chip:hover { border-color: var(--primary); }
+    .xl-chip.bad { border-style: dashed; color: #b91c1c; }
+    .xl-chip:focus-visible, .lab-btn:focus-visible, .fn-sel:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .xl-caption { margin: 0.7rem 0 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.85rem; line-height: 1.55; color: var(--text); }
+    .xl-caption b { color: var(--primary); }
+    .xl-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.55rem 1.2rem; list-style: none; margin: 1rem 0 0; padding: 0; }
+    .xl-legend li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
+    .xl-legend li strong { color: var(--text); }
+    .mk { flex: none; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: #217346; color: #fff; font-size: 0.72rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .xl .mk { width: 1.1rem; height: 1.1rem; font-size: 0.62rem; margin-right: 0.35rem; background: #f59e0b; color: #111; }
+    .xl-ribbon .mk { margin: 0 0.3rem; align-self: center; }
+
+
+    code.f { font-family: Consolas, 'Courier New', monospace; background: var(--surface-soft); border-radius: 4px; padding: 0.05rem 0.4rem; font-size: 0.85em; color: var(--primary); }
+    [data-theme="dark"] code.f { background: rgba(255,255,255,0.1); color: #93c5fd; }
+    kbd {
+      display: inline-block;
+      padding: 0.05rem 0.45rem;
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.8em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+    .topics { margin: 0; padding-left: 1.2rem; color: var(--text); line-height: 1.9; columns: 2; column-gap: 2.5rem; }
+    @media (max-width: 700px) { .topics { columns: 1; } }
+    .plain h3 { margin: 2rem 0 0.4rem; }
+    .plain p { margin: 0.4rem 0; color: var(--muted); max-width: 62rem; line-height: 1.65; }
+    .plain p strong, .plain li strong { color: var(--text); }
+    .plain ul { margin: 0.4rem 0; padding-left: 1.2rem; color: var(--muted); line-height: 1.7; max-width: 62rem; }
+    .plain .table-card { margin: 0.8rem 0; }
+    .rule { margin: 1rem 0 0; padding: 0.7rem 1rem; border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; font-size: 0.92rem; color: var(--text); max-width: 62rem; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#historia">Qué es Excel</a>
+        <a href="#ruta">Contenidos</a>
+        <a href="#planilla">La planilla</a>
+        <a href="#ventana">La ventana</a>
+        <a href="#datos">Tipos de datos</a>
+        <a href="#validacion">Validación</a>
+        <a href="#pegar">Copiar y pegar</a>
+        <a href="#teclado">Teclado</a>
+        <a href="#formulas">Fórmulas</a>
+        <a href="#hojas">Hojas</a>
+        <a href="#objetos">Objetos</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 3</p>
+        <h1>Primeros pasos en Excel: la planilla de cálculo</h1>
+        <p class="lead">
+          Arrancamos la <strong>Unidad 3</strong> con <strong>Microsoft Excel</strong>:
+          cómo se organiza una planilla, qué datos podemos cargar, cómo controlarlos,
+          cómo copiar y pegar, y los primeros <strong>cálculos con fórmulas y funciones</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ruta">Ver los contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 8</li>
+          <li>Microsoft Excel</li>
+          <li>Ejercicio: Sueldo básico</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Tener lo necesario para armar una planilla de cálculo</h2>
+        <p>
+          Entender la estructura de Excel, ingresar textos, números y fórmulas,
+          validar lo que se carga y resolver las operaciones básicas.
+        </p>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HISTORIA Y EXPLICACIÓN GENERAL -->
+    <section class="section" id="historia">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>¿Qué es Excel y de dónde viene?</h2>
+          <p>
+            <strong>Microsoft Excel</strong> es un programa de <strong>hoja de cálculo</strong>: una cuadrícula de filas y columnas donde se cargan
+            datos y se hacen cálculos con ellos. Forma parte del paquete Microsoft Office (junto con Word y PowerPoint) y hoy se incluye en Microsoft 365.
+          </p>
+        </div>
+
+        <h3>¿Para qué se usa?</h3>
+        <ul>
+          <li><strong>Ordenar datos</strong> en tablas: listas de clientes, alumnos, productos, empleados.</li>
+          <li><strong>Calcular</strong>: sueldos, presupuestos, facturas, cuentas del hogar, notas y promedios.</li>
+          <li><strong>Analizar y mostrar</strong>: estadísticas y gráficos para entender mejor los números.</li>
+        </ul>
+        <p>
+          Su gran ventaja es el <strong>recálculo automático</strong>: se cargan los datos y las fórmulas una vez, y cuando un dato cambia
+          los resultados se actualizan solos. En una calculadora habría que rehacer todas las cuentas.
+        </p>
+
+        <h3>Un poco de historia</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Año</th><th>Hito</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1979</strong></td><td><strong>VisiCalc</strong>, creada por Dan Bricklin y Bob Frankston para la Apple II, es la primera hoja de cálculo para computadoras personales. Muchos negocios compraron una computadora solo para usarla.</td></tr>
+              <tr><td><strong>1982</strong></td><td>Microsoft lanza <strong>Multiplan</strong>, su primera hoja de cálculo.</td></tr>
+              <tr><td><strong>1983</strong></td><td><strong>Lotus 1-2-3</strong> se convierte en el programa líder en las PC de IBM.</td></tr>
+              <tr><td><strong>1985</strong></td><td>Aparece <strong>Excel 1.0</strong>, para Macintosh, con una interfaz gráfica que se manejaba con el mouse.</td></tr>
+              <tr><td><strong>1987</strong></td><td>Llega la primera versión de Excel para <strong>Windows</strong>, que con el tiempo desplazó a Lotus 1-2-3.</td></tr>
+              <tr><td><strong>1993</strong></td><td>Excel 5.0 incorpora <strong>macros con VBA</strong>, que permiten automatizar tareas.</td></tr>
+              <tr><td><strong>2007</strong></td><td>Se estrena la <strong>cinta de opciones</strong> y el formato <strong>.xlsx</strong>. Las hojas pasan a tener 1.048.576 filas y 16.384 columnas (antes eran 65.536 filas y 256 columnas).</td></tr>
+              <tr><td><strong>Hoy</strong></td><td>Excel se usa también en la nube y en equipo: varias personas pueden editar el mismo libro a la vez.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Otras hojas de cálculo</h3>
+        <p>
+          Excel no es la única: existen <strong>Google Sheets</strong> (en el navegador) y <strong>LibreOffice Calc</strong> (gratuita). Todas se parecen mucho:
+          lo que aprendamos hoy sirve en cualquiera de ellas, aunque algunas teclas o nombres cambien un poco.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTENIDOS -->
+    <section class="section alt" id="ruta">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Lo que vamos a ver</p>
+          <h2>Contenidos de la clase</h2>
+          <p>
+            Se apoya en dos videos del curso básico de Excel (capítulos 1 y 2) y en dos
+            archivos de práctica.
+          </p>
+        </div>
+        <ol class="topics">
+          <li>Excel y su organización en planillas</li>
+          <li>Estructura de la ventana de trabajo y elementos</li>
+          <li>Tipos de datos y formatos</li>
+          <li>Validación de datos</li>
+          <li>Copiar y pegar datos</li>
+          <li>Celda activa y desplazamiento con el teclado</li>
+          <li>Ingreso de textos, números y fórmulas</li>
+          <li>Manejo de hojas</li>
+          <li>Insertar objetos</li>
+          <li>Práctica: Ejercicio 1 · Sueldo básico</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- LA PLANILLA -->
+    <section class="section" id="planilla">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Excel y su organización en planillas</p>
+          <h2>Libro, hoja, filas, columnas y celdas</h2>
+          <p>
+            Excel es una <strong>hoja de cálculo</strong>: sirve para cargar datos ordenados en una cuadrícula
+            y hacer con ellos desde sumas simples hasta análisis estadísticos. Su menú se parece al de Word
+            y PowerPoint; lo que cambia es lo de adentro, que gira alrededor de <strong>filas y columnas</strong>.
+          </p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Elemento</th><th>Qué es</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Libro</strong></td><td>El archivo completo (se llama <em>Libro1</em> hasta que lo guardás). Está formado por una o más hojas.</td></tr>
+              <tr><td><strong>Hoja</strong></td><td>La cuadrícula de trabajo. Se ven como pestañas abajo.</td></tr>
+              <tr><td><strong>Columna</strong></td><td>Se nombra con letras: A, B, C… hasta XFD (son 16.384).</td></tr>
+              <tr><td><strong>Fila</strong></td><td>Se nombra con números: de 1 a 1.048.576.</td></tr>
+              <tr><td><strong>Celda</strong></td><td>El cruce de una columna y una fila. Se nombra así: <code class="f">B3</code>. Ahí se ingresan los datos y se hacen los cálculos.</td></tr>
+              <tr><td><strong>Rango</strong></td><td>Un grupo de celdas seleccionadas. Se escribe con dos puntos: <code class="f">B2:D5</code> es "desde B2 hasta D5".</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Casi todas las opciones (negrita, tipo de letra, alineación, bordes…) actúan sobre <strong>la celda activa</strong>
+          o sobre <strong>la selección</strong>. Probalo acá: arrastrá sobre las celdas, o tocá el encabezado de una columna o de una fila,
+          y mirá el <strong>Cuadro de nombres</strong> y la barra verde de abajo.
+        </p>
+        <div class="xl" id="xlRango" data-cols="6" data-rows="7"></div>
+      </div>
+    </section>
+
+    <!-- LA VENTANA -->
+    <section class="section alt" id="ventana">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Estructura de la ventana de trabajo y elementos</p>
+          <h2>Las partes de la ventana de Excel</h2>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Parte</th><th>Para qué sirve</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Cinta de opciones</strong></td><td>Las fichas (Inicio, Insertar, Datos, Vista…) con sus herramientas, como en Word.</td></tr>
+              <tr><td><strong>Cuadro de nombres</strong></td><td>Dice en qué celda estás (<code class="f">C3</code>) o qué rango seleccionaste.</td></tr>
+              <tr><td><strong>Barra de fórmulas</strong></td><td>Muestra lo que realmente hay dentro de la celda: texto, número o fórmula. El botón <strong>fx</strong> abre la lista de funciones.</td></tr>
+              <tr><td><strong>Celda activa</strong></td><td>La del borde grueso. Lo que escribas va ahí.</td></tr>
+              <tr><td><strong>Etiquetas de hojas</strong></td><td>Las pestañas de abajo. El botón <strong>＋</strong> agrega una hoja.</td></tr>
+              <tr><td><strong>Barra de estado</strong></td><td>Muestra "Listo" y cálculos rápidos de la selección (promedio, recuento, suma).</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Celda y barra de fórmulas</h3>
+        <p>
+          Si escribís un texto o un número, la celda y la barra muestran lo mismo. Pero si escribís una <strong>fórmula</strong>,
+          <strong>la barra muestra la fórmula y la celda muestra el resultado</strong>.
+        </p>
+
+        <h3>Un texto largo y el "#####"</h3>
+        <ul>
+          <li>Un texto largo se ve sobre las celdas vecinas si están vacías, pero <strong>pertenece a una sola celda</strong>. Si escribís algo en la vecina, se corta.</li>
+          <li>Si un número o una fecha no entra en la columna, Excel muestra <strong>#####</strong>. El dato está bien: <strong>ensanchá la columna</strong> con doble clic en el borde del encabezado.</li>
+        </ul>
+
+        <h3>Inmovilizar paneles</h3>
+        <p>
+          En una tabla larga, los títulos desaparecen al desplazarte. Se arregla en <strong>Vista → Inmovilizar paneles</strong>:
+        </p>
+        <ul>
+          <li><strong>Inmovilizar fila superior</strong> o <strong>primera columna</strong>: dejan fija esa fila o columna.</li>
+          <li><strong>Inmovilizar paneles</strong>: fija todo lo que está arriba y a la izquierda de la celda activa (para una cabecera de 4 filas, ubicate en la fila 5).</li>
+          <li><strong>Movilizar paneles</strong>: lo deja como estaba.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TIPOS DE DATOS -->
+    <section class="section" id="datos">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Tipos de datos y formatos</p>
+          <h2>Texto, números, fechas y fórmulas</h2>
+          <p>
+            Excel trata distinto cada tipo de dato. Una pista visual: <strong>el texto se alinea a la izquierda y los números y fechas a la derecha</strong>.
+          </p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Tipo</th><th>Ejemplo</th><th>Cómo lo reconoce Excel</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Texto</strong></td><td>Juan Pérez, Calle 123</td><td>Letras, o letras mezcladas con números. Izquierda. No se puede sumar.</td></tr>
+              <tr><td><strong>Número</strong></td><td>2340, 1350,5, -860</td><td>Solo dígitos (con coma decimal). Derecha. Se puede operar.</td></tr>
+              <tr><td><strong>Fecha y hora</strong></td><td>12/03/1990, 18:30</td><td>Formato día/mes/año. Derecha: por dentro es un número.</td></tr>
+              <tr><td><strong>Fórmula o función</strong></td><td><code class="f">=5*4</code></td><td>Empieza con <strong>=</strong>. La celda muestra el resultado; la barra, la fórmula.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Formato de celdas</h3>
+        <p>
+          Todas las celdas arrancan en formato <strong>General</strong>. Para cambiarlo: clic derecho → <strong>Formato de celdas</strong>
+          (o <kbd>Ctrl</kbd>+<kbd>1</kbd>). Las pestañas son Número, Alineación, Fuente, Borde, Relleno y Proteger; fijate en la <strong>Muestra</strong> para ver cómo queda.
+        </p>
+        <ul>
+          <li><strong>Número:</strong> General, Número (decimales y separador de miles), Moneda y Contabilidad (con <code class="f">$</code>), Fecha, Porcentaje y Texto.</li>
+          <li><strong>Alineación:</strong> izquierda, centro, derecha, orientación del texto, Ajustar texto y <strong>Combinar y centrar</strong> (útil para un título).</li>
+          <li><strong>En la cinta (Inicio):</strong> botones de <strong>$</strong>, <strong>%</strong>, <strong>000</strong> y Aumentar / Disminuir decimales.</li>
+        </ul>
+
+        <h3>Dos cosas para tener en cuenta</h3>
+        <ul>
+          <li><strong>"Puse una fecha y me aparece un número"</strong> (por ejemplo 32944): Excel guarda las fechas como números, contando los días desde el 1/1/1900. La celda quedó en formato General o Número; cambiale el formato a <strong>Fecha</strong>.</li>
+          <li><strong>Porcentajes:</strong> si le das formato % a una celda que ya tenía un <code class="f">45</code>, muestra <code class="f">4500%</code>. Poné el formato primero y escribí el <code class="f">45</code> después (o escribí <code class="f">45%</code>).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- VALIDACIÓN -->
+    <section class="section alt" id="validacion">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Datos · grupo Herramientas de datos</p>
+          <h2>Validación de datos</h2>
+          <p>
+            Configura una celda para que <strong>acepte solo ciertos datos</strong>: solo números, un valor no menor que un mínimo,
+            una fecha dentro de un período o una opción de una lista. Evita errores de carga.
+          </p>
+        </div>
+
+        <ol>
+          <li>Seleccioná la celda (o el rango) que querés controlar.</li>
+          <li>Andá a <strong>Datos → Validación de datos</strong>.</li>
+          <li>Completá las tres pestañas: <strong>Configuración</strong> (qué se permite), <strong>Mensaje de entrada</strong> (una ayuda, opcional) y <strong>Mensaje de error</strong> (qué pasa si el dato es incorrecto).</li>
+        </ol>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Campo</th><th>Opciones</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Permitir</strong></td><td>Cualquier valor · Número entero · Decimal · Lista · Fecha · Hora · Longitud del texto · Personalizada</td></tr>
+              <tr><td><strong>Datos</strong></td><td>Entre · no está entre · igual a · distinto de · mayor que · menor que · mayor o igual que · menor o igual que</td></tr>
+              <tr><td><strong>Estilo del error</strong></td><td><strong>Detener</strong> (no deja ingresar el dato) · <strong>Advertencia</strong> e <strong>Información</strong> (avisan, pero permiten continuar)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Ejemplos</h3>
+        <ul>
+          <li><strong>Sueldo no menor al mínimo:</strong> Permitir <em>Decimal</em>, Datos <em>mayor o igual que</em>, Mínimo <code class="f">30000</code>. Estilo <strong>Detener</strong> y un mensaje como "El sueldo no cumple con el mínimo".</li>
+          <li><strong>Solo mayores de edad:</strong> Permitir <em>Fecha</em>, Datos <em>menor o igual que</em> la fecha de hace 18 años.</li>
+          <li><strong>Lista:</strong> Permitir <em>Lista</em> y, en <em>Origen</em>, escribir los valores separados por <code class="f">;</code> — por ejemplo <code class="f">Masculino;Femenino</code>. La celda muestra una flecha para elegir.</li>
+        </ul>
+        <p class="rule">Para que la validación realmente bloquee, usá el estilo <strong>Detener</strong>. Con Advertencia o Información el dato incorrecto entra igual.</p>
+        <p>La validación controla lo que se <strong>escribe</strong>. Si <strong>pegás</strong> una celda copiada, también se copia su validación y puede reemplazar la tuya.</p>
+      </div>
+    </section>
+
+    <!-- COPIAR Y PEGAR -->
+    <section class="section" id="pegar">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Copiar, cortar y pegar datos</p>
+          <h2>Copiar y pegar</h2>
+          <p>
+            Se hace igual que en Word, pero en Excel una celda tiene mucho más que su contenido: también tiene formato, validación y, a veces, una fórmula.
+            Por eso al pegar conviene elegir <strong>qué</strong> traer.
+          </p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Acción</th><th>Atajo</th><th>Detalle</th></tr></thead>
+            <tbody>
+              <tr><td>Copiar</td><td><kbd>Ctrl</kbd>+<kbd>C</kbd></td><td>También clic derecho → Copiar. Queda un borde punteado.</td></tr>
+              <tr><td>Cortar</td><td><kbd>Ctrl</kbd>+<kbd>X</kbd></td><td>También se puede arrastrar el borde de la selección hasta el nuevo lugar.</td></tr>
+              <tr><td>Pegar</td><td><kbd>Ctrl</kbd>+<kbd>V</kbd></td><td>Trae todo: valores, formatos y validaciones.</td></tr>
+              <tr><td>Pegado especial</td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd></td><td>Clic derecho → Pegado especial. Elegís qué pegar.</td></tr>
+              <tr><td>Deshacer</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Vuelve atrás el último cambio.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Opciones del pegado especial</h3>
+        <ul>
+          <li><strong>Valores:</strong> pega solo los datos, sin colores, formatos ni validaciones. Si había una fórmula, pega su resultado.</li>
+          <li><strong>Fórmulas:</strong> solo las fórmulas. <strong>Formatos:</strong> solo el aspecto.</li>
+          <li><strong>Transponer:</strong> las columnas pasan a filas y las filas a columnas.</li>
+        </ul>
+
+        <h3>Eliminar celdas, filas y columnas</h3>
+        <ul>
+          <li><strong>Fila o columna:</strong> clic en su encabezado → clic derecho → <strong>Eliminar</strong>.</li>
+          <li><strong>Algunas celdas:</strong> seleccionalas → clic derecho → <strong>Eliminar…</strong> y elegí si el resto se desplaza hacia arriba o hacia la izquierda.</li>
+          <li><kbd>Supr</kbd> no es lo mismo: solo <strong>vacía el contenido</strong>, la celda queda donde está.</li>
+          <li><strong>Ajustar el ancho:</strong> seleccioná las columnas y hacé doble clic en cualquier división entre encabezados.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TECLADO -->
+    <section class="section alt" id="teclado">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Celda activa y desplazamiento a través del teclado</p>
+          <h2>Moverse sin tocar el mouse</h2>
+          <p>
+            La <strong>celda activa</strong> es la del borde grueso: ahí se escribe. Cargar datos con el teclado es mucho más rápido que ir y venir con el mouse.
+          </p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Tecla</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd></td><td>Mueven la celda activa de a una celda.</td></tr>
+              <tr><td><kbd>Enter</kbd></td><td>Confirma lo escrito y baja. Con <kbd>Mayús</kbd> sube.</td></tr>
+              <tr><td><kbd>Tab</kbd></td><td>Confirma lo escrito y pasa a la derecha. Con <kbd>Mayús</kbd>, a la izquierda.</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+flecha</td><td>Salta hasta el borde del bloque de datos.</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>Inicio</kbd></td><td>Va a la celda A1.</td></tr>
+              <tr><td><kbd>Ctrl</kbd>+<kbd>Fin</kbd></td><td>Va a la última celda con datos.</td></tr>
+              <tr><td><kbd>Av Pág</kbd> / <kbd>Re Pág</kbd></td><td>Bajan o suben una pantalla.</td></tr>
+              <tr><td><kbd>F2</kbd></td><td>Edita el contenido de la celda activa.</td></tr>
+              <tr><td><kbd>Esc</kbd></td><td>Cancela lo que estás escribiendo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="rule">
+          Truco para cargar una tabla: escribí un dato, pasá al siguiente con <kbd>Tab</kbd> y, al terminar la fila, presioná <kbd>Enter</kbd>:
+          Excel vuelve a la columna donde empezaste, en la fila de abajo.
+        </p>
+      </div>
+    </section>
+
+    <!-- FÓRMULAS Y FUNCIONES -->
+    <section class="section" id="formulas">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Ingreso de textos, números y fórmulas</p>
+          <h2>Fórmulas y funciones básicas</h2>
+          <p>
+            Todo lo que empieza con <strong>=</strong> es un cálculo. La celda muestra el <strong>resultado</strong> y la barra de fórmulas guarda
+            <strong>cómo se llegó a él</strong>: si cambia un dato, el resultado se actualiza solo.
+          </p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th></th><th>Cómo se escribe</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Fórmula</strong></td><td><code class="f">=</code> + valores o celdas + operadores</td><td><code class="f">=5*4</code> · <code class="f">=A5+B5</code></td></tr>
+              <tr><td><strong>Función</strong></td><td><code class="f">=</code> + nombre + paréntesis con los parámetros</td><td><code class="f">=SUMA(A2:A6)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Las cuatro operaciones</h3>
+        <p>
+          Suma <code class="f">+</code> · resta <code class="f">-</code> · multiplicación <code class="f">*</code> · división <code class="f">/</code>.
+          Con varias operaciones combinadas usá <strong>paréntesis</strong>: <code class="f">=(A5+B5)+(B10*C10)-(C7+B7)</code>.
+        </p>
+        <ul>
+          <li><strong>Hacer clic en vez de escribir:</strong> después del <code class="f">=</code>, hacé clic en las celdas y Excel escribe la referencia. Sin el <code class="f">=</code>, el clic solo selecciona.</li>
+          <li><strong>Rangos:</strong> <code class="f">A2:A6</code> es "de A2 a A6". Para celdas sueltas se separa con <code class="f">;</code>: <code class="f">=SUMA(A2:B3;D2)</code>.</li>
+          <li><strong>Mostrar una fórmula como texto:</strong> poné un apóstrofo adelante: <code class="f">'=5*4</code>.</li>
+        </ul>
+
+        <h3>Funciones básicas</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Función</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code class="f">SUMA</code></td><td>Suma un rango, varios rangos o celdas sueltas.</td></tr>
+              <tr><td><code class="f">PRODUCTO</code></td><td>Multiplica todos los valores.</td></tr>
+              <tr><td><code class="f">MAX</code> / <code class="f">MIN</code></td><td>El valor máximo / mínimo de la lista.</td></tr>
+              <tr><td><code class="f">PROMEDIO</code></td><td>Suma los valores y los divide por la cantidad.</td></tr>
+              <tr><td><code class="f">MEDIANA</code></td><td>El valor del medio al ordenar los datos.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>La resta y la división no tienen función: se hacen con <code class="f">-</code> y <code class="f">/</code>.</p>
+
+        <p>
+          <strong>Autosuma:</strong> <strong>Inicio → Σ Autosuma</strong> (o <kbd>Alt</kbd>+<kbd>=</kbd>) arma la suma del bloque de números continuos de arriba o de la izquierda.
+          Se corta en la primera celda vacía; revisá lo que marcó y presioná <kbd>Enter</kbd>. Al escribir una función, <kbd>Tab</kbd> completa el nombre.
+        </p>
+
+        <h3>Probalo</h3>
+        <p>Tocá una fórmula: se carga en <strong>F2</strong>. Mirá la celda (resultado) y la barra de fórmulas (fórmula). Después cambiá un número de la tabla.</p>
+        <div class="xl-chips" id="chips"></div>
+        <div class="xl" id="xlFormulas" data-cols="6" data-rows="7"></div>
+        <p class="xl-caption" id="chipCap">Acá el separador de argumentos es el <strong>punto y coma</strong> (<code class="f">;</code>) y el decimal es la <strong>coma</strong>, como en la configuración de Argentina.</p>
+
+        <h3>Mensajes de error</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Ves</th><th>Significa</th><th>Se arregla</th></tr></thead>
+            <tbody>
+              <tr><td><code class="f">#####</code></td><td>La columna es angosta.</td><td>Ensancharla. El dato está bien.</td></tr>
+              <tr><td><code class="f">#¿NOMBRE?</code></td><td>Excel no reconoce la función.</td><td>Revisar cómo está escrita (<code class="f">SUMA</code>, no <code class="f">SUMAR</code>).</td></tr>
+              <tr><td><code class="f">#¡DIV/0!</code></td><td>Dividís por cero o por una celda vacía.</td><td>Revisar el divisor.</td></tr>
+              <tr><td><code class="f">#¡VALOR!</code></td><td>Operás con un texto como si fuera número.</td><td>Revisar que sean números.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="rule">Regla de oro: <strong>no escribas resultados, escribí fórmulas</strong>. Y los datos que cambian (como un porcentaje) ponelos en una celda, no dentro de la fórmula.</p>
+      </div>
+    </section>
+
+    <!-- HOJAS -->
+    <section class="section alt" id="hojas">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Manejo de hojas</p>
+          <h2>Trabajar con varias hojas</h2>
+          <p>Un libro puede tener muchas hojas (por mes, por sucursal, por tema). Se manejan desde las etiquetas de abajo.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Cómo</th></tr></thead>
+            <tbody>
+              <tr><td>Agregar una hoja</td><td>Botón <strong>＋</strong> o <kbd>Mayús</kbd>+<kbd>F11</kbd></td></tr>
+              <tr><td>Cambiar el nombre</td><td>Doble clic en la etiqueta</td></tr>
+              <tr><td>Pasar de una a otra</td><td>Clic en la etiqueta, o <kbd>Ctrl</kbd>+<kbd>Av Pág</kbd> / <kbd>Re Pág</kbd></td></tr>
+              <tr><td>Mover una hoja</td><td>Arrastrar su etiqueta</td></tr>
+              <tr><td>Copiar una hoja</td><td>Clic derecho → <strong>Mover o copiar…</strong>, tildar <strong>Crear una copia</strong> y elegir a qué libro y antes de qué hoja</td></tr>
+              <tr><td>Eliminar una hoja</td><td>Clic derecho → Eliminar (no se puede deshacer)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Una hoja copiada se llama igual que la original con un número entre paréntesis, por ejemplo <strong>Datos (2)</strong>.</p>
+      </div>
+    </section>
+
+    <!-- OBJETOS -->
+    <section class="section" id="objetos">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Ficha Insertar · grupo Ilustraciones</p>
+          <h2>Insertar objetos</h2>
+          <p>
+            Un objeto (imagen, forma, icono, SmartArt) <strong>no está dentro de una celda</strong>: flota sobre la hoja y se puede arrastrar a cualquier lugar.
+          </p>
+        </div>
+        <ul>
+          <li><strong>Imágenes:</strong> Insertar → Imágenes, desde un archivo o en línea. Suelen entrar enormes: arrastrá una esquina para achicarlas. <kbd>Supr</kbd> las elimina.</li>
+          <li><strong>Formas:</strong> sirven, por ejemplo, para un <strong>diagrama de flujo</strong>. Se les cambia el color y el texto (clic derecho → Editar texto).</li>
+          <li><strong>Iconos:</strong> símbolos listos para usar, útiles al armar gráficos.</li>
+          <li><strong>SmartArt:</strong> diagramas de procesos, jerarquías u organigramas. Los datos se cargan en un panel de texto: <kbd>Enter</kbd> agrega un elemento al mismo nivel, <kbd>Tab</kbd> lo baja un nivel y <kbd>Mayús</kbd>+<kbd>Tab</kbd> lo sube. Es el mismo SmartArt de Word (Clase 6).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section alt" id="actividades">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Creá una planilla con el nombre <strong>"Ejercicio 1 - Sueldo Básico"</strong>, usando las herramientas de la clase.
+            Partís del archivo <strong>Ejercicio 1 - Sueldo básico.xlsx</strong> del aula y <strong>compartís tu experiencia en el foro de la unidad</strong>
+            para la evaluación entre pares.
+          </p>
+        </div>
+
+        <p>
+          El archivo trae el título "Empleados Empresa XX" en <strong>A8</strong>, los encabezados en la <strong>fila 10</strong>, los porcentajes en la <strong>fila 11</strong>
+          (Jubilación 11 %, Obra Social 3 %, Sindicato 2 %) y siete empleados desde la <strong>fila 12</strong> hasta la <strong>18</strong>.
+        </p>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio 1 · Sueldo básico</p>
+          <h3>Tu lista de control</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="chkBar"><div id="chkFill"></div></div>
+          <p class="progress-label" id="chkLabel">0 de 8 pasos completados</p>
+
+          <ul class="chk-list" id="chkList">
+            <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Abrir y guardar.</strong> Abrí el archivo y guardalo como <strong>Ejercicio 1 - Sueldo Básico</strong>.</span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Título centrado y mejor aspecto.</strong> Seleccioná <strong>A8:H8</strong> y usá <strong>Combinar y centrar</strong>. Poné negrita, relleno y bordes en la fila 10 y ajustá el ancho de las columnas.</span></label></li>
+            <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Jubilación, Obra Social y Sindicato.</strong> En <strong>D12</strong> escribí <code class="f">=$C12*D$11</code>. Copiala y pegala sobre <strong>D12:F18</strong>.<small>Los $ fijan la columna del sueldo y la fila de los porcentajes (explicado abajo).</small></span></label></li>
+            <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Total Descuentos.</strong> En <strong>G12</strong>: <code class="f">=SUMA(D12:F12)</code>. Copiala hasta la fila 18.</span></label></li>
+            <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Sueldo Neto.</strong> En <strong>H12</strong>: <code class="f">=C12-G12</code>. Copiala hasta la fila 18.</span></label></li>
+            <li><label><input type="checkbox" data-k="6"><span class="chk-txt"><strong>6. Cálculos debajo de la planilla.</strong> Agregá con funciones el total, el máximo, el mínimo y el promedio del Sueldo Neto.<small>El archivo pide "los cálculos que se encuentran debajo de la planilla" pero no trae ninguno: confirmá con tu docente cuáles son.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="7"><span class="chk-txt"><strong>7. Formato de importes.</strong> Aplicá <strong>Moneda con 2 decimales y signo pesos</strong> a los importes. Los porcentajes se quedan en %.</span></label></li>
+            <li><label><input type="checkbox" data-k="8"><span class="chk-txt"><strong>8. Compartir.</strong> Contá tu experiencia en el <strong>foro de la unidad</strong>.</span></label></li>
+          </ul>
+
+          <p class="card-example"><strong>Si terminás antes:</strong> aplicá una validación de datos a <strong>C12:C18</strong> (número decimal mayor que 0, estilo <strong>Detener</strong>) y probá escribir un sueldo negativo.</p>
+        </div>
+
+        <h3>Por qué el <code class="f">$</code></h3>
+        <p>
+          Al copiar una fórmula, Excel corre las referencias: <code class="f">=C12*D11</code> copiada una fila más abajo pasa a <code class="f">=C13*D12</code>, y D12 ya no es el porcentaje.
+          El <code class="f">$</code> (o <kbd>F4</kbd> sobre la referencia) la fija:
+        </p>
+        <ul>
+          <li><code class="f">$C12</code> fija la <strong>columna</strong> C: siempre toma el sueldo de cada empleado.</li>
+          <li><code class="f">D$11</code> fija la <strong>fila</strong> 11: siempre toma el porcentaje de la fila 11 (D, E o F según la columna).</li>
+        </ul>
+        <p>Este truco no está en los videos; si preferís, podés escribir las fórmulas de cada fila a mano.</p>
+
+        <details class="faq-item">
+          <summary>Para verificar: resultados esperados</summary>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead>
+                <tr><th>Legajo</th><th>Empleado</th><th>Básico</th><th>Jubilación</th><th>Obra Social</th><th>Sindicato</th><th>Total Desc.</th><th>Neto</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>100</td><td>Mansilla Paola Lorena</td><td>50.000</td><td>5.500</td><td>1.500</td><td>1.000</td><td>8.000</td><td>42.000</td></tr>
+                <tr><td>200</td><td>Ibarrola Sandra</td><td>60.000</td><td>6.600</td><td>1.800</td><td>1.200</td><td>9.600</td><td>50.400</td></tr>
+                <tr><td>250</td><td>Persec Mariana</td><td>55.000</td><td>6.050</td><td>1.650</td><td>1.100</td><td>8.800</td><td>46.200</td></tr>
+                <tr><td>300</td><td>Gallardo Vanina</td><td>64.000</td><td>7.040</td><td>1.920</td><td>1.280</td><td>10.240</td><td>53.760</td></tr>
+                <tr><td>400</td><td>Gómez Patricia</td><td>74.000</td><td>8.140</td><td>2.220</td><td>1.480</td><td>11.840</td><td>62.160</td></tr>
+                <tr><td>410</td><td>Giordano Luciano</td><td>46.000</td><td>5.060</td><td>1.380</td><td>920</td><td>7.360</td><td>38.640</td></tr>
+                <tr><td>500</td><td>Martinez Julio</td><td>32.000</td><td>3.520</td><td>960</td><td>640</td><td>5.120</td><td>26.880</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Los descuentos son siempre el 16 % del básico (11 + 3 + 2), así que el neto es el 84 %.
+            Sobre el Sueldo Neto: total <strong>320.040</strong>, máximo <strong>62.160</strong>, mínimo <strong>26.880</strong> y promedio <strong>45.720</strong>.
+          </p>
+        </details>
+
+        <p>
+          <strong>Práctica opcional:</strong> <strong>Ejercicio 1 - Curso básico.xlsx</strong> es el archivo del capítulo 2 del curso. Tiene tres hojas:
+          Contenido (el temario), Ejercicios (datos para probar fórmulas y funciones) y Elementos (para insertar formas, iconos y un SmartArt).
+        </p>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+        </div>
+
+        <details class="faq-item">
+          <summary>En la celda aparece #####. ¿Perdí el dato?</summary>
+          <p>No. La columna es muy angosta. Ensanchala o hacé doble clic en el borde del encabezado y el dato vuelve a verse.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Puse una fecha y me apareció un número como 32944.</summary>
+          <p>La celda quedó en formato General o Número. Clic derecho → <strong>Formato de celdas → Fecha</strong>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Escribí =SUMA(A1:A5) y dice #¿NOMBRE?</summary>
+          <p>Revisá que el nombre esté bien escrito (<code class="f">SUMA</code>, no <code class="f">SUMAR</code>) y que no falte ningún paréntesis ni los dos puntos del rango.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>La Autosuma sumó solo una parte de la columna.</summary>
+          <p>Se corta en la primera celda vacía. Revisá si hay un hueco o corregí la selección arrastrando antes de apretar <kbd>Enter</kbd>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>No me deja escribir un valor en una celda.</summary>
+          <p>Tiene una validación con estilo <strong>Detener</strong>. Escribí un valor que cumpla la regla o quitala en <strong>Datos → Validación de datos → Borrar todos</strong>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Pegué y se me cambió el formato de la celda de destino.</summary>
+          <p>El pegado común trae todo. Si solo querés los datos, usá <strong>Pegado especial → Valores</strong> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd>).</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+        </div>
+        <ul>
+          <li><strong>Estructura:</strong> un libro tiene hojas; una hoja, columnas (letras) y filas (números); la celda es el cruce (<code class="f">B3</code>) y un grupo de celdas es un rango (<code class="f">B2:D5</code>).</li>
+          <li><strong>Datos:</strong> texto a la izquierda; número y fecha a la derecha; fórmula con <code class="f">=</code>. El formato (<kbd>Ctrl</kbd>+<kbd>1</kbd>) cambia cómo se ve, no el dato.</li>
+          <li><strong>Validación:</strong> Datos → Validación de datos; estilo <strong>Detener</strong> para bloquear datos incorrectos.</li>
+          <li><strong>Copiar y pegar:</strong> <kbd>Ctrl</kbd>+<kbd>C</kbd>/<kbd>X</kbd>/<kbd>V</kbd>; pegado especial para valores, fórmulas, formatos o transponer.</li>
+          <li><strong>Teclado:</strong> <kbd>Enter</kbd> baja, <kbd>Tab</kbd> va a la derecha, <kbd>Ctrl</kbd>+flecha salta bloques, <kbd>F2</kbd> edita.</li>
+          <li><strong>Fórmulas y funciones:</strong> <code class="f">=A5+B5</code> y <code class="f">=SUMA(A2:A6)</code>; <code class="f">SUMA</code>, <code class="f">PRODUCTO</code>, <code class="f">MAX</code>, <code class="f">MIN</code>, <code class="f">PROMEDIO</code>, <code class="f">MEDIANA</code>.</li>
+          <li><strong>Hojas y objetos:</strong> agregar, renombrar y copiar hojas; imágenes, formas, iconos y SmartArt flotan sobre la hoja.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos de la clase</h2>
+          <p>
+            Capítulos 1 y 2 del curso básico de Excel. Los tiempos son <strong>aproximados</strong>. En los videos se usa una Mac y otra configuración regional
+            (coma en lugar de punto y coma, dólares); los pasos son los mismos en Windows.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://www.youtube.com/watch?v=hqJCU04mnu8" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/hqJCU04mnu8/hqdefault.jpg" alt="Miniatura del video Curso básico de Excel, capítulo uno" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Curso básico de Excel · Capítulo 1</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Inge Francisco · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=hqJCU04mnu8&t=120s" target="_blank" rel="noopener noreferrer">Filas, columnas y celdas ~2:00</a> ·
+                <a href="https://www.youtube.com/watch?v=hqJCU04mnu8&t=380s" target="_blank" rel="noopener noreferrer">Tipos de datos y formatos ~6:20</a> ·
+                <a href="https://www.youtube.com/watch?v=hqJCU04mnu8&t=910s" target="_blank" rel="noopener noreferrer">Validación ~15:10</a> ·
+                <a href="https://www.youtube.com/watch?v=hqJCU04mnu8&t=1450s" target="_blank" rel="noopener noreferrer">Copiar y pegar ~24:10</a> ·
+                <a href="https://www.youtube.com/watch?v=hqJCU04mnu8&t=1790s" target="_blank" rel="noopener noreferrer">Copiar y mover hojas ~29:50</a>
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿en qué se diferencia el estilo "Alto" (Detener) de "Advertencia"? ¿Qué opción del pegado especial pasa datos de columna a fila?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p><strong>Detener</strong> no permite ingresar el valor incorrecto; <strong>Advertencia</strong> avisa pero deja continuar. Para pasar de columna a fila: <strong>Pegado especial → Transponer</strong>.</p></details>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://www.youtube.com/watch?v=lslNe3SAY4s" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/lslNe3SAY4s/hqdefault.jpg" alt="Miniatura del video Curso básico de Excel, capítulo dos" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Curso básico de Excel · Capítulo 2</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Inge Francisco · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=lslNe3SAY4s&t=70s" target="_blank" rel="noopener noreferrer">Barra de fórmulas ~1:10</a> ·
+                <a href="https://www.youtube.com/watch?v=lslNe3SAY4s&t=300s" target="_blank" rel="noopener noreferrer">Paneles ~5:00</a> ·
+                <a href="https://www.youtube.com/watch?v=lslNe3SAY4s&t=590s" target="_blank" rel="noopener noreferrer">Sintaxis de funciones ~9:50</a> ·
+                <a href="https://www.youtube.com/watch?v=lslNe3SAY4s&t=710s" target="_blank" rel="noopener noreferrer">Funciones vs. fórmulas ~11:50</a> ·
+                <a href="https://www.youtube.com/watch?v=lslNe3SAY4s&t=1320s" target="_blank" rel="noopener noreferrer">SUMA y Autosuma ~22:00</a> ·
+                <a href="https://www.youtube.com/watch?v=lslNe3SAY4s&t=1650s" target="_blank" rel="noopener noreferrer">MAX, MIN, PROMEDIO, MEDIANA ~27:30</a> ·
+                <a href="https://www.youtube.com/watch?v=lslNe3SAY4s&t=1800s" target="_blank" rel="noopener noreferrer">Insertar objetos ~30:00</a>
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿qué muestra la barra de fórmulas y qué la celda? ¿En qué se diferencia una función de una fórmula?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>La <strong>barra</strong> muestra la fórmula escrita y la <strong>celda</strong>, su resultado. Una <strong>función</strong> lleva nombre y parámetros entre paréntesis (<code class="f">=SUMA(A2:A6)</code>); una <strong>fórmula</strong> es un cálculo directo con valores o celdas y símbolos (<code class="f">=5*4</code>).</p></details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase8.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Primer Parcial · Repaso</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 3 · Clase 8</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    /* ===== Lista de control de la actividad ===== */
+    (function () {
+      const KEY = 'c1-clase8-checklist-v1';
+      const boxes = document.querySelectorAll('#chkList input[type="checkbox"]');
+      const fill = document.getElementById('chkFill');
+      const bar = document.getElementById('chkBar');
+      const label = document.getElementById('chkLabel');
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+      function update() {
+        let done = 0;
+        boxes.forEach(b => { if (b.checked) done++; });
+        const pct = Math.round(done / boxes.length * 100);
+        fill.style.width = pct + '%';
+        bar.setAttribute('aria-valuenow', pct);
+        label.textContent = done === boxes.length
+          ? '🎉 ¡Completaste los ' + boxes.length + ' pasos! Contá tu experiencia en el Foro.'
+          : done + ' de ' + boxes.length + ' pasos completados';
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    })();
+
+    /* =====================================================
+       UTILIDADES DE FORMATO (estilo Argentina: 1.234,50)
+       ===================================================== */
+    function fmtNum(n, dec) {
+      const neg = n < 0;
+      const s = Math.abs(n).toFixed(dec);
+      const parts = s.split('.');
+      const int = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return (neg ? '-' : '') + int + (dec ? ',' + parts[1] : '');
+    }
+    function fmtGeneral(n) {
+      return String(parseFloat(n.toPrecision(12))).replace('.', ',');
+    }
+    function serialToDate(n) {
+      const base = n >= 61 ? Date.UTC(1899, 11, 30) : Date.UTC(1899, 11, 31);
+      return new Date(base + Math.floor(n) * 864e5);
+    }
+    function dateToSerial(d, m, y) {
+      let s = (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5;
+      if (s < 61) s -= 1;
+      return s;
+    }
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function fmtDateShort(n) {
+      const d = serialToDate(n);
+      return pad2(d.getUTCDate()) + '/' + pad2(d.getUTCMonth() + 1) + '/' + d.getUTCFullYear();
+    }
+    function fmtDateLong(n) {
+      try {
+        return new Intl.DateTimeFormat('es-AR', { dateStyle: 'full', timeZone: 'UTC' }).format(serialToDate(n));
+      } catch (e) { return fmtDateShort(n); }
+    }
+    function parseDMY(s) {
+      const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s.trim());
+      if (!m) return null;
+      const d = +m[1], mo = +m[2], y = +m[3];
+      const t = new Date(Date.UTC(y, mo - 1, d));
+      if (t.getUTCFullYear() !== y || t.getUTCMonth() !== mo - 1 || t.getUTCDate() !== d) return null;
+      return { d: d, m: mo, y: y };
+    }
+    function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    /* =====================================================
+       MOTOR DE FÓRMULAS (Excel en español, separador ";")
+       ===================================================== */
+    const ERR = { DIV: '#¡DIV/0!', NAME: '#¿NOMBRE?', VAL: '#¡VALOR!', REF: '#¡REF!', NUM: '#¡NUM!' };
+
+    function colIndex(letters) {
+      let n = 0;
+      for (let i = 0; i < letters.length; i++) n = n * 26 + (letters.charCodeAt(i) - 64);
+      return n - 1;
+    }
+    function splitRef(id) {
+      const m = /^([A-Za-z]{1,2})(\d{1,3})$/.exec(id);
+      if (!m) return null;
+      return { c: colIndex(m[1].toUpperCase()), r: parseInt(m[2], 10) - 1 };
+    }
+    function colName(c) { return String.fromCharCode(65 + c); }
+    function cellId(c, r) { return colName(c) + (r + 1); }
+
+    const FN = {
+      SUMA: (...a) => flat(a).reduce((x, y) => x + y, 0),
+      PRODUCTO: (...a) => { const f = flat(a); return f.length ? f.reduce((x, y) => x * y, 1) : 0; },
+      MAX: (...a) => { const f = flat(a); return f.length ? Math.max.apply(null, f) : 0; },
+      MIN: (...a) => { const f = flat(a); return f.length ? Math.min.apply(null, f) : 0; },
+      PROMEDIO: (...a) => {
+        const f = flat(a);
+        if (!f.length) throw { e: ERR.DIV };
+        return f.reduce((x, y) => x + y, 0) / f.length;
+      },
+      MEDIANA: (...a) => {
+        const f = flat(a).sort((x, y) => x - y);
+        if (!f.length) throw { e: ERR.NUM };
+        const m = Math.floor(f.length / 2);
+        return f.length % 2 ? f[m] : (f[m - 1] + f[m]) / 2;
+      }
+    };
+    function flat(a) {
+      const out = [];
+      a.forEach(x => Array.isArray(x) ? x.forEach(y => out.push(y)) : out.push(x));
+      return out;
+    }
+
+    function parseLiteral(raw) {
+      if (raw.charAt(0) === "'") return { t: 's', v: raw.slice(1) };
+      if (/^-?\d+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(',', '.')) };
+      if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(/\./g, '').replace(',', '.')) };
+      let m = /^(-?\d+(,\d+)?)%$/.exec(raw);
+      if (m) return { t: 'n', v: parseFloat(m[1].replace(',', '.')) / 100, show: raw };
+      const dt = parseDMY(raw);
+      if (dt && dt.y >= 1900) return { t: 'n', v: dateToSerial(dt.d, dt.m, dt.y), show: raw };
+      return { t: 's', v: raw };
+    }
+
+    function cellValue(S, id, depth) {
+      const raw = S.cells[id];
+      if (raw == null || raw === '') return { t: 'b' };
+      if (raw.charAt(0) === '=') return evalFormula(S, raw, depth + 1);
+      return parseLiteral(raw);
+    }
+
+    function evalFormula(S, raw, depth) {
+      if (depth > 25) return { t: 'e', v: ERR.REF };
+      const body = raw.slice(1).trim();
+      if (!body) return { t: 'e', v: ERR.NAME, syntax: true };
+      const re = /\s*(?:([A-Za-zÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÑ0-9_.]*)\s*(?=\()|([A-Za-z]{1,2}\d{1,3}):([A-Za-z]{1,2}\d{1,3})|([A-Za-z]{1,2}\d{1,3})(?![A-Za-z0-9(])|(\d+(?:,\d+)?)|([-+*\/()^;])|(\S))/y;
+      const toks = [];
+      let m, pos = 0;
+      re.lastIndex = 0;
+      while (pos < body.length) {
+        re.lastIndex = pos;
+        m = re.exec(body);
+        if (!m) break;
+        pos = re.lastIndex;
+        if (m[1]) {
+          const nm = m[1].toUpperCase();
+          if (!FN[nm]) return { t: 'e', v: ERR.NAME };
+          toks.push({ k: 'fn', v: nm });
+        } else if (m[2]) toks.push({ k: 'rng', a: m[2], b: m[3] });
+        else if (m[4]) toks.push({ k: 'ref', v: m[4] });
+        else if (m[5]) toks.push({ k: 'num', v: String(parseFloat(m[5].replace(',', '.'))) });
+        else if (m[6]) toks.push({ k: 'op', v: m[6] });
+        else return { t: 'e', v: ERR.NAME };
+      }
+      const code = toks.map((t, i) => {
+        if (t.k === 'fn') return 'F.' + t.v;
+        if (t.k === 'rng') return 'R("' + t.a + '","' + t.b + '")';
+        if (t.k === 'ref') {
+          const p = toks[i - 1], n = toks[i + 1];
+          const argStart = p && p.k === 'op' && (p.v === '(' || p.v === ';');
+          const argEnd = n && n.k === 'op' && (n.v === ')' || n.v === ';');
+          return (argStart && argEnd) ? 'R1("' + t.v + '")' : 'C("' + t.v + '")';
+        }
+        if (t.k === 'num') return t.v;
+        if (t.v === ';') return ',';
+        if (t.v === '^') return '**';
+        return t.v;
+      }).join(' ');
+
+      const C = id => {
+        const rf = splitRef(id);
+        if (!rf) throw { e: ERR.REF };
+        const v = cellValue(S, cellId(rf.c, rf.r), depth);
+        if (v.t === 'e') throw { e: v.v };
+        if (v.t === 's') throw { e: ERR.VAL };
+        return v.t === 'b' ? 0 : v.v;
+      };
+      const R1 = id => {
+        const rf = splitRef(id);
+        if (!rf) throw { e: ERR.REF };
+        const v = cellValue(S, cellId(rf.c, rf.r), depth);
+        if (v.t === 'e') throw { e: v.v };
+        return v.t === 'n' ? [v.v] : [];
+      };
+      const R = (a, b) => {
+        const p = splitRef(a), q = splitRef(b);
+        if (!p || !q) throw { e: ERR.REF };
+        const out = [];
+        for (let r = Math.min(p.r, q.r); r <= Math.max(p.r, q.r); r++) {
+          for (let c = Math.min(p.c, q.c); c <= Math.max(p.c, q.c); c++) {
+            const v = cellValue(S, cellId(c, r), depth);
+            if (v.t === 'e') throw { e: v.v };
+            if (v.t === 'n') out.push(v.v);
+          }
+        }
+        return out;
+      };
+      let fn;
+      try {
+        fn = new Function('C', 'R', 'R1', 'F', 'return (' + code + ');');
+      } catch (e) {
+        return { t: 'e', v: ERR.VAL, syntax: true };
+      }
+      try {
+        const res = fn(C, R, R1, FN);
+        if (typeof res !== 'number') return { t: 'e', v: ERR.VAL, syntax: true };
+        if (!isFinite(res)) return { t: 'e', v: ERR.DIV };
+        return { t: 'n', v: res };
+      } catch (e) {
+        if (e && e.e) return { t: 'e', v: e.e };
+        return { t: 'e', v: ERR.VAL, syntax: true };
+      }
+    }
+
+    /* =====================================================
+       EXCEL DE BOLSILLO
+       ===================================================== */
+    function makeSheet(el, opt) {
+      const cols = parseInt(el.dataset.cols, 10), rows = parseInt(el.dataset.rows, 10);
+      const S = {
+        cols: cols, rows: rows,
+        cells: Object.assign({}, opt.data || {}),
+        widths: (opt.widths || []).slice(),
+        a: { c: 0, r: 0 }, b: { c: 0, r: 0 },
+        editing: false, tabStart: null, mode: 'cell', dragging: false
+      };
+      for (let i = 0; i < cols; i++) if (!S.widths[i]) S.widths[i] = 80;
+      const bold = new Set(opt.bold || []);
+      const RH = 38;
+      const id = (c, r) => cellId(c, r);
+
+      el.innerHTML =
+        '<div class="xl-title"><b>' + (opt.title || 'Libro1 - Excel') + '</b></div>' +
+        '<div class="xl-fbar"><div class="xl-name"></div><div class="xl-fx">fx</div>' +
+        '<input class="xl-input" type="text" autocomplete="off" spellcheck="false" aria-label="Barra de fórmulas" /></div>' +
+        '<div class="xl-scroll" tabindex="0" role="grid" aria-label="Planilla de práctica"></div>' +
+        '<div class="xl-sheets"><span class="on">Hoja1</span><span class="plus">＋</span></div>' +
+        '<div class="xl-status"><span class="st-l">Listo</span><span class="st-r"></span></div>';
+      const nameBox = el.querySelector('.xl-name');
+      const input = el.querySelector('.xl-input');
+      const scroll = el.querySelector('.xl-scroll');
+      const stL = el.querySelector('.st-l');
+      const stR = el.querySelector('.st-r');
+
+      /* --- tabla --- */
+      let h = '<table class="xl-grid"><colgroup><col style="width:' + RH + 'px">';
+      for (let c = 0; c < cols; c++) h += '<col style="width:' + S.widths[c] + 'px">';
+      h += '</colgroup><thead><tr><th class="corner rh"></th>';
+      for (let c = 0; c < cols; c++) h += '<th data-c="' + c + '">' + colName(c) + '<span class="xl-rz" data-c="' + c + '" title="Doble clic: ajustar ancho"></span></th>';
+      h += '</tr></thead><tbody>';
+      for (let r = 0; r < rows; r++) {
+        h += '<tr><th class="rh" data-r="' + r + '">' + (r + 1) + '</th>';
+        for (let c = 0; c < cols; c++) h += '<td data-c="' + c + '" data-r="' + r + '"><span></span></td>';
+        h += '</tr>';
+      }
+      h += '</tbody></table>';
+      scroll.innerHTML = h;
+      const table = scroll.querySelector('table');
+      const colEls = table.querySelectorAll('col');
+      const tds = [];
+      for (let r = 0; r < rows; r++) { tds[r] = []; }
+      table.querySelectorAll('td').forEach(td => { tds[+td.dataset.r][+td.dataset.c] = td; });
+      const colHs = table.querySelectorAll('thead th[data-c]');
+      const rowHs = table.querySelectorAll('tbody th.rh');
+      function setTableWidth() {
+        let w = RH; S.widths.forEach(x => w += x);
+        table.style.width = w + 'px';
+        colEls.forEach((ce, i) => { if (i > 0) ce.style.width = S.widths[i - 1] + 'px'; });
+      }
+      setTableWidth();
+
+      function bbox() {
+        return {
+          c1: Math.min(S.a.c, S.b.c), c2: Math.max(S.a.c, S.b.c),
+          r1: Math.min(S.a.r, S.b.r), r2: Math.max(S.a.r, S.b.r)
+        };
+      }
+      function displayOf(c, r) {
+        const v = cellValue(S, id(c, r), 0);
+        if (v.t === 'b') return { txt: '', cls: '' };
+        if (v.t === 'e') return { txt: v.v, cls: 'err' };
+        if (v.t === 's') return { txt: v.v, cls: 'txt' };
+        let txt = v.show ? v.show : fmtGeneral(v.v);
+        const cap = Math.floor((S.widths[c] - 12) / 7);
+        if (txt.length > cap) txt = '#'.repeat(Math.max(3, Math.min(cap, 8)));
+        return { txt: txt, cls: 'num' };
+      }
+      function isEmptyRaw(c, r) {
+        if (c < 0 || c >= cols || r < 0 || r >= rows) return true;
+        const raw = S.cells[id(c, r)];
+        return raw == null || raw === '';
+      }
+
+      function draw() {
+        const bb = bbox();
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const td = tds[r][c], d = displayOf(c, r);
+            const sp = td.firstChild;
+            sp.textContent = d.txt;
+            sp.className = (d.cls === 'txt' && isEmptyRaw(c + 1, r) && d.txt.length * 7 > S.widths[c] - 12) ? 'spill' : '';
+            let cl = d.cls === 'num' ? 'num' : (d.cls === 'err' ? 'err' : '');
+            if (bold.has(id(c, r))) cl += ' hdr';
+            const inR = c >= bb.c1 && c <= bb.c2 && r >= bb.r1 && r <= bb.r2;
+            if (inR && (bb.c1 !== bb.c2 || bb.r1 !== bb.r2)) cl += ' inrange';
+            if (c === S.a.c && r === S.a.r) cl += ' active';
+            if (opt.target === id(c, r)) cl += ' target';
+            td.className = cl;
+          }
+        }
+        colHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.c1 && i <= bb.c2));
+        rowHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.r1 && i <= bb.r2));
+        // cuadro de nombres
+        const single = bb.c1 === bb.c2 && bb.r1 === bb.r2;
+        if (S.mode === 'col') nameBox.textContent = colName(bb.c1) + ':' + colName(bb.c2);
+        else if (S.mode === 'row') nameBox.textContent = (bb.r1 + 1) + ':' + (bb.r2 + 1);
+        else nameBox.textContent = single ? id(bb.c1, bb.r1) : id(bb.c1, bb.r1) + ':' + id(bb.c2, bb.r2);
+        if (!S.editing) input.value = S.cells[id(S.a.c, S.a.r)] || '';
+        // barra de estado
+        let n = 0, sum = 0, cnt = 0;
+        for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) {
+          const v = cellValue(S, id(c, r), 0);
+          if (v.t !== 'b') cnt++;
+          if (v.t === 'n') { n++; sum += v.v; }
+        }
+        stL.textContent = S.editing ? 'Introducir' : 'Listo';
+        stR.textContent = n > 0 && !single
+          ? 'Promedio: ' + fmtGeneral(sum / n).slice(0, 12) + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
+          : (cnt > 1 ? 'Recuento: ' + cnt : '');
+        if (opt.onChange) opt.onChange(api);
+      }
+
+      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+      function select(c, r, extend, mode) {
+        c = clamp(c, 0, cols - 1); r = clamp(r, 0, rows - 1);
+        S.mode = mode || 'cell';
+        if (extend) S.b = { c: c, r: r };
+        else { S.a = { c: c, r: r }; S.b = { c: c, r: r }; S.tabStart = null; }
+        draw();
+        const td = tds[r][c];
+        const sr = scroll.getBoundingClientRect(), tr = td.getBoundingClientRect();
+        if (tr.bottom > sr.bottom) scroll.scrollTop += tr.bottom - sr.bottom + 4;
+        if (tr.top < sr.top + 26) scroll.scrollTop -= (sr.top + 26 - tr.top) + 4;
+        if (tr.right > sr.right) scroll.scrollLeft += tr.right - sr.right + 4;
+        if (tr.left < sr.left + RH) scroll.scrollLeft -= (sr.left + RH - tr.left) + 4;
+      }
+      function setCell(cid, raw) {
+        if (raw === '' || raw == null) delete S.cells[cid]; else S.cells[cid] = raw;
+      }
+      function commit(move) {
+        if (!S.editing) return true;
+        const raw = input.value;
+        if (raw.charAt(0) === '=') {
+          const test = evalFormula(S, raw, 0);
+          if (test.syntax) {
+            stL.textContent = '⚠ Excel no acepta esa fórmula: revisá paréntesis, operadores y separadores (;)';
+            setTimeout(draw, 2600);
+            return false;
+          }
+        }
+        S.editing = false;
+        setCell(id(S.a.c, S.a.r), raw);
+        const c = S.a.c, r = S.a.r;
+        if (move === 'enter') {
+          if (S.tabStart != null) { const sc = S.tabStart; S.tabStart = null; select(sc, r + 1); }
+          else select(c, r + 1);
+        } else if (move === 'tab') {
+          const ts = S.tabStart == null ? c : S.tabStart;
+          select(c + 1, r); S.tabStart = ts;
+        } else draw();
+        return true;
+      }
+      function cancelEdit() { S.editing = false; draw(); }
+
+      /* --- mouse --- */
+      scroll.addEventListener('mousedown', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (rz) {
+          e.preventDefault();
+          const c = +rz.dataset.c, x0 = e.clientX, w0 = S.widths[c];
+          const mv = ev => { S.widths[c] = Math.max(28, w0 + ev.clientX - x0); setTableWidth(); draw(); };
+          const up = () => { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); };
+          document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up);
+          return;
+        }
+        const td = e.target.closest('td'), ch = e.target.closest('thead th[data-c]'), rh = e.target.closest('tbody th.rh');
+        if (S.editing) commit(null);
+        if (td) {
+          e.preventDefault(); scroll.focus({ preventScroll: true });
+          select(+td.dataset.c, +td.dataset.r, e.shiftKey);
+          S.dragging = true;
+        } else if (ch) {
+          const c = +ch.dataset.c; scroll.focus({ preventScroll: true });
+          S.a = { c: c, r: 0 }; S.b = { c: c, r: rows - 1 }; S.mode = 'col'; S.tabStart = null; draw();
+        } else if (rh) {
+          const r = +rh.dataset.r; scroll.focus({ preventScroll: true });
+          S.a = { c: 0, r: r }; S.b = { c: cols - 1, r: r }; S.mode = 'row'; S.tabStart = null; draw();
+        }
+      });
+      scroll.addEventListener('mouseover', e => {
+        if (!S.dragging) return;
+        const td = e.target.closest('td');
+        if (td) { S.mode = 'cell'; S.b = { c: +td.dataset.c, r: +td.dataset.r }; draw(); }
+      });
+      document.addEventListener('mouseup', () => { S.dragging = false; });
+      scroll.addEventListener('dblclick', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (!rz) return;
+        const c = +rz.dataset.c;
+        let max = 0;
+        for (let r = 0; r < rows; r++) {
+          const v = cellValue(S, id(c, r), 0);
+          let t = '';
+          if (v.t === 'n') t = v.show ? v.show : fmtGeneral(v.v);
+          else if (v.t === 's' || v.t === 'e') t = v.v;
+          if (t.length > max) max = t.length;
+        }
+        S.widths[c] = Math.max(40, max * 7 + 16);
+        setTableWidth(); draw();
+      });
+
+      /* --- teclado sobre la grilla --- */
+      function jump(c, r, dc, dr) {
+        let nc = c + dc, nr = r + dr;
+        if (nc < 0 || nc >= cols || nr < 0 || nr >= rows) return { c: c, r: r };
+        if (!isEmptyRaw(c, r) && !isEmptyRaw(nc, nr)) {
+          while (!isEmptyRaw(nc + dc, nr + dr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+          return { c: nc, r: nr };
+        }
+        while (isEmptyRaw(nc, nr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+        return { c: nc, r: nr };
+      }
+      function lastUsed() {
+        let mc = 0, mr = 0;
+        Object.keys(S.cells).forEach(k => { const p = splitRef(k); if (p) { mc = Math.max(mc, p.c); mr = Math.max(mr, p.r); } });
+        return { c: mc, r: mr };
+      }
+      scroll.addEventListener('keydown', e => {
+        if (S.editing) return;
+        const k = e.key, cur = e.shiftKey ? S.b : S.a;
+        const dirs = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+        if (dirs[k]) {
+          e.preventDefault();
+          const d = dirs[k];
+          let t = e.ctrlKey ? jump(cur.c, cur.r, d[0], d[1]) : { c: cur.c + d[0], r: cur.r + d[1] };
+          select(t.c, t.r, e.shiftKey);
+        } else if (k === 'Enter') { e.preventDefault(); select(S.a.c, S.a.r + (e.shiftKey ? -1 : 1)); }
+        else if (k === 'Tab') { e.preventDefault(); select(S.a.c + (e.shiftKey ? -1 : 1), S.a.r); }
+        else if (k === 'Home') { e.preventDefault(); e.ctrlKey ? select(0, 0, e.shiftKey) : select(0, S.a.r, e.shiftKey); }
+        else if (k === 'End' && e.ctrlKey) { e.preventDefault(); const lu = lastUsed(); select(lu.c, lu.r, e.shiftKey); }
+        else if (k === 'PageDown') { e.preventDefault(); select(S.a.c, S.a.r + 10, e.shiftKey); }
+        else if (k === 'PageUp') { e.preventDefault(); select(S.a.c, S.a.r - 10, e.shiftKey); }
+        else if (k === 'Escape') { scroll.blur(); }
+        else if (k === 'F2') { e.preventDefault(); input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+        else if (k === 'Delete' || k === 'Backspace') {
+          e.preventDefault();
+          const bb = bbox();
+          for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) setCell(id(c, r), '');
+          draw();
+        } else if (k.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault();
+          input.value = k; S.editing = true; input.focus(); draw();
+        }
+      });
+
+      /* --- barra de fórmulas --- */
+      input.addEventListener('focus', () => { S.editing = true; stL.textContent = 'Introducir'; });
+      input.addEventListener('input', () => { S.editing = true; });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); if (commit(e.shiftKey ? null : 'enter')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Tab') { e.preventDefault(); if (commit('tab')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); scroll.focus({ preventScroll: true }); }
+      });
+      input.addEventListener('blur', () => { if (S.editing) { if (!commit(null)) cancelEdit(); } });
+
+      const api = {
+        S: S, select: select, setCell: function (cid, raw) { setCell(cid, raw); draw(); },
+        activeId: function () { return id(S.a.c, S.a.r); },
+        reset: function () { S.editing = false; select(0, 0); scroll.scrollTop = 0; scroll.scrollLeft = 0; },
+        scroll: scroll, focus: function () { scroll.focus({ preventScroll: true }); },
+        display: function (cid) { const p = splitRef(cid); return displayOf(p.c, p.r).txt; }
+      };
+      if (opt.select) { const p = splitRef(opt.select.split(':')[0]); const q = splitRef(opt.select.split(':').pop()); S.a = { c: p.c, r: p.r }; S.b = { c: q.c, r: q.r }; }
+      draw();
+      return api;
+    }
+
+    /* ----- instancias ----- */
+    const sheetRango = makeSheet(document.getElementById('xlRango'), {
+      data: {
+        A1: 'Producto', B1: 'Ene', C1: 'Feb', D1: 'Mar',
+        A2: 'Lápiz', B2: '12', C2: '8', D2: '15',
+        A3: 'Cuaderno', B3: '20', C3: '30', D3: '18',
+        A4: 'Regla', B4: '5', C4: '7', D4: '9',
+        A5: 'Mochila', B5: '3', C5: '2', D5: '6'
+      },
+      widths: [90, 70, 70, 70, 80, 80],
+      bold: ['A1', 'B1', 'C1', 'D1'],
+      select: 'B2:C4'
+    });
+
+    /* ----- planilla de fórmulas ----- */
+    (function () {
+      const api = makeSheet(document.getElementById('xlFormulas'), {
+        data: {
+          A1: 'Ene', B1: 'Feb', C1: 'Mar', D1: 'Abr', F1: 'Resultado',
+          A2: '12', B2: '10', C2: '40', D2: '3',
+          A3: '8', B3: '25', C3: '4', D3: '14',
+          A4: '15', B4: '7', C4: '9', D4: '28',
+          A5: '20', B5: '18', C5: '22', D5: '6',
+          A6: '5', B6: '30', C6: '16', D6: '11'
+        },
+        widths: [60, 60, 60, 60, 30, 110],
+        bold: ['A1', 'B1', 'C1', 'D1', 'F1'],
+        select: 'F2'
+      });
+      const chips = [
+        { f: '=A2+B2', t: 'Suma de dos celdas. Cambiá A2 en la tabla y mirá cómo se actualiza el resultado.' },
+        { f: '=(A2+B2)*(C2-D2)', t: 'Los paréntesis agrupan los términos: primero se resuelve cada paréntesis.' },
+        { f: '=SUMA(A2:A6)', t: 'Función SUMA sobre un rango (de A2 a A6).' },
+        { f: '=PRODUCTO(A2:A4)', t: 'Multiplica todos los valores del rango.' },
+        { f: '=MAX(B2:B6)', t: 'El valor más grande del rango.' },
+        { f: '=MIN(B2:B6)', t: 'El valor más chico del rango.' },
+        { f: '=PROMEDIO(C2:C6)', t: 'Suma los valores y los divide por la cantidad de valores.' },
+        { f: '=MEDIANA(D2:D6)', t: 'El valor del medio al ordenar los datos de menor a mayor.' },
+        { f: '=SUMAR(A2:A6)', bad: true, t: 'Esa función no existe: el nombre correcto es SUMA.' }
+      ];
+      const box = document.getElementById('chips'), cap = document.getElementById('chipCap');
+      chips.forEach(ch => {
+        const b = document.createElement('button');
+        b.className = 'xl-chip' + (ch.bad ? ' bad' : '');
+        b.textContent = ch.f;
+        b.addEventListener('click', () => {
+          api.select(5, 1);
+          api.setCell('F2', ch.f);
+          cap.innerHTML = '<b>La celda F2 muestra ' + esc(api.display('F2')) + '</b> y la barra de fórmulas guarda <code class="f">' + esc(ch.f) + '</code>. ' + ch.t;
+        });
+        box.appendChild(b);
+      });
+    })();
+  </script>
+</body>
+</html>
