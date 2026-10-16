@@ -2025,3 +2025,264 @@ blockquote {
 .step-list strong {
   color: var(--text);
 }
+
+/* ── CLASE 10: FONDO CON IMAGEN, FLECHAS, SMARTART Y TABLAS ───── */
+.ppt-slide.bgimg {
+  justify-content: flex-start;
+  background: linear-gradient(115deg, #6f7a89 0%, #c3ccd8 38%, #8d99aa 70%, #b4bdca 100%);
+}
+
+.ppt-bg-label {
+  position: absolute;
+  right: 3%;
+  bottom: 3%;
+  padding: 0.2em 0.6em;
+  border: 1px dashed rgba(31, 41, 55, 0.55);
+  background: rgba(255, 255, 255, 0.55);
+  color: #374151;
+  font-size: 2.2cqw;
+}
+
+.ppt-title-box {
+  width: 84%;
+  padding: 1.5% 3%;
+  background: rgba(166, 214, 238, 0.88);
+  color: #1c6fb8;
+  font-size: 6.4cqw;
+  font-weight: 600;
+}
+
+.ppt-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2%;
+  width: 92%;
+  margin-top: 2.5%;
+}
+
+.ppt-col {
+  padding: 2% 2.5%;
+  background: rgba(247, 194, 150, 0.79);
+  color: #1f2937;
+  font-size: 2.35cqw;
+  font-weight: 600;
+  text-align: left;
+}
+
+.ppt-col ul {
+  font-size: inherit;
+  padding-left: 1.2em;
+}
+
+.ppt-col li {
+  margin: 0 0 0.25em;
+}
+
+.ppt-col strong {
+  display: block;
+  text-align: center;
+}
+
+.ppt-slide.flechas,
+.ppt-slide.smart {
+  justify-content: flex-start;
+}
+
+.ppt-slide.flechas .ppt-title,
+.ppt-slide.smart .ppt-title {
+  font-size: 7.5cqw;
+  color: #111827;
+}
+
+.ppt-flow {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  margin-top: 2%;
+}
+
+.ppt-flow .lbl,
+.ppt-flow .txt {
+  position: absolute;
+  font-size: 3.3cqw;
+  font-weight: 700;
+  text-align: left;
+  color: #111827;
+}
+
+.ppt-flow .lbl {
+  left: 6%;
+  top: 38%;
+  width: 20%;
+}
+
+.ppt-flow .txt {
+  left: 52%;
+}
+
+.ppt-flow .arr {
+  position: absolute;
+  left: 30%;
+  width: 14cqw;
+  height: 5.5cqw;
+  background: #4a7fc1;
+  clip-path: polygon(0 30%, 68% 30%, 68% 0, 100% 50%, 68% 100%, 68% 70%, 0 70%);
+}
+
+.ppt-flow .a1 { top: 10%; transform: rotate(-28deg); }
+.ppt-flow .a2 { top: 44%; }
+.ppt-flow .a3 { top: 78%; transform: rotate(28deg); }
+.ppt-flow .t1 { top: 4%; }
+.ppt-flow .t2 { top: 42%; }
+.ppt-flow .t3 { top: 78%; }
+
+.ppt-sub {
+  margin: 1.5% 0 0;
+  font-size: 4.2cqw;
+  font-weight: 700;
+  color: #ed7d31;
+}
+
+.ppt-sub span {
+  color: #111827;
+  font-weight: 600;
+}
+
+.ppt-cycle {
+  position: relative;
+  width: 100%;
+  height: 40cqw;
+  margin-top: 1%;
+}
+
+.ppt-cycle::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48cqw;
+  height: 28cqw;
+  transform: translate(-50%, -50%);
+  border: 1px solid #b5bfcc;
+  border-radius: 50%;
+}
+
+.ppt-cycle .node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 19cqw;
+  padding: 0.9cqw 1cqw;
+  transform: translate(var(--x), var(--y)) translate(-50%, -50%);
+  border-radius: 1.2cqw;
+  background: #4a7fc1;
+  color: #ffffff;
+  font-size: 2.1cqw;
+  font-weight: 600;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.ppt-cycle.suave .node {
+  background: linear-gradient(180deg, #dbe7fb 0%, #b4c9f0 100%);
+  border: 1px solid #7f9ed6;
+  color: #1f2937;
+}
+
+.ppt-cycle.verde .node {
+  background: #9bbb59;
+  color: #ffffff;
+  box-shadow: 0.6cqw 0.9cqw 0 #6f8c34;
+}
+
+.ppt-cycle.verde .node:nth-child(2) { background: #6f8c34; }
+.ppt-cycle.verde .node:nth-child(4) { background: #c9d9a8; color: #ffffff; }
+
+.ppt-table-wrap {
+  overflow-x: auto;
+  margin-top: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: var(--shadow-soft);
+}
+
+table.ppt-table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-family: "Calibri", "Segoe UI", Arial, sans-serif;
+  font-size: 0.82rem;
+  color: #1f2937;
+}
+
+table.ppt-table th,
+table.ppt-table td {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid #8fa8cf;
+  background: #eaf0fa;
+  text-align: left;
+  vertical-align: middle;
+}
+
+table.ppt-table thead th {
+  background: #4f81bd;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+table.ppt-table td.c {
+  text-align: center;
+  font-weight: 600;
+  background: #dbe5f4;
+}
+
+table.ppt-table td.hl {
+  outline: 2px solid #ed7d31;
+  outline-offset: -2px;
+}
+
+.trans-demo {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(115deg, #4b5563 0%, #d1d5db 45%, #6b7280 100%);
+}
+
+.trans-demo div {
+  padding: 1rem 0.4rem;
+  border-radius: 4px;
+  color: #1f2937;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .trans-demo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.ppt-layout.single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.consigna-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.3rem;
+}
+
+.consigna-list li {
+  margin-bottom: 0.6rem;
+  line-height: 1.55;
+}
+
+.consigna-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1.25rem;
+}
