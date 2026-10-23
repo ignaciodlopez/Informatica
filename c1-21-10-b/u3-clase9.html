@@ -1,0 +1,2543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 9</title>
+  <meta
+    name="description"
+    content="Clase 9 de Informática Aplicada (C1-21-10, Todas las comisiones): operaciones con fechas, SIFECHA, combinar y centrar, unir y separar textos, función SI, buscar y reemplazar, INDICE y COINCIDIR, referencia absoluta y herramientas que ahorran tiempo en Excel."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== ACTIVIDADES ===== */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .progress { height: 0.7rem; background: var(--surface-soft); border-radius: 999px; overflow: hidden; margin: 0.4rem 0 0.2rem; }
+    .progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0; }
+    .chk-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .chk-list li { background: var(--surface-soft); border-radius: 12px; padding: 0.7rem 0.9rem; }
+    .chk-list label { display: flex; gap: 0.7rem; cursor: pointer; align-items: flex-start; }
+    .chk-list input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--accent); flex: none; }
+    .chk-list .chk-txt { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+    .chk-list .chk-txt small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+    .chk-list input:checked + .chk-txt { opacity: 0.6; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
+    .chk-list input:checked + .chk-txt small { text-decoration: none; }
+
+    .vs-page kbd, .fn-page kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    [data-theme="dark"] .la-box .la-link { color: #7db8ff; }
+
+    /* Preguntas frecuentes */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Video cards con miniatura */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+    .video-ask { margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .video-ask b { color: var(--primary); }
+    .video-ans { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+    .video-ans summary { cursor: pointer; font-weight: 700; color: var(--primary); }
+    .video-ans p { margin: 0.4rem 0 0; line-height: 1.55; }
+
+    /* ===== EXCEL DE BOLSILLO (ventana simulada) ===== */
+    .xl {
+      background: #fff;
+      color: #111;
+      border: 1px solid #9ca3af;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: none;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.78rem;
+      margin-top: 0.75rem;
+    }
+    .xl kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    .xl-title { background: #217346; color: #fff; padding: 0.4rem 0.8rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; }
+    .xl-title b { font-weight: 600; }
+    .xl-ribbon { background: #f3f3f3; border-bottom: 1px solid #d4d4d4; display: flex; flex-wrap: wrap; gap: 0; padding: 0 0.4rem; font-size: 0.72rem; overflow-x: auto; white-space: nowrap; }
+    .xl-ribbon span { padding: 0.4rem 0.65rem; color: #374151; }
+    .xl-ribbon span.on { color: #217346; font-weight: 700; border-bottom: 3px solid #217346; background: #fff; }
+    .xl-tools { background: #fff; border-bottom: 1px solid #d4d4d4; padding: 0.35rem 0.7rem; display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; align-items: center; font-size: 0.7rem; color: #4b5563; }
+    .xl-tools i { font-style: normal; border: 1px solid #d4d4d4; border-radius: 3px; padding: 0.05rem 0.4rem; background: #fafafa; color: #111; }
+    .xl-fbar { display: flex; align-items: stretch; border-bottom: 1px solid #d4d4d4; background: #fff; }
+    .xl-name { width: 5.6rem; flex: none; border-right: 1px solid #d4d4d4; padding: 0.3rem 0.5rem; font-weight: 600; background: #fff; display: flex; align-items: center; }
+    .xl-fx { flex: none; width: 2.2rem; display: flex; align-items: center; justify-content: center; font-style: italic; font-weight: 700; color: #6b7280; border-right: 1px solid #d4d4d4; font-family: Georgia, serif; }
+    .xl-input { flex: 1; min-width: 0; border: 0; padding: 0.3rem 0.55rem; font: inherit; background: #fff; color: #111; outline: none; }
+    .xl-input:focus { box-shadow: inset 0 0 0 2px #217346; }
+    .xl-scroll { overflow: auto; max-height: 21rem; outline: none; position: relative; background: #fff; }
+    .xl-scroll:focus-visible { box-shadow: inset 0 0 0 3px #f59e0b; }
+    table.xl-grid { border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 0.78rem; user-select: none; }
+    .xl-grid th, .xl-grid td { border-right: 1px solid #d4d4d4; border-bottom: 1px solid #d4d4d4; height: 1.45rem; padding: 0 0.35rem; white-space: nowrap; line-height: 1.45rem; box-sizing: border-box; }
+    .xl-grid thead th { position: sticky; top: 0; z-index: 3; background: #e6e6e6; font-weight: 500; text-align: center; color: #374151; }
+    .xl-grid th.rh { position: sticky; left: 0; z-index: 2; background: #e6e6e6; width: 2.4rem; min-width: 2.4rem; text-align: center; font-weight: 500; color: #374151; padding: 0; }
+    .xl-grid thead th.corner { left: 0; z-index: 4; }
+    .xl-grid th.hl { background: #d3e8dc !important; color: #14532d; font-weight: 700; }
+    .xl-grid thead th.hl { border-bottom: 2px solid #217346; }
+    .xl-grid th.rh.hl { border-right: 2px solid #217346; }
+    .xl-grid td { cursor: cell; position: relative; background: #fff; }
+    .xl-grid td > span { display: block; overflow: hidden; text-overflow: clip; }
+    .xl-grid td > span.spill { overflow: visible; position: relative; z-index: 1; }
+    .xl-grid td.num { text-align: right; }
+    .xl-grid td.err { text-align: center; }
+    .xl-grid td.inrange { background: #e4f1ea; }
+    .xl-grid td.active { background: #fff; box-shadow: inset 0 0 0 2px #217346; z-index: 1; }
+    .xl-grid td.target { background: #fde68a; }
+    .xl-grid td.target.active { background: #fff; }
+    .xl-grid td.hdr { font-weight: 700; background: #f3f4f6; }
+    .xl-rz { position: absolute; top: 0; right: -3px; width: 7px; height: 100%; cursor: col-resize; z-index: 5; }
+    .xl-rz:hover { background: rgba(33,115,70,0.35); }
+    .xl-sheets { display: flex; align-items: center; background: #f3f3f3; border-top: 1px solid #d4d4d4; padding: 0.25rem 0.5rem 0; gap: 0.25rem; }
+    .xl-sheets span { padding: 0.25rem 0.9rem; font-size: 0.72rem; color: #374151; }
+    .xl-sheets span.on { background: #fff; color: #217346; font-weight: 700; border-bottom: 3px solid #217346; border-radius: 3px 3px 0 0; }
+    .xl-sheets span.plus { font-weight: 800; color: #217346; padding: 0.2rem 0.6rem; }
+    .xl-status { background: #217346; color: #fff; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: 0.25rem 0.8rem; font-size: 0.7rem; }
+    .xl-hint { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    .xl-hint kbd { font-size: 0.78em; }
+    .xl-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 0; }
+    .xl-chip {
+      cursor: pointer;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .xl-chip:hover { border-color: var(--primary); }
+    .xl-chip.bad { border-style: dashed; color: #b91c1c; }
+    .xl-chip:focus-visible, .lab-btn:focus-visible, .fn-sel:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .xl-caption { margin: 0.7rem 0 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.85rem; line-height: 1.55; color: var(--text); }
+    .xl-caption b { color: var(--primary); }
+    .xl-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.55rem 1.2rem; list-style: none; margin: 1rem 0 0; padding: 0; }
+    .xl-legend li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
+    .xl-legend li strong { color: var(--text); }
+    .mk { flex: none; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: #217346; color: #fff; font-size: 0.72rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .xl .mk { width: 1.1rem; height: 1.1rem; font-size: 0.62rem; margin-right: 0.35rem; background: #f59e0b; color: #111; }
+    .xl-ribbon .mk { margin: 0 0.3rem; align-self: center; }
+
+
+    code.f { font-family: Consolas, 'Courier New', monospace; background: var(--surface-soft); border-radius: 4px; padding: 0.05rem 0.4rem; font-size: 0.85em; color: var(--primary); }
+    [data-theme="dark"] code.f { background: rgba(255,255,255,0.1); color: #93c5fd; }
+    kbd {
+      display: inline-block;
+      padding: 0.05rem 0.45rem;
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.8em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+    .topics { margin: 0; padding-left: 1.2rem; color: var(--text); line-height: 1.9; columns: 2; column-gap: 2.5rem; }
+    @media (max-width: 700px) { .topics { columns: 1; } }
+    .plain h3 { margin: 2rem 0 0.4rem; }
+    .plain p { margin: 0.4rem 0; color: var(--muted); max-width: 62rem; line-height: 1.65; }
+    .plain p strong, .plain li strong { color: var(--text); }
+    .plain ul { margin: 0.4rem 0; padding-left: 1.2rem; color: var(--muted); line-height: 1.7; max-width: 62rem; }
+    .plain .table-card { margin: 0.8rem 0; }
+    .rule { margin: 1rem 0 0; padding: 0.7rem 1rem; border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; font-size: 0.92rem; color: var(--text); max-width: 62rem; }
+
+    /* ===== CLASE 9: controles y demos ===== */
+    .xl-ctrls { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; margin: 0.9rem 0 0; }
+    .xl-btn { cursor: pointer; font: inherit; font-size: 0.82rem; font-weight: 700; padding: 0.45rem 0.9rem; border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff; }
+    .xl-btn.ghost { background: var(--surface); color: var(--primary); }
+    [data-theme="dark"] .xl-btn.ghost { color: #93c5fd; border-color: #93c5fd; }
+    .xl-btn:hover { filter: brightness(1.1); }
+    .xl-btn:focus-visible, .xl-field input:focus-visible, .xl-field select:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .xl-field { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .xl-field input[type="text"], .xl-field select { font-size: 0.82rem; font-weight: 600; padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-family: Consolas, 'Courier New', monospace; }
+    .xl-field input[type="text"] { width: 14rem; max-width: 100%; }
+    .xl-field input.short { width: 3.5rem; text-align: center; }
+    .xl-field.chk { gap: 0.35rem; font-weight: 600; cursor: pointer; }
+    .xl-field.chk input { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+    .xl + .xl-caption, .xl-ctrls + .xl { margin-top: 0.75rem; }
+    .xl-pad { overflow-x: auto; background: #fff; }
+    table.xl-simple { border-collapse: collapse; width: 100%; font-size: 0.78rem; color: #111; background: #fff; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .xl-simple th, .xl-simple td { border: 1px solid #d4d4d4; padding: 0 0.6rem; height: 1.6rem; text-align: left; white-space: nowrap; }
+    .xl-simple th { background: #e6e6e6; font-weight: 500; text-align: center; color: #374151; }
+    .xl-simple th.rh { width: 2.4rem; padding: 0; }
+    .xl-simple td.r { text-align: right; }
+    .xl-simple td.mg-head { font-weight: 700; background: #f3f4f6; text-align: center; }
+    .xl-simple td.mg-merged { text-align: center; font-weight: 800; background: #d3e8dc; color: #14532d; outline: 2px solid #217346; outline-offset: -2px; }
+    .xl-simple td.mg-title { position: relative; }
+    .xl-simple td.mg-title span { position: absolute; left: 0.6rem; top: 0.2rem; font-weight: 800; }
+
+    /* pasos numerados y fórmula destacada */
+    .plain h3.paso { display: flex; align-items: center; gap: 0.65rem; margin: 2.4rem 0 0.5rem; }
+    .paso-n { flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.9rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+    .plain p.fx-line { display: inline-block; margin: 0.4rem 0; padding: 0.55rem 0.95rem; border-radius: 10px; background: var(--surface-soft); border: 1px solid var(--line); font-family: Consolas, 'Courier New', monospace; font-size: 0.95rem; font-weight: 700; color: var(--primary); max-width: 100%; overflow-x: auto; }
+    [data-theme="dark"] .plain p.fx-line { color: #93c5fd; }
+
+    /* introducción de cada sección: globo blanco, sin franja de color */
+    .lectura { margin: 1.4rem 0 1.8rem; padding: 1.2rem 1.5rem 1.3rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); max-width: 62rem; }
+    .lectura-label { margin: 0 0 0.55rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .lectura p:not(.lectura-label) { margin: 0; font-size: 1.05rem; line-height: 1.8; color: var(--text); }
+    .lectura p + p:not(.lectura-label) { margin-top: 0.75rem; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#ruta">Contenidos</a>
+        <a href="#fechas">Fechas</a>
+        <a href="#combinar">Combinar y centrar</a>
+        <a href="#union">Unión y extracción</a>
+        <a href="#si">Función SI</a>
+        <a href="#buscar">Buscar y reemplazar</a>
+        <a href="#herramientas">Herramientas</a>
+        <a href="#indice">Índice y Coincidir</a>
+        <a href="#absoluta">Referencia absoluta</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 3</p>
+        <h1>Fechas, textos y funciones en Excel</h1>
+        <p class="lead">
+          Seguimos con la <strong>Unidad 3</strong>: cómo trabaja Excel con <strong>fechas</strong>, cómo <strong>unir y separar textos</strong>,
+          cómo tomar decisiones con la función <strong>SI</strong>, cómo <strong>buscar y reemplazar datos</strong>
+          y un conjunto de herramientas que ahorran mucho trabajo.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ruta">Ver los contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 9</li>
+          <li>Microsoft Excel</li>
+          <li>Ejercicio: Fechas y funciones</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Volver a tomar contacto con lo necesario para confeccionar una planilla de cálculo</h2>
+        <p>
+          Operar con fechas, combinar textos, decidir con <code class="f">SI</code>, buscar datos con
+          <code class="f">INDICE</code> y <code class="f">COINCIDIR</code> y fijar referencias con el signo <code class="f">$</code>.
+        </p>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- CONTENIDOS -->
+    <section class="section" id="ruta">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Lo que vamos a ver</p>
+          <h2>Contenidos de la clase</h2>
+          <p>
+            Se apoya en dos videos: el <strong>capítulo 3 del curso básico de Excel</strong> (temas 1 a 5) y
+            <strong>“Las 10 funciones de Excel que debes saber”</strong> (temas 6 a 14), y en un archivo de práctica.
+            Algunos temas ya aparecieron en la <a href="u3-clase8.html">Clase 8</a>: acá se retoman y se completan.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Hoy vamos a ver qué hace falta para armar una planilla de cálculo prolija y útil. Son catorce temas, y se pueden agrupar en cuatro bloques: trabajar con fechas, dar buen aspecto y manejar textos, tomar decisiones y buscar datos, y por último un conjunto de herramientas que ahorran tiempo. Los temas salen de dos videos del curso y al final hacemos un ejercicio práctico con un archivo de Excel.</p>
+        </div>
+        <ol class="topics">
+          <li>Combinar y centrar</li>
+          <li>Operaciones con fechas</li>
+          <li>Funciones de unión y extracción</li>
+          <li>Función lógica SI</li>
+          <li>Buscar y reemplazar datos</li>
+          <li>Pegado especial</li>
+          <li>Insertar varias filas o columnas</li>
+          <li>Relleno rápido</li>
+          <li>Función INDICE</li>
+          <li>Función COINCIDIR</li>
+          <li>Sumatoria rápida</li>
+          <li>Eliminar duplicados</li>
+          <li>Inmovilizar paneles</li>
+          <li>Referencia absoluta</li>
+          <li>Práctica: Ejercicio 2 · Fechas y funciones</li>
+        </ol>
+
+        <h3>Cómo está organizada la página</h3>
+        <p>
+          Cada tema sigue el mismo orden: primero <strong>qué es y para qué sirve</strong>, después <strong>cómo se hace paso a paso</strong>
+          y, cuando hay una planilla de práctica, un espacio para <strong>probarlo vos</strong>. Al final de cada tema se señalan los <strong>errores más comunes</strong>.
+          Las actividades de la clase están en la sección <a href="#actividades">Actividades</a>.
+        </p>
+        <p class="rule">
+          Las planillas de esta página son <strong>simuladores</strong>: reproducen lo básico de Excel para que practiques sin abrir el programa.
+          Hacé clic en una celda, escribí, usá las flechas o tocá los botones. Las fórmulas se escriben como en Excel en español:
+          <code class="f">;</code> entre argumentos y coma decimal. No reemplazan al archivo de la actividad, que se hace en Excel.
+        </p>
+      </div>
+    </section>
+
+    <!-- FECHAS -->
+    <section class="section alt" id="fechas">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Funciones y operaciones con fechas</p>
+          <h2>Operaciones con fechas</h2>
+          <p>
+            Para Excel, una <strong>fecha es un número</strong>: los días que pasaron desde el <strong>1 de enero de 1900</strong>.
+            Por eso se pueden sumar y restar. Vemos tres cosas: <strong>sumar días</strong>, usar <strong>la fecha de hoy</strong> y <strong>calcular una edad</strong>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Imaginá que prestás plata y quedan en que te la devuelven en 45 días. ¿Qué día vence? Contarlo en el calendario es lento y es fácil equivocarse. Excel guarda cada fecha como un número, y por eso puede sumar días, restar fechas y hasta decirte cuántos años tiene una persona.</p>
+          <p>En esta parte vemos cuatro cosas: que una fecha es en realidad un número, cómo sumar días para obtener un vencimiento, cómo usar la fecha de hoy y cómo calcular una edad.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Fórmula</th></tr></thead>
+            <tbody>
+              <tr><td>Calcular un vencimiento (fecha + plazo en días)</td><td><code class="f">=B2+C2</code></td></tr>
+              <tr><td>Ver la fecha de hoy</td><td><code class="f">=HOY()</code></td></tr>
+              <tr><td>Saber cuántos días faltan para el vencimiento</td><td><code class="f">=D2-HOY()</code></td></tr>
+              <tr><td>Calcular una edad</td><td><code class="f">=SIFECHA(B1;B2;"Y")</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PASO 1 -->
+        <h3 class="paso"><span class="paso-n">1</span> Una fecha es un número</h3>
+        <p>
+          Excel cuenta los días desde el 01/01/1900: el <strong>1</strong> es el 01/01/1900 y el <strong>44197</strong> es el 01/01/2021.
+          Si ves un número en lugar de una fecha, la celda está en formato <strong>General</strong>: seleccionala y usá <kbd>Ctrl</kbd>+<kbd>1</kbd> → <strong>Fecha</strong>.
+          El dato no cambia, solo cómo se ve. Probalo con el archivo del ejercicio:
+        </p>
+        <div class="xl-ctrls">
+          <button type="button" class="xl-btn" id="btnFechaOn">Dar formato Fecha a la columna B</button>
+          <button type="button" class="xl-btn ghost" id="btnFechaOff">Volver a General</button>
+        </div>
+        <div class="xl" id="xlFechas" data-cols="5" data-rows="6"></div>
+        <p class="xl-caption" id="capFechas">La columna <strong>B</strong> está en <strong>General</strong>: se ven los números reales. Probá el botón.</p>
+        <details class="faq-item">
+          <summary>Más detalle: cómo escribir una fecha y qué formatos hay</summary>
+          <p>
+            Se escribe como <strong>día/mes/año</strong> (<code class="f">23/03/1979</code>). Si Excel la reconoce, la alinea a la <strong>derecha</strong>; si queda a la izquierda, la tomó como texto y no se puede operar
+            (revisá que no haya espacios de más). En <strong>Formato de celdas → Fecha</strong> podés elegir fecha corta (<code class="f">01/01/2021</code>), fecha larga
+            (<em>viernes, 1 de enero de 2021</em>) y otros estilos; la <strong>Muestra</strong> te anticipa cómo queda.
+          </p>
+        </details>
+
+        <!-- PASO 2 -->
+        <h3 class="paso"><span class="paso-n">2</span> Sumar días: fecha de vencimiento</h3>
+        <p>
+          Una fecha más un número da otra fecha: Excel suma <strong>días</strong>. Con la fecha de la deuda en B y el plazo en C:
+        </p>
+        <p class="fx-line">=B2+C2</p>
+        <p>
+          En la tabla de arriba, <strong>01/01/2021 + 45 días = 15/02/2021</strong> (cambiá un plazo de la columna C y mirá cómo se mueve el vencimiento).
+          Después copiá la fórmula hacia abajo: las referencias se corren solas (<code class="f">B3</code> y <code class="f">C3</code>, <code class="f">B4</code> y <code class="f">C4</code>…).
+        </p>
+        <details class="faq-item">
+          <summary>Más detalle: paso a paso en el ejercicio</summary>
+          <ol>
+            <li>Ubicate en la celda del vencimiento (columna D).</li>
+            <li>Escribí <code class="f">=</code>, hacé clic en la fecha, escribí <code class="f">+</code> y hacé clic en el plazo. Presioná <kbd>Enter</kbd>.</li>
+            <li>Si el resultado se ve como un número, dale <strong>formato Fecha</strong> (cuando la operación incluye una fecha, Excel suele aplicarlo solo).</li>
+            <li>Copiá la fórmula hacia abajo con <kbd>Ctrl</kbd>+<kbd>C</kbd> y <kbd>Ctrl</kbd>+<kbd>V</kbd>, o arrastrando el cuadradito de la esquina de la celda.</li>
+          </ol>
+          <p>
+            Que las referencias se corran al copiar se llama <strong>referencia relativa</strong>. El caso contrario (que una celda quede fija) se ve en
+            <a href="#absoluta">Referencia absoluta</a>.
+          </p>
+        </details>
+
+        <!-- PASO 3 -->
+        <h3 class="paso"><span class="paso-n">3</span> La fecha de hoy: HOY()</h3>
+        <p class="fx-line">=HOY()</p>
+        <ul>
+          <li>Muestra la <strong>fecha actual</strong> y se actualiza cada día al abrir el archivo. No lleva argumentos, pero los paréntesis son obligatorios.</li>
+          <li>Se puede restar: <code class="f">=D2-HOY()</code> son los <strong>días que faltan</strong> para el vencimiento (negativo si ya pasó). La columna E del cuadro de arriba lo hace: da negativo porque esos vencimientos son de 2021.</li>
+          <li>Si el resultado de restar fechas se ve como una fecha rara (05/04/1900), cambiale el formato a <strong>General</strong>: son días, no una fecha.</li>
+        </ul>
+
+        <!-- PASO 4 -->
+        <h3 class="paso"><span class="paso-n">4</span> Calcular una edad: SIFECHA</h3>
+        <p class="fx-line">=SIFECHA(fecha_inicial; fecha_final; unidad)</p>
+        <p>
+          Calcula el tiempo entre dos fechas. La <strong>fecha inicial es la más antigua</strong> y la <strong>unidad va entre comillas</strong>.
+          Para una edad completa (“42 años, 1 mes y 28 días”) se escriben <strong>tres fórmulas</strong>, una por cada parte:
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Parte</th><th>Unidad</th><th>Fórmula</th><th>Ejemplo del video</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Años</strong></td><td><code class="f">"Y"</code></td><td><code class="f">=SIFECHA(B1;B2;"Y")</code></td><td>42</td></tr>
+              <tr><td><strong>Meses</strong></td><td><code class="f">"YM"</code></td><td><code class="f">=SIFECHA(B1;B2;"YM")</code></td><td>1</td></tr>
+              <tr><td><strong>Días</strong></td><td><code class="f">"MD"</code></td><td><code class="f">=SIFECHA(B1;B2;"MD")</code></td><td>28</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="rule">
+          <strong>Función “oculta”:</strong> funciona, pero no aparece en las sugerencias ni en el asistente <strong>fx</strong>. Hay que escribirla completa a mano.
+        </p>
+        <p>
+          El ejemplo del video: nació el 23/03/1979 y se calcula hasta el 21/05/2021. Probalo con distintas fechas (también podés escribir otras en B1 y B2, como <strong>dd/mm/aaaa</strong>):
+        </p>
+        <div class="xl-chips" id="chipsEdad"></div>
+        <div class="xl" id="xlEdad" data-cols="3" data-rows="8"></div>
+        <p class="xl-caption" id="capEdad"></p>
+        <details class="faq-item">
+          <summary>Más detalle: otras unidades, una advertencia y errores comunes</summary>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead><tr><th>Unidad</th><th>Devuelve</th></tr></thead>
+              <tbody>
+                <tr><td><code class="f">"Y"</code></td><td>Años completos.</td></tr>
+                <tr><td><code class="f">"M"</code></td><td>Meses completos en total (42 años y 1 mes son 505 meses).</td></tr>
+                <tr><td><code class="f">"D"</code></td><td>Días en total (en el ejemplo, 15.400).</td></tr>
+                <tr><td><code class="f">"YM"</code></td><td>Los meses que sobran después de contar los años.</td></tr>
+                <tr><td><code class="f">"MD"</code></td><td>Los días que sobran después de contar los meses.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Por eso para la edad se usan <code class="f">"Y"</code>, <code class="f">"YM"</code> y <code class="f">"MD"</code> y no <code class="f">"M"</code> ni <code class="f">"D"</code>: esas dan el total de meses o de días, no lo que sobra.
+          </p>
+          <p>
+            <strong>Advertencia:</strong> Microsoft avisa que <code class="f">"MD"</code> puede dar resultados inexactos en algunos casos (por ejemplo, cuando el día inicial es 29, 30 o 31).
+            En la clase se usa tal cual aparece en el video, pero no la uses para cálculos que tengan que ser exactos.
+          </p>
+          <p>
+            <strong>Errores comunes:</strong> poner la fecha final antes que la inicial (<code class="f">#¡NUM!</code>), olvidar las comillas de la unidad, o escribir una fecha que Excel no reconoce
+            (queda como texto y da <code class="f">#¡VALOR!</code>).
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- COMBINAR Y CENTRAR -->
+    <section class="section" id="combinar">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Combinar celdas y formatos de tabla</p>
+          <h2>Combinar y centrar, ajustar y dar formato</h2>
+          <p>
+            Antes de entregar una planilla conviene darle un aspecto prolijo: títulos centrados, cabeceras legibles y bordes. Todo está en la ficha <strong>Inicio</strong>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Una planilla no sirve solo para calcular: también tiene que entenderse cuando la mirás o se la mostrás a otra persona. Esta parte trata del aspecto. Que los títulos de las columnas no queden cortados, que el título general quede centrado sobre toda la tabla y que todo tenga bordes y un estilo prolijo.</p>
+          <p>Lo más importante: el botón Combinar y centrar se usa para el título, y hay que tener cuidado porque, al unir celdas, se pierden los datos de todas menos la primera.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Cómo</th></tr></thead>
+            <tbody>
+              <tr><td>Que un texto largo no quede cortado</td><td><strong>Ajustar texto</strong></td></tr>
+              <tr><td>Centrar, poner bordes o dar un estilo a la cabecera</td><td>Botones de alineación, <strong>Bordes</strong> y <strong>Estilos de celda</strong></td></tr>
+              <tr><td>Unir varias celdas en una (un título)</td><td><strong>Combinar y centrar</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Ajustar texto y dar formato a la cabecera</h3>
+        <p>
+          Una cabecera como <em>“Fecha Vencimiento”</em> puede quedar cortada en una columna angosta. Seleccioná las celdas de la cabecera y usá <strong>Ajustar texto</strong>:
+          el texto pasa a dos líneas dentro de la celda. Después agregá el centrado (horizontal y vertical), <strong>Bordes → Todos los bordes</strong> y, si querés, un
+          <strong>Estilo de celda</strong> ya armado.
+        </p>
+        <details class="faq-item">
+          <summary>Más detalle: ajustar vs. ensanchar y cómo agregar una fila para el título</summary>
+          <p>
+            Para que un texto largo se vea completo tenés dos salidas: <strong>ensanchar la columna</strong> o <strong>ajustar el texto</strong> (que agranda la fila en lugar de la columna).
+            Si necesitás una fila libre arriba para un título, hacé clic derecho en el encabezado de la fila 1 → <strong>Insertar</strong>.
+            Los <strong>estilos de celda</strong> (Inicio → Estilos de celda) aplican de una vez color, letra y bordes ya diseñados.
+          </p>
+        </details>
+
+        <h3 class="paso"><span class="paso-n">2</span> Combinar y centrar un título</h3>
+        <p>
+          Convierte varias celdas en <strong>una sola</strong> y centra el contenido. Seleccioná el ancho de la tabla (por ejemplo <strong>A1:E1</strong>) y tocá el botón; para deshacerlo, el mismo botón.
+          Probalo:
+        </p>
+        <div class="xl-ctrls">
+          <button type="button" class="xl-btn" id="mgBtn">Combinar y centrar A1:E1</button>
+        </div>
+        <div class="xl"><div class="xl-pad" id="mgDemo"></div></div>
+        <p class="xl-caption" id="mgCap"></p>
+        <p class="rule">
+          Al combinar, <strong>solo se conserva el dato de la celda de arriba a la izquierda</strong>; Excel avisa antes de borrar el resto.
+          Usalo para <strong>títulos</strong>, no dentro de los datos de una tabla.
+        </p>
+        <details class="faq-item">
+          <summary>Más detalle: opciones del desplegable y errores comunes</summary>
+          <p>
+            Junto al botón hay una flecha con más opciones: <strong>Combinar horizontalmente</strong> (una celda por fila), <strong>Combinar celdas</strong> (sin centrar) y
+            <strong>Separar celdas</strong> (deshace la combinación).
+          </p>
+          <p>
+            <strong>Errores comunes:</strong> combinar celdas que tenían datos (se pierden), combinar columnas dentro de una tabla de datos (después cuesta ordenar, filtrar y seleccionar)
+            y olvidar que la celda combinada se llama como la primera (A1), no como todas.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- UNIÓN Y EXTRACCIÓN -->
+    <section class="section alt" id="union">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Funciones de unión y extracción</p>
+          <h2>Unir y separar textos</h2>
+          <p>
+            <strong>Unir</strong> es juntar varias celdas en una (apellidos y nombres en una sola columna); <strong>separar</strong> es el camino inverso.
+            Se practica con la hoja <strong>UnionExtraccion</strong> del archivo.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Muchas veces los datos llegan en pedazos: el apellido en una columna, el nombre en otra, y vos necesitás el nombre completo para una lista. O al revés: viene todo junto en una celda y necesitás separarlo. Excel resuelve las dos cosas sin que tengas que reescribir a mano.</p>
+          <p>Para juntar usamos CONCATENAR o UNIRCADENAS. Para separar usamos Texto en columnas. Y el Relleno rápido permite hacer las dos cosas con solo darle un ejemplo.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Uso</th></tr></thead>
+            <tbody>
+              <tr><td>Unir textos y poner yo los espacios</td><td><code class="f">CONCATENAR</code> o el operador <code class="f">&amp;</code></td></tr>
+              <tr><td>Unir textos con el mismo separador</td><td><code class="f">UNIRCADENAS</code></td></tr>
+              <tr><td>Separar un texto en columnas</td><td><strong>Datos → Texto en columnas</strong></td></tr>
+              <tr><td>Unir o separar a partir de un ejemplo, sin fórmulas</td><td><strong>Relleno rápido</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Unir con CONCATENAR</h3>
+        <p class="fx-line">=CONCATENAR(texto1; texto2; …)</p>
+        <ul>
+          <li><strong>Los espacios también se concatenan:</strong> si no agregás <code class="f">" "</code> entre las celdas, las palabras quedan pegadas. Para 4 celdas con espacios son 7 textos (4 celdas y 3 espacios).</li>
+          <li>El operador <code class="f">&amp;</code> hace lo mismo y es más corto: <code class="f">=A2&amp;" "&amp;B2</code>.</li>
+        </ul>
+
+        <h3 class="paso"><span class="paso-n">2</span> Unir con UNIRCADENAS</h3>
+        <p class="fx-line">=UNIRCADENAS(delimitador; ignorar_vacías; texto1; …)</p>
+        <ul>
+          <li><strong>Delimitador:</strong> el separador (un espacio, un guion…) se escribe <strong>una sola vez</strong>, entre comillas, y es lo <strong>primero</strong> que pide.</li>
+          <li><strong>Ignorar vacías:</strong> <code class="f">VERDADERO</code> saltea las celdas vacías.</li>
+          <li><strong>Textos:</strong> podés elegir un rango (<code class="f">A2:D2</code>) o celdas sueltas en el orden que quieras. Existe solo en Excel 2019 y Microsoft 365.</li>
+        </ul>
+        <p>Tocá una fórmula: se escribe en <strong>E2</strong>. Las columnas E y F ya traen las dos funciones completas para las cuatro personas.</p>
+        <div class="xl-chips" id="chipsUnion"></div>
+        <div class="xl" id="xlUnion" data-cols="6" data-rows="5"></div>
+        <p class="xl-caption" id="capUnion">Elegí una fórmula para ver cómo cambia el resultado de <strong>E2</strong>.</p>
+        <details class="faq-item">
+          <summary>Más detalle: comparación entre CONCATENAR, UNIRCADENAS y &amp;</summary>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead><tr><th></th><th>CONCATENAR</th><th>UNIRCADENAS</th><th>Operador &amp;</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Separador</strong></td><td>Se escribe entre cada texto</td><td>Se escribe una sola vez</td><td>Se escribe entre cada texto</td></tr>
+                <tr><td><strong>Rangos (A2:D2)</strong></td><td>No</td><td>Sí</td><td>No</td></tr>
+                <tr><td><strong>Celdas vacías</strong></td><td>Las une igual</td><td>Se pueden ignorar</td><td>Las une igual</td></tr>
+                <tr><td><strong>Versiones de Excel</strong></td><td>Todas</td><td>2019 y 365</td><td>Todas</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <h3 class="paso"><span class="paso-n">3</span> Separar con Texto en columnas</h3>
+        <p class="fx-line">Datos → Texto en columnas</p>
+        <ol>
+          <li>Seleccioná la columna con los textos.</li>
+          <li>Elegí <strong>Delimitados</strong> → <strong>Siguiente</strong>.</li>
+          <li>Tildá el <strong>delimitador</strong> (por ejemplo, Espacio). La vista previa muestra cómo se va a partir.</li>
+          <li>Tocá <strong>Finalizar</strong>.</li>
+        </ol>
+        <p>Probalo con otro texto o con otro separador:</p>
+        <div class="xl-ctrls">
+          <label class="xl-field">Texto <input type="text" id="ttcIn" value="Perez Oyos Juan Arturo" aria-label="Texto a separar"></label>
+          <label class="xl-field">Delimitador
+            <select id="ttcDelim" aria-label="Delimitador">
+              <option value=" ">Espacio</option>
+              <option value=",">Coma</option>
+              <option value=";">Punto y coma</option>
+              <option value="-">Guion</option>
+            </select>
+          </label>
+        </div>
+        <div class="xl"><div class="xl-pad" id="ttcOut"></div></div>
+        <details class="faq-item">
+          <summary>Más detalle: cómo prepararlo y qué cuidar</summary>
+          <ul>
+            <li>Si los textos son el resultado de una fórmula, copialos y pegalos <strong>como valores</strong> (Pegado especial → Valores) antes de separar.</li>
+            <li>Dejá <strong>libres las columnas de la derecha</strong>: si tienen datos, Excel pregunta si querés reemplazarlos.</li>
+            <li><em>Ancho fijo</em> sirve cuando cada dato ocupa siempre la misma cantidad de caracteres. Si elegís un delimitador que el texto no tiene, queda entero en una sola columna.</li>
+          </ul>
+        </details>
+
+        <h3 class="paso"><span class="paso-n">4</span> Relleno rápido</h3>
+        <p>
+          Excel detecta el patrón a partir de un ejemplo: escribí a mano el resultado de la <strong>primera fila</strong> (por ejemplo <em>Juan Arturo Perez Oyos</em>),
+          ubicate en la celda de abajo y usá <strong>Datos → Relleno rápido</strong> o <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>E</kbd>. Excel completa toda la columna.
+        </p>
+        <details class="faq-item">
+          <summary>Más detalle: límites y sobre el atajo</summary>
+          <p>
+            Si Excel no detecta el patrón, escribí un segundo ejemplo. El resultado son <strong>valores fijos</strong>: si cambia un dato de origen, no se actualiza (las fórmulas sí).
+            El atajo figura así en la ayuda de Microsoft en español y es lo que se ve en el video; en otras versiones o idiomas puede ser <kbd>Ctrl</kbd>+<kbd>E</kbd>.
+            Si no responde en tu equipo, usá el botón de la ficha Datos, que funciona siempre.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- FUNCIÓN SI -->
+    <section class="section" id="si">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Función lógica SI</p>
+          <h2>Tomar decisiones con SI</h2>
+          <p>
+            <code class="f">SI</code> hace una <strong>pregunta</strong> cuya respuesta solo puede ser <strong>verdadera o falsa</strong>
+            y muestra un resultado distinto en cada caso. Es la forma de que la planilla <strong>decida</strong> por vos.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Hasta ahora las fórmulas siempre hacían lo mismo. Con la función SI, la planilla puede decidir. Le hacés una pregunta que se contesta con sí o no, por ejemplo “¿esta persona tiene 18 años o más?”, y le decís qué tiene que mostrar en cada caso.</p>
+          <p>Es como cuando decimos: si llueve me quedo en casa, y si no, salgo. La función tiene tres partes: la pregunta, lo que muestra si la respuesta es sí y lo que muestra si es no.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Los tres parámetros</h3>
+        <p class="fx-line">=SI(prueba_lógica; valor_si_verdadero; valor_si_falso)</p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Parámetro</th><th>Qué es</th><th>Ejemplo (estado según la edad)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. Prueba lógica</strong></td><td>La pregunta o condición.</td><td><code class="f">B3&gt;=18</code> (¿la edad es 18 o más?)</td></tr>
+              <tr><td><strong>2. Valor si verdadero</strong></td><td>Lo que se muestra si se cumple.</td><td><code class="f">"Mayor de edad"</code></td></tr>
+              <tr><td><strong>3. Valor si falso</strong></td><td>Lo que se muestra si no se cumple.</td><td><code class="f">"Menor de edad"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Todo junto: <code class="f">=SI(B3&gt;=18;"Mayor de edad";"Menor de edad")</code>. Se lee: <em>“Si B3 es mayor o igual que 18, mostrá Mayor de edad; si no, Menor de edad”</em>.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">2</span> Cómo escribir la pregunta</h3>
+        <p>
+          La prueba lógica compara dos cosas con un operador:
+          <code class="f">=</code> igual · <code class="f">&lt;&gt;</code> distinto · <code class="f">&gt;</code> mayor · <code class="f">&lt;</code> menor ·
+          <code class="f">&gt;=</code> mayor o igual · <code class="f">&lt;=</code> menor o igual.
+        </p>
+        <p class="rule">
+          <strong>Los textos van entre comillas; los números, las celdas y los cálculos, no.</strong>
+          Sin comillas en <code class="f">Mayor de edad</code>, Excel devuelve <code class="f">#¿NOMBRE?</code>.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> Probalo: ¿vencido o vigente?</h3>
+        <p>
+          Esta planilla aplica <code class="f">SI</code> a los vencimientos de la hoja Ejercicios. La <strong>fecha de referencia</strong> (B1) hace de “hoy”: cambiala o probá otras formas de escribir la pregunta.
+          La fórmula usa <code class="f">$B$1</code> para que esa fecha quede fija al copiar (se explica en <a href="#absoluta">Referencia absoluta</a>).
+        </p>
+        <div class="xl-chips" id="chipsSI"></div>
+        <div class="xl" id="xlSI" data-cols="4" data-rows="9"></div>
+        <p class="xl-caption" id="capSI"></p>
+        <details class="faq-item">
+          <summary>Más detalle: <code>&gt;</code> vs <code>&gt;=</code>, más ejemplos y errores comunes</summary>
+          <p>
+            Con <code class="f">B3&gt;18</code>, una persona de <strong>exactamente 18 años</strong> daría “Menor de edad”; con <code class="f">B3&gt;=18</code> da “Mayor de edad”, que es lo correcto.
+            Probalo en la planilla de la edad (sección Fechas) con la opción “Cumple 18 justo hoy”.
+          </p>
+          <ul>
+            <li><code class="f">=SI(D2&lt;HOY();"Vencido";"Vigente")</code>: compara el vencimiento con la fecha de hoy.</li>
+            <li><code class="f">=SI(C2&gt;=60;"Plazo largo";"Plazo corto")</code>: clasifica según los días de plazo.</li>
+            <li><code class="f">=SI(A2="Juan";"Es Juan";"Es otro")</code>: también compara textos (sin distinguir mayúsculas de minúsculas).</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> olvidar las comillas de los textos, separar los argumentos con coma en lugar de <code class="f">;</code> y confundir <code class="f">&gt;</code> con <code class="f">&gt;=</code>.
+            Preguntar por <strong>más de una condición</strong> (SI dentro de SI, <code class="f">Y</code>, <code class="f">O</code>) es un tema para un nivel más avanzado.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- BUSCAR Y REEMPLAZAR -->
+    <section class="section alt" id="buscar">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Buscar y reemplazar datos</p>
+          <h2>Buscar y reemplazar</h2>
+          <p>
+            A veces los números llegan con <strong>punto decimal</strong> (<code class="f">0.84</code>) y, como acá el decimal es la <strong>coma</strong>, Excel los toma como <strong>texto</strong>: no se pueden sumar.
+            Reemplazar el punto por la coma lo soluciona en un paso.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Esto pasa seguido: copiás datos de otro lado y los números no se pueden sumar, aunque se vean como números. Casi siempre es porque vienen con punto en lugar de coma, y Excel los toma como texto.</p>
+          <p>Buscar y reemplazar permite cambiar todos los puntos por comas en un solo paso, aunque sean miles de celdas, en lugar de corregirlas una por una.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Cómo darte cuenta de que es texto</h3>
+        <ul>
+          <li>Se alinea a la <strong>izquierda</strong> de la celda (los números van a la derecha).</li>
+          <li>La <strong>suma da menos</strong> de lo esperado: Excel ignora los textos.</li>
+        </ul>
+
+        <h3 class="paso"><span class="paso-n">2</span> Reemplazar el punto por la coma</h3>
+        <ol>
+          <li>Seleccioná el rango a corregir (si no seleccionás nada, se reemplaza en <strong>toda la hoja</strong>).</li>
+          <li><strong>Inicio → Buscar y seleccionar → Reemplazar</strong> (o <kbd>Ctrl</kbd>+<kbd>H</kbd>).</li>
+          <li>En <strong>Buscar</strong> escribí <code class="f">.</code> y en <strong>Reemplazar con</strong> escribí <code class="f">,</code>.</li>
+          <li>Tocá <strong>Reemplazar todos</strong>: Excel informa cuántos reemplazos hizo.</li>
+        </ol>
+
+        <h3 class="paso"><span class="paso-n">3</span> Probalo</h3>
+        <p>
+          Antes de reemplazar mirá <strong>D10</strong>: la suma da 612, el único valor que Excel reconoce como número. Después reemplazá el punto por la coma sobre <strong>C2:D9</strong>.
+        </p>
+        <div class="xl-ctrls">
+          <label class="xl-field">Buscar <input type="text" class="short" id="repFind" value="." aria-label="Buscar"></label>
+          <label class="xl-field">Reemplazar con <input type="text" class="short" id="repWith" value="," aria-label="Reemplazar con"></label>
+          <button type="button" class="xl-btn" id="btnRep">Reemplazar todos</button>
+          <button type="button" class="xl-btn ghost" id="btnRepBack">Restaurar ejemplo</button>
+        </div>
+        <div class="xl" id="xlReemplazo" data-cols="4" data-rows="10"></div>
+        <p class="xl-caption" id="capRep">Hoy <strong>D10</strong> suma solo lo que Excel entiende como número. Tocá <strong>Reemplazar todos</strong>.</p>
+        <details class="faq-item">
+          <summary>Más detalle: precauciones, buscar sin reemplazar y qué más hace</summary>
+          <ul>
+            <li><strong>Reemplazar</strong> cambia de a uno (te deja revisar); <strong>Reemplazar todos</strong> cambia todos de una vez. Antes del segundo, verificá la selección.</li>
+            <li><strong>Cuidado con los miles:</strong> si el punto era un separador de miles (<code class="f">1.250</code>), reemplazarlo por coma lo convierte en <code class="f">1,250</code>. Si te equivocás, <kbd>Ctrl</kbd>+<kbd>Z</kbd> deshace el reemplazo.</li>
+            <li><strong>Buscar sin reemplazar:</strong> <kbd>Ctrl</kbd>+<kbd>B</kbd>. <strong>Buscar siguiente</strong> marca cada celda con el dato y <strong>Buscar todos</strong> muestra la lista. En <strong>Opciones</strong> podés distinguir mayúsculas, buscar celdas completas, buscar en la hoja o en el libro.</li>
+            <li>Probá también al revés (buscar <code class="f">,</code> y reemplazar con <code class="f">.</code>) en el simulador: los números vuelven a ser texto.</li>
+            <li>Para <strong>traer información relacionada</strong> de una tabla hay funciones: <code class="f">INDICE</code> y <code class="f">COINCIDIR</code>, más abajo.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- HERRAMIENTAS -->
+    <section class="section" id="herramientas">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Del video “Las 10 funciones de Excel que debes saber”</p>
+          <h2>Herramientas que ahorran tiempo</h2>
+          <p>
+            Opciones y atajos que evitan hacer a mano muchos pasos. Varios ya aparecieron en la <a href="u3-clase8.html">Clase 8</a>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Esta parte es un conjunto de trucos chicos que ahorran mucho tiempo todos los días: pegar solo el valor y no la fórmula, insertar varias filas de una vez, sumar con un atajo, saltar al final de una tabla, dejar fijos los títulos mientras bajás y borrar las filas repetidas.</p>
+          <p>Ninguno es difícil. La idea es que los conozcan para no hacer a mano lo que Excel hace en un segundo.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Herramienta</th><th>Cómo se usa</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Pegado especial</strong></td><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd></td></tr>
+              <tr><td><strong>Insertar filas o columnas</strong></td><td><kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>+</kbd> (eliminar: <kbd>Ctrl</kbd>+<kbd>-</kbd>)</td></tr>
+              <tr><td><strong>Relleno rápido</strong></td><td>Datos → Relleno rápido (ver <a href="#union">Unión y extracción</a>)</td></tr>
+              <tr><td><strong>Sumatoria rápida</strong></td><td><kbd>Alt</kbd>+<kbd>=</kbd></td></tr>
+              <tr><td><strong>Rehacer</strong></td><td><kbd>Ctrl</kbd>+<kbd>Y</kbd></td></tr>
+              <tr><td><strong>Ir al borde de la tabla</strong></td><td><kbd>Ctrl</kbd>+flecha</td></tr>
+              <tr><td><strong>Inmovilizar paneles</strong></td><td>Vista → Inmovilizar paneles</td></tr>
+              <tr><td><strong>Quitar duplicados</strong></td><td>Datos → Quitar duplicados</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Pegado especial</h3>
+        <p>
+          El pegado común trae todo junto (valor, fórmula y formato). Con <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd> elegís <strong>qué</strong> pegar:
+          <strong>Valores</strong> (solo el resultado), <strong>Fórmulas</strong>, <strong>Formatos</strong> o <strong>Transponer</strong> (columna ↔ fila).
+        </p>
+        <details class="faq-item">
+          <summary>Más detalle: un caso típico</summary>
+          <p>
+            Copiás una celda cuya fórmula multiplica las dos celdas de su izquierda y la pegás en otro lugar. Excel “corre” la fórmula, que ahora multiplica las dos celdas que quedaron
+            a la izquierda del nuevo lugar, quizá vacías: el resultado es <code class="f">0</code>. Con <strong>Pegado especial → Valores</strong> se pega solo el resultado y el problema desaparece.
+          </p>
+        </details>
+
+        <h3 class="paso"><span class="paso-n">2</span> Insertar varias filas o columnas</h3>
+        <ol>
+          <li>Seleccioná <strong>tantos encabezados de fila (números) o de columna (letras) como quieras insertar</strong>.</li>
+          <li>Presioná <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>+</kbd> (con el <kbd>+</kbd> del teclado numérico alcanza <kbd>Ctrl</kbd>+<kbd>+</kbd>). Las filas nuevas aparecen <strong>arriba</strong> de la selección.</li>
+          <li>Para <strong>eliminar</strong> lo seleccionado: <kbd>Ctrl</kbd>+<kbd>-</kbd>.</li>
+        </ol>
+
+        <h3 class="paso"><span class="paso-n">3</span> Sumatoria rápida</h3>
+        <p>
+          <kbd>Alt</kbd>+<kbd>=</kbd> escribe la función <code class="f">SUMA</code> por vos (la Autosuma de la Clase 8). <strong>El truco:</strong> seleccioná la tabla de números
+          <strong>más una fila vacía debajo y una columna vacía a la derecha</strong> y presioná el atajo: Excel completa a la vez <strong>el total de cada columna y de cada fila</strong>.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">4</span> Deshacer, rehacer y moverse rápido</h3>
+        <ul>
+          <li><kbd>Ctrl</kbd>+<kbd>Z</kbd> deshace el último cambio; si deshacés de más, <kbd>Ctrl</kbd>+<kbd>Y</kbd> lo <strong>rehace</strong>.</li>
+          <li><kbd>Ctrl</kbd>+<kbd>↓</kbd> salta al final de la tabla (<kbd>↑</kbd> al principio; <kbd>→</kbd> y <kbd>←</kbd> hacia los costados). Fuera de una tabla llega al borde de la hoja (fila 1.048.576). Sirve para recorrer una tabla de 60 filas, como la hoja Elementos.</li>
+        </ul>
+
+        <h3 class="paso"><span class="paso-n">5</span> Inmovilizar paneles</h3>
+        <p>
+          Deja fijos los títulos mientras te desplazás por una tabla larga. Se fija <strong>todo lo que está arriba y a la izquierda de la celda activa</strong>:
+          en <strong>B2</strong>, <strong>Vista → Inmovilizar paneles</strong> fija la fila 1 y la columna A.
+        </p>
+        <details class="faq-item">
+          <summary>Más detalle: las otras opciones</summary>
+          <ul>
+            <li><strong>Inmovilizar fila superior</strong> / <strong>primera columna</strong>: fijan solo esa fila o esa columna, estés donde estés.</li>
+            <li><strong>Movilizar paneles</strong>: lo deja todo como estaba.</li>
+          </ul>
+        </details>
+
+        <h3 class="paso"><span class="paso-n">6</span> Quitar duplicados</h3>
+        <p>
+          <strong>Datos → Quitar duplicados</strong>: elegís <strong>qué columnas comparar</strong>. Con una sola, borra las filas que repiten ese dato; con varias, solo las filas donde
+          <strong>coinciden todas</strong>. Se borra la <strong>fila entera</strong> y se conserva la primera aparición. Probalo con la tabla del archivo:
+        </p>
+        <div class="xl-ctrls" id="ddCols">
+          <span class="xl-field">Comparar:</span>
+          <label class="xl-field chk"><input type="checkbox" checked> NRO-PARTE</label>
+          <label class="xl-field chk"><input type="checkbox"> DESCRIPCIÓN</label>
+          <label class="xl-field chk"><input type="checkbox"> PRECIO/U</label>
+          <button type="button" class="xl-btn" id="ddBtn">Quitar duplicados</button>
+          <button type="button" class="xl-btn ghost" id="ddReset">Restaurar tabla</button>
+        </div>
+        <div class="xl"><div class="xl-pad" id="ddTable"></div></div>
+        <p class="xl-caption" id="capDd">Tabla original: 8 filas. Probá con solo <strong>NRO-PARTE</strong> y después con <strong>NRO-PARTE + PRECIO/U</strong>.</p>
+        <details class="faq-item">
+          <summary>Más detalle: elegir bien las columnas y la función ÚNICOS</summary>
+          <p>
+            Al comparar solo por NRO-PARTE se pierde un dato (el precio distinto de las dos filas del mismo repuesto). <strong>Elegir bien las columnas</strong> es lo más importante:
+            como borra filas, tené presente que <kbd>Ctrl</kbd>+<kbd>Z</kbd> lo deshace.
+          </p>
+          <p>
+            La función <code class="f">ÚNICOS</code> <strong>extrae</strong> la lista sin repetidos en otro lugar sin tocar la tabla original, pero solo está en Excel 2021 y Microsoft 365.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- INDICE Y COINCIDIR -->
+    <section class="section alt" id="indice">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Funciones INDICE y COINCIDIR</p>
+          <h2>Buscar un dato en una tabla</h2>
+          <p>
+            Dado un <strong>código</strong>, ¿cuál es el <strong>precio</strong> o el <strong>nombre</strong>? Dos funciones que <strong>trabajan juntas</strong> lo resuelven:
+            <code class="f">COINCIDIR</code> encuentra <strong>en qué posición</strong> está lo que buscás e <code class="f">INDICE</code> <strong>trae el dato</strong> de esa posición.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Pensá en una lista de productos con su código, su nombre y su precio. Si alguien te dice “el código 105”, ¿cuánto cuesta? Vos buscarías el 105 en la lista y leerías el precio de esa fila.</p>
+          <p>INDICE y COINCIDIR hacen exactamente eso, pero en forma automática y aunque la lista tenga miles de filas. COINCIDIR dice en qué lugar está lo que buscás, e INDICE trae el dato que está en ese lugar. Siempre trabajan juntas.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> INDICE: traer el dato de un cruce</h3>
+        <p class="fx-line">=INDICE(matriz; fila; columna)</p>
+        <p>
+          Es como una tabla de doble entrada: “fila 3, columna 2”. <code class="f">=INDICE(A2:D7;3;2)</code> devuelve lo que hay en la tercera fila y la segunda columna de A2:D7.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">2</span> COINCIDIR: encontrar la posición</h3>
+        <p class="fx-line">=COINCIDIR(valor; rango; tipo)</p>
+        <p>
+          Responde “¿en qué lugar de la lista está este valor?”. <code class="f">=COINCIDIR(105;A2:A7;0)</code> mira la columna A y dice <strong>5</strong> si el 105 es el quinto.
+          No devuelve el dato sino su <em>número de lugar</em>; el <code class="f">0</code> pide coincidencia exacta.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> Juntas</h3>
+        <p class="fx-line">=INDICE(A2:D7; COINCIDIR(105;A2:A7;0); 2)</p>
+        <p>
+          COINCIDIR reemplaza al número de fila de INDICE: en lugar de contar a mano en qué fila está el código, Excel lo averigua solo. Tocá una opción:
+        </p>
+        <div class="xl-chips" id="chipsIdx"></div>
+        <div class="xl" id="xlIndice" data-cols="7" data-rows="7"></div>
+        <p class="xl-caption" id="capIdx">Las celdas <strong>G2</strong>, <strong>G3</strong> y <strong>G4</strong> ya usan estas funciones con el código de <strong>G1</strong>.</p>
+        <details class="faq-item">
+          <summary>Más detalle: reglas, errores y ventaja sobre BUSCARV</summary>
+          <ul>
+            <li>El <strong>número de fila</strong> de INDICE cuenta desde la primera fila <strong>de la matriz</strong> elegida (si no incluís los encabezados, la fila 1 es el primer dato). COINCIDIR y la matriz de INDICE tienen que <strong>empezar en la misma fila</strong>.</li>
+            <li>Si el valor no existe, COINCIDIR devuelve <code class="f">#N/D</code> (no disponible) y INDICE lo arrastra.</li>
+            <li>A diferencia de BUSCARV, INDICE y COINCIDIR pueden traer un dato de <strong>cualquier columna</strong>, aunque esté a la izquierda de la que buscás. El video las presenta como alternativa a BUSCARV, BUSCARH y BUSCARX.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- REFERENCIA ABSOLUTA -->
+    <section class="section" id="absoluta">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Referencia absoluta</p>
+          <h2>El signo $ y la tecla F4</h2>
+          <p>
+            Al copiar o arrastrar una fórmula, Excel <strong>corre las referencias</strong> (<code class="f">B2</code> pasa a <code class="f">B3</code>, <code class="f">B4</code>…).
+            Eso conviene para el precio de cada producto, pero <strong>no</strong> para un dato único como el IVA: ese tiene que quedar <strong>fijo</strong>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Cuando copiás una fórmula hacia abajo, Excel la va corriendo fila por fila: lo que en la primera fila mira la celda B2, en la siguiente mira la B3. Casi siempre es justo lo que queremos.</p>
+          <p>Pero hay datos que no se tienen que mover, como el porcentaje del IVA, que está en una sola celda. Para eso se usa la referencia absoluta: el signo $, que se agrega con la tecla F4 y le dice a Excel “esta celda no me la muevas”.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Tipo</th><th>Se escribe</th><th>Al copiar la fórmula…</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Relativa</strong></td><td><code class="f">F2</code></td><td>se corre.</td></tr>
+              <tr><td><strong>Absoluta</strong></td><td><code class="f">$F$2</code></td><td>queda fija.</td></tr>
+              <tr><td><strong>Mixta</strong></td><td><code class="f">$F2</code> o <code class="f">F$2</code></td><td>se fija solo la columna o solo la fila.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Probalo: calcular el IVA</h3>
+        <p>
+          Hay que multiplicar cada precio por el <strong>21 %</strong> de <strong>F2</strong>. Probá las dos versiones y después mostrá las fórmulas:
+        </p>
+        <div class="xl-ctrls">
+          <button type="button" class="xl-btn" id="btnAbsRel">Escribir =B2*F2 y arrastrar</button>
+          <button type="button" class="xl-btn" id="btnAbsAbs">Escribir =B2*$F$2 y arrastrar</button>
+          <button type="button" class="xl-btn ghost" id="btnAbsShow">Mostrar fórmulas</button>
+          <button type="button" class="xl-btn ghost" id="btnAbsClear">Limpiar</button>
+        </div>
+        <div class="xl" id="xlAbs" data-cols="6" data-rows="6"></div>
+        <p class="xl-caption" id="capAbs">Planilla vacía: escribí vos la fórmula en C2 y copiala hacia abajo, o usá los botones.</p>
+
+        <h3 class="paso"><span class="paso-n">2</span> Fijar la celda con F4</h3>
+        <p>
+          No hace falta escribir los <code class="f">$</code>: escribí la fórmula, dejá el cursor sobre la referencia y presioná <kbd>F4</kbd>. Cada vez que lo presionás pasa a la siguiente opción:
+        </p>
+        <p class="fx-line">F2 → $F$2 → F$2 → $F2 → F2</p>
+        <details class="faq-item">
+          <summary>Más detalle: qué fija cada opción y cómo ver las fórmulas</summary>
+          <ul>
+            <li><strong>1 vez</strong> (<code class="f">$F$2</code>): fija columna y fila. <strong>2 veces</strong> (<code class="f">F$2</code>): solo la fila. <strong>3 veces</strong> (<code class="f">$F2</code>): solo la columna. <strong>4 veces</strong>: vuelve a relativa.</li>
+            <li>Sin <code class="f">$</code>, al bajar una fila <code class="f">=B2*F2</code> pasa a <code class="f">=B3*F3</code> y F3 está vacía; una celda vacía vale cero, por eso el IVA da 0. Con <code class="f">$F$2</code>, si la alícuota cambia se corrige <strong>una sola celda</strong>.</li>
+            <li>En la <a href="u3-clase8.html#actividades">Clase 8</a> se usó la versión mixta (<code class="f">=$C12*D$11</code>): fija solo la columna del sueldo y solo la fila de los porcentajes.</li>
+            <li><strong>Fórmulas → Mostrar fórmulas</strong> (o <kbd>Ctrl</kbd>+<kbd>`</kbd>) muestra todas las fórmulas de la hoja a la vez: la mejor forma de detectar una referencia mal fijada.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section alt" id="actividades">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Usá el archivo <strong>Ejercicio 2 - Fechas y funciones.xlsx</strong> para practicar las herramientas del video y
+            <strong>compartí tu experiencia en el foro de la unidad</strong> para la evaluación entre pares.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Para cerrar la clase vamos a practicar todo en un solo archivo: el Ejercicio 2, Fechas y funciones. Tiene cuatro hojas, y cada paso de la lista usa una herramienta que vimos: fechas y vencimientos, edad, unión de textos, buscar y reemplazar, y buscar datos con INDICE y COINCIDIR.</p>
+          <p>Avancen en orden, tilden cada paso cuando lo terminen y, al final, cuenten su experiencia en el foro de la unidad.</p>
+        </div>
+
+        <p>
+          El libro tiene cuatro hojas:
+        </p>
+        <ul>
+          <li><strong>Contenido:</strong> el temario del capítulo 3 (solo para leer).</li>
+          <li><strong>Ejercicios:</strong> fechas de deudas y plazos. Hay 13 documentos en las filas 3 a 15, con la <strong>Fecha</strong> (B) y el <strong>Plazo en días</strong> (C) cargados como números, y las columnas <strong>Fecha Vencimiento</strong> (D) y <strong>Fecha Nacimiento</strong> (E) vacías. El título ya está en A1 y los encabezados en la fila 2.</li>
+          <li><strong>UnionExtraccion:</strong> 18 personas (filas 2 a 19) con apellido paterno, apellido materno, nombre y segundo nombre.</li>
+          <li><strong>Elementos:</strong> 61 repuestos (filas 2 a 62) con cantidades, precios y pesos. Los pesos vienen con punto decimal.</li>
+        </ul>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio 2 · Fechas y funciones</p>
+          <h3>Tu lista de control</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="chkBar"><div id="chkFill"></div></div>
+          <p class="progress-label" id="chkLabel">0 de 9 pasos completados</p>
+
+          <ul class="chk-list" id="chkList">
+            <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Abrir y guardar.</strong> Abrí el archivo y guardalo como <strong>Ejercicio 2 - Fechas y funciones</strong>.<small>Conviene guardar al empezar y cada tanto: así no perdés lo hecho.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Fechas y vencimiento (hoja Ejercicios).</strong> Dale <strong>formato Fecha</strong> a <strong>B3:B15</strong>. En <strong>D3</strong> escribí <code class="f">=B3+C3</code>, copiala hasta la fila 15 y dale formato Fecha a la columna D.<small>Las fechas vienen como números a propósito (44197…). Si D queda con números, falta el formato Fecha. Comprobá los resultados en “Para verificar”, más abajo.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Título y cabecera.</strong> Seleccioná <strong>A1:E1</strong> y usá <strong>Combinar y centrar</strong> para el título. En la cabecera (fila 2) aplicá <strong>Ajustar texto</strong>, centrado, bordes y un estilo de celda.<small>Se combina solo el título; no combines celdas de la tabla de datos.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Edad con SIFECHA y SI.</strong> Cargá fechas de nacimiento de prueba en la columna <strong>E</strong> (desde E3). En las columnas siguientes escribí: <strong>F</strong> años <code class="f">=SIFECHA(E3;HOY();"Y")</code>, <strong>G</strong> meses <code class="f">=SIFECHA(E3;HOY();"YM")</code>, <strong>H</strong> días <code class="f">=SIFECHA(E3;HOY();"MD")</code> e <strong>I</strong> estado <code class="f">=SI(F3&gt;=18;"Mayor de edad";"Menor de edad")</code>. Copialas hacia abajo.<small>El archivo solo trae el encabezado “Fecha Nacimiento”: estas columnas siguen el ejemplo del video. Confirmá con tu docente cómo las quiere. Escribí las fechas como dd/mm/aaaa.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Unir textos (hoja UnionExtraccion).</strong> En <strong>E2</strong>: <code class="f">=CONCATENAR(A2;" ";B2;" ";C2;" ";D2)</code>. En <strong>F2</strong>: <code class="f">=UNIRCADENAS(" ";VERDADERO;A2:D2)</code>. Copialas hasta la fila 19.<small>Si tu Excel no tiene UNIRCADENAS, usá solo CONCATENAR.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="6"><span class="chk-txt"><strong>6. Separar textos.</strong> Copiá la columna F y pegala <strong>como valores</strong> en otra zona (por ejemplo desde la columna H). Después usá <strong>Datos → Texto en columnas</strong> con delimitador <strong>Espacio</strong>.<small>Dejá libres las columnas de la derecha para que Excel no pida reemplazar datos.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="7"><span class="chk-txt"><strong>7. Buscar y reemplazar (hoja Elementos).</strong> Las columnas <strong>G</strong> y <strong>H</strong> (PESO/U y PESO/T) vienen con punto. Seleccionalas, reemplazá <code class="f">.</code> por <code class="f">,</code> y calculá <code class="f">=SUMA(H2:H62)</code>.<small>Antes del reemplazo la suma da 624 (solo suma los dos valores que ya eran números); después, 897,32.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="8"><span class="chk-txt"><strong>8. INDICE y COINCIDIR.</strong> Para buscar la descripción de un número de parte, escribí <code class="f">=INDICE(C2:C62;COINCIDIR("2474-7009";B2:B62;0))</code>. Probá cambiando el número de parte.<small>Mejor aún: escribí el número de parte en una celda y usá esa celda dentro de COINCIDIR en lugar del texto entre comillas.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="9"><span class="chk-txt"><strong>9. Compartir.</strong> Contá tu experiencia en el <strong>foro de la unidad</strong>.<small>Podés contar qué herramienta te resultó más útil, qué paso te costó y cómo lo resolviste.</small></span></label></li>
+          </ul>
+
+          <p class="card-example"><strong>Si terminás antes:</strong> en la hoja <strong>Elementos</strong> inmovilizá la fila 1 (<strong>Vista → Inmovilizar fila superior</strong>), usá <strong>Datos → Quitar duplicados</strong> sobre NRO-PARTE, y calculá un IVA del 21 % sobre PRECIO/T con una referencia absoluta (<code class="f">$</code>) a una celda con el porcentaje.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>Para verificar: resultados esperados</summary>
+          <p><strong>Vencimientos</strong> (hoja Ejercicios, <code class="f">=B+C</code>):</p>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead>
+                <tr><th>Documento</th><th>Fecha (B)</th><th>Plazo (C)</th><th>Vencimiento (D)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>8853</td><td>01/01/2021</td><td>45</td><td>15/02/2021</td></tr>
+                <tr><td>9395</td><td>26/01/2021</td><td>60</td><td>27/03/2021</td></tr>
+                <tr><td>9851</td><td>20/02/2021</td><td>30</td><td>22/03/2021</td></tr>
+                <tr><td>5295</td><td>13/01/2021</td><td>90</td><td>13/04/2021</td></tr>
+                <tr><td>9805</td><td>27/02/2021</td><td>15</td><td>14/03/2021</td></tr>
+                <tr><td>8531</td><td>05/01/2021</td><td>10</td><td>15/01/2021</td></tr>
+                <tr><td>6239</td><td>06/04/2021</td><td>45</td><td>21/05/2021</td></tr>
+                <tr><td>9582</td><td>06/01/2021</td><td>60</td><td>07/03/2021</td></tr>
+                <tr><td>7545</td><td>14/04/2021</td><td>90</td><td>13/07/2021</td></tr>
+                <tr><td>9368</td><td>22/02/2021</td><td>120</td><td>22/06/2021</td></tr>
+                <tr><td>9003</td><td>23/04/2021</td><td>240</td><td>19/12/2021</td></tr>
+                <tr><td>9634</td><td>06/04/2021</td><td>120</td><td>04/08/2021</td></tr>
+                <tr><td>9588</td><td>15/05/2021</td><td>15</td><td>30/05/2021</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>UnionExtraccion:</strong> la primera persona (fila 2) tiene que quedar como <strong>Perez Oyos Juan Arturo</strong> con las dos fórmulas. Si en UNIRCADENAS elegís las celdas en el orden <code class="f">C2;D2;A2;B2</code>, queda <em>Juan Arturo Perez Oyos</em>.</li>
+            <li><strong>Elementos, suma de PESO/T:</strong> <code class="f">=SUMA(H2:H62)</code> da <strong>624</strong> antes de reemplazar y <strong>897,32</strong> después.</li>
+            <li><strong>Elementos, INDICE y COINCIDIR:</strong> para el número de parte <code class="f">2474-7009</code> el resultado es <strong>PUMP COUPLING RUBBER</strong>.</li>
+            <li><strong>Quitar duplicados</strong> por NRO-PARTE: Excel informa “Se encontraron y quitaron 3 valores duplicados; quedan 58 valores únicos” (los repetidos son XKAQ-00208, XKAQ-00237 y 800108-00150).</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Estas son las dudas que más aparecen cuando se practica esta clase. Si en el ejercicio algo no sale como esperaban, antes de preguntar conviene mirar acá: casi siempre es un formato de celda, unas comillas que faltan o una referencia que se corrió.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>Sumé días a una fecha y me aparece un número como 44242.</summary>
+          <p>La celda quedó en formato General. Seleccionala y usá <kbd>Ctrl</kbd>+<kbd>1</kbd> → <strong>Número → Fecha</strong>. El dato está bien: es el número de días desde 1/1/1900.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Resté dos fechas y el resultado se ve como una fecha rara (05/04/1900).</summary>
+          <p>El resultado de restar dos fechas son <strong>días</strong>, no una fecha. Cambiale el formato de la celda a <strong>General</strong> o <strong>Número</strong>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Escribí una fecha y quedó alineada a la izquierda.</summary>
+          <p>Excel no la reconoció como fecha y la tomó como <strong>texto</strong>. Escribila como <code class="f">día/mes/año</code> (por ejemplo <code class="f">23/03/1979</code>) y revisá que no tenga espacios de más.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>SIFECHA da #¡NUM! o Excel dice que no existe.</summary>
+          <p>Dos causas posibles: la <strong>fecha inicial es posterior a la final</strong> (la más antigua va primero) o la <strong>unidad</strong> está mal escrita o sin comillas (<code class="f">"Y"</code>, <code class="f">"YM"</code>, <code class="f">"MD"</code>). Es una función oculta: no aparece en las sugerencias, pero hay que escribirla completa.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Escribí =SI(...) y da #¿NOMBRE?</summary>
+          <p>Casi seguro falta poner <strong>entre comillas</strong> un texto (<code class="f">"Mayor de edad"</code>) o está mal escrito el nombre de la función. Revisá también que los argumentos estén separados por <code class="f">;</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Los números están a la izquierda y la suma da menos de lo esperado.</summary>
+          <p>Son <strong>texto</strong>, no números: suele pasar cuando el decimal viene con punto. Seleccionalos y usá <strong>Buscar y reemplazar</strong> (<kbd>Ctrl</kbd>+<kbd>H</kbd>) para cambiar <code class="f">.</code> por <code class="f">,</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>No encuentro UNIRCADENAS en mi Excel.</summary>
+          <p>Solo existe en <strong>Excel 2019 y Microsoft 365</strong>. En versiones anteriores usá <code class="f">CONCATENAR</code> o el operador <code class="f">&amp;</code>.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Al arrastrar la fórmula, todas las filas dan 0 menos la primera.</summary>
+          <p>La fórmula se está corriendo y apunta a celdas vacías. Fijá la celda que no debe cambiar con una <strong>referencia absoluta</strong>: dejá el cursor sobre la referencia y presioná <kbd>F4</kbd> (<code class="f">$F$2</code>).</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Combiné celdas y se borraron datos.</summary>
+          <p>Al combinar solo se conserva el dato de la celda <strong>de arriba a la izquierda</strong>. Deshacé con <kbd>Ctrl</kbd>+<kbd>Z</kbd> y combiná únicamente celdas que estén vacías, como las de un título.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>COINCIDIR o INDICE devuelven #N/D o el dato de otra fila.</summary>
+          <p><code class="f">#N/D</code> significa que el valor buscado <strong>no está</strong> en el rango (o está escrito distinto). Y el número de fila de INDICE cuenta desde la primera fila <strong>de la matriz</strong> que elegiste: revisá que COINCIDIR y la matriz de INDICE empiecen en la misma fila.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>El Relleno rápido no completa la columna.</summary>
+          <p>Excel necesita ver el patrón: escribí el resultado de la primera fila exactamente como lo querés (y, si hace falta, el de la segunda) y ubicate en la celda de abajo antes de usarlo. La columna con los resultados tiene que estar <strong>pegada</strong> a los datos de origen.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Antes de terminar, repasemos lo esencial. Las fechas son números, y por eso se pueden sumar y restar. SI sirve para que la planilla decida. INDICE y COINCIDIR buscan un dato en una tabla. Y el signo $ sirve para que una celda no se mueva al copiar la fórmula. Con eso ya se puede resolver el ejercicio.</p>
+        </div>
+        <ul>
+          <li><strong>Fechas:</strong> son números (días desde 1/1/1900). Se suman (<code class="f">=B2+C2</code>), se restan y se les da formato con <kbd>Ctrl</kbd>+<kbd>1</kbd>. <code class="f">HOY()</code> da la fecha actual.</li>
+          <li><strong>Edad:</strong> <code class="f">=SIFECHA(inicial; final; "Y")</code>, con <code class="f">"YM"</code> para los meses y <code class="f">"MD"</code> para los días. La fecha inicial es la más antigua.</li>
+          <li><strong>Formato de tabla:</strong> Ajustar texto, alineación, bordes, estilos de celda y <strong>Combinar y centrar</strong> para los títulos.</li>
+          <li><strong>Unir y separar:</strong> <code class="f">CONCATENAR</code>, <code class="f">UNIRCADENAS</code> y <code class="f">&amp;</code> para unir; <strong>Texto en columnas</strong> y <strong>Relleno rápido</strong> para separar o reordenar.</li>
+          <li><strong>Función SI:</strong> <code class="f">=SI(prueba; si_verdadero; si_falso)</code>; los textos van entre comillas.</li>
+          <li><strong>Buscar y reemplazar:</strong> <kbd>Ctrl</kbd>+<kbd>H</kbd>; convierte datos con punto decimal en números reales.</li>
+          <li><strong>Atajos y herramientas:</strong> Pegado especial, <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>+</kbd> / <kbd>Ctrl</kbd>+<kbd>-</kbd> para insertar y eliminar filas o columnas, <kbd>Alt</kbd>+<kbd>=</kbd> para sumar, <kbd>Ctrl</kbd>+<kbd>Y</kbd> para rehacer, Inmovilizar paneles y Quitar duplicados.</li>
+          <li><strong>Búsqueda:</strong> <code class="f">=INDICE(matriz; COINCIDIR(valor; rango; 0); columna)</code>.</li>
+          <li><strong>Referencia absoluta:</strong> <kbd>F4</kbd> agrega el <code class="f">$</code> y evita que la celda se corra al copiar o arrastrar.</li>
+        </ul>
+
+        <h3>Vocabulario de la clase</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Palabra</th><th>Qué quiere decir</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Argumento (o parámetro)</strong></td><td>Cada dato que se escribe dentro de los paréntesis de una función, separado por <code class="f">;</code>.</td></tr>
+              <tr><td><strong>Referencia relativa</strong></td><td>Una celda citada sin <code class="f">$</code>: se corre cuando se copia la fórmula.</td></tr>
+              <tr><td><strong>Referencia absoluta</strong></td><td>Una celda citada con <code class="f">$</code>: no se corre al copiar.</td></tr>
+              <tr><td><strong>Prueba lógica</strong></td><td>Una pregunta cuya respuesta es VERDADERO o FALSO (por ejemplo <code class="f">B3&gt;=18</code>).</td></tr>
+              <tr><td><strong>Delimitador</strong></td><td>El carácter que separa textos (espacio, coma, guion…).</td></tr>
+              <tr><td><strong>Matriz</strong></td><td>Un grupo de celdas en filas y columnas, como una tabla (<code class="f">A2:D7</code>).</td></tr>
+              <tr><td><strong>Función oculta</strong></td><td>Una función que existe y funciona pero no aparece en las sugerencias (como <code class="f">SIFECHA</code>).</td></tr>
+              <tr><td><strong>Formato de celda</strong></td><td>Cómo se muestra un dato (fecha, número, moneda…) sin cambiar el dato.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos de la clase</h2>
+          <p>
+            Capítulo 3 del curso básico de Excel (con los capítulos oficiales del video) y “Las 10 funciones de Excel que debes saber”
+            (tiempos <strong>aproximados</strong>). Se usa una configuración regional distinta de la nuestra (por ejemplo, coma en lugar de punto y coma entre argumentos);
+            los pasos son los mismos.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p class="lectura-label">Introducción</p>
+          <p>Los videos son para repasar con calma, en casa o cuando algo no quedó claro. Cada tema tiene un enlace que lleva directo al minuto donde se explica, y debajo hay una consigna con su respuesta para comprobar si lo entendieron.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://www.youtube.com/watch?v=h5kOFOe4cyA" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/h5kOFOe4cyA/hqdefault.jpg" alt="Miniatura del video Curso básico de Excel, capítulo tres" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Curso básico de Excel · Capítulo 3</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Inge Francisco · 40 min · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=125s" target="_blank" rel="noopener noreferrer">Funciones con fechas 2:05</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=210s" target="_blank" rel="noopener noreferrer">Formatos de fecha 3:30</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=296s" target="_blank" rel="noopener noreferrer">Cálculo con fechas 4:56</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=542s" target="_blank" rel="noopener noreferrer">HOY() 9:02</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=650s" target="_blank" rel="noopener noreferrer">SIFECHA() 10:50</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=693s" target="_blank" rel="noopener noreferrer">Edad en años, meses y días 11:33</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=945s" target="_blank" rel="noopener noreferrer">Combinar celdas y formatos 15:45</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=1157s" target="_blank" rel="noopener noreferrer">Unión y extracción 19:17</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=1196s" target="_blank" rel="noopener noreferrer">CONCATENAR() 19:56</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=1321s" target="_blank" rel="noopener noreferrer">UNIRCADENAS() 22:01</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=1523s" target="_blank" rel="noopener noreferrer">Separar textos de columnas 25:23</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=1618s" target="_blank" rel="noopener noreferrer">Función SI() 26:58</a> ·
+                <a href="https://www.youtube.com/watch?v=h5kOFOe4cyA&t=1965s" target="_blank" rel="noopener noreferrer">Buscar y reemplazar 32:45</a>
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿qué número representa para Excel el 01/01/1900? ¿Por qué hay que concatenar también los espacios? ¿Cuáles son los tres parámetros de SI?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>El <strong>1</strong>: Excel guarda las fechas como días desde esa fecha. Los espacios son un texto más, y si no se concatenan las palabras quedan pegadas (<code class="f">" "</code>). SI pide la <strong>prueba lógica</strong>, el <strong>valor si es verdadero</strong> y el <strong>valor si es falso</strong>.</p></details>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://www.youtube.com/watch?v=j8dCm_4Zaic" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/j8dCm_4Zaic/hqdefault.jpg" alt="Miniatura del video Las 10 funciones de Excel que debes saber" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Las 10 funciones de Excel que debes saber</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Inge Francisco · 20 min · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=108s" target="_blank" rel="noopener noreferrer">Pegado especial ~1:48</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=272s" target="_blank" rel="noopener noreferrer">Insertar filas o columnas ~4:32</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=317s" target="_blank" rel="noopener noreferrer">Relleno rápido ~5:17</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=411s" target="_blank" rel="noopener noreferrer">INDICE y COINCIDIR ~6:51</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=657s" target="_blank" rel="noopener noreferrer">Suma rápida ~10:57</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=736s" target="_blank" rel="noopener noreferrer">Rehacer ~12:16</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=789s" target="_blank" rel="noopener noreferrer">Eliminar duplicados ~13:09</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=884s" target="_blank" rel="noopener noreferrer">Inmovilizar paneles ~14:44</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=995s" target="_blank" rel="noopener noreferrer">Referencia absoluta (F4) ~16:35</a> ·
+                <a href="https://www.youtube.com/watch?v=j8dCm_4Zaic&t=1129s" target="_blank" rel="noopener noreferrer">Ctrl + flechas ~18:49</a>
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿cómo se insertan varias filas de una vez? ¿Qué hace COINCIDIR y qué hace INDICE? ¿Para qué sirve F4?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>Se seleccionan tantos encabezados de fila como filas se quieran insertar y se presiona <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>+</kbd>. <strong>COINCIDIR</strong> devuelve la <strong>posición</strong> de un valor dentro de un rango; <strong>INDICE</strong> devuelve el <strong>dato</strong> que está en una fila y columna de una tabla. <kbd>F4</kbd> convierte la referencia en <strong>absoluta</strong> (<code class="f">$F$2</code>) para que no se corra al copiar o arrastrar la fórmula.</p></details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="u3-clase8.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Unidad 3 · Clase 8 · Primeros pasos en Excel</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 3 · Clase 9</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    /* ===== Lista de control de la actividad ===== */
+    (function () {
+      const KEY = 'c1-clase9-checklist-v1';
+      const boxes = document.querySelectorAll('#chkList input[type="checkbox"]');
+      const fill = document.getElementById('chkFill');
+      const bar = document.getElementById('chkBar');
+      const label = document.getElementById('chkLabel');
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+      function update() {
+        let done = 0;
+        boxes.forEach(b => { if (b.checked) done++; });
+        const pct = Math.round(done / boxes.length * 100);
+        fill.style.width = pct + '%';
+        bar.setAttribute('aria-valuenow', pct);
+        label.textContent = done === boxes.length
+          ? '🎉 ¡Completaste los ' + boxes.length + ' pasos! Contá tu experiencia en el Foro.'
+          : done + ' de ' + boxes.length + ' pasos completados';
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    })();
+
+    /* =====================================================
+       UTILIDADES DE FORMATO (estilo Argentina: 1.234,50)
+       ===================================================== */
+    function fmtGeneral(n) {
+      return String(parseFloat(n.toPrecision(12))).replace('.', ',');
+    }
+    function serialToDate(n) {
+      const base = n >= 61 ? Date.UTC(1899, 11, 30) : Date.UTC(1899, 11, 31);
+      return new Date(base + Math.floor(n) * 864e5);
+    }
+    function dateToSerial(d, m, y) {
+      let s = (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5;
+      if (s < 61) s -= 1;
+      return s;
+    }
+    function todaySerial() {
+      const t = new Date();
+      return dateToSerial(t.getDate(), t.getMonth() + 1, t.getFullYear());
+    }
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function fmtDateShort(n) {
+      const d = serialToDate(n);
+      return pad2(d.getUTCDate()) + '/' + pad2(d.getUTCMonth() + 1) + '/' + d.getUTCFullYear();
+    }
+    function parseDMY(s) {
+      const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s.trim());
+      if (!m) return null;
+      const d = +m[1], mo = +m[2], y = +m[3];
+      const t = new Date(Date.UTC(y, mo - 1, d));
+      if (t.getUTCFullYear() !== y || t.getUTCMonth() !== mo - 1 || t.getUTCDate() !== d) return null;
+      return { d: d, m: mo, y: y };
+    }
+    function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    /* =====================================================
+       MOTOR DE FÓRMULAS (Excel en español, separador ";")
+       Valores: {t:'n'|'s'|'b'(vacío)|'bool'|'e'|'m'(matriz)}
+       ===================================================== */
+    const ERR = { DIV: '#¡DIV/0!', NAME: '#¿NOMBRE?', VAL: '#¡VALOR!', REF: '#¡REF!', NUM: '#¡NUM!', NA: '#N/D' };
+
+    function colIndex(letters) {
+      let n = 0;
+      for (let i = 0; i < letters.length; i++) n = n * 26 + (letters.charCodeAt(i) - 64);
+      return n - 1;
+    }
+    function splitRef(id) {
+      const m = /^\$?([A-Za-z]{1,2})\$?(\d{1,3})$/.exec(id);
+      if (!m) return null;
+      return { c: colIndex(m[1].toUpperCase()), r: parseInt(m[2], 10) - 1 };
+    }
+    function colName(c) { return String.fromCharCode(65 + c); }
+    function cellId(c, r) { return colName(c) + (r + 1); }
+
+    function parseLiteral(raw) {
+      if (raw.charAt(0) === "'") return { t: 's', v: raw.slice(1) };
+      if (/^-?\d+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(',', '.')) };
+      if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(/\./g, '').replace(',', '.')) };
+      const m = /^(-?\d+(,\d+)?)%$/.exec(raw);
+      if (m) return { t: 'n', v: parseFloat(m[1].replace(',', '.')) / 100, show: raw };
+      const dt = parseDMY(raw);
+      if (dt && dt.y >= 1900) return { t: 'n', v: dateToSerial(dt.d, dt.m, dt.y), date: true };
+      return { t: 's', v: raw };
+    }
+
+    function cellValue(S, id, depth) {
+      const raw = S.cells[id];
+      if (raw == null || raw === '') return { t: 'b' };
+      if (raw.charAt(0) === '=') return evalFormula(S, raw, depth + 1);
+      const v = parseLiteral(raw);
+      if (v.t === 'n' && !v.date && !v.show) {
+        const p = splitRef(id);
+        if (p && S.fmt && S.fmt[p.c] === 'date') v.date = true;
+      }
+      return v;
+    }
+
+    /* --- conversiones --- */
+    function fail(e) { throw { e: e }; }
+    function toNum(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return 0;
+      if (v.t === 'n') return v.v;
+      if (v.t === 'bool') return v.v ? 1 : 0;
+      if (v.t === 's') {
+        const lit = parseLiteral(v.v);
+        if (lit.t === 'n') return lit.v;
+      }
+      return fail(ERR.VAL);
+    }
+    function toText(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return '';
+      if (v.t === 'n') return fmtGeneral(v.v);
+      if (v.t === 'bool') return v.v ? 'VERDADERO' : 'FALSO';
+      return v.v;
+    }
+    function toBool(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return false;
+      if (v.t === 'bool') return v.v;
+      if (v.t === 'n') return v.v !== 0;
+      return fail(ERR.VAL);
+    }
+    function scalar(v) {
+      if (v.t !== 'm') return v;
+      if (v.nr === 1 && v.nc === 1) return v.rows[0][0];
+      return fail(ERR.VAL);
+    }
+    function compare(op, a, b) {
+      if (a.t === 'e') fail(a.v);
+      if (b.t === 'e') fail(b.v);
+      if (a.t === 'b' && b.t === 's') a = { t: 's', v: '' };
+      else if (b.t === 'b' && a.t === 's') b = { t: 's', v: '' };
+      else { if (a.t === 'b') a = { t: 'n', v: 0 }; if (b.t === 'b') b = { t: 'n', v: 0 }; }
+      const rank = x => x.t === 's' ? 2 : (x.t === 'bool' ? 3 : 1);
+      let c;
+      if (rank(a) !== rank(b)) c = rank(a) - rank(b);
+      else if (a.t === 's') { const x = a.v.toLowerCase(), y = b.v.toLowerCase(); c = x < y ? -1 : (x > y ? 1 : 0); }
+      else { const x = +a.v, y = +b.v; c = x < y ? -1 : (x > y ? 1 : 0); }
+      switch (op) {
+        case '=': return c === 0;
+        case '<>': return c !== 0;
+        case '<': return c < 0;
+        case '>': return c > 0;
+        case '<=': return c <= 0;
+        default: return c >= 0;
+      }
+    }
+    function daysInMonth(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+
+    function sifecha(s1, s2, unit) {
+      s1 = Math.floor(s1); s2 = Math.floor(s2);
+      if (s1 > s2) fail(ERR.NUM);
+      const a = serialToDate(s1), b = serialToDate(s2);
+      let y = b.getUTCFullYear() - a.getUTCFullYear();
+      let m = b.getUTCMonth() - a.getUTCMonth();
+      let d = b.getUTCDate() - a.getUTCDate();
+      if (d < 0) {
+        m--;
+        const pm = b.getUTCMonth() === 0 ? 12 : b.getUTCMonth();
+        const py = b.getUTCMonth() === 0 ? b.getUTCFullYear() - 1 : b.getUTCFullYear();
+        d += daysInMonth(py, pm);
+      }
+      if (m < 0) { y--; m += 12; }
+      switch (unit.toUpperCase()) {
+        case 'Y': return y;
+        case 'M': return y * 12 + m;
+        case 'D': return s2 - s1;
+        case 'YM': return m;
+        case 'MD': return d;
+        case 'YD': {
+          let ref = Date.UTC(b.getUTCFullYear(), a.getUTCMonth(), a.getUTCDate());
+          if (ref > Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate())) ref = Date.UTC(b.getUTCFullYear() - 1, a.getUTCMonth(), a.getUTCDate());
+          return Math.round((Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate()) - ref) / 864e5);
+        }
+        default: return fail(ERR.NUM);
+      }
+    }
+
+    /* --- funciones: reciben las "thunks" de sus argumentos --- */
+    function numbersOf(args) {
+      const out = [];
+      args.forEach(t => {
+        const v = t();
+        if (v.t === 'm') {
+          v.rows.forEach(row => row.forEach(x => {
+            if (x.t === 'e') fail(x.v);
+            if (x.t === 'n') out.push(x.v);
+          }));
+        } else if (v.ref) {
+          if (v.t === 'e') fail(v.v);
+          if (v.t === 'n') out.push(v.v);
+        } else out.push(toNum(v));
+      });
+      return out;
+    }
+    function textsOf(args) {
+      const out = [];
+      args.forEach(t => {
+        const v = t();
+        if (v.t === 'm') v.rows.forEach(row => row.forEach(x => out.push(x)));
+        else out.push(v);
+      });
+      return out;
+    }
+    const num = n => ({ t: 'n', v: n });
+    const FN = {
+      SUMA: a => num(numbersOf(a).reduce((x, y) => x + y, 0)),
+      PRODUCTO: a => { const f = numbersOf(a); return num(f.length ? f.reduce((x, y) => x * y, 1) : 0); },
+      MAX: a => { const f = numbersOf(a); return num(f.length ? Math.max.apply(null, f) : 0); },
+      MIN: a => { const f = numbersOf(a); return num(f.length ? Math.min.apply(null, f) : 0); },
+      PROMEDIO: a => {
+        const f = numbersOf(a);
+        if (!f.length) fail(ERR.DIV);
+        return num(f.reduce((x, y) => x + y, 0) / f.length);
+      },
+      HOY: a => ({ t: 'n', v: todaySerial(), date: true }),
+      SIFECHA: a => {
+        if (a.length !== 3) throw { syntax: true };
+        return num(sifecha(toNum(scalar(a[0]())), toNum(scalar(a[1]())), toText(scalar(a[2]()))));
+      },
+      SI: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        if (toBool(scalar(a[0]()))) return scalar(a[1]());
+        return a.length === 3 ? scalar(a[2]()) : { t: 'bool', v: false };
+      },
+      CONCATENAR: a => {
+        let s = '';
+        a.forEach(t => {
+          const v = t();
+          if (v.t === 'm') fail(ERR.VAL);
+          s += toText(v);
+        });
+        return { t: 's', v: s };
+      },
+      UNIRCADENAS: a => {
+        if (a.length < 3) throw { syntax: true };
+        const delim = toText(scalar(a[0]()));
+        const skip = toBool(scalar(a[1]()));
+        const parts = textsOf(a.slice(2)).filter(v => !(skip && (v.t === 'b' || (v.t === 's' && v.v === ''))));
+        return { t: 's', v: parts.map(toText).join(delim) };
+      },
+      INDICE: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        const m = a[0]();
+        if (m.t !== 'm') fail(ERR.VAL);
+        let r = Math.floor(toNum(scalar(a[1]()))), c = a.length === 3 ? Math.floor(toNum(scalar(a[2]()))) : 1;
+        if (a.length === 2 && m.nr === 1) { c = r; r = 1; }
+        if (r < 1 || c < 1 || r > m.nr || c > m.nc) fail(ERR.REF);
+        return m.rows[r - 1][c - 1];
+      },
+      COINCIDIR: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        const look = scalar(a[0]());
+        const m = a[1]();
+        if (m.t !== 'm') fail(ERR.VAL);
+        const type = a.length === 3 ? toNum(scalar(a[2]())) : 1;
+        const list = [];
+        m.rows.forEach(row => row.forEach(x => list.push(x)));
+        if (look.t === 'e') fail(look.v);
+        if (type === 0) {
+          for (let i = 0; i < list.length; i++) {
+            if (list[i].t !== 'e' && list[i].t !== 'b' && compare('=', list[i], look)) return num(i + 1);
+          }
+          return fail(ERR.NA);
+        }
+        let best = -1;
+        for (let i = 0; i < list.length; i++) {
+          const x = list[i];
+          if (x.t === 'b' || x.t === 'e') continue;
+          if (type > 0 ? compare('<=', x, look) : compare('>=', x, look)) best = i; else break;
+        }
+        if (best < 0) fail(ERR.NA);
+        return num(best + 1);
+      }
+    };
+
+    /* --- analizador léxico y sintáctico --- */
+    function tokenize(body) {
+      const re = /\s*(?:("(?:[^"]|"")*")|(\$?[A-Za-z]{1,2}\$?\d{1,3}):(\$?[A-Za-z]{1,2}\$?\d{1,3})|(\$?[A-Za-z]{1,2}\$?\d{1,3})(?![A-Za-z0-9_.(])|([A-Za-zÁÉÍÓÚÑáéíóúñ][A-Za-zÁÉÍÓÚÑáéíóúñ0-9_.]*)|(\d+(?:,\d+)?)|(<=|>=|<>|[-+*\/()^;&=<>%]))/y;
+      const toks = [];
+      let pos = 0;
+      body = body.trim();
+      while (pos < body.length) {
+        re.lastIndex = pos;
+        const m = re.exec(body);
+        if (!m) throw { syntax: true };
+        pos = re.lastIndex;
+        if (m[1] != null) toks.push({ k: 'str', v: m[1].slice(1, -1).replace(/""/g, '"') });
+        else if (m[2]) toks.push({ k: 'rng', a: m[2], b: m[3] });
+        else if (m[4]) toks.push({ k: 'ref', v: m[4] });
+        else if (m[5]) toks.push({ k: 'name', v: m[5].toUpperCase() });
+        else if (m[6]) toks.push({ k: 'num', v: parseFloat(m[6].replace(',', '.')) });
+        else toks.push({ k: 'op', v: m[7] });
+      }
+      return toks;
+    }
+
+    function compileFormula(toks, env) {
+      let p = 0;
+      const peek = () => toks[p];
+      const isOp = (...vs) => { const t = toks[p]; return t && t.k === 'op' && vs.indexOf(t.v) >= 0; };
+      const syntax = () => { throw { syntax: true }; };
+
+      function pCmp() {
+        let l = pConcat();
+        while (isOp('=', '<>', '<', '>', '<=', '>=')) {
+          const op = toks[p++].v, a = l, b = pConcat();
+          l = () => ({ t: 'bool', v: compare(op, scalar(a()), scalar(b())) });
+        }
+        return l;
+      }
+      function pConcat() {
+        let l = pAdd();
+        while (isOp('&')) {
+          p++;
+          const a = l, b = pAdd();
+          l = () => ({ t: 's', v: toText(scalar(a())) + toText(scalar(b())) });
+        }
+        return l;
+      }
+      function pAdd() {
+        let l = pMul();
+        while (isOp('+', '-')) {
+          const op = toks[p++].v, a = l, b = pMul();
+          l = () => {
+            const x = scalar(a()), y = scalar(b());
+            const n = op === '+' ? toNum(x) + toNum(y) : toNum(x) - toNum(y);
+            return { t: 'n', v: n, date: op === '+' ? !!(x.date || y.date) : (!!x.date && !y.date) };
+          };
+        }
+        return l;
+      }
+      function pMul() {
+        let l = pPow();
+        while (isOp('*', '/')) {
+          const op = toks[p++].v, a = l, b = pPow();
+          l = () => {
+            const x = toNum(scalar(a())), y = toNum(scalar(b()));
+            if (op === '/' && y === 0) fail(ERR.DIV);
+            return num(op === '*' ? x * y : x / y);
+          };
+        }
+        return l;
+      }
+      function pPow() {
+        let l = pUnary();
+        while (isOp('^')) {
+          p++;
+          const a = l, b = pUnary();
+          l = () => num(Math.pow(toNum(scalar(a())), toNum(scalar(b()))));
+        }
+        return l;
+      }
+      function pUnary() {
+        if (isOp('-')) { p++; const a = pUnary(); return () => num(-toNum(scalar(a()))); }
+        if (isOp('+')) { p++; return pUnary(); }
+        let l = pPrimary();
+        while (isOp('%')) { p++; const a = l; l = () => num(toNum(scalar(a())) / 100); }
+        return l;
+      }
+      function pPrimary() {
+        const t = toks[p++];
+        if (!t) return syntax();
+        if (t.k === 'num') return () => num(t.v);
+        if (t.k === 'str') return () => ({ t: 's', v: t.v });
+        if (t.k === 'ref') {
+          return () => {
+            const rf = splitRef(t.v);
+            if (!rf) fail(ERR.REF);
+            if (rf.c >= S_COLS(env) || rf.r >= S_ROWS(env)) fail(ERR.REF);
+            return Object.assign({ ref: true }, cellValue(env.S, cellId(rf.c, rf.r), env.depth));
+          };
+        }
+        if (t.k === 'rng') {
+          return () => {
+            const a = splitRef(t.a), b = splitRef(t.b);
+            if (!a || !b) fail(ERR.REF);
+            const rows = [];
+            for (let r = Math.min(a.r, b.r); r <= Math.max(a.r, b.r); r++) {
+              const row = [];
+              for (let c = Math.min(a.c, b.c); c <= Math.max(a.c, b.c); c++) row.push(cellValue(env.S, cellId(c, r), env.depth));
+              rows.push(row);
+            }
+            return { t: 'm', rows: rows, nr: rows.length, nc: rows[0].length };
+          };
+        }
+        if (t.k === 'op' && t.v === '(') {
+          const e = pCmp();
+          if (!isOp(')')) syntax();
+          p++;
+          return e;
+        }
+        if (t.k === 'name') {
+          if (isOp('(')) {
+            p++;
+            const args = [];
+            if (isOp(')')) p++;
+            else {
+              for (;;) {
+                if (isOp(';', ')')) { args.push(() => ({ t: 'b' })); } else args.push(pCmp());
+                if (isOp(';')) { p++; continue; }
+                if (isOp(')')) { p++; break; }
+                syntax();
+              }
+            }
+            const f = FN[t.v];
+            if (!f) return () => fail(ERR.NAME);
+            return () => f(args);
+          }
+          if (t.v === 'VERDADERO') return () => ({ t: 'bool', v: true });
+          if (t.v === 'FALSO') return () => ({ t: 'bool', v: false });
+          return () => fail(ERR.NAME);
+        }
+        return syntax();
+      }
+      const root = pCmp();
+      if (p < toks.length) syntax();
+      return root;
+    }
+    function S_COLS(env) { return env.S.cols; }
+    function S_ROWS(env) { return env.S.rows; }
+
+    function evalFormula(S, raw, depth) {
+      if (depth > 25) return { t: 'e', v: ERR.REF };
+      const body = raw.slice(1).trim();
+      if (!body) return { t: 'e', v: ERR.NAME, syntax: true };
+      let root;
+      try {
+        root = compileFormula(tokenize(body), { S: S, depth: depth });
+      } catch (e) {
+        return { t: 'e', v: ERR.VAL, syntax: true };
+      }
+      try {
+        let v = root();
+        if (v.t === 'm') v = scalar(v);
+        if (v.t === 'b') v = { t: 'n', v: 0 };
+        if (v.t === 'n' && !isFinite(v.v)) return { t: 'e', v: ERR.NUM };
+        const out = Object.assign({}, v);
+        delete out.ref;
+        return out;
+      } catch (e) {
+        if (e && e.e) return { t: 'e', v: e.e };
+        if (e && e.syntax) return { t: 'e', v: ERR.VAL, syntax: true };
+        return { t: 'e', v: ERR.VAL };
+      }
+    }
+
+    /* Corre las referencias de una fórmula al copiarla (respeta $) */
+    function shiftFormula(raw, dc, dr) {
+      return raw.replace(/("(?:[^"]|"")*")|([A-Za-z0-9_.]*)(\$?)([A-Za-z]{1,2})(\$?)(\d{1,3})(?![A-Za-z0-9_.(])/g, (all, str, pre, d1, col, d2, row) => {
+        if (str || pre) return all;
+        const c = d1 ? colIndex(col.toUpperCase()) : colIndex(col.toUpperCase()) + dc;
+        const r = d2 ? parseInt(row, 10) : parseInt(row, 10) + dr;
+        if (c < 0 || c > 25 || r < 1) return '#REF!';
+        return d1 + colName(c) + d2 + r;
+      });
+    }
+
+    /* =====================================================
+       EXCEL DE BOLSILLO
+       ===================================================== */
+    function makeSheet(el, opt) {
+      const cols = parseInt(el.dataset.cols, 10), rows = parseInt(el.dataset.rows, 10);
+      const S = {
+        cols: cols, rows: rows,
+        cells: Object.assign({}, opt.data || {}),
+        fmt: Object.assign({}, opt.fmt || {}),
+        showF: false,
+        widths: (opt.widths || []).slice(),
+        a: { c: 0, r: 0 }, b: { c: 0, r: 0 },
+        editing: false, tabStart: null, mode: 'cell', dragging: false
+      };
+      for (let i = 0; i < cols; i++) if (!S.widths[i]) S.widths[i] = 80;
+      const bold = new Set(opt.bold || []);
+      const RH = 38;
+      const id = (c, r) => cellId(c, r);
+
+      el.innerHTML =
+        '<div class="xl-title"><b>' + (opt.title || 'Libro1 - Excel') + '</b></div>' +
+        '<div class="xl-fbar"><div class="xl-name"></div><div class="xl-fx">fx</div>' +
+        '<input class="xl-input" type="text" autocomplete="off" spellcheck="false" aria-label="Barra de fórmulas" /></div>' +
+        '<div class="xl-scroll" tabindex="0" role="grid" aria-label="' + (opt.label || 'Planilla de práctica') + '"></div>' +
+        '<div class="xl-sheets"><span class="on">' + (opt.sheet || 'Hoja1') + '</span><span class="plus">＋</span></div>' +
+        '<div class="xl-status"><span class="st-l">Listo</span><span class="st-r"></span></div>';
+      const nameBox = el.querySelector('.xl-name');
+      const input = el.querySelector('.xl-input');
+      const scroll = el.querySelector('.xl-scroll');
+      const stL = el.querySelector('.st-l');
+      const stR = el.querySelector('.st-r');
+
+      /* --- tabla --- */
+      let h = '<table class="xl-grid"><colgroup><col style="width:' + RH + 'px">';
+      for (let c = 0; c < cols; c++) h += '<col style="width:' + S.widths[c] + 'px">';
+      h += '</colgroup><thead><tr><th class="corner rh"></th>';
+      for (let c = 0; c < cols; c++) h += '<th data-c="' + c + '">' + colName(c) + '<span class="xl-rz" data-c="' + c + '" title="Doble clic: ajustar ancho"></span></th>';
+      h += '</tr></thead><tbody>';
+      for (let r = 0; r < rows; r++) {
+        h += '<tr><th class="rh" data-r="' + r + '">' + (r + 1) + '</th>';
+        for (let c = 0; c < cols; c++) h += '<td data-c="' + c + '" data-r="' + r + '"><span></span></td>';
+        h += '</tr>';
+      }
+      h += '</tbody></table>';
+      scroll.innerHTML = h;
+      const table = scroll.querySelector('table');
+      const colEls = table.querySelectorAll('col');
+      const tds = [];
+      for (let r = 0; r < rows; r++) { tds[r] = []; }
+      table.querySelectorAll('td').forEach(td => { tds[+td.dataset.r][+td.dataset.c] = td; });
+      const colHs = table.querySelectorAll('thead th[data-c]');
+      const rowHs = table.querySelectorAll('tbody th.rh');
+      function setTableWidth() {
+        let w = RH; S.widths.forEach(x => w += x);
+        table.style.width = w + 'px';
+        colEls.forEach((ce, i) => { if (i > 0) ce.style.width = S.widths[i - 1] + 'px'; });
+      }
+      setTableWidth();
+
+      function bbox() {
+        return {
+          c1: Math.min(S.a.c, S.b.c), c2: Math.max(S.a.c, S.b.c),
+          r1: Math.min(S.a.r, S.b.r), r2: Math.max(S.a.r, S.b.r)
+        };
+      }
+      function numText(v, c) {
+        const mode = S.fmt[c];
+        const asDate = mode === 'date' || (v.date && mode !== 'general');
+        if (asDate) return (v.v >= 1 && v.v < 2958466) ? fmtDateShort(v.v) : '#####';
+        return v.show ? v.show : fmtGeneral(v.v);
+      }
+      function displayOf(c, r) {
+        const raw = S.cells[id(c, r)];
+        const v = cellValue(S, id(c, r), 0);
+        if (v.t === 'b') return { txt: '', cls: '' };
+        if (S.showF && raw && raw.charAt(0) === '=') return { txt: raw, cls: 'txt' };
+        if (v.t === 'e') return { txt: v.v, cls: 'err' };
+        if (v.t === 's') return { txt: v.v, cls: 'txt' };
+        if (v.t === 'bool') return { txt: v.v ? 'VERDADERO' : 'FALSO', cls: 'err' };
+        let txt = numText(v, c);
+        const cap = Math.floor((S.widths[c] - 12) / 7);
+        if (txt.length > cap) txt = '#'.repeat(Math.max(3, Math.min(cap, 8)));
+        return { txt: txt, cls: 'num' };
+      }
+      function isEmptyRaw(c, r) {
+        if (c < 0 || c >= cols || r < 0 || r >= rows) return true;
+        const raw = S.cells[id(c, r)];
+        return raw == null || raw === '';
+      }
+
+      function draw() {
+        const bb = bbox();
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const td = tds[r][c], d = displayOf(c, r);
+            const sp = td.firstChild;
+            sp.textContent = d.txt;
+            sp.className = (d.cls === 'txt' && isEmptyRaw(c + 1, r) && d.txt.length * 7 > S.widths[c] - 12) ? 'spill' : '';
+            let cl = d.cls === 'num' ? 'num' : (d.cls === 'err' ? 'err' : '');
+            if (bold.has(id(c, r))) cl += ' hdr';
+            const inR = c >= bb.c1 && c <= bb.c2 && r >= bb.r1 && r <= bb.r2;
+            if (inR && (bb.c1 !== bb.c2 || bb.r1 !== bb.r2)) cl += ' inrange';
+            if (c === S.a.c && r === S.a.r) cl += ' active';
+            if (opt.target === id(c, r)) cl += ' target';
+            td.className = cl;
+          }
+        }
+        colHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.c1 && i <= bb.c2));
+        rowHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.r1 && i <= bb.r2));
+        // cuadro de nombres
+        const single = bb.c1 === bb.c2 && bb.r1 === bb.r2;
+        if (S.mode === 'col') nameBox.textContent = colName(bb.c1) + ':' + colName(bb.c2);
+        else if (S.mode === 'row') nameBox.textContent = (bb.r1 + 1) + ':' + (bb.r2 + 1);
+        else nameBox.textContent = single ? id(bb.c1, bb.r1) : id(bb.c1, bb.r1) + ':' + id(bb.c2, bb.r2);
+        if (!S.editing) input.value = S.cells[id(S.a.c, S.a.r)] || '';
+        // barra de estado
+        let n = 0, sum = 0, cnt = 0;
+        for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) {
+          const v = cellValue(S, id(c, r), 0);
+          if (v.t !== 'b') cnt++;
+          if (v.t === 'n') { n++; sum += v.v; }
+        }
+        stL.textContent = S.editing ? 'Introducir' : 'Listo';
+        stR.textContent = n > 0 && !single
+          ? 'Promedio: ' + fmtGeneral(sum / n).slice(0, 12) + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
+          : (cnt > 1 ? 'Recuento: ' + cnt : '');
+        if (opt.onChange) opt.onChange(api);
+      }
+
+      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+      function select(c, r, extend, mode) {
+        c = clamp(c, 0, cols - 1); r = clamp(r, 0, rows - 1);
+        S.mode = mode || 'cell';
+        if (extend) S.b = { c: c, r: r };
+        else { S.a = { c: c, r: r }; S.b = { c: c, r: r }; S.tabStart = null; }
+        draw();
+        const td = tds[r][c];
+        const sr = scroll.getBoundingClientRect(), tr = td.getBoundingClientRect();
+        if (tr.bottom > sr.bottom) scroll.scrollTop += tr.bottom - sr.bottom + 4;
+        if (tr.top < sr.top + 26) scroll.scrollTop -= (sr.top + 26 - tr.top) + 4;
+        if (tr.right > sr.right) scroll.scrollLeft += tr.right - sr.right + 4;
+        if (tr.left < sr.left + RH) scroll.scrollLeft -= (sr.left + RH - tr.left) + 4;
+      }
+      function setCell(cid, raw) {
+        if (raw === '' || raw == null) delete S.cells[cid]; else S.cells[cid] = raw;
+      }
+      function commit(move) {
+        if (!S.editing) return true;
+        const raw = input.value;
+        if (raw.charAt(0) === '=') {
+          const test = evalFormula(S, raw, 0);
+          if (test.syntax) {
+            stL.textContent = '⚠ Excel no acepta esa fórmula: revisá paréntesis, comillas, operadores y separadores (;)';
+            setTimeout(draw, 2600);
+            return false;
+          }
+        }
+        S.editing = false;
+        setCell(id(S.a.c, S.a.r), raw);
+        const c = S.a.c, r = S.a.r;
+        if (move === 'enter') {
+          if (S.tabStart != null) { const sc = S.tabStart; S.tabStart = null; select(sc, r + 1); }
+          else select(c, r + 1);
+        } else if (move === 'tab') {
+          const ts = S.tabStart == null ? c : S.tabStart;
+          select(c + 1, r); S.tabStart = ts;
+        } else draw();
+        return true;
+      }
+      function cancelEdit() { S.editing = false; draw(); }
+
+      /* --- mouse --- */
+      scroll.addEventListener('mousedown', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (rz) {
+          e.preventDefault();
+          const c = +rz.dataset.c, x0 = e.clientX, w0 = S.widths[c];
+          const mv = ev => { S.widths[c] = Math.max(28, w0 + ev.clientX - x0); setTableWidth(); draw(); };
+          const up = () => { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); };
+          document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up);
+          return;
+        }
+        const td = e.target.closest('td'), ch = e.target.closest('thead th[data-c]'), rh = e.target.closest('tbody th.rh');
+        if (S.editing) commit(null);
+        if (td) {
+          e.preventDefault(); scroll.focus({ preventScroll: true });
+          select(+td.dataset.c, +td.dataset.r, e.shiftKey);
+          S.dragging = true;
+        } else if (ch) {
+          const c = +ch.dataset.c; scroll.focus({ preventScroll: true });
+          S.a = { c: c, r: 0 }; S.b = { c: c, r: rows - 1 }; S.mode = 'col'; S.tabStart = null; draw();
+        } else if (rh) {
+          const r = +rh.dataset.r; scroll.focus({ preventScroll: true });
+          S.a = { c: 0, r: r }; S.b = { c: cols - 1, r: r }; S.mode = 'row'; S.tabStart = null; draw();
+        }
+      });
+      scroll.addEventListener('mouseover', e => {
+        if (!S.dragging) return;
+        const td = e.target.closest('td');
+        if (td) { S.mode = 'cell'; S.b = { c: +td.dataset.c, r: +td.dataset.r }; draw(); }
+      });
+      document.addEventListener('mouseup', () => { S.dragging = false; });
+      scroll.addEventListener('dblclick', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (!rz) return;
+        const c = +rz.dataset.c;
+        let max = 0;
+        for (let r = 0; r < rows; r++) {
+          const v = cellValue(S, id(c, r), 0);
+          let t = '';
+          if (v.t === 'n') t = numText(v, c);
+          else if (v.t === 's' || v.t === 'e') t = v.v;
+          if (t.length > max) max = t.length;
+        }
+        S.widths[c] = Math.max(40, max * 7 + 16);
+        setTableWidth(); draw();
+      });
+
+      /* --- teclado sobre la grilla --- */
+      function jump(c, r, dc, dr) {
+        let nc = c + dc, nr = r + dr;
+        if (nc < 0 || nc >= cols || nr < 0 || nr >= rows) return { c: c, r: r };
+        if (!isEmptyRaw(c, r) && !isEmptyRaw(nc, nr)) {
+          while (!isEmptyRaw(nc + dc, nr + dr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+          return { c: nc, r: nr };
+        }
+        while (isEmptyRaw(nc, nr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+        return { c: nc, r: nr };
+      }
+      function lastUsed() {
+        let mc = 0, mr = 0;
+        Object.keys(S.cells).forEach(k => { const p = splitRef(k); if (p) { mc = Math.max(mc, p.c); mr = Math.max(mr, p.r); } });
+        return { c: mc, r: mr };
+      }
+      scroll.addEventListener('keydown', e => {
+        if (S.editing) return;
+        const k = e.key, cur = e.shiftKey ? S.b : S.a;
+        const dirs = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+        if (dirs[k]) {
+          e.preventDefault();
+          const d = dirs[k];
+          let t = e.ctrlKey ? jump(cur.c, cur.r, d[0], d[1]) : { c: cur.c + d[0], r: cur.r + d[1] };
+          select(t.c, t.r, e.shiftKey);
+        } else if (k === 'Enter') { e.preventDefault(); select(S.a.c, S.a.r + (e.shiftKey ? -1 : 1)); }
+        else if (k === 'Tab') { e.preventDefault(); select(S.a.c + (e.shiftKey ? -1 : 1), S.a.r); }
+        else if (k === 'Home') { e.preventDefault(); e.ctrlKey ? select(0, 0, e.shiftKey) : select(0, S.a.r, e.shiftKey); }
+        else if (k === 'End' && e.ctrlKey) { e.preventDefault(); const lu = lastUsed(); select(lu.c, lu.r, e.shiftKey); }
+        else if (k === 'PageDown') { e.preventDefault(); select(S.a.c, S.a.r + 10, e.shiftKey); }
+        else if (k === 'PageUp') { e.preventDefault(); select(S.a.c, S.a.r - 10, e.shiftKey); }
+        else if (k === 'Escape') { scroll.blur(); }
+        else if (k === 'F2') { e.preventDefault(); input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+        else if (k === 'Delete' || k === 'Backspace') {
+          e.preventDefault();
+          const bb = bbox();
+          for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) setCell(id(c, r), '');
+          draw();
+        } else if (k.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault();
+          input.value = k; S.editing = true; input.focus(); draw();
+        }
+      });
+
+      /* --- barra de fórmulas --- */
+      input.addEventListener('focus', () => { S.editing = true; stL.textContent = 'Introducir'; });
+      input.addEventListener('input', () => { S.editing = true; });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); if (commit(e.shiftKey ? null : 'enter')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Tab') { e.preventDefault(); if (commit('tab')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); scroll.focus({ preventScroll: true }); }
+      });
+      input.addEventListener('blur', () => { if (S.editing) { if (!commit(null)) cancelEdit(); } });
+
+      const api = {
+        S: S, select: select, setCell: function (cid, raw) { setCell(cid, raw); draw(); },
+        activeId: function () { return id(S.a.c, S.a.r); },
+        reset: function () { S.editing = false; select(0, 0); scroll.scrollTop = 0; scroll.scrollLeft = 0; },
+        scroll: scroll, focus: function () { scroll.focus({ preventScroll: true }); },
+        display: function (cid) { const p = splitRef(cid); return displayOf(p.c, p.r).txt; },
+        raw: function (cid) { return S.cells[cid] || ''; },
+        setFmt: function (c, mode) { if (mode) S.fmt[c] = mode; else delete S.fmt[c]; draw(); },
+        showFormulas: function (on) { S.showF = !!on; draw(); },
+        /* copia la fórmula de (c, r1) hacia abajo hasta r2, corriendo las referencias (como arrastrar el controlador de relleno) */
+        fillDown: function (c, r1, r2) {
+          const src = S.cells[id(c, r1)] || '';
+          for (let r = r1 + 1; r <= r2; r++) setCell(id(c, r), src.charAt(0) === '=' ? shiftFormula(src, 0, r - r1) : src);
+          draw();
+        },
+        /* Buscar y reemplazar: sobre la selección (si es más de una celda) o sobre toda la hoja */
+        replaceAll: function (find, rep) {
+          const bb = bbox();
+          const multi = !(bb.c1 === bb.c2 && bb.r1 === bb.r2);
+          const re = new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+          let count = 0;
+          for (let r = multi ? bb.r1 : 0; r <= (multi ? bb.r2 : rows - 1); r++) {
+            for (let c = multi ? bb.c1 : 0; c <= (multi ? bb.c2 : cols - 1); c++) {
+              const raw = S.cells[id(c, r)];
+              if (!raw || raw.charAt(0) === '=') continue;
+              re.lastIndex = 0;
+              if (find && re.test(raw)) { re.lastIndex = 0; S.cells[id(c, r)] = raw.replace(re, () => rep); count++; }
+            }
+          }
+          draw();
+          return count;
+        },
+        restore: function () { S.cells = Object.assign({}, opt.data || {}); S.fmt = Object.assign({}, opt.fmt || {}); S.showF = false; draw(); }
+      };
+      if (opt.select) { const p = splitRef(opt.select.split(':')[0]); const q = splitRef(opt.select.split(':').pop()); S.a = { c: p.c, r: p.r }; S.b = { c: q.c, r: q.r }; }
+      draw();
+      return api;
+    }
+
+    /* =====================================================
+       Utilidades de las demos
+       ===================================================== */
+    function addChips(box, chips, onPick) {
+      chips.forEach(ch => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'xl-chip' + (ch.bad ? ' bad' : '');
+        b.textContent = ch.label || ch.f;
+        b.addEventListener('click', () => onPick(ch));
+        box.appendChild(b);
+      });
+    }
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+    /* ----- 1. Fechas: el número que hay detrás ----- */
+    (function () {
+      const api = makeSheet(document.getElementById('xlFechas'), {
+        title: 'Ejercicio 2 - Fechas y funciones - Excel',
+        sheet: 'Ejercicios',
+        label: 'Planilla de fechas de deudas y plazos',
+        data: {
+          A1: 'Documento', B1: 'Fecha', C1: 'Plazo días', D1: 'Vencimiento', E1: 'Días que faltan',
+          A2: '8853', B2: '44197', C2: '45', D2: '=B2+C2', E2: '=D2-HOY()',
+          A3: '9395', B3: '44222', C3: '60', D3: '=B3+C3', E3: '=D3-HOY()',
+          A4: '9851', B4: '44247', C4: '30', D4: '=B4+C4', E4: '=D4-HOY()',
+          A5: '5295', B5: '44209', C5: '90', D5: '=B5+C5', E5: '=D5-HOY()'
+        },
+        widths: [85, 95, 90, 105, 125],
+        bold: ['A1', 'B1', 'C1', 'D1', 'E1'],
+        select: 'B2'
+      });
+      const cap = document.getElementById('capFechas');
+      document.getElementById('btnFechaOn').addEventListener('click', () => {
+        api.setFmt(1, 'date'); api.select(1, 1);
+        cap.innerHTML = '<b>B2 ahora muestra ' + esc(api.display('B2')) + '</b>, pero la barra de fórmulas sigue diciendo <code class="f">' + esc(api.raw('B2')) + '</code>: el dato es el mismo número, cambió solo el formato. Como <b>D2 = B2 + C2</b> opera con una fecha, Excel también le da formato de fecha al resultado: <b>' + esc(api.display('D2')) + '</b>.';
+      });
+      document.getElementById('btnFechaOff').addEventListener('click', () => {
+        api.setFmt(1, null); api.select(1, 1);
+        cap.innerHTML = 'Volvió el formato <b>General</b>: Excel muestra el número real. <b>44197</b> son los días que pasaron desde el 1/1/1900 hasta el 01/01/2021.';
+      });
+    })();
+
+    /* ----- 2. Edad con SIFECHA y SI ----- */
+    (function () {
+      const api = makeSheet(document.getElementById('xlEdad'), {
+        title: 'Edad - Excel',
+        sheet: 'Edad',
+        label: 'Planilla para calcular la edad',
+        data: {
+          A1: 'Fecha de nacimiento', B1: '23/03/1979',
+          A2: 'Hasta (fecha final)', B2: '21/05/2021',
+          A3: 'Años', B3: '=SIFECHA(B1;B2;"Y")',
+          A4: 'Meses (después de los años)', B4: '=SIFECHA(B1;B2;"YM")',
+          A5: 'Días (después de los meses)', B5: '=SIFECHA(B1;B2;"MD")',
+          A6: 'Total de meses', B6: '=SIFECHA(B1;B2;"M")',
+          A7: 'Estado', B7: '=SI(B3>=18;"Mayor de edad";"Menor de edad")'
+        },
+        widths: [190, 120, 20],
+        bold: ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7'],
+        select: 'B1'
+      });
+      const cap = document.getElementById('capEdad');
+      function report() {
+        const e = api.display('B3');
+        if (e.charAt(0) === '#') { cap.innerHTML = '<b>' + esc(e) + '</b>: la fecha inicial tiene que ser <b>anterior</b> a la final.'; return; }
+        cap.innerHTML = 'Resultado: <b>' + plural(+api.display('B3'), 'año', 'años') + ', ' + plural(+api.display('B4'), 'mes', 'meses') + ' y ' + plural(+api.display('B5'), 'día', 'días') + '</b> (' + esc(api.display('B6')) + ' meses en total) → <b>' + esc(api.display('B7')) + '</b>.';
+      }
+      const chips = [
+        { label: 'Del video: 23/03/1979 → 21/05/2021', b1: '23/03/1979', b2: '21/05/2021' },
+        { label: 'Cumple 18 justo hoy: 21/05/2003', b1: '21/05/2003', b2: '21/05/2021' },
+        { label: 'Le falta 1 día para los 18: 22/05/2003', b1: '22/05/2003', b2: '21/05/2021' },
+        { label: 'Hasta hoy: =HOY()', b1: '23/03/1979', b2: '=HOY()' },
+        { label: 'Fechas al revés', b1: '21/05/2021', b2: '23/03/1979', bad: true }
+      ];
+      addChips(document.getElementById('chipsEdad'), chips, ch => {
+        api.setCell('B1', ch.b1); api.setCell('B2', ch.b2); api.select(1, 0);
+        report();
+        if (ch.b2 === '=HOY()') cap.innerHTML += ' <em>(depende del día en que abras esta página, porque HOY() cambia todos los días.)</em>';
+      });
+      report();
+    })();
+
+    /* ----- 2b. Función SI: vencido o vigente ----- */
+    (function () {
+      const data = {
+        A1: 'Fecha de referencia', B1: '01/03/2021',
+        A3: 'Documento', B3: 'Vencimiento', C3: 'Estado', D3: 'Días',
+        A4: '8853', B4: '15/02/2021',
+        A5: '9395', B5: '27/03/2021',
+        A6: '9851', B6: '22/03/2021',
+        A7: '5295', B7: '13/04/2021',
+        A8: '9805', B8: '14/03/2021',
+        A9: '8531', B9: '15/01/2021'
+      };
+      const F0 = '=SI(B4<$B$1;"Vencido";"Vigente")';
+      const api = makeSheet(document.getElementById('xlSI'), {
+        title: 'Ejercicio 2 - Fechas y funciones - Excel',
+        sheet: 'Ejercicios',
+        label: 'Planilla con la función SI para vencimientos',
+        data: data,
+        widths: [150, 110, 160, 70],
+        bold: ['A1', 'A3', 'B3', 'C3', 'D3'],
+        select: 'B1'
+      });
+      function fill(f) { api.setCell('C4', f); api.fillDown(2, 3, 8); }
+      function days() { for (let r = 4; r <= 9; r++) api.setCell('D' + r, '=B' + r + '-$B$1'); }
+      fill(F0); days();
+      const cap = document.getElementById('capSI');
+      function report(extra) {
+        let v = 0, g = 0;
+        for (let r = 4; r <= 9; r++) { if (api.display('C' + r).indexOf('Vencido') === 0) v++; else g++; }
+        const first = api.display('C4');
+        cap.innerHTML = 'Con esa fecha de referencia: <b>' + plural(v, 'documento vencido', 'documentos vencidos') + '</b> y <b>' + plural(g, 'vigente', 'vigentes') + '</b>. ' +
+          'La primera fórmula (<code class="f">' + esc(api.raw('C4')) + '</code>) da “' + esc(first) + '”. ' + (extra || '');
+      }
+      const chips = [
+        { label: 'Referencia 01/03/2021', ref: '01/03/2021' },
+        { label: 'Referencia 01/01/2021 (todos vigentes)', ref: '01/01/2021' },
+        { label: 'Referencia 31/12/2021 (todos vencidos)', ref: '31/12/2021' },
+        { label: 'Referencia =HOY()', ref: '=HOY()', t: 'Con HOY() la respuesta depende del día en que abras la página.' },
+        { label: '=SI(B4<=$B$1;"Vencido o vence hoy";"Vigente")', f: '=SI(B4<=$B$1;"Vencido o vence hoy";"Vigente")', t: 'Con <code class="f">&lt;=</code> un documento que vence justo en la fecha de referencia entra en el primer caso. Probá con la referencia 15/02/2021.' },
+        { label: '=SI(D4<0;"Vencido";"Vigente")', f: '=SI(D4<0;"Vencido";"Vigente")', t: 'La prueba usa la columna D (días hasta el vencimiento): negativo significa que ya pasó.' },
+        { label: '=SI(B4<$B$1;"Vencido";"Vigente")', f: F0, t: 'Vuelve la fórmula original.' }
+      ];
+      addChips(document.getElementById('chipsSI'), chips, ch => {
+        if (ch.ref) api.setCell('B1', ch.ref);
+        if (ch.f) fill(ch.f);
+        api.select(2, 3);
+        report(ch.t);
+      });
+      report();
+    })();
+
+    /* ----- 3. Combinar y centrar ----- */
+    (function () {
+      const box = document.getElementById('mgDemo');
+      const btn = document.getElementById('mgBtn');
+      const cap = document.getElementById('mgCap');
+      let merged = false;
+      function render() {
+        box.innerHTML =
+          '<table class="xl-simple"><thead><tr><th class="rh"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead><tbody>' +
+          '<tr><th class="rh">1</th>' + (merged
+            ? '<td colspan="5" class="mg-merged">FECHAS DE DEUDAS Y PLAZOS</td>'
+            : '<td class="mg-title" colspan="1"><span>FECHAS DE DEUDAS Y PLAZOS</span></td><td></td><td></td><td></td><td></td>') + '</tr>' +
+          '<tr><th class="rh">2</th><td class="mg-head">Documento</td><td class="mg-head">Fecha</td><td class="mg-head">Plazo días</td><td class="mg-head">Fecha Vencimiento</td><td class="mg-head">Fecha Nacimiento</td></tr>' +
+          '<tr><th class="rh">3</th><td>8853</td><td>01/01/2021</td><td>45</td><td>15/02/2021</td><td></td></tr>' +
+          '</tbody></table>';
+        btn.textContent = merged ? 'Quitar la combinación' : 'Combinar y centrar A1:E1';
+        cap.innerHTML = merged
+          ? 'Ahora A1:E1 es <b>una sola celda</b> (se llama A1) y el título quedó centrado sobre toda la tabla. Si volvés a tocar el botón, se deshace.'
+          : 'Hoy el título está en <b>A1</b> y se "derrama" sobre las celdas vacías de al lado, pero no está centrado respecto de la tabla.';
+      }
+      btn.addEventListener('click', () => { merged = !merged; render(); });
+      render();
+    })();
+
+    /* ----- 4. Unión de textos ----- */
+    (function () {
+      const data = {
+        A1: 'Apellido P.', B1: 'Apellido M.', C1: 'Nombre', D1: 'Nombre 2', E1: 'CONCATENAR', F1: 'UNIRCADENAS',
+        A2: 'Perez', B2: 'Oyos', C2: 'Juan', D2: 'Arturo',
+        A3: 'Mente', B3: 'Saray', C3: 'Ana', D3: 'Cecilia',
+        A4: 'Orozco', B4: 'Bermudes', C4: 'Diana', D4: 'Marina',
+        A5: 'Bernal', B5: 'Santos', C5: 'Juan', D5: 'Andres'
+      };
+      for (let r = 2; r <= 5; r++) {
+        data['E' + r] = '=CONCATENAR(A' + r + ';" ";B' + r + ';" ";C' + r + ';" ";D' + r + ')';
+        data['F' + r] = '=UNIRCADENAS(" ";VERDADERO;C' + r + ';D' + r + ';A' + r + ';B' + r + ')';
+      }
+      const api = makeSheet(document.getElementById('xlUnion'), {
+        title: 'Ejercicio 2 - Fechas y funciones - Excel',
+        sheet: 'UnionExtraccion',
+        label: 'Planilla para unir nombres y apellidos',
+        data: data,
+        widths: [90, 90, 80, 80, 225, 225],
+        bold: ['A1', 'B1', 'C1', 'D1', 'E1', 'F1'],
+        select: 'E2'
+      });
+      const cap = document.getElementById('capUnion');
+      const chips = [
+        { f: '=CONCATENAR(A2;B2;C2;D2)', bad: true, t: 'Unió todo, pero <b>sin espacios</b>: los espacios también hay que concatenarlos.' },
+        { f: '=CONCATENAR(A2;" ";B2;" ";C2;" ";D2)', t: 'Cada <code class="f">" "</code> es un texto más. Son 7 textos: 4 celdas y 3 espacios.' },
+        { f: '=A2&" "&B2&" "&C2&" "&D2', t: 'El operador <code class="f">&amp;</code> hace lo mismo que CONCATENAR y es más corto de escribir.' },
+        { f: '=UNIRCADENAS(" ";VERDADERO;A2:D2)', t: 'El delimitador (un espacio) se escribe <b>una sola vez</b> y alcanza con elegir el rango A2:D2.' },
+        { f: '=UNIRCADENAS("-";VERDADERO;A2:D2)', t: 'Cambiando el delimitador cambia el separador de todos los textos.' },
+        { f: '=UNIRCADENAS(" ";VERDADERO;C2;D2;A2;B2)', t: 'Para cambiar el <b>orden</b>, se eligen las celdas en el orden que querés: nombres primero y después apellidos.' }
+      ];
+      addChips(document.getElementById('chipsUnion'), chips, ch => {
+        api.select(4, 1);
+        api.setCell('E2', ch.f);
+        cap.innerHTML = '<b>E2 muestra “' + esc(api.display('E2')) + '”.</b> ' + ch.t;
+      });
+    })();
+
+    /* ----- 4b. Texto en columnas ----- */
+    (function () {
+      const inp = document.getElementById('ttcIn'), sel = document.getElementById('ttcDelim'), out = document.getElementById('ttcOut');
+      function render() {
+        const d = sel.value;
+        const parts = inp.value === '' ? [] : inp.value.split(d);
+        let h = '<table class="xl-simple"><thead><tr>';
+        parts.forEach((p, i) => { h += '<th>' + colName(i) + '</th>'; });
+        h += '</tr></thead><tbody><tr>';
+        parts.forEach(p => { h += '<td>' + esc(p) + '</td>'; });
+        h += '</tr></tbody></table>';
+        out.innerHTML = parts.length ? h : '<p class="xl-hint" style="margin:0.5rem">Escribí un texto para separar.</p>';
+      }
+      inp.addEventListener('input', render);
+      sel.addEventListener('change', render);
+      render();
+    })();
+
+    /* ----- 5. Buscar y reemplazar ----- */
+    (function () {
+      const data = {
+        A1: 'DESCRIPCION', B1: 'CANTIDAD', C1: 'PESO/U', D1: 'PESO/T',
+        A2: 'MCV SEAL KIT', B2: '3', C2: '204', D2: '612',
+        A3: 'BUSHING-DU', B3: '6', C3: '0.14', D3: '0.84',
+        A4: 'ELEMENT-COUPLING', B4: '2', C4: '0.79', D4: '3.16',
+        A5: 'PUMP COUPLING RUBBER', B5: '2', C5: '0.68', D5: '2.04',
+        A6: 'PUMP COUPLING KIT', B6: '1', C6: '1.9', D6: '1.9',
+        A7: 'RUBBER-T/JOINT', B7: '3', C7: '0.36', D7: '1.44',
+        A8: 'RELIEF VALVE ASSY', B8: '1', C8: '1.2', D8: '1.2',
+        A9: 'MAIN RELIEF VALVE', B9: '1', C9: '1.2', D9: '1.2',
+        A10: 'TOTAL PESO', D10: '=SUMA(D2:D9)'
+      };
+      const api = makeSheet(document.getElementById('xlReemplazo'), {
+        title: 'Ejercicio 2 - Fechas y funciones - Excel',
+        sheet: 'Elementos',
+        label: 'Planilla con números que Excel lee como texto',
+        data: data,
+        widths: [170, 90, 80, 90],
+        bold: ['A1', 'B1', 'C1', 'D1', 'A10'],
+        select: 'C2:D9'
+      });
+      const find = document.getElementById('repFind'), rep = document.getElementById('repWith'), cap = document.getElementById('capRep');
+      document.getElementById('btnRep').addEventListener('click', () => {
+        if (!find.value) { cap.innerHTML = 'Escribí qué querés buscar.'; return; }
+        const before = api.display('D10');
+        const n = api.replaceAll(find.value, rep.value);
+        api.focus();
+        cap.innerHTML = '<b>Excel avisaría: “Se realizaron ' + n + ' reemplazos”.</b> El total de D10 pasó de <b>' + esc(before) + '</b> a <b>' + esc(api.display('D10')) + '</b>. ' +
+          (n === 0 ? 'No había nada para reemplazar en la selección.' : 'Fijate que los datos reemplazados ahora se alinean a la <b>derecha</b>: Excel los reconoce como números.');
+      });
+      document.getElementById('btnRepBack').addEventListener('click', () => {
+        api.restore(); api.select(2, 1); api.S.b = { c: 3, r: 8 }; api.select(3, 8, true);
+        cap.innerHTML = 'Volvió el ejemplo original: <b>612</b> es el único valor que Excel reconoce como número en D2:D9 (los demás son texto con punto).';
+      });
+    })();
+
+    /* ----- 6. Quitar duplicados ----- */
+    (function () {
+      const rows0 = [
+        ['XKAQ-00208', 'RING-THRUST NO.1', '5,17'],
+        ['XKAQ-00208', 'RING-THRUST NO.1', '2,81'],
+        ['XKAQ-00237', 'GEAR-PLANET NO.1', '58,21'],
+        ['XKAQ-00237', 'GEAR-PLANET NO.1', '44,94'],
+        ['800108-00150', 'HYD LEVEL GAGE', '18,08'],
+        ['800108-00150', 'HYD LEVEL GAGE', '18,08'],
+        ['XKAQ-00246', 'PLUG-HYDRAULIC', '2,34'],
+        ['P760-102030', 'HOSE-HYD RUBBER', '10,73']
+      ];
+      let rows = rows0.slice();
+      const box = document.getElementById('ddTable'), cap = document.getElementById('capDd');
+      const checks = document.querySelectorAll('#ddCols input[type="checkbox"]');
+      function render() {
+        let h = '<table class="xl-simple"><thead><tr><th class="rh"></th><th>A · NRO-PARTE</th><th>B · DESCRIPCIÓN</th><th>C · PRECIO/U</th></tr></thead><tbody>';
+        rows.forEach((r, i) => { h += '<tr><th class="rh">' + (i + 2) + '</th><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td class="r">' + esc(r[2]) + '</td></tr>'; });
+        h += '</tbody></table>';
+        box.innerHTML = h;
+      }
+      document.getElementById('ddBtn').addEventListener('click', () => {
+        const use = [];
+        checks.forEach((c, i) => { if (c.checked) use.push(i); });
+        if (!use.length) { cap.innerHTML = '<b>Excel no deja continuar:</b> hay que marcar al menos una columna.'; return; }
+        const seen = new Set(), keep = [];
+        rows.forEach(r => {
+          const k = use.map(i => r[i].toLowerCase()).join('\u0001');
+          if (!seen.has(k)) { seen.add(k); keep.push(r); }
+        });
+        const removed = rows.length - keep.length;
+        rows = keep; render();
+        cap.innerHTML = '<b>Excel avisa: “Se encontraron y quitaron ' + plural(removed, 'valor duplicado', 'valores duplicados') + '; quedan ' + plural(keep.length, 'valor único', 'valores únicos') + '.”</b> ' +
+          (removed ? 'Se borra la <b>fila entera</b> y se conserva la primera aparición.' : 'No había filas repetidas con esos criterios.');
+      });
+      document.getElementById('ddReset').addEventListener('click', () => {
+        rows = rows0.slice(); render();
+        cap.innerHTML = 'Tabla original: 8 filas. Probá con solo <b>NRO-PARTE</b> y después con <b>NRO-PARTE + PRECIO/U</b>.';
+      });
+      render();
+    })();
+
+    /* ----- 7. INDICE y COINCIDIR ----- */
+    (function () {
+      const api = makeSheet(document.getElementById('xlIndice'), {
+        title: 'Productos - Excel',
+        sheet: 'Productos',
+        label: 'Planilla de productos para INDICE y COINCIDIR',
+        data: {
+          A1: 'Código', B1: 'Producto', C1: 'Categoría', D1: 'Precio',
+          A2: '101', B2: 'Lápiz', C2: 'Papelería', D2: '350',
+          A3: '102', B3: 'Cuaderno', C3: 'Papelería', D3: '1200',
+          A4: '103', B4: 'Mouse', C4: 'Computación', D4: '8500',
+          A5: '104', B5: 'Teclado', C5: 'Computación', D5: '15000',
+          A6: '105', B6: 'Mochila', C6: 'Accesorios', D6: '18500',
+          A7: '106', B7: 'Regla', C7: 'Papelería', D7: '600',
+          F1: 'Código buscado', G1: '105',
+          F2: 'Fila (COINCIDIR)', G2: '=COINCIDIR(G1;A2:A7;0)',
+          F3: 'Producto (INDICE)', G3: '=INDICE(A2:D7;G2;2)',
+          F4: 'Precio (INDICE)', G4: '=INDICE(A2:D7;G2;4)',
+          F5: 'Prueba'
+        },
+        widths: [60, 90, 105, 70, 20, 140, 100],
+        bold: ['A1', 'B1', 'C1', 'D1', 'F1', 'F2', 'F3', 'F4', 'F5'],
+        select: 'G3'
+      });
+      const cap = document.getElementById('capIdx');
+      const chips = [
+        { f: '=INDICE(A2:D7;3;2)', t: 'INDICE sola: la <b>fila 3</b> de la matriz con la <b>columna 2</b> se cruzan en “Mouse” (la fila 1 de la matriz es la 101, no el encabezado).' },
+        { f: '=COINCIDIR(105;A2:A7;0)', t: 'COINCIDIR no devuelve el dato: devuelve la <b>posición</b> del 105 dentro de A2:A7. El <code class="f">0</code> pide coincidencia exacta.' },
+        { f: '=INDICE(A2:D7;COINCIDIR(105;A2:A7;0);2)', t: 'Juntas: COINCIDIR encuentra la fila y INDICE trae el dato de esa fila, de la columna 2.' },
+        { f: '=INDICE(A2:D7;COINCIDIR(G1;A2:A7;0);3)', t: 'Con <b>G1</b> en lugar del 105: cambiá el código buscado y la respuesta cambia sola. Acá trae la columna 3 (Categoría).' },
+        { f: '=INDICE(A2:D7;COINCIDIR(999;A2:A7;0);2)', bad: true, t: 'El 999 no existe en la lista: COINCIDIR devuelve <code class="f">#N/D</code> (no disponible) y INDICE lo arrastra.' },
+        { label: 'Cambiar código buscado → 103', cell: 'G1', f: '103', t: 'Ahora G2, G3 y G4 buscan el 103.' },
+        { label: 'Cambiar código buscado → 999', cell: 'G1', f: '999', bad: true, t: 'Un código que no existe hace que las tres fórmulas den <code class="f">#N/D</code>.' },
+        { label: 'Volver a 105', cell: 'G1', f: '105', t: 'Todo vuelve a la normalidad.' }
+      ];
+      addChips(document.getElementById('chipsIdx'), chips, ch => {
+        if (ch.cell) {
+          api.setCell(ch.cell, ch.f);
+          api.select(6, 0);
+          cap.innerHTML = '<b>G1 = ' + esc(ch.f) + '.</b> ' + ch.t + ' Producto: <b>' + esc(api.display('G3')) + '</b> · Precio: <b>' + esc(api.display('G4')) + '</b>.';
+        } else {
+          api.select(6, 4);
+          api.setCell('G5', ch.f);
+          cap.innerHTML = '<b>G5 muestra ' + esc(api.display('G5')) + '.</b> ' + ch.t;
+        }
+      });
+    })();
+
+    /* ----- 8. Referencia absoluta ----- */
+    (function () {
+      const base = {
+        A1: 'Producto', B1: 'Precio', C1: 'IVA', D1: 'Total', F1: 'IVA',
+        A2: 'Cuaderno', B2: '1200', F2: '21%',
+        A3: 'Lápiz', B3: '350',
+        A4: 'Mochila', B4: '18500',
+        A5: 'Regla', B5: '600',
+        A6: 'Marcador', B6: '900'
+      };
+      const api = makeSheet(document.getElementById('xlAbs'), {
+        title: 'IVA - Excel',
+        sheet: 'IVA',
+        label: 'Planilla para probar la referencia absoluta',
+        data: base,
+        widths: [90, 80, 115, 115, 20, 80],
+        bold: ['A1', 'B1', 'C1', 'D1', 'F1'],
+        select: 'C2'
+      });
+      const cap = document.getElementById('capAbs');
+      const btnShow = document.getElementById('btnAbsShow');
+      let showing = false;
+      function put(f) {
+        api.restore(); showing = false; btnShow.textContent = 'Mostrar fórmulas';
+        api.setCell('C2', f); api.setCell('D2', '=B2+C2');
+        api.fillDown(2, 1, 5); api.fillDown(3, 1, 5);
+        api.select(2, 1);
+      }
+      document.getElementById('btnAbsRel').addEventListener('click', () => {
+        put('=B2*F2');
+        cap.innerHTML = '<b>Sin $:</b> C2 da <b>' + esc(api.display('C2')) + '</b> (bien), pero al arrastrar hacia abajo la fórmula se corre: <code class="f">C3 = B3*F3</code>, <code class="f">C4 = B4*F4</code>… y esas celdas están vacías, así que el IVA da <b>0</b>. Tocá <b>Mostrar fórmulas</b> para verlo.';
+      });
+      document.getElementById('btnAbsAbs').addEventListener('click', () => {
+        put('=B2*$F$2');
+        cap.innerHTML = '<b>Con $:</b> <code class="f">$F$2</code> queda fija al arrastrar. Todas las filas multiplican por el 21 % de F2: si mañana cambia la alícuota, se cambia <b>una sola celda</b>. Probá escribir otro porcentaje en F2.';
+      });
+      btnShow.addEventListener('click', () => {
+        showing = !showing; api.showFormulas(showing);
+        btnShow.textContent = showing ? 'Mostrar resultados' : 'Mostrar fórmulas';
+      });
+      document.getElementById('btnAbsClear').addEventListener('click', () => {
+        api.restore(); showing = false; btnShow.textContent = 'Mostrar fórmulas'; api.select(2, 1);
+        cap.innerHTML = 'Planilla vacía: escribí vos la fórmula en C2 y copiala hacia abajo, o usá los botones.';
+      });
+    })();
+  </script>
+</body>
+</html>
