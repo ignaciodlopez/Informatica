@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 11</title>
+  <meta
+    name="description"
+    content="Clase 11 de Informática Aplicada (M11-19-10), Unidad 2: animar objetos en PowerPoint. Efectos de entrada, animación por párrafo, panel de animación, orden de las animaciones, presentación con diapositivas."
+  />
+  <link rel="stylesheet" href="../styles.css?v=6" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== CLASE 11: simuladores de animación ===== */
+    .anim-ctrls { display: flex; flex-wrap: wrap; gap: 0.5rem 0.6rem; align-items: center; margin: 0.9rem 0 0; }
+    .anim-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 0.15rem; }
+    .anim-chip { cursor: pointer; font: inherit; font-size: 0.84rem; font-weight: 600; padding: 0.4rem 0.85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+    .anim-chip:hover { border-color: var(--primary); }
+    .anim-chip[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .anim-chip::before { content: ""; display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 50%; margin-right: 0.45rem; background: #22a559; }
+    .anim-chip.enfasis::before { background: #e5a100; }
+    .anim-chip.salida::before { background: #d63b3b; }
+    .anim-chip.plain::before { display: none; }
+    .anim-btn { cursor: pointer; font: inherit; font-size: 0.84rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff; }
+    .anim-btn.ghost { background: var(--surface); color: var(--primary); }
+    [data-theme="dark"] .anim-btn.ghost { color: #93c5fd; border-color: #93c5fd; }
+    .anim-btn:hover { filter: brightness(1.1); }
+    .anim-btn:focus-visible, .anim-chip:focus-visible, .anim-select:focus-visible, .anim-mini:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .anim-select { font: inherit; font-size: 0.82rem; padding: 0.3rem 0.5rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+
+    .anim-stage { position: relative; aspect-ratio: 16 / 9; width: 100%; max-width: 46rem; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-soft); container-type: inline-size; font-family: "Calibri", "Segoe UI", Arial, sans-serif; line-height: 1.2; user-select: none; }
+    .anim-stage.dark { background: linear-gradient(180deg, #2c4aa0 0%, #14193a 55%, #05060c 100%); color: #fff; }
+    .anim-stage.light { background: #ffffff; color: #1f2937; }
+    .anim-stage.presenting { cursor: pointer; box-shadow: 0 0 0 3px var(--primary), var(--shadow-soft); }
+    .anim-obj { position: absolute; }
+    .anim-stage .pre { opacity: 0; visibility: hidden; }
+    .anim-tag { position: absolute; left: -2.6cqw; top: -2.4cqw; min-width: 4.2cqw; height: 4.2cqw; padding: 0 0.6cqw; border: 1px solid #c2410c; background: #fed7aa; color: #7c2d12; font-size: 2.6cqw; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 3; }
+    .anim-stage.presenting .anim-tag { display: none; }
+    .anim-hint { position: absolute; right: 2cqw; bottom: 1.6cqw; padding: 0.4cqw 1.4cqw; background: rgba(0, 0, 0, 0.55); color: #fff; font-size: 2.1cqw; border-radius: 1cqw; z-index: 4; pointer-events: none; }
+
+    /* objetos de ejemplo */
+    .obj-title-dark { left: 8%; top: 24%; width: 84%; text-align: center; font-size: 8.4cqw; font-weight: 700; color: #ffd54a; }
+    .obj-pic { background: linear-gradient(180deg, #9aa5b5, #5b6475); border-radius: 1.2cqw; display: flex; align-items: flex-end; justify-content: center; }
+    .obj-pic svg { width: 78%; height: 88%; }
+    .s4-title { left: 8%; top: 5%; width: 56%; text-align: center; font-size: 6.2cqw; font-weight: 700; }
+    .s4-arrow { left: 29%; top: 20%; width: 6%; height: 14%; }
+    .s4-arrow svg { width: 100%; height: 100%; display: block; }
+    .s4-call { left: 8%; top: 37%; width: 58%; height: 52%; background: #2f75b5; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 7%; font-size: 3.1cqw; font-weight: 600; }
+    .s4-pic { left: 70%; top: 45%; width: 25%; height: 48%; }
+    .s4-static { left: 68%; top: 6%; width: 27%; height: 28%; }
+    .s4-static svg { width: 100%; height: 100%; }
+    .p2-title { left: 6%; top: 6%; width: 88%; text-align: center; font-size: 4.8cqw; font-weight: 700; color: #ed7d31; }
+    .p2-list { left: 12%; top: 25%; width: 76%; font-size: 3.4cqw; font-weight: 700; color: #4a86c5; }
+    .p2-list p { position: relative; margin: 0 0 3.2cqw; padding-left: 5cqw; text-align: left; line-height: 1.25; }
+    .p2-list p::before { content: "•"; position: absolute; left: 1.2cqw; }
+    .p2-list .anim-tag { left: -4.4cqw; top: 0.3cqw; }
+
+    /* efectos */
+    @keyframes fx-aparecer { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fx-desvanecer { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fx-desplazar { from { transform: translateY(60cqw); } to { transform: none; } }
+    @keyframes fx-flotar { from { opacity: 0; transform: translateY(6cqw); } to { opacity: 1; transform: none; } }
+    @keyframes fx-barrido { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes fx-zoom { from { opacity: 0; transform: scale(0.15); } to { opacity: 1; transform: none; } }
+    @keyframes fx-pulso { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+    @keyframes fx-salida { from { opacity: 1; } to { opacity: 0; } }
+    .fx-aparecer { animation: fx-aparecer 0.01s linear both; }
+    .fx-desvanecer { animation: fx-desvanecer var(--dur, 1s) ease both; }
+    .fx-desplazar { animation: fx-desplazar var(--dur, 1s) ease-out both; }
+    .fx-flotar { animation: fx-flotar var(--dur, 1s) ease-out both; }
+    .fx-barrido { animation: fx-barrido var(--dur, 1s) linear both; }
+    .fx-zoom { animation: fx-zoom var(--dur, 1s) ease-out both; }
+    .fx-pulso { animation: fx-pulso var(--dur, 1s) ease-in-out both; }
+    .fx-salida { animation: fx-salida var(--dur, 1s) ease both; }
+    @media (prefers-reduced-motion: reduce) { .anim-stage [class*="fx-"] { animation-duration: 0.01s !important; } }
+
+    /* panel de animación simulado */
+    .anim-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); gap: 1.25rem; align-items: start; margin-top: 1rem; }
+    @media (max-width: 900px) { .anim-layout { grid-template-columns: minmax(0, 1fr); } }
+    .anim-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .anim-panel h4 { margin: 0; padding: 0.6rem 0.9rem; font-size: 0.85rem; background: var(--surface-soft); border-bottom: 1px solid var(--line); }
+    .anim-rows { list-style: none; margin: 0; padding: 0.4rem; display: grid; gap: 0.35rem; }
+    .anim-row { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr) auto; gap: 0.3rem 0.5rem; align-items: center; padding: 0.45rem 0.5rem; border-radius: 8px; background: var(--surface-soft); font-size: 0.82rem; }
+    .anim-row .n { width: 1.5rem; height: 1.5rem; border-radius: 4px; background: #fed7aa; color: #7c2d12; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+    .anim-row .name { font-weight: 700; color: var(--text); line-height: 1.25; }
+    .anim-row .ctl { grid-column: 2 / -1; display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .anim-mini { cursor: pointer; font: inherit; font-size: 0.8rem; width: 1.9rem; height: 1.7rem; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+    .anim-mini:disabled { opacity: 0.35; cursor: default; }
+    .anim-panel .foot { padding: 0.6rem 0.9rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .anim-panel .foot strong { color: var(--text); }
+    .anim-status { margin: 0.7rem 0 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.85rem; line-height: 1.55; color: var(--text); max-width: 46rem; }
+    .anim-status b { color: var(--primary); }
+    [data-theme="dark"] .anim-status b { color: #93c5fd; }
+    .anim-ok { color: #15803d; font-weight: 700; }
+    [data-theme="dark"] .anim-ok { color: #4ade80; }
+    /* desarrollo: consigna visible y paso a paso desplegable */
+    .paso-det { margin-top: 0.75rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0.1rem 1.1rem; }
+    .paso-det summary { cursor: pointer; font-weight: 700; padding: 0.8rem 0; list-style: none; color: var(--text); font-size: 0.95rem; }
+    .paso-det summary::-webkit-details-marker { display: none; }
+    .paso-det summary::before { content: "+"; display: inline-block; width: 1.1rem; color: var(--primary); font-weight: 800; }
+    .paso-det[open] summary::before { content: "–"; }
+    .paso-det summary:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .paso-det .step-list { margin: 0 0 0.9rem; }
+    .paso-det p.respuesta { margin: 0 0 0.9rem; }
+  </style>
+</head>
+<body>
+  <!-- símbolos reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-person" viewBox="0 0 100 100">
+      <circle cx="50" cy="30" r="17" fill="#f1c9a0"/>
+      <path d="M18 100 C18 66 32 54 50 54 C68 54 82 66 82 100 Z" fill="#e8e8ee"/>
+      <path d="M62 44 L88 30 L88 58 Z" fill="#f59e0b"/>
+      <rect x="84" y="28" width="6" height="32" rx="2" fill="#374151"/>
+    </symbol>
+    <symbol id="i-bubbles" viewBox="0 0 100 70">
+      <ellipse cx="34" cy="26" rx="30" ry="20" fill="#e0527a"/>
+      <path d="M20 40 L10 58 L34 44 Z" fill="#e0527a"/>
+      <ellipse cx="68" cy="38" rx="28" ry="19" fill="#2f75b5"/>
+      <path d="M82 52 L92 68 L70 54 Z" fill="#2f75b5"/>
+    </symbol>
+  </svg>
+
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#para-que">Introducción</a>
+        <a href="#mapa">Mapa de la clase</a>
+        <a href="#t-efectos">Efectos</a>
+        <a href="#t-parrafos">Párrafos</a>
+        <a href="#t-presentar">Presentar</a>
+        <a href="#t-orden">Orden</a>
+        <a href="#errores-comunes">Errores comunes</a>
+        <a href="#recomendaciones">Recomendaciones</a>
+        <a href="#video">Video</a>
+        <a href="#practica">Actividad</a>
+        <a href="#desarrollo">Paso a paso</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 2</p>
+        <h1>Animar objetos en PowerPoint</h1>
+        <p class="lead">
+          En la clase anterior sumaste fondos, formas, SmartArt y tablas a la
+          presentación. Hoy aprendés a <strong>darles movimiento</strong>:
+          hacer que cada objeto aparezca <strong>en el momento y en el orden
+          en que lo explicás</strong>, probar el resultado con la
+          <strong>presentación con diapositivas</strong> y ajustar la
+          secuencia desde el <strong>panel de animación</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa">Ver el mapa de la clase</a>
+          <a class="btn btn-secondary" href="#practica">Ir a la actividad</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 11 · Unidad 2</li>
+          <li>Animaciones y panel de animación</li>
+          <li>Con simuladores interactivos</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Que cada objeto aparezca cuando lo necesitás, no antes</h2>
+        <p>
+          Vas a continuar la presentación <em>PresentaciondeComunicacion</em>:
+          animás el título y la imagen de la portada, los párrafos de una
+          lista y los objetos de la diapositiva 4, y después revisás el orden.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Elegir el objeto</span>
+          <span>Elegir el efecto</span>
+          <span>Ordenar</span>
+          <span>Probar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Probá los simuladores de esta página para entender cada idea y
+            después repetí los pasos en PowerPoint con tu propio archivo. Si
+            algo sale mal, <strong>Ctrl + Z</strong> deshace el último cambio.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PARA QUÉ -->
+    <section class="section" id="para-que">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Introducción teórica</p>
+          <h2>¿Para qué sirve animar objetos?</h2>
+          <p>
+            Una <strong>animación</strong> es un movimiento o un cambio que le
+            ocurre a un objeto de la diapositiva (un cuadro de texto, una
+            imagen, una forma) mientras presentás. Sirve para <strong>dirigir
+            la atención</strong>: si mostrás los cuatro elementos de una
+            diapositiva de golpe, el público lee todo a la vez y deja de
+            escucharte; si aparecen de a uno, mira lo que estás explicando.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Entrada</h3>
+            <p>
+              El objeto <strong>aparece</strong> en la diapositiva: de golpe,
+              desvaneciéndose, entrando desde un costado, etc. Es el tipo más
+              usado y el que trabaja esta clase.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Énfasis</h3>
+            <p>
+              El objeto ya está a la vista y se <strong>destaca</strong>:
+              late, cambia de color o gira. Sirve para marcar una idea
+              importante.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Salida</h3>
+            <p>
+              El objeto <strong>desaparece</strong> de la diapositiva cuando
+              ya no hace falta, para dejar lugar a otro.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Trayectorias de animación</h3>
+            <p>
+              El objeto se <strong>desplaza</strong> siguiendo un recorrido
+              (recto, curvo o dibujado por vos). Es el efecto más llamativo y
+              conviene usarlo muy poco.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Inicio de cada efecto</h3>
+            <p>
+              Cada efecto arranca <strong>al hacer clic</strong>, junto con el
+              anterior o después del anterior. Define si vos manejás el ritmo
+              o si corre solo.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Objetos sin animar</h3>
+            <p>
+              No hace falta animar todo. Un objeto sin animación queda
+              <strong>fijo</strong> durante la presentación: conviene para lo que
+              tiene que estar siempre a la vista, como la decoración o el título de una lista.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Para no confundirlas</p>
+            <h3>Animación y transición no son lo mismo</h3>
+            <ul>
+              <li><strong>Animación:</strong> mueve o muestra <strong>objetos dentro de una diapositiva</strong>. Está en la ficha <strong>Animaciones</strong> y es lo que trabaja esta clase.</li>
+              <li><strong>Transición:</strong> es el efecto que se ve al <strong>pasar de una diapositiva a la siguiente</strong>. Está en la ficha <strong>Transiciones</strong>.</li>
+            </ul>
+          </article>
+
+          <article class="hero-note" style="margin: 0;">
+            <span>Una animación es una apoyatura de lo que decís</span>
+          <p>
+            Como explica el video de la clase, las animaciones acompañan la
+            exposición oral. Por eso hace falta una <strong>planificación de
+            lo que se dice con lo que se muestra</strong>: primero decidís qué
+            querés explicar en cada momento y después elegís cómo aparece cada
+            objeto.
+          </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA DE LA CLASE -->
+    <section class="section alt" id="mapa">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>El mapa de la clase de hoy, en tres metas</h2>
+          <p>
+            La clase tiene tres metas de aprendizaje. Esta tabla las relaciona
+            con los temas de la parte teórica. Al final de la página están la
+            actividad y su explicación paso a paso.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Meta</th>
+                  <th>Qué vas a hacer</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Aprender a animar objetos dentro de las diapositivas</td>
+                  <td><a href="#t-efectos">Efectos</a> · <a href="#t-parrafos">Párrafos</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Utilizar la función de presentación con diapositivas</td>
+                  <td><a href="#t-presentar">Ver el tema →</a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Modificar el orden de las animaciones</td>
+                  <td><a href="#t-orden">Ver el tema →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 1: EFECTOS -->
+    <section class="section" id="t-efectos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 1 · Meta 1</p>
+          <h2>Animar un objeto</h2>
+          <p>
+            Todo se hace desde la ficha <strong>Animaciones</strong>. La regla
+            es siempre la misma: <strong>primero se selecciona el objeto y
+            después se elige el efecto</strong>.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se aplica</p>
+            <h3>Cuatro pasos</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li><strong>Seleccioná el objeto.</strong> En un cuadro de texto, hacé clic en su <strong>borde punteado</strong> (no adentro): así seleccionás el cuadro entero.</li>
+              <li>Abrí la ficha <strong>Animaciones</strong>.</li>
+              <li>Desplegá la galería con la flecha <strong>Más</strong> para ver todos los efectos y elegí uno. PowerPoint te lo muestra apenas lo señalás.</li>
+              <li>Aparece un <strong>número</strong> junto al objeto: indica el orden en que se animará.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para tener en cuenta</p>
+            <h3>Lo que conviene saber</h3>
+            <ul>
+              <li>El botón <strong>Vista previa</strong> reproduce el efecto sin salir de la edición.</li>
+              <li>Para sacar una animación, elegí <strong>Ninguna</strong> en la galería.</li>
+              <li><strong>Copiar animación</strong> (grupo Animación avanzada) pasa el efecto de un objeto a otro; con doble clic lo aplicás a varios.</li>
+              <li>Los nombres de los efectos pueden variar un poco según la versión. Si no encontrás uno, usá uno parecido.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Probalo: los efectos de entrada, énfasis y salida</h3>
+          <p>
+            Tocá un efecto para ver cómo se mueve el título de una diapositiva. El punto de color indica el tipo,
+            como en PowerPoint: <strong>verde</strong> entrada, <strong>amarillo</strong> énfasis, <strong>rojo</strong> salida.
+          </p>
+          <p>
+            Al elegir un efecto aparece un <strong>cuadrito con un número</strong> a la izquierda del título. Es la <strong>etiqueta de orden de animación</strong>:
+            PowerPoint la muestra junto a cada objeto animado, y el <strong>1</strong> indica que es el primero en animarse.
+          </p>
+        </div>
+
+        <div class="anim-ctrls" id="fxChips" role="group" aria-label="Efectos disponibles"></div>
+        <div class="anim-ctrls">
+          <span class="anim-label">Duración</span>
+          <select class="anim-select" id="fxDur" aria-label="Duración del efecto">
+            <option value="0.5">0,5 s</option>
+            <option value="1" selected>1 s</option>
+            <option value="2">2 s</option>
+          </select>
+          <button type="button" class="anim-btn ghost" id="fxReplay">Repetir efecto</button>
+        </div>
+
+        <div class="anim-stage dark" id="fxStage" style="margin-top: 0.9rem;" aria-hidden="true">
+          <div class="anim-obj obj-title-dark" id="fxObj">Técnicas de comunicación no verbal</div>
+          <span class="anim-tag" id="fxTag" style="display:none; left: 5.4%; top: 21%;">1</span>
+        </div>
+        <p class="anim-status" id="fxInfo" role="status" aria-live="polite">Elegí un efecto para empezar.</p>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Efecto</th>
+                  <th>Qué hace</th>
+                  <th>Cuándo conviene</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Aparecer</td>
+                  <td>El objeto surge de golpe, sin movimiento</td>
+                  <td>Es el más sobrio: ideal para presentaciones formales</td>
+                </tr>
+                <tr>
+                  <td>Desvanecer</td>
+                  <td>El objeto se vuelve visible gradualmente</td>
+                  <td>Un efecto suave que sirve casi siempre</td>
+                </tr>
+                <tr>
+                  <td>Desplazar hacia arriba</td>
+                  <td>El objeto entra volando desde el borde inferior hacia su lugar</td>
+                  <td>Para títulos y listas que deben llamar la atención</td>
+                </tr>
+                <tr>
+                  <td>Flotar hacia adentro</td>
+                  <td>Sube con suavidad mientras aparece</td>
+                  <td>Flechas, cuadros de texto y llamadas</td>
+                </tr>
+                <tr>
+                  <td>Barrido</td>
+                  <td>Se revela como si se corriera una cortina</td>
+                  <td>Títulos y encabezados</td>
+                </tr>
+                <tr>
+                  <td>Zoom</td>
+                  <td>Crece desde un punto hasta su tamaño</td>
+                  <td>Imágenes que querés destacar</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 1b: PÁRRAFOS -->
+    <section class="section alt" id="t-parrafos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 1 · Meta 1</p>
+          <h2>Animar un texto párrafo por párrafo</h2>
+          <p>
+            Cuando un cuadro de texto tiene varias viñetas, conviene mostrarlas
+            de a una: así el público <strong>no se adelanta</strong> a leer lo
+            que todavía no explicaste. Al aplicar un efecto a un cuadro con
+            viñetas, PowerPoint anima <strong>cada párrafo por separado</strong>
+            y los numera (1, 2, 3…).
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se hace</p>
+            <h3>Cuatro pasos</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li><strong>Dejá el título sin animar</strong> (queda fijo).</li>
+              <li><strong>Seleccioná el cuadro con las viñetas</strong> haciendo clic en su borde punteado.</li>
+              <li>En la galería de <strong>Animaciones</strong> elegí el efecto (por ejemplo, <strong>Desplazar hacia arriba</strong>).</li>
+              <li>Probalo con la presentación: cada <strong>clic</strong> hace aparecer un párrafo.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Opciones de efectos</p>
+            <h3>Como un objeto o por párrafo</h3>
+            <ul>
+              <li><strong>Por párrafo:</strong> un clic por viñeta. Es lo habitual para listas.</li>
+              <li><strong>Como un objeto:</strong> todo el texto aparece junto con un solo clic.</li>
+              <li>Se cambia en <strong>Opciones de efectos</strong>, dentro de la ficha Animaciones.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Probalo: la diapositiva 2</h3>
+          <p>
+            Elegí cómo se anima el texto y tocá <strong>Presentación con diapositivas</strong>.
+            Después hacé clic en la diapositiva para avanzar, como en una presentación real.
+          </p>
+        </div>
+
+        <div class="anim-ctrls" role="group" aria-label="Secuencia de animación del texto">
+          <span class="anim-label">Secuencia</span>
+          <button type="button" class="anim-chip plain" id="paraModeObj" aria-pressed="false">Como un objeto</button>
+          <button type="button" class="anim-chip plain" id="paraModePar" aria-pressed="true">Por párrafo</button>
+        </div>
+        <div class="anim-ctrls">
+          <button type="button" class="anim-btn" id="paraStart">Presentación con diapositivas</button>
+          <button type="button" class="anim-btn ghost" id="paraNext" disabled>Siguiente clic</button>
+          <button type="button" class="anim-btn ghost" id="paraEnd" disabled>Volver a la edición</button>
+        </div>
+
+        <div class="anim-stage light" id="paraStage" style="margin-top: 0.9rem;" aria-label="Diapositiva 2 de la presentación">
+          <div class="anim-obj p2-title">Técnicas de comunicación no verbales</div>
+          <div class="anim-obj p2-list" id="paraList">
+            <p data-i="0">Es la habilidad más importante para las comunicaciones interpersonales<span class="anim-tag">1</span></p>
+            <p data-i="1">Mirar a otra persona con sinceridad y sin titubear.<span class="anim-tag">2</span></p>
+            <p data-i="2">El problema de la mayoría cuando nos sentimos presionados es mirar a cualquier sitio<span class="anim-tag">3</span></p>
+          </div>
+          <div class="anim-hint" id="paraHint" style="display:none">Clic para avanzar · Esc para salir</div>
+        </div>
+        <p class="anim-status" id="paraInfo" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- TEORÍA 2: PRESENTAR -->
+    <section class="section" id="t-presentar">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 2 · Meta 2</p>
+          <h2>Probar con la presentación con diapositivas</h2>
+          <p>
+            En la vista de edición las animaciones no se ven en acción: solo se
+            ven los números. Para comprobar cómo quedan hay que <strong>ejecutar
+            la presentación</strong>, que muestra la diapositiva a pantalla
+            completa y reproduce los efectos a medida que avanzás.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Quiero…</th>
+                  <th>Cómo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Empezar desde la primera diapositiva</td>
+                  <td>Ficha <strong>Presentación con diapositivas</strong> → <strong>Desde el principio</strong>, o la tecla <kbd>F5</kbd></td>
+                </tr>
+                <tr>
+                  <td>Empezar desde la diapositiva que estoy editando</td>
+                  <td><strong>Desde la diapositiva actual</strong>, o <kbd>Mayús</kbd> + <kbd>F5</kbd>, o el botón de presentación de la barra inferior (a la derecha)</td>
+                </tr>
+                <tr>
+                  <td>Avanzar al siguiente efecto o diapositiva</td>
+                  <td>Clic del mouse, <kbd>→</kbd>, <kbd>Enter</kbd> o la barra espaciadora</td>
+                </tr>
+                <tr>
+                  <td>Retroceder</td>
+                  <td><kbd>←</kbd> o <kbd>Re Pág</kbd></td>
+                </tr>
+                <tr>
+                  <td>Salir y volver a la edición</td>
+                  <td><kbd>Esc</kbd></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Si vas a presentar en otro equipo</p>
+            <h3>Probá las animaciones donde vas a exponer</h3>
+            <p style="margin: 0;">
+              Si abrís el archivo en una versión distinta de PowerPoint, algunos efectos pueden no estar disponibles o verse diferentes.
+              Hacé una prueba completa con <strong>F5</strong> en esa computadora antes de la exposición y, como respaldo, guardá también
+              una copia en <strong>PDF</strong> (sin animaciones).
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para presentaciones importantes</p>
+            <h3>Usá un puntero (control remoto)</h3>
+            <p style="margin: 0;">
+              Un puntero o control remoto permite pasar las diapositivas y los
+              efectos sin tocar el teclado ni el mouse. Así podés
+              <strong>desplazarte por el auditorio</strong> mientras exponés,
+              en lugar de quedarte junto a la computadora.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 3: ORDEN Y PANEL -->
+    <section class="section alt" id="t-orden">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 3 · Meta 3</p>
+          <h2>El panel de animación y el orden de los efectos</h2>
+          <p>
+            El número que aparece junto a cada objeto es su <strong>orden de
+            animación</strong>: se asigna según el momento en que aplicaste
+            el efecto. Si no es el que querés, no hace falta empezar de cero:
+            se reordena desde el <strong>panel de animación</strong>, en
+            <strong>Animaciones → Animación avanzada → Panel de animación</strong>.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se cambia el orden</p>
+            <h3>Tres formas</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li><strong>Arrastrá</strong> un elemento del panel hacia arriba o hacia abajo.</li>
+              <li>O seleccionalo y usá <strong>Reordenar animación</strong>: <strong>Mover antes</strong> / <strong>Mover después</strong>.</li>
+              <li>Los números de la diapositiva se actualizan solos.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Varios objetos a la vez</p>
+            <h3>Seleccionar más de uno</h3>
+            <ul>
+              <li>Hacé clic en el primer objeto y, <strong>manteniendo Ctrl</strong>, clic en cada uno de los demás.</li>
+              <li>Al elegir un efecto, se aplica a <strong>todos juntos</strong>.</li>
+              <li>Aparecen <strong>con un solo clic</strong>: sirve para un conjunto, por ejemplo una llamada y su texto.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Opción de Inicio</th>
+                  <th>Qué significa</th>
+                  <th>Cuándo conviene</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Al hacer clic</td>
+                  <td>El efecto arranca cuando vos hacés clic (o presionás una tecla)</td>
+                  <td>Casi siempre: vos controlás el ritmo de la exposición</td>
+                </tr>
+                <tr>
+                  <td>Con la anterior</td>
+                  <td>Arranca al mismo tiempo que el efecto anterior</td>
+                  <td>Para que dos objetos aparezcan juntos</td>
+                </tr>
+                <tr>
+                  <td>Después de la anterior</td>
+                  <td>Arranca solo, cuando termina el efecto anterior</td>
+                  <td>Una secuencia automática, sin clics</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 0.6rem 0 0;">
+          Además se pueden ajustar la <strong>Duración</strong> y el <strong>Retraso</strong> de cada efecto en el grupo Intervalos de la ficha Animaciones.
+        </p>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Probalo: la diapositiva 4 de la guía</h3>
+          <p>
+            Esta es la diapositiva <em>¿Hacia dónde mirar?</em>. A la derecha está el panel de animación: cambiá el efecto de cada
+            objeto o su orden y mirá cómo se actualizan los números. Después tocá <strong>Presentación con diapositivas</strong>
+            y hacé clic en la diapositiva para ver la secuencia. El botón <strong>Cargar la guía</strong> pone los valores que pide la consigna.
+          </p>
+        </div>
+
+        <div class="anim-layout">
+          <div>
+            <div class="anim-stage light" id="s4Stage" aria-label="Diapositiva 4: ¿Hacia dónde mirar?">
+              <div class="anim-obj s4-static" aria-hidden="true"><svg viewBox="0 0 100 70"><use href="#i-bubbles"></use></svg></div>
+              <div class="anim-obj s4-title" data-o="t">¿Hacia dónde mirar?<span class="anim-tag"></span></div>
+              <div class="anim-obj s4-arrow" data-o="f"><svg viewBox="0 0 60 100" preserveAspectRatio="none"><polygon points="18,0 42,0 42,55 60,55 30,100 0,55 18,55" fill="#2d6cc0"/></svg><span class="anim-tag" style="left:-3cqw"></span></div>
+              <div class="anim-obj s4-call" data-o="c">No se mira directamente a los ojos. Cualquier lugar cerca de los ojos es aceptable. Cualquier otro no lo es.<span class="anim-tag"></span></div>
+              <div class="anim-obj obj-pic s4-pic" data-o="i"><svg viewBox="0 0 100 100"><use href="#i-person"></use></svg><span class="anim-tag"></span></div>
+              <div class="anim-hint" id="s4Hint" style="display:none">Clic para avanzar · Esc para salir</div>
+            </div>
+            <div class="anim-ctrls">
+              <button type="button" class="anim-btn" id="s4Start">Presentación con diapositivas</button>
+              <button type="button" class="anim-btn ghost" id="s4Next" disabled>Siguiente clic</button>
+              <button type="button" class="anim-btn ghost" id="s4End" disabled>Volver a la edición</button>
+            </div>
+          </div>
+
+          <aside class="anim-panel" aria-label="Panel de animación simulado">
+            <h4>Panel de animación</h4>
+            <ul class="anim-rows" id="s4Rows"></ul>
+            <div class="foot" id="s4Foot"></div>
+          </aside>
+        </div>
+        <p class="anim-status" id="s4Info" role="status" aria-live="polite">Los objetos de la diapositiva tienen los efectos que pide la guía. Probá cambiar el orden.</p>
+        <p style="font-size: 0.8rem; color: var(--muted); margin: 0.5rem 0 0; max-width: 46rem;">
+          Nota: las dos figuras de la esquina superior quedan <strong>sin animar</strong> a propósito. En PowerPoint, la llamada y su texto son dos objetos que se seleccionan juntos con
+          <kbd>Ctrl</kbd>; acá se muestran como uno solo.
+        </p>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section alt" id="errores-comunes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando algo no sale como esperabas</p>
+          <h2>Errores comunes de la clase</h2>
+          <p>
+            Casi todos se resuelven mirando qué objeto está seleccionado y cuál es su número de orden.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lo que pasa</th>
+                  <th>Por qué ocurre</th>
+                  <th>Cómo evitarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>El efecto se aplicó al texto y no al cuadro entero (o al revés)</td>
+                  <td>Se hizo clic dentro del cuadro en lugar de en su borde</td>
+                  <td>Seleccionar el cuadro con clic en su <strong>borde punteado</strong></td>
+                </tr>
+                <tr>
+                  <td>No veo el efecto en la diapositiva</td>
+                  <td>En la edición solo se ven los números</td>
+                  <td>Usar <strong>Vista previa</strong> o la <strong>presentación con diapositivas</strong> (<kbd>F5</kbd>)</td>
+                </tr>
+                <tr>
+                  <td>La lista aparece de golpe, aunque tiene efecto</td>
+                  <td>La secuencia está en <strong>Como un objeto</strong></td>
+                  <td>En <strong>Opciones de efectos</strong> elegir <strong>Por párrafo</strong></td>
+                </tr>
+                <tr>
+                  <td>Los objetos aparecen en un orden distinto del pedido</td>
+                  <td>El número sigue el orden en que se aplicó cada efecto</td>
+                  <td>Reordenar en el <strong>panel de animación</strong></td>
+                </tr>
+                <tr>
+                  <td>Dos objetos necesitan dos clics y deberían aparecer juntos</td>
+                  <td>Se animaron por separado</td>
+                  <td>Seleccionarlos juntos con <kbd>Ctrl</kbd> y aplicar el efecto una sola vez, o poner <strong>Con la anterior</strong></td>
+                </tr>
+                <tr>
+                  <td>El efecto que pide la guía no está en la galería</td>
+                  <td>El nombre cambia según la versión de PowerPoint</td>
+                  <td>Elegir un efecto parecido: lo importante es respetar el <strong>orden</strong></td>
+                </tr>
+                <tr>
+                  <td>Una animación se reproduce sola, sin hacer clic</td>
+                  <td>El Inicio está en <strong>Después de la anterior</strong></td>
+                  <td>Cambiarlo a <strong>Al hacer clic</strong> en el grupo Intervalos</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOMENDACIONES -->
+    <section class="section" id="recomendaciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de animar toda tu presentación</p>
+          <h2>Animar con criterio</h2>
+          <p>
+            Tener muchos efectos disponibles no significa usarlos todos. Una animación tiene que
+            <strong>ayudar a entender</strong>, no competir con lo que decís.
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Si querés…</th>
+                  <th>Usá</th>
+                  <th>Cuidá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mostrar una lista punto por punto</td>
+                  <td>Un efecto de entrada <strong>por párrafo</strong></td>
+                  <td>Que el título quede fijo y la lista sea corta</td>
+                </tr>
+                <tr>
+                  <td>Contar un proceso paso a paso</td>
+                  <td>Entrada <strong>al hacer clic</strong> en el orden del proceso</td>
+                  <td>Que el orden numérico coincida con el relato</td>
+                </tr>
+                <tr>
+                  <td>Resaltar una idea clave</td>
+                  <td>Un efecto de <strong>énfasis</strong></td>
+                  <td>Usarlo una o dos veces en toda la presentación</td>
+                </tr>
+                <tr>
+                  <td>Presentar ante un público formal</td>
+                  <td><strong>Aparecer</strong> o <strong>Desvanecer</strong></td>
+                  <td>Evitar efectos llamativos o que giran</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <h3>Pocos tipos de efecto</h3>
+            <p>
+              Dos efectos distintos en toda la presentación dan coherencia. Si cada objeto entra de una forma diferente, el público se distrae.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Efectos breves</h3>
+            <p>
+              Una animación de un segundo o menos no hace esperar. Si dura demasiado, la exposición se vuelve lenta.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Pensá en quien mira</h3>
+            <p>
+              Los movimientos bruscos o los parpadeos molestan a algunas personas. Lo sobrio y suave es más accesible.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Mismos criterios que en las clases anteriores</span>
+          <p>
+            Contraste, pocos colores y poco texto siguen valiendo. Las
+            <a href="clase10.html#recomendaciones">recomendaciones de la clase 10</a>
+            se aplican igual cuando además animás los objetos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="section alt" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material multimedia requerido</p>
+          <h2>Video: Animación de objetos en PowerPoint</h2>
+          <p>
+            Es el video explicativo de la clase (<em>Power Clase 3</em>, de unos 9 minutos). La
+            recomendación de la materia es verlo <strong>dos veces</strong>: la primera para
+            familiarizarte con los contenidos y la segunda con PowerPoint abierto, repitiendo cada paso.
+            Si te queda alguna duda, podés consultar en el <strong>Foro: Dudas y Consultas · Unidad 2</strong>.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/pamggghSupk"
+                title="Unidad 2 – Clase 11: Animación de objetos en PowerPoint"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0.2rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas (tiempos aproximados):</strong>
+                <a href="https://youtu.be/pamggghSupk?t=40" target="_blank" rel="noopener noreferrer">Cinta Animaciones y selección del objeto ~0:40</a> ·
+                <a href="https://youtu.be/pamggghSupk?t=94" target="_blank" rel="noopener noreferrer">Galería de efectos ~1:34</a> ·
+                <a href="https://youtu.be/pamggghSupk?t=142" target="_blank" rel="noopener noreferrer">Números de orden y segundo objeto ~2:22</a> ·
+                <a href="https://youtu.be/pamggghSupk?t=203" target="_blank" rel="noopener noreferrer">Presentación con diapositivas ~3:23</a> ·
+                <a href="https://youtu.be/pamggghSupk?t=242" target="_blank" rel="noopener noreferrer">Panel de animación ~4:02</a> ·
+                <a href="https://youtu.be/pamggghSupk?t=271" target="_blank" rel="noopener noreferrer">Animar párrafos ~4:31</a> ·
+                <a href="https://youtu.be/pamggghSupk?t=375" target="_blank" rel="noopener noreferrer">Diapositiva 4 de la guía ~6:15</a> ·
+                <a href="https://youtu.be/pamggghSupk?t=458" target="_blank" rel="noopener noreferrer">Seleccionar varios objetos ~7:38</a>
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVIDAD -->
+    <section class="section" id="practica">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Actividad</p>
+          <h2>Qué tenés que hacer</h2>
+          <p>
+            Abrí la presentación <strong>"PresentaciondeComunicacion"</strong> con la que venís trabajando y animá sus diapositivas.
+          </p>
+        </div>
+
+        <div class="info-card accent-blue">
+          <p class="card-label">Consignas</p>
+          <ol class="consigna-list">
+            <li>Animá el cuadro de texto <strong>"Técnicas de comunicación no verbal"</strong> con <strong>Desplazar hacia arriba</strong>.</li>
+            <li>Aplicá la <strong>misma animación a la imagen</strong>.</li>
+            <li>Probá cómo quedó con <strong>Presentación con diapositivas</strong>.</li>
+            <li>En la <strong>diapositiva 2</strong>, animá el cuadro con las viñetas con <strong>Desplazar hacia arriba</strong> y probalo. <strong>¿Qué ocurre con cada párrafo?</strong></li>
+            <li>En la <strong>diapositiva 4</strong>, aplicá los efectos de la tabla de abajo, <strong>respetando el orden</strong>, y probalo.</li>
+            <li><strong>Animá todas las diapositivas.</strong> Probá antes todos los estilos de animación.</li>
+          </ol>
+        </div>
+
+        <div class="section-head" style="margin-top: 2rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Diapositiva 4: orden y efectos</h3>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Orden</th>
+                  <th>Objeto</th>
+                  <th>Efecto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Título "¿Hacia dónde mirar?"</td>
+                  <td>Barrido</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Flecha hacia abajo</td>
+                  <td>Flotar hacia adentro</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Imagen de la persona con el parlante</td>
+                  <td>Aparecer</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Llamada con el texto (los dos objetos juntos)</td>
+                  <td>Flotar hacia adentro</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 0.6rem 0 0;">
+          Si alguno de estos efectos no está en tu versión de PowerPoint, usá uno parecido: lo importante es respetar el orden.
+          Podés comprobar tu resultado con el simulador de <a href="#t-orden">la diapositiva 4</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPLICACIÓN PASO A PASO -->
+    <section class="section alt" id="desarrollo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ayuda para la actividad</p>
+          <h2>Explicación paso a paso</h2>
+          <p>
+            Abrí solo la consigna en la que necesitás ayuda. Si no recordás una herramienta, volvé a la parte de teoría correspondiente.
+          </p>
+        </div>
+
+        <details class="paso-det">
+          <summary>Consignas 1 y 2 · Animar el título y la imagen</summary>
+          <ol class="step-list">
+          <li><strong>Seleccioná el cuadro de texto</strong> "Técnicas de comunicación no verbal" haciendo clic en su <strong>borde punteado</strong>.</li>
+          <li>Abrí la ficha <strong>Animaciones</strong> y desplegá la galería con la flecha <strong>Más</strong>.</li>
+          <li>Elegí <strong>Desplazar hacia arriba</strong>. Aparece un <strong>1</strong> junto al cuadro.</li>
+          <li><strong>Seleccioná la imagen</strong> y elegí el mismo efecto. Aparece un <strong>2</strong>. (También podés usar <strong>Copiar animación</strong> para pasar el efecto del título a la imagen.)</li>
+          <li>Con <strong>Vista previa</strong> mirás cómo se mueve cada uno.</li>
+        </ol>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 3 · Probar con la presentación con diapositivas</summary>
+          <ol class="step-list">
+          <li>Ubicate en la diapositiva 1 y presioná <strong>Mayús + F5</strong> (o el botón de presentación de la barra inferior).</li>
+          <li><strong>Hacé clic</strong> una vez: aparece el título. Hacé clic otra vez: aparece la imagen.</li>
+          <li>Presioná <strong>Esc</strong> para volver a la edición.</li>
+          <li>Si el orden no es el que querés, abrí el <strong>panel de animación</strong> y arrastrá los elementos.</li>
+        </ol>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 4 · Animar las viñetas, párrafo por párrafo</summary>
+          <ol class="step-list">
+          <li><strong>Dejá el título fijo</strong>, sin animación.</li>
+          <li><strong>Seleccioná el cuadro con las viñetas</strong> desde su borde punteado.</li>
+          <li>En la galería elegí <strong>Desplazar hacia arriba</strong>.</li>
+          <li>Aparecen los números <strong>1, 2 y 3</strong>: uno por cada párrafo.</li>
+          <li>Probalo con la presentación. <strong>Respuesta a la pregunta:</strong> cada párrafo aparece <strong>por separado</strong>, con un clic para cada uno. Así el público no lee lo que todavía no explicaste.</li>
+        </ol>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 5 · Cuatro efectos en un orden definido (diapositiva 4)</summary>
+          <ol class="step-list">
+          <li><strong>Título:</strong> seleccionalo y elegí <strong>Barrido</strong>. Será el número 1.</li>
+          <li><strong>Flecha:</strong> seleccionala y elegí <strong>Flotar hacia adentro</strong>. Será el 2.</li>
+          <li><strong>Imagen de la persona:</strong> seleccionala y elegí <strong>Aparecer</strong>. Será el 3.</li>
+          <li><strong>Llamada y texto:</strong> hacé clic en uno de los dos y, <strong>manteniendo Ctrl</strong>, clic en el otro. Con los dos seleccionados, elegí <strong>Flotar hacia adentro</strong>. Aparecen juntos como el 4.</li>
+          <li>Abrí el <strong>panel de animación</strong> y comprobá que el orden sea 1, 2, 3, 4. Si no, arrastrá los elementos.</li>
+          <li>Probá la secuencia con la presentación y revisá que cada clic muestre lo que esperabas.</li>
+        </ol>
+          <p class="respuesta" style="font-size: 0.88rem; color: var(--muted);">
+            Si un efecto de la guía no está en tu PowerPoint, como dice el video, usá otra alternativa parecida: lo que cuenta es que el
+            <strong>orden</strong> y el <strong>criterio</strong> se mantengan.
+          </p>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 6 · Completar la animación de todas las diapositivas</summary>
+          <ol class="step-list">
+          <li><strong>Probá primero los efectos disponibles</strong>: pasá el cursor sobre cada uno en la galería para ver cómo se comporta.</li>
+          <li>En cada diapositiva decidí <strong>qué querés explicar primero</strong> y animá los objetos en ese orden.</li>
+          <li>Dejá <strong>sin animar</strong> lo que tiene que estar siempre a la vista (decoración, el título de una lista).</li>
+          <li>Usá <strong>pocos tipos de efecto</strong> para que la presentación se vea coherente (ver <a href="#recomendaciones">Animar con criterio</a>).</li>
+          <li>Probá todo con <strong>F5</strong> de principio a fin y guardá el archivo.</li>
+        </ol>
+        </details>
+      </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="section" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la clase</p>
+          <h2>Compartí qué animaciones te parecieron útiles</h2>
+          <p>
+            La clase se cierra con una <strong>revisión de todo lo visto</strong>. En el <strong>Foro de la Unidad 2</strong>
+            compartí qué aprendiste sobre las herramientas para animar objetos.
+          </p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Identificá</h3>
+            <p>
+              ¿Qué animaciones te resultaron más interesantes para aplicar en futuras presentaciones profesionales, dentro de la cursada o en otras asignaturas?
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Justificá</h3>
+            <p>
+              Un ejemplo concreto ("para mostrar una lista punto por punto, Desplazar hacia arriba por párrafo") es más útil que una lista de efectos.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Sumá tu experiencia</h3>
+            <p>
+              Contá qué paso te costó más y cómo lo resolviste: puede ayudar a otros compañeros que tuvieron la misma duda.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-green">
+            <p class="card-label">Qué te tenés que llevar de esta clase</p>
+            <h3>Animar es dirigir la atención</h3>
+            <ul>
+              <li>Primero se selecciona el objeto; después se elige el efecto.</li>
+              <li>Cada objeto animado tiene un número de orden; se cambia en el panel de animación.</li>
+              <li>Las listas se animan párrafo por párrafo.</li>
+              <li>La presentación con diapositivas (<strong>F5</strong>) es la única forma de ver el resultado real.</li>
+              <li>Pocos efectos, sobrios y coherentes.</li>
+            </ul>
+          </article>
+
+          <article class="hero-note" style="margin: 0;">
+            <span>Guardá todo lo que produzcas</span>
+            <p>
+              Los trabajos que hagas durante el estudio son insumos muy valiosos y de preparación para las
+              <strong>evaluaciones parciales</strong>. Guardá tus notas, apuntes y gráficos: te van a servir.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase10.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 10 · Trabajar con representaciones gráficas</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 2 · Clase 11</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    (function () {
+      const nav = document.querySelector('.topbar-nav');
+      let down = false, startX = 0, left = 0;
+      nav.addEventListener('mousedown', e => { down = true; nav.classList.add('dragging'); startX = e.pageX - nav.offsetLeft; left = nav.scrollLeft; });
+      nav.addEventListener('mouseleave', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mouseup', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mousemove', e => { if (!down) return; e.preventDefault(); nav.scrollLeft = left - (e.pageX - nav.offsetLeft - startX) * 1.5; });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        const r = a.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        nav.scrollBy({ left: r.left + r.width / 2 - (n.left + n.width / 2), behavior: 'smooth' });
+      }));
+    })();
+
+    /* ===== Efectos disponibles ===== */
+    const FX = {
+      aparecer:    { label: 'Aparecer',               tipo: 'Entrada', cls: 'fx-aparecer' },
+      desvanecer:  { label: 'Desvanecer',             tipo: 'Entrada', cls: 'fx-desvanecer' },
+      desplazar:   { label: 'Desplazar hacia arriba', tipo: 'Entrada', cls: 'fx-desplazar' },
+      flotar:      { label: 'Flotar hacia adentro',   tipo: 'Entrada', cls: 'fx-flotar' },
+      barrido:     { label: 'Barrido',                tipo: 'Entrada', cls: 'fx-barrido' },
+      zoom:        { label: 'Zoom',                   tipo: 'Entrada', cls: 'fx-zoom' },
+      pulso:       { label: 'Pulso',                  tipo: 'Énfasis', cls: 'fx-pulso' },
+      salida:      { label: 'Desvanecer (salida)',    tipo: 'Salida',  cls: 'fx-salida' }
+    };
+    const FX_ENTRADA = ['aparecer', 'desvanecer', 'desplazar', 'flotar', 'barrido', 'zoom'];
+
+    function clearFx(el) { Object.keys(FX).forEach(k => el.classList.remove(FX[k].cls)); }
+    function playFx(el, key, dur) {
+      el.classList.remove('pre');
+      clearFx(el);
+      void el.offsetWidth;                      // reinicia la animación
+      el.style.setProperty('--dur', dur + 's');
+      el.classList.add(FX[key].cls);
+    }
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+    /* ===== 1. Probar los efectos ===== */
+    (function () {
+      const box = document.getElementById('fxChips'), obj = document.getElementById('fxObj'),
+            tag = document.getElementById('fxTag'), info = document.getElementById('fxInfo'),
+            durSel = document.getElementById('fxDur');
+      let current = null;
+      Object.keys(FX).forEach(k => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'anim-chip' + (FX[k].tipo === 'Énfasis' ? ' enfasis' : FX[k].tipo === 'Salida' ? ' salida' : '');
+        b.textContent = FX[k].label;
+        b.setAttribute('aria-pressed', 'false');
+        b.dataset.k = k;
+        b.addEventListener('click', () => choose(k));
+        box.appendChild(b);
+      });
+      function show() {
+        if (!current) return;
+        const f = FX[current];
+        playFx(obj, current, durSel.value);
+        tag.style.display = '';
+        info.innerHTML = 'Efecto: <b>' + f.label + '</b> · Tipo: <b>' + f.tipo + '</b> · Inicio: <b>Al hacer clic</b> · Duración: <b>' + durSel.value.replace('.', ',') + ' s</b>. El cuadrito <b>1</b> es la etiqueta de orden: este objeto es el primero en animarse. ' +
+          (f.tipo === 'Salida' ? 'Después de este efecto el objeto desaparece: tocá “Repetir efecto” o elegí otro para volver a verlo.' : '');
+      }
+      function choose(k) {
+        current = k;
+        box.querySelectorAll('.anim-chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.k === k ? 'true' : 'false'));
+        if (FX[k].tipo === 'Salida') { obj.classList.remove('pre'); clearFx(obj); void obj.offsetWidth; }
+        show();
+      }
+      document.getElementById('fxReplay').addEventListener('click', () => {
+        if (!current) { info.textContent = 'Primero elegí un efecto.'; return; }
+        if (FX[current].tipo === 'Salida') { obj.classList.remove('pre'); clearFx(obj); void obj.offsetWidth; }
+        show();
+      });
+      durSel.addEventListener('change', show);
+    })();
+
+    /* ===== 2. Párrafo por párrafo ===== */
+    (function () {
+      const stage = document.getElementById('paraStage'), list = document.getElementById('paraList'),
+            ps = Array.from(list.querySelectorAll('p')), tagEls = Array.from(list.querySelectorAll('.anim-tag')),
+            info = document.getElementById('paraInfo'), hint = document.getElementById('paraHint'),
+            bStart = document.getElementById('paraStart'), bNext = document.getElementById('paraNext'), bEnd = document.getElementById('paraEnd'),
+            mObj = document.getElementById('paraModeObj'), mPar = document.getElementById('paraModePar');
+      let byPar = true, playing = false, shown = 0;
+      function steps() { return byPar ? ps.length : 1; }
+      function edit() {
+        playing = false; shown = 0;
+        stage.classList.remove('presenting'); hint.style.display = 'none';
+        ps.forEach((p, i) => { p.classList.remove('pre'); clearFx(p); });
+        list.classList.remove('pre'); clearFx(list);
+        tagEls.forEach((t, i) => { t.style.display = (byPar || i === 0) ? '' : 'none'; t.textContent = byPar ? i + 1 : '1'; });
+        bStart.disabled = false; bNext.disabled = true; bEnd.disabled = true;
+        info.innerHTML = 'Vista de edición: los números indican el orden. <b>' + plural(steps(), 'clic', 'clics') + '</b> para mostrar todo el texto durante la presentación.';
+      }
+      function start() {
+        playing = true; shown = 0;
+        stage.classList.add('presenting'); hint.style.display = '';
+        ps.forEach(p => { clearFx(p); p.classList.remove('pre'); });
+        if (byPar) ps.forEach(p => p.classList.add('pre'));
+        else { clearFx(list); list.classList.add('pre'); }
+        bStart.disabled = true; bNext.disabled = false; bEnd.disabled = false;
+        info.innerHTML = 'Presentando. Hacé clic en la diapositiva (o en “Siguiente clic”). Faltan <b>' + plural(steps(), 'clic', 'clics') + '</b>.';
+      }
+      function next() {
+        if (!playing) return;
+        if (shown >= steps()) { edit(); return; }
+        if (byPar) playFx(ps[shown], 'desplazar', 0.8);
+        else playFx(list, 'desplazar', 0.8);
+        shown++;
+        info.innerHTML = shown >= steps()
+          ? 'Todo el texto está visible. Un clic más termina la presentación.'
+          : 'Se mostró el párrafo <b>' + shown + '</b>. Faltan <b>' + plural(steps() - shown, 'clic', 'clics') + '</b>: el público lee solo lo que ya explicaste.';
+      }
+      bStart.addEventListener('click', start);
+      bNext.addEventListener('click', next);
+      bEnd.addEventListener('click', edit);
+      stage.addEventListener('click', () => { if (playing) next(); });
+      document.addEventListener('keydown', e => { if (playing && e.key === 'Escape') edit(); });
+      mObj.addEventListener('click', () => { byPar = false; mObj.setAttribute('aria-pressed', 'true'); mPar.setAttribute('aria-pressed', 'false'); edit(); });
+      mPar.addEventListener('click', () => { byPar = true; mPar.setAttribute('aria-pressed', 'true'); mObj.setAttribute('aria-pressed', 'false'); edit(); });
+      edit();
+    })();
+
+    /* ===== 3. Diapositiva 4 y panel de animación ===== */
+    (function () {
+      const stage = document.getElementById('s4Stage'), rowsEl = document.getElementById('s4Rows'),
+            foot = document.getElementById('s4Foot'), info = document.getElementById('s4Info'), hint = document.getElementById('s4Hint'),
+            bStart = document.getElementById('s4Start'), bNext = document.getElementById('s4Next'), bEnd = document.getElementById('s4End');
+      const OBJ = { t: 'Cuadro de texto: título', f: 'Flecha abajo', i: 'Imagen: persona con parlante', c: 'Llamada con texto' };
+      const GUIDE = [{ o: 't', fx: 'barrido' }, { o: 'f', fx: 'flotar' }, { o: 'i', fx: 'aparecer' }, { o: 'c', fx: 'flotar' }];
+      let items = GUIDE.map(x => Object.assign({}, x));
+      let playing = false, shown = 0;
+      const el = o => stage.querySelector('[data-o="' + o + '"]');
+
+      function sync() {
+        // etiquetas numeradas sobre la diapositiva
+        items.forEach((it, i) => { const t = el(it.o).querySelector('.anim-tag'); if (t) t.textContent = i + 1; });
+        // filas del panel
+        rowsEl.innerHTML = '';
+        items.forEach((it, i) => {
+          const li = document.createElement('li'); li.className = 'anim-row';
+          li.innerHTML = '<span class="n">' + (i + 1) + '</span><span class="name">' + OBJ[it.o] + '</span><span></span><div class="ctl"></div>';
+          const ctl = li.querySelector('.ctl');
+          const sel = document.createElement('select'); sel.className = 'anim-select'; sel.setAttribute('aria-label', 'Efecto de ' + OBJ[it.o]);
+          FX_ENTRADA.forEach(k => { const op = document.createElement('option'); op.value = k; op.textContent = FX[k].label; if (k === it.fx) op.selected = true; sel.appendChild(op); });
+          sel.disabled = playing;
+          sel.addEventListener('change', () => { it.fx = sel.value; report(); });
+          const up = document.createElement('button'); up.type = 'button'; up.className = 'anim-mini'; up.textContent = '▲'; up.title = 'Mover antes'; up.setAttribute('aria-label', 'Mover antes ' + OBJ[it.o]); up.disabled = playing || i === 0;
+          const dn = document.createElement('button'); dn.type = 'button'; dn.className = 'anim-mini'; dn.textContent = '▼'; dn.title = 'Mover después'; dn.setAttribute('aria-label', 'Mover después ' + OBJ[it.o]); dn.disabled = playing || i === items.length - 1;
+          up.addEventListener('click', () => { const t = items[i - 1]; items[i - 1] = items[i]; items[i] = t; sync(); report(); });
+          dn.addEventListener('click', () => { const t = items[i + 1]; items[i + 1] = items[i]; items[i] = t; sync(); report(); });
+          ctl.appendChild(sel); ctl.appendChild(up); ctl.appendChild(dn);
+          rowsEl.appendChild(li);
+        });
+        foot.innerHTML = '<button type="button" class="anim-btn ghost" id="s4Guide" style="width:100%">Cargar la guía</button>' +
+          '<div style="margin-top:0.55rem" id="s4Check"></div>';
+        document.getElementById('s4Guide').disabled = playing;
+        document.getElementById('s4Guide').addEventListener('click', () => { items = GUIDE.map(x => Object.assign({}, x)); sync(); report(); });
+        check();
+      }
+      function check() {
+        const diffs = [];
+        items.forEach((it, i) => {
+          const g = GUIDE[i];
+          if (it.o !== g.o) diffs.push('el lugar ' + (i + 1) + ' debería ser “' + OBJ[g.o] + '”');
+          else if (it.fx !== g.fx) diffs.push('“' + OBJ[it.o] + '” debería usar ' + FX[g.fx].label);
+        });
+        const c = document.getElementById('s4Check');
+        if (!c) return;
+        c.innerHTML = diffs.length
+          ? '<strong>Comparación con la consigna 5:</strong> ' + diffs.join('; ') + '.'
+          : '<span class="anim-ok">✓ Coincide con la consigna 5.</span>';
+      }
+      function report() {
+        check();
+        info.innerHTML = 'El orden actual es: ' + items.map((it, i) => '<b>' + (i + 1) + '</b> ' + OBJ[it.o] + ' (' + FX[it.fx].label + ')').join(' · ') + '.';
+      }
+      function reset() {
+        items.forEach(it => { const e = el(it.o); clearFx(e); e.classList.remove('pre'); });
+      }
+      function edit() {
+        playing = false; shown = 0; reset();
+        stage.classList.remove('presenting'); hint.style.display = 'none';
+        bStart.disabled = false; bNext.disabled = true; bEnd.disabled = true;
+        sync(); report();
+      }
+      function start() {
+        playing = true; shown = 0; reset();
+        items.forEach(it => el(it.o).classList.add('pre'));
+        stage.classList.add('presenting'); hint.style.display = '';
+        bStart.disabled = true; bNext.disabled = false; bEnd.disabled = false;
+        sync();
+        info.innerHTML = 'Presentando. Hacé clic en la diapositiva para mostrar el primer objeto: faltan <b>' + plural(items.length, 'clic', 'clics') + '</b>.';
+      }
+      function next() {
+        if (!playing) return;
+        if (shown >= items.length) { edit(); return; }
+        const it = items[shown];
+        playFx(el(it.o), it.fx, 1);
+        shown++;
+        info.innerHTML = shown >= items.length
+          ? 'Terminó la secuencia. Un clic más vuelve a la edición.'
+          : 'Clic ' + shown + ': apareció <b>' + OBJ[it.o] + '</b> con <b>' + FX[it.fx].label + '</b>. Faltan <b>' + plural(items.length - shown, 'clic', 'clics') + '</b>.';
+      }
+      bStart.addEventListener('click', start);
+      bNext.addEventListener('click', next);
+      bEnd.addEventListener('click', edit);
+      stage.addEventListener('click', () => { if (playing) next(); });
+      document.addEventListener('keydown', e => { if (playing && e.key === 'Escape') edit(); });
+      sync(); edit();
+    })();
+  </script>
+</body>
+</html>
