@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 12</title>
+  <meta
+    name="description"
+    content="Clase 12 de Informática Aplicada (M11-19-10), Unidad 2: transiciones de diapositivas en PowerPoint y presentación automática. Efectos de transición, intervalos, Aplicar a todo y trabajo práctico entregable."
+  />
+  <link rel="stylesheet" href="../styles.css?v=6" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== CLASE 12: simulador de transiciones ===== */
+    .anim-ctrls { display: flex; flex-wrap: wrap; gap: 0.5rem 0.6rem; align-items: center; margin: 0.9rem 0 0; }
+    .anim-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 0.15rem; }
+    .anim-chip { cursor: pointer; font: inherit; font-size: 0.84rem; font-weight: 600; padding: 0.4rem 0.85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+    .anim-chip:hover { border-color: var(--primary); }
+    .anim-chip[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .anim-btn { cursor: pointer; font: inherit; font-size: 0.84rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff; }
+    .anim-btn.ghost { background: var(--surface); color: var(--primary); }
+    [data-theme="dark"] .anim-btn.ghost { color: #93c5fd; border-color: #93c5fd; }
+    .anim-btn:hover:not(:disabled) { filter: brightness(1.1); }
+    .anim-btn:disabled { opacity: 0.45; cursor: default; }
+    .anim-btn:focus-visible, .anim-chip:focus-visible, .anim-select:focus-visible, .anim-mini:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .anim-select { font: inherit; font-size: 0.82rem; padding: 0.3rem 0.5rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+    .anim-select:disabled { opacity: 0.5; }
+
+    .anim-stage { position: relative; aspect-ratio: 16 / 9; width: 100%; max-width: 46rem; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-soft); container-type: inline-size; font-family: "Calibri", "Segoe UI", Arial, sans-serif; line-height: 1.2; user-select: none; background: #fff; color: #1f2937; }
+    .anim-stage.presenting { cursor: pointer; box-shadow: 0 0 0 3px var(--primary), var(--shadow-soft); }
+    .anim-obj { position: absolute; }
+    .anim-stage .pre { opacity: 0; visibility: hidden; }
+
+    /* diapositivas del simulador */
+    .tr-slide { position: absolute; inset: 0; overflow: hidden; visibility: hidden; }
+    .tr-slide.cur { visibility: visible; }
+    .tr-slide.dark { background: linear-gradient(180deg, #2c4aa0 0%, #14193a 55%, #05060c 100%); color: #fff; }
+    .tr-slide.light { background: #ffffff; color: #1f2937; }
+    .tr-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 8; }
+    .s1-title { left: 8%; top: 12%; width: 84%; text-align: center; font-size: 8cqw; font-weight: 700; color: #ffd54a; }
+    .s1-pic { left: 38%; top: 52%; width: 24%; height: 40%; }
+    .obj-pic { background: linear-gradient(180deg, #9aa5b5, #5b6475); border-radius: 1.2cqw; display: flex; align-items: flex-end; justify-content: center; }
+    .obj-pic svg { width: 78%; height: 88%; }
+    .p2-title { left: 6%; top: 6%; width: 88%; text-align: center; font-size: 4.8cqw; font-weight: 700; color: #ed7d31; }
+    .p2-list { left: 12%; top: 25%; width: 76%; font-size: 3.4cqw; font-weight: 700; color: #4a86c5; }
+    .p2-list p { position: relative; margin: 0 0 3.2cqw; padding-left: 5cqw; text-align: left; line-height: 1.25; }
+    .p2-list p::before { content: "•"; position: absolute; left: 1.2cqw; }
+    .s4-title { left: 8%; top: 5%; width: 56%; text-align: center; font-size: 6.2cqw; font-weight: 700; }
+    .s4-arrow { left: 29%; top: 20%; width: 6%; height: 14%; }
+    .s4-arrow svg { width: 100%; height: 100%; display: block; }
+    .s4-call { left: 8%; top: 37%; width: 58%; height: 52%; background: #2f75b5; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 7%; font-size: 3.1cqw; font-weight: 600; }
+    .s4-pic { left: 70%; top: 45%; width: 25%; height: 48%; }
+    .s4-static { left: 68%; top: 6%; width: 27%; height: 28%; }
+    .s4-static svg { width: 100%; height: 100%; }
+
+    /* texto de lectura al inicio de cada sección */
+    .lectura-clase { max-width: 46rem; margin: 1.4rem 0 2rem; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 4px solid var(--primary); }
+    .lectura-clase p { margin: 0 0 0.85rem; font-size: 1.04rem; line-height: 1.75; color: var(--text); }
+    .lectura-clase p:last-child { margin-bottom: 0; }
+
+    /* paneles */
+    .anim-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); gap: 1.25rem; align-items: start; margin-top: 1rem; }
+    @media (max-width: 900px) { .anim-layout { grid-template-columns: minmax(0, 1fr); } }
+    .anim-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .anim-panel h4 { margin: 0; padding: 0.6rem 0.9rem; font-size: 0.85rem; background: var(--surface-soft); border-bottom: 1px solid var(--line); }
+    .anim-panel h4.sep { border-top: 1px solid var(--line); }
+    .anim-panel .foot { padding: 0.6rem 0.9rem; border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .anim-panel .foot strong { color: var(--text); }
+    .anim-status { margin: 0.7rem 0 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.85rem; line-height: 1.55; color: var(--text); max-width: 46rem; }
+    .anim-status b { color: var(--primary); }
+    [data-theme="dark"] .anim-status b { color: #93c5fd; }
+
+    /* miniaturas con estrella (panel de diapositivas) */
+    .tr-thumbs { list-style: none; margin: 0; padding: 0.7rem; display: grid; gap: 0.7rem; }
+    .tr-thumb { display: grid; grid-template-columns: 1.4rem minmax(0, 11rem); gap: 0.45rem; align-items: start; }
+    .tr-thumb .num { display: flex; flex-direction: column; align-items: center; font-size: 0.78rem; font-weight: 700; color: var(--muted); gap: 0.15rem; }
+    .tr-star { color: #e5a100; font-size: 0.95rem; line-height: 1; visibility: hidden; }
+    .tr-star.on { visibility: visible; }
+    .tr-mini { aspect-ratio: 16 / 9; border: 2px solid var(--line); border-radius: 4px; position: relative; overflow: hidden; padding: 0.35rem 0.45rem; font-family: "Calibri", "Segoe UI", Arial, sans-serif; }
+    .tr-mini.dark { background: linear-gradient(180deg, #2c4aa0, #05060c); color: #ffd54a; text-align: center; padding-top: 0.5rem; }
+    .tr-mini.light { background: #fff; color: #ed7d31; }
+    .tr-mini b { font-size: 0.6rem; line-height: 1.1; display: block; }
+    .tr-mini i { display: block; height: 0.18rem; margin-top: 0.28rem; border-radius: 1px; background: #9db6dc; }
+    .tr-mini.sel { border-color: #f59e0b; }
+
+    /* mockup del grupo Intervalos */
+    .int-mock { max-width: 30rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 0.9rem 1.1rem; margin-top: 1rem; font-size: 0.88rem; }
+    .int-mock .ttl { margin: 0 0 0.6rem; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .int-mock dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; }
+    .int-mock dt { font-weight: 700; color: var(--text); }
+    .int-mock dd { margin: 0; color: var(--text); }
+    .int-mock .box { display: inline-block; width: 0.95rem; height: 0.95rem; border: 1px solid var(--muted); border-radius: 3px; vertical-align: -2px; margin-right: 0.35rem; text-align: center; line-height: 0.85rem; font-size: 0.75rem; font-weight: 800; }
+    .int-mock .box.on { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+    /* actividad: consigna visible y paso a paso desplegable */
+    .paso-det { margin-top: 0.75rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0.1rem 1.1rem; }
+    .paso-det summary { cursor: pointer; font-weight: 700; padding: 0.8rem 0; list-style: none; color: var(--text); font-size: 0.95rem; }
+    .paso-det summary::-webkit-details-marker { display: none; }
+    .paso-det summary::before { content: "+"; display: inline-block; width: 1.1rem; color: var(--primary); font-weight: 800; }
+    .paso-det[open] summary::before { content: "–"; }
+    .paso-det summary:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .paso-det .step-list { margin: 0 0 0.9rem; }
+    .paso-det p.respuesta { margin: 0 0 0.9rem; }
+    /* lista de control del trabajo práctico */
+    .tp-bar { height: 0.55rem; border-radius: 999px; background: var(--surface-soft); border: 1px solid var(--line); overflow: hidden; margin: 0.6rem 0 0.3rem; }
+    .tp-bar > div { height: 100%; width: 0; background: var(--primary); transition: width 0.25s; }
+    .tp-label { margin: 0 0 0.6rem; font-size: 0.82rem; color: var(--muted); }
+    .tp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+    .tp-list label { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.55rem 0.75rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); cursor: pointer; font-size: 0.92rem; line-height: 1.45; }
+    .tp-list input { margin-top: 0.25rem; width: 1.05rem; height: 1.05rem; accent-color: var(--primary); flex: none; }
+    .tp-list input:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .tp-list input:checked + span { color: var(--muted); text-decoration: line-through; }
+  </style>
+</head>
+<body>
+  <!-- símbolos reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-person" viewBox="0 0 100 100">
+      <circle cx="50" cy="30" r="17" fill="#f1c9a0"/>
+      <path d="M18 100 C18 66 32 54 50 54 C68 54 82 66 82 100 Z" fill="#e8e8ee"/>
+      <path d="M62 44 L88 30 L88 58 Z" fill="#f59e0b"/>
+      <rect x="84" y="28" width="6" height="32" rx="2" fill="#374151"/>
+    </symbol>
+    <symbol id="i-bubbles" viewBox="0 0 100 70">
+      <ellipse cx="34" cy="26" rx="30" ry="20" fill="#e0527a"/>
+      <path d="M20 40 L10 58 L34 44 Z" fill="#e0527a"/>
+      <ellipse cx="68" cy="38" rx="28" ry="19" fill="#2f75b5"/>
+      <path d="M82 52 L92 68 L70 54 Z" fill="#2f75b5"/>
+    </symbol>
+  </svg>
+
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#para-que">Introducción</a>
+        <a href="#mapa">Mapa de la clase</a>
+        <a href="#t-transiciones">Transiciones</a>
+        <a href="#t-automatica">Automática</a>
+        <a href="#errores-comunes">Errores comunes</a>
+        <a href="#recomendaciones">Recomendaciones</a>
+        <a href="#video">Video</a>
+        <a href="#practica">Actividad</a>
+        <a href="#desarrollo">Paso a paso</a>
+        <a href="#tp">Entregable</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 2</p>
+        <h1>Transiciones y presentación automática</h1>
+        <p class="lead">
+          En la clase anterior animaste los objetos <strong>dentro</strong> de
+          cada diapositiva. Hoy trabajás el movimiento <strong>entre</strong>
+          diapositivas: las <strong>transiciones</strong>, que son el efecto con
+          el que una diapositiva da paso a la siguiente, y la
+          <strong>presentación automática</strong>, que avanza sola, sin tocar
+          el mouse.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa">Ver el mapa de la clase</a>
+          <a class="btn btn-secondary" href="#practica">Ir a la actividad</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 12 · Unidad 2</li>
+          <li>Transiciones e intervalos</li>
+          <li>Con simulador de transiciones</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Que la presentación pase de una diapositiva a otra con estilo, y hasta sola</h2>
+        <p>
+          Vas a continuar la presentación <em>PresentaciondeComunicacion</em>:
+          aplicás la transición <strong>Empuje</strong> a la segunda
+          diapositiva, probás otras para el resto y configurás la
+          presentación para que se ejecute <strong>automáticamente</strong>.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Elegir la transición</span>
+          <span>Probarla</span>
+          <span>Configurar intervalos</span>
+          <span>Ejecutar sola</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Probá el simulador de transiciones de esta página para entender la idea y
+            después repetí los pasos en PowerPoint con tu propio archivo. Si
+            algo sale mal, <strong>Ctrl + Z</strong> deshace el último cambio.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PARA QUÉ -->
+    <section class="section" id="para-que">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Introducción teórica</p>
+          <h2>¿Qué es una transición de diapositivas?</h2>
+          <p>
+            Una <strong>transición</strong> es el efecto visual que ocurre al
+            <strong>pasar de una diapositiva a la siguiente</strong>: la nueva
+            puede aparecer de golpe, desvanecerse, empujar a la anterior,
+            entrar como una cortina, etc. Sin transición, el cambio es un corte
+            seco; con una bien elegida, la presentación se siente más fluida.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Cuando presentás con PowerPoint hay dos momentos distintos. Uno es lo que ocurre <strong>dentro</strong> de una diapositiva: los objetos aparecen de a uno, como vimos en la clase anterior con las animaciones. El otro es lo que ocurre <strong>entre</strong> una diapositiva y la siguiente. Ahí actúa la transición.</p>
+          <p>Pensalo como pasar las hojas de un libro: podés darlas vuelta de golpe o con un movimiento más cuidado. Sin transición, la diapositiva nueva reemplaza a la anterior de un golpe, como un corte seco. Con una transición, la nueva puede ir apareciendo de a poco, empujar a la anterior o abrirse como una cortina. El contenido es el mismo; cambia la forma de pasar de una a otra.</p>
+          <p>Hoy vamos a ver dos cosas. La primera, cómo <strong>elegir y aplicar una transición</strong> y cómo probarla. La segunda, cómo lograr que toda la presentación <strong>avance sola</strong>, sin tocar el mouse ni el teclado. Eso se llama presentación automática y sirve, por ejemplo, para una pantalla que muestra información todo el día sin que nadie la maneje.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Transición</h3>
+            <p>
+              Es el efecto del <strong>cambio de diapositiva</strong>. Se
+              configura en la ficha <strong>Transiciones</strong> y se guarda en
+              la diapositiva que <strong>llega</strong>.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Intervalos</h3>
+            <p>
+              Controlan los <strong>tiempos</strong>: cuánto dura el efecto
+              (<em>Duración</em>) y cómo se avanza a la diapositiva siguiente
+              (<em>al hacer clic</em> o <em>después de</em> unos segundos).
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Presentación automática</h3>
+            <p>
+              Es una presentación que <strong>corre sola</strong>: los objetos
+              se animan y las diapositivas avanzan sin que nadie haga clic. Sirve
+              para pantallas informativas, kioscos o videos de apoyo.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Para no confundirlas</p>
+            <h3>Primero la transición, después las animaciones</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Se produce la <strong>transición</strong>: la diapositiva nueva entra a la pantalla.</li>
+              <li>Recién entonces empiezan las <strong>animaciones</strong> de sus objetos, en el orden que configuraste en la clase 11.</li>
+              <li>Cuando termina todo, la presentación pasa a la siguiente diapositiva y se repite el ciclo.</li>
+            </ol>
+          </article>
+
+          <article class="hero-note" style="margin: 0;">
+            <span>El efecto depende del público</span>
+            <p>
+              Como explica el video de la clase, no todas las transiciones sirven
+              en todos los contextos: una muy llamativa puede quedar fuera de
+              lugar en una exposición formal. Antes de elegir, pensá en
+              <strong>el tema y en el auditorio</strong> al que le vas a
+              presentar.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA DE LA CLASE -->
+    <section class="section alt" id="mapa">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>El mapa de la clase de hoy, en dos metas</h2>
+          <p>
+            La clase tiene dos metas de aprendizaje. Esta tabla las relaciona
+            con los temas de la parte teórica. Al final de la página están la
+            actividad, su explicación paso a paso y el trabajo práctico a entregar.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>La clase tiene dos metas y conviene hacerlas en este orden. Primero las <strong>transiciones</strong>: es la parte más sencilla, porque se trata de elegir un efecto de una galería y probarlo. Después la <strong>presentación automática</strong>, que es un poco más delicada porque hay que revisar varias opciones de tiempo.</p>
+          <p>Se hace en este orden porque la presentación automática se apoya en lo anterior: para que la presentación pase sola de una diapositiva a otra, esas diapositivas tienen que estar bien armadas, con sus transiciones y sus animaciones ya configuradas.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Meta</th>
+                  <th>Qué vas a hacer</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Aplicar la función de transición de diapositivas en las presentaciones multimediales</td>
+                  <td><a href="#t-transiciones">Ver el tema →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Configurar una presentación automática</td>
+                  <td><a href="#t-automatica">Ver el tema →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 1: TRANSICIONES -->
+    <section class="section" id="t-transiciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 1 · Meta 1</p>
+          <h2>Aplicar una transición</h2>
+          <p>
+            Todo se hace desde la ficha <strong>Transiciones</strong>. La regla
+            es siempre la misma: <strong>primero se selecciona la diapositiva
+            que va a recibir el efecto y después se elige la transición</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Lo primero que hay que entender es <strong>a qué diapositiva se le aplica</strong> la transición: a la que <strong>llega</strong>, no a la que se va. Si querés que se note el efecto al pasar de la diapositiva 1 a la 2, tenés que seleccionar la 2 y elegir ahí el efecto. Aplicarla a la diapositiva equivocada es el error más común de esta clase.</p>
+          <p>En la ficha <strong>Transiciones</strong> hay una galería con muchos efectos, agrupados en <strong>sutiles</strong> y <strong>llamativos</strong>. Los sutiles son más tranquilos, como Desvanecer, Empuje o Barrido, y los llamativos tienen más movimiento, como Cortinas. Cuál elegir depende del tema y de quién te mira: en una exposición formal conviene lo sobrio, y una transición muy vistosa puede quedar fuera de lugar.</p>
+          <p>Después de elegir un efecto, probalo siempre. El botón <strong>Vista previa</strong> lo muestra al instante sin salir de la edición, y la <strong>presentación con diapositivas</strong> (F5) te deja verlo como lo vería el público. Con <strong>Opciones de efectos</strong> podés cambiar la variante, por ejemplo la dirección desde la que entra la diapositiva.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se aplica</p>
+            <h3>Cinco pasos</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>En el panel de <strong>miniaturas</strong> (a la izquierda), hacé clic en la diapositiva que <strong>llega</strong>. Por ejemplo, la <strong>2</strong> para el paso de la 1 a la 2.</li>
+              <li>Abrí la ficha <strong>Transiciones</strong>.</li>
+              <li>En el grupo <strong>Transición a esta diapositiva</strong>, desplegá la galería con la flecha <strong>Más</strong> y elegí un efecto. Por defecto está en <strong>Ninguno</strong>.</li>
+              <li>Con <strong>Opciones de efectos</strong> cambiás la variante (por ejemplo, la dirección).</li>
+              <li>Junto a la miniatura aparece una <strong>estrella</strong> ★: indica que esa diapositiva tiene transición.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para tener en cuenta</p>
+            <h3>Lo que conviene saber</h3>
+            <ul>
+              <li>El botón <strong>Vista previa</strong> reproduce el efecto sin salir de la edición.</li>
+              <li>Para quitar una transición, elegí <strong>Ninguno</strong>.</li>
+              <li>La transición se ve al <strong>entrar</strong> en la diapositiva: aplicarla a la 2 es lo que se nota al pasar de la 1 a la 2.</li>
+              <li>Para verla funcionando de verdad, usá <strong>Presentación con diapositivas</strong> (<kbd>F5</kbd>, como en la <a href="clase11.html#t-presentar">clase 11</a>).</li>
+              <li>Los nombres de los efectos pueden variar según la versión. Si no encontrás uno, usá uno parecido.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Probalo: la transición de la diapositiva 2</h3>
+          <p>
+            Elegí un efecto y se reproduce el paso de la <strong>diapositiva 1</strong> a la <strong>2</strong>, como la <strong>Vista previa</strong> de PowerPoint.
+            Probá las <strong>Opciones de efectos</strong> y la <strong>Duración</strong>. Fijate que aparece la estrella ★ junto a la miniatura de la diapositiva 2.
+          </p>
+        </div>
+
+        <div class="anim-ctrls" id="trChips" role="group" aria-label="Transiciones disponibles"></div>
+        <div class="anim-ctrls">
+          <label class="anim-label" for="trOpt">Opciones de efectos</label>
+          <select class="anim-select" id="trOpt" aria-label="Opciones de efectos"></select>
+          <label class="anim-label" for="trDur">Duración</label>
+          <select class="anim-select" id="trDur" aria-label="Duración de la transición">
+            <option value="0.5">0,50 s</option>
+            <option value="1" selected>1,00 s</option>
+            <option value="2">2,00 s</option>
+            <option value="3">3,00 s</option>
+          </select>
+          <button type="button" class="anim-btn" id="trPlay">Vista previa</button>
+        </div>
+
+        <div class="anim-layout">
+          <div>
+            <div class="anim-stage" id="trStage" aria-label="Paso de la diapositiva 1 a la diapositiva 2">
+              <div class="tr-flash" id="trFlash"></div>
+            </div>
+          </div>
+          <aside class="anim-panel" aria-label="Panel de miniaturas">
+            <h4>Panel de diapositivas</h4>
+            <ul class="tr-thumbs">
+              <li class="tr-thumb">
+                <span class="num">1<span class="tr-star" aria-hidden="true">★</span></span>
+                <div class="tr-mini dark"><b>Técnicas de comunicación no verbal</b></div>
+              </li>
+              <li class="tr-thumb">
+                <span class="num">2<span class="tr-star" id="trStar" aria-hidden="true">★</span></span>
+                <div class="tr-mini light sel"><b>Técnicas de comunicación no verbales</b><i></i><i></i><i></i></div>
+              </li>
+            </ul>
+            <div class="foot" id="trFoot">Sin transición: la diapositiva 2 aparece de golpe.</div>
+          </aside>
+        </div>
+        <p class="anim-status" id="trInfo" role="status" aria-live="polite">Elegí un efecto para empezar.</p>
+        <p style="font-size: 0.8rem; color: var(--muted); margin: 0.5rem 0 0; max-width: 46rem;">
+          Nota: el simulador reproduce la idea de cada efecto; en PowerPoint el movimiento es más detallado y hay más variantes.
+        </p>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Transición</th>
+                  <th>Qué hace</th>
+                  <th>Cuándo conviene</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ninguno / Cortar</td>
+                  <td>La diapositiva nueva reemplaza a la anterior de golpe</td>
+                  <td>Cuando no querés distracciones o la presentación es muy técnica</td>
+                </tr>
+                <tr>
+                  <td>Desvanecer</td>
+                  <td>La diapositiva nueva se vuelve visible gradualmente</td>
+                  <td>Es la más sobria: sirve casi siempre, incluso en ámbitos formales</td>
+                </tr>
+                <tr>
+                  <td>Empuje</td>
+                  <td>La diapositiva nueva entra empujando a la anterior</td>
+                  <td>Para sensación de continuidad; es la que pide la consigna</td>
+                </tr>
+                <tr>
+                  <td>Barrido</td>
+                  <td>La nueva diapositiva cubre a la anterior desde un borde</td>
+                  <td>Para avanzar en una secuencia, como una lista de pasos</td>
+                </tr>
+                <tr>
+                  <td>Dividir</td>
+                  <td>La nueva se revela desde el centro o desde los bordes</td>
+                  <td>Cuando querés un cambio de tema más marcado</td>
+                </tr>
+                <tr>
+                  <td>Cortinas</td>
+                  <td>La anterior se abre como una cortina y deja ver la nueva</td>
+                  <td>Presentaciones llamativas: conviene usarla muy poco</td>
+                </tr>
+                <tr>
+                  <td>Flash</td>
+                  <td>Un destello blanco da paso a la diapositiva nueva</td>
+                  <td>Para un momento puntual de impacto; evitarla en ámbitos formales</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 0.6rem 0 0;">
+          La galería de PowerPoint tiene más efectos que los del simulador, por ejemplo <em>Transformación, Mostrar, Barras aleatorias,
+          Forma, Revelar, Cubrir, Caer, Tender, Viento</em> y <em>Prestigio</em>. Están agrupados en <strong>sutiles</strong> y
+          <strong>llamativos</strong>: los sutiles son más tranquilos y los llamativos tienen más movimiento.
+        </p>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Consigna 2 de la actividad</p>
+            <h3>Probá antes de elegir</h3>
+            <p style="margin: 0;">
+              Para cada diapositiva pasá el cursor por la galería: PowerPoint muestra el efecto apenas lo señalás. Elegí el que
+              mejor acompaña <strong>el contenido de esa diapositiva</strong>, no el más vistoso.
+            </p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Cuidado con Aplicar a todo</p>
+            <h3>Copia la transición a todas</h3>
+            <p style="margin: 0;">
+              El botón <strong>Aplicar a todo</strong> (grupo Intervalos) copia la configuración de la diapositiva actual a
+              <strong>todas</strong> las demás. Si ya habías elegido transiciones distintas para cada una, pueden pisarse:
+              revisá el resultado después con la <strong>Vista previa</strong>.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 2: AUTOMÁTICA -->
+    <section class="section alt" id="t-automatica">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 2 · Meta 2</p>
+          <h2>Configurar una presentación automática</h2>
+          <p>
+            Para que la presentación avance sin que nadie intervenga hay que
+            configurar <strong>dos cosas</strong>: que cada <strong>objeto
+            animado</strong> arranque solo y que cada <strong>diapositiva</strong>
+            pase a la siguiente después de unos segundos.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Una presentación común es <strong>manual</strong>: PowerPoint se queda esperando que vos hagas clic en dos lugares. Uno es cada objeto animado, que aparece recién cuando hacés clic. El otro es el cambio de diapositiva, que ocurre recién cuando hacés clic otra vez. Para que la presentación sea automática hay que <strong>sacar esas dos esperas</strong>.</p>
+          <p>Por eso se configuran dos cosas. Con los objetos, se cambia el <strong>Inicio</strong> a “Después de la anterior”, así cada uno arranca cuando termina el anterior. Con las diapositivas, se <strong>desmarca</strong> “Al hacer clic con el mouse” y se <strong>marca</strong> “Después de”, escribiendo cuántos segundos queremos que cada diapositiva quede en pantalla. En el video se usan 2 segundos.</p>
+          <p>Como hacerlo diapositiva por diapositiva sería largo, existe el botón <strong>Aplicar a todo</strong>, que copia la configuración a todas las diapositivas de una vez. Al terminar, se prueba con F5 desde el principio: si la presentación se ejecuta sola de principio a fin, quedó bien.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Primera cosa · ficha Animaciones</p>
+            <h3>Los objetos arrancan solos</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Abrí la ficha <strong>Animaciones</strong> y el <strong>panel de animación</strong> (<em>Animación avanzada → Panel de animación</em>).</li>
+              <li>Por defecto cada objeto tiene <strong>Inicio: Al hacer clic</strong>: la presentación se frena y espera un clic.</li>
+              <li>Seleccioná el objeto y, en el grupo <strong>Intervalos</strong>, cambiá <strong>Inicio</strong> a <strong>Después de la anterior</strong> (o <strong>Con la anterior</strong>).</li>
+              <li>Repetilo <strong>con cada objeto</strong> animado de cada diapositiva. Las diapositivas sin animaciones no necesitan este paso.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Segunda cosa · ficha Transiciones</p>
+            <h3>Las diapositivas avanzan solas</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Abrí la ficha <strong>Transiciones</strong> y mirá el grupo <strong>Intervalos</strong>.</li>
+              <li>En <strong>Avanzar a la diapositiva</strong> <strong>desmarcá</strong> <em>Al hacer clic con el mouse</em>.</li>
+              <li><strong>Marcá</strong> <em>Después de</em> y escribí los segundos (en el video, <strong>2 segundos</strong>).</li>
+              <li>Con <strong>Aplicar a todo</strong> la misma configuración queda en todas las diapositivas, en lugar de repetirla una por una.</li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Opción del grupo Intervalos (ficha Transiciones)</th>
+                  <th>Qué controla</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Sonido</td>
+                  <td>Un sonido que se reproduce durante la transición. Por defecto: <em>[Sin sonido]</em></td>
+                </tr>
+                <tr>
+                  <td>Duración</td>
+                  <td>Cuánto <strong>tarda en hacerse el efecto</strong> de la transición (por ejemplo 01,00 s)</td>
+                </tr>
+                <tr>
+                  <td>Al hacer clic con el mouse</td>
+                  <td>La diapositiva pasa a la siguiente cuando hacés clic. Es la opción que hay que <strong>desmarcar</strong> para la presentación automática</td>
+                </tr>
+                <tr>
+                  <td>Después de</td>
+                  <td>Cuántos <strong>segundos espera</strong> la diapositiva antes de pasar a la siguiente (por ejemplo 00:02,00)</td>
+                </tr>
+                <tr>
+                  <td>Aplicar a todo</td>
+                  <td>Copia la configuración de la diapositiva actual a todas las demás</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 0.6rem 0 0;">
+          <strong>Duración</strong> y <strong>Después de</strong> no son lo mismo: la primera es lo que dura el <em>movimiento</em> de la transición; la segunda es el tiempo que
+          la diapositiva <em>queda en pantalla</em> antes de dar paso a la siguiente.
+        </p>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Presentación manual y presentación automática: qué cambia</h3>
+          <p>
+            Esta tabla resume lo que se modifica en PowerPoint, con los valores que usa el video (2 segundos entre diapositivas).
+          </p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Dónde</th>
+                  <th>Presentación manual (valor por defecto)</th>
+                  <th>Presentación automática</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Animaciones → <strong>Inicio</strong> de cada objeto</td>
+                  <td>Al hacer clic</td>
+                  <td>Después de la anterior</td>
+                </tr>
+                <tr>
+                  <td>Transiciones → <strong>Al hacer clic con el mouse</strong></td>
+                  <td>Marcado</td>
+                  <td>Desmarcado</td>
+                </tr>
+                <tr>
+                  <td>Transiciones → <strong>Después de</strong></td>
+                  <td>Desmarcado (00:00,00)</td>
+                  <td>Marcado, con los segundos (por ejemplo 00:02,00)</td>
+                </tr>
+                <tr>
+                  <td>Transiciones → <strong>Aplicar a todo</strong></td>
+                  <td>No hace falta</td>
+                  <td>Se toca una vez para copiar los tiempos a todas las diapositivas</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se ejecuta</p>
+            <h3>Qué pasa al presionar F5</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Aparece la diapositiva 1 y sus objetos se animan <strong>uno tras otro</strong>, sin clics.</li>
+              <li>Cuando terminan, la diapositiva queda en pantalla los segundos indicados en <strong>Después de</strong>.</li>
+              <li>Se produce la <strong>transición</strong> hacia la diapositiva 2, y se repite el ciclo hasta la última.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para tener en cuenta</p>
+            <h3>Si se frena en algún momento</h3>
+            <ul>
+              <li>Revisá los objetos de esa diapositiva: alguno quedó con <strong>Inicio: Al hacer clic</strong>.</li>
+              <li>Revisá el grupo Intervalos de las transiciones: tiene que estar marcado <strong>Después de</strong>.</li>
+              <li>La <strong>última diapositiva</strong> no necesita tiempo de avance: ahí termina la presentación.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section" id="errores-comunes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando algo no sale como esperabas</p>
+          <h2>Errores comunes de la clase</h2>
+          <p>
+            Casi todos se resuelven mirando <strong>qué diapositiva está seleccionada</strong> y <strong>qué opciones del grupo Intervalos están marcadas</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Antes de pensar que PowerPoint falló, hay que saber que casi todos los problemas de esta clase vienen de <strong>una opción que quedó marcada o sin marcar</strong>. No son errores graves: se arreglan en pocos segundos si sabés dónde mirar.</p>
+          <p>La regla práctica es esta: si la presentación se frena, buscá <strong>qué está esperando un clic</strong>. Puede ser un objeto con Inicio “Al hacer clic” o una diapositiva con “Al hacer clic con el mouse” marcado. Y si el efecto se ve en el lugar equivocado, revisá qué diapositiva tenías seleccionada cuando lo aplicaste. Esta tabla junta los casos que más se repiten.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lo que pasa</th>
+                  <th>Por qué ocurre</th>
+                  <th>Cómo evitarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>No veo la transición al editar</td>
+                  <td>En la edición no se reproduce el efecto</td>
+                  <td>Usar <strong>Vista previa</strong> o la <strong>presentación con diapositivas</strong> (<kbd>F5</kbd>)</td>
+                </tr>
+                <tr>
+                  <td>La transición se nota entre las diapositivas equivocadas</td>
+                  <td>La transición se aplica a la diapositiva que <strong>llega</strong>, no a la que sale</td>
+                  <td>Seleccionar la <strong>segunda</strong> diapositiva para el paso de la 1 a la 2</td>
+                </tr>
+                <tr>
+                  <td>La presentación no avanza sola</td>
+                  <td>Sigue marcado <em>Al hacer clic con el mouse</em> o falta marcar <em>Después de</em></td>
+                  <td>Revisar el grupo Intervalos de la ficha Transiciones</td>
+                </tr>
+                <tr>
+                  <td>Se frena en medio de una diapositiva</td>
+                  <td>Algún objeto animado quedó con <em>Inicio: Al hacer clic</em></td>
+                  <td>Cambiar el <strong>Inicio</strong> de cada objeto a <em>Después de la anterior</em> en el panel de animación</td>
+                </tr>
+                <tr>
+                  <td>Todas las diapositivas quedaron con la misma transición</td>
+                  <td><strong>Aplicar a todo</strong> copia la configuración de la diapositiva actual a todas</td>
+                  <td>Configurar los tiempos primero y revisar después el efecto de cada diapositiva con la Vista previa</td>
+                </tr>
+                <tr>
+                  <td>Las diapositivas pasan demasiado rápido para leerlas</td>
+                  <td>El tiempo de <em>Después de</em> es muy corto</td>
+                  <td>Aumentar los segundos, o poner un valor distinto en las diapositivas con más texto</td>
+                </tr>
+                <tr>
+                  <td>La última diapositiva no pasa a ninguna otra</td>
+                  <td>Es lo esperado: la presentación termina ahí</td>
+                  <td>No hace falta configurar el avance de la última</td>
+                </tr>
+                <tr>
+                  <td>El efecto que pide la guía no está en la galería</td>
+                  <td>Los nombres cambian según la versión de PowerPoint</td>
+                  <td>Elegir un efecto parecido: lo importante es aplicar una transición y probarla</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOMENDACIONES -->
+    <section class="section alt" id="recomendaciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de aplicar transiciones a toda tu presentación</p>
+          <h2>Elegir con criterio</h2>
+          <p>
+            Igual que con las animaciones, la transición tiene que <strong>acompañar</strong> lo que decís, no llamar la atención por sí misma.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Que PowerPoint ofrezca muchas transiciones no significa que haya que usarlas todas. Una presentación se recuerda por lo que dice, no por cómo cambian las diapositivas. Si el público se acuerda del efecto y no de lo que explicaste, el efecto distrajo.</p>
+          <p>Por eso, a la hora de elegir conviene <strong>usar pocas transiciones distintas y sobrias</strong>, con una duración corta. En una presentación automática se agrega algo más: como nadie puede frenarte, hay que darle a cada diapositiva el tiempo suficiente para leerla.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Si tu presentación es…</th>
+                  <th>Usá</th>
+                  <th>Cuidá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Formal o académica (un trabajo de la facultad, una reunión)</td>
+                  <td>Transiciones <strong>sutiles</strong>: Desvanecer, Empuje, Barrido</td>
+                  <td>Evitar efectos llamativos que distraigan del contenido</td>
+                </tr>
+                <tr>
+                  <td>Informal o de entretenimiento</td>
+                  <td>Alguna transición <strong>llamativa</strong> puntual</td>
+                  <td>No usar una distinta en cada diapositiva</td>
+                </tr>
+                <tr>
+                  <td>Automática, sin expositor (pantalla informativa)</td>
+                  <td>Transición sobria y tiempos pensados para leer</td>
+                  <td>Dar a cada diapositiva los segundos que necesita su texto</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <h3>Pocos tipos de transición</h3>
+            <p>
+              Una o dos transiciones en toda la presentación dan coherencia. Si cada diapositiva entra de una forma diferente, el público se distrae.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Duración breve</h3>
+            <p>
+              Un efecto de un segundo o menos no hace esperar. Más de dos segundos entre diapositivas vuelve lenta la exposición.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Tiempo para leer</h3>
+            <p>
+              En una presentación automática nadie te puede frenar: calculá los segundos de cada diapositiva según cuánto texto tiene. Con <strong>Presentación con diapositivas → Ensayar intervalos</strong> PowerPoint registra el tiempo que tardás en explicar cada una.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Mismos criterios que en las clases anteriores</span>
+          <p>
+            Contraste, pocos colores y poco texto siguen valiendo. Las
+            <a href="clase10.html#recomendaciones">recomendaciones de la clase 10</a> y las de
+            <a href="clase11.html#recomendaciones">animar con criterio</a> se aplican igual cuando además agregás transiciones.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="section" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material multimedia requerido</p>
+          <h2>Video: Trabajando con transiciones de diapositivas</h2>
+          <p>
+            Es el video explicativo de la clase (<em>Power Clase 4</em>, de unos 7 minutos). La
+            recomendación de la materia es verlo <strong>dos veces</strong>: la primera para
+            familiarizarte con los contenidos y la segunda con PowerPoint abierto, repitiendo cada paso.
+            Si te queda alguna duda, podés consultar en el <strong>Foro: Dudas y Consultas · Unidad 2</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>El video dura unos siete minutos y sigue el mismo orden que esta página: primero muestra qué es una transición y cómo se aplica, y después cómo configurar la presentación automática. Conviene verlo dos veces. La primera, para tener una idea general. La segunda, con PowerPoint abierto, repitiendo cada paso.</p>
+          <p>Mientras lo mirás, fijate en tres cosas: qué transición se aplica a la segunda diapositiva (Empuje), cómo se prueba con la presentación con diapositivas y, al final, qué dos opciones se cambian para que todo corra solo. Los enlaces de abajo llevan directo a cada parte.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/4Ff5HbaWN-w"
+                title="Unidad 2 – Clase 12: Trabajando con transiciones de diapositivas"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0.2rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas (tiempos aproximados):</strong>
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=30" target="_blank" rel="noopener noreferrer">Qué es una transición ~0:30</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=73" target="_blank" rel="noopener noreferrer">Transiciones sutiles y llamativas ~1:13</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=139" target="_blank" rel="noopener noreferrer">Aplicar Empuje ~2:19</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=153" target="_blank" rel="noopener noreferrer">Probarla con la presentación ~2:33</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=203" target="_blank" rel="noopener noreferrer">Presentación automática ~3:23</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=239" target="_blank" rel="noopener noreferrer">Inicio de los objetos ~3:59</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=314" target="_blank" rel="noopener noreferrer">Intervalos de las transiciones ~5:14</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=358" target="_blank" rel="noopener noreferrer">Probar la presentación automática ~5:58</a> ·
+                <a href="https://youtu.be/4Ff5HbaWN-w?t=376" target="_blank" rel="noopener noreferrer">Resumen ~6:16</a>
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVIDAD -->
+    <section class="section alt" id="practica">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Actividad</p>
+          <h2>Qué tenés que hacer</h2>
+          <p>
+            Abrí la presentación <strong>"PresentaciondeComunicacion"</strong> con la que trabajaste la clase anterior y seguí estas consignas.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>La actividad tiene tres consignas que siguen el orden de la clase. Las dos primeras son de <strong>transiciones</strong>: aplicar Empuje a la diapositiva 2 y después elegir otras para el resto. La tercera es de <strong>presentación automática</strong>: configurar los intervalos para que la presentación corra sola.</p>
+          <p>Se trabaja sobre el mismo archivo de la clase anterior, <em>PresentaciondeComunicacion</em>. Antes de empezar conviene guardar una copia, por si algo sale mal. Ante cada consigna, probá el resultado con F5 antes de pasar a la siguiente, así detectás los problemas enseguida.</p>
+        </div>
+
+        <div class="info-card accent-blue">
+          <p class="card-label">Consignas</p>
+          <ol class="consigna-list">
+            <li>Aplicá a la <strong>segunda diapositiva</strong> la transición <strong>“Empuje”</strong>. Probá cómo es el efecto al pasar de la primera diapositiva a la segunda con <strong>Presentación con diapositivas</strong>.</li>
+            <li>Aplicá al <strong>resto de las diapositivas diferentes transiciones</strong>. Probá antes el efecto de cada una para elegir la más conveniente para cada caso.</li>
+            <li>Explorá cómo armar una presentación que <strong>no sea manual</strong> y se ejecute automáticamente: probá las opciones del grupo <strong>“Intervalos”</strong> y hacé que tu presentación se inicie de forma automática, guiándote por los parámetros de la consigna.</li>
+          </ol>
+        </div>
+
+        <div class="int-mock" aria-label="Grupo Intervalos de la ficha Transiciones">
+          <p class="ttl">Grupo Intervalos · ficha Transiciones</p>
+          <dl>
+            <dt>Sonido</dt><dd>[Sin sonido]</dd>
+            <dt>Duración</dt><dd>01,00</dd>
+            <dt>Aplicar a todo</dt><dd>(botón)</dd>
+            <dt>Avanzar a la diapositiva</dt>
+            <dd>
+              <span class="box on" aria-hidden="true">✓</span>Al hacer clic con el mouse<br />
+              <span class="box" aria-hidden="true"></span>Después de: 00:00,00
+            </dd>
+          </dl>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 0.6rem 0 0; max-width: 46rem;">
+          Esta es la captura del grupo que muestra la consigna: tal como está, la presentación <strong>avanza con clic</strong>. Para que sea automática hay que
+          <strong>desmarcar</strong> <em>Al hacer clic con el mouse</em>, <strong>marcar</strong> <em>Después de</em> y poner los segundos. La consigna no indica cuántos:
+          en el video se usan <strong>2 segundos</strong>. Podés comparar tu configuración con la tabla de
+          <a href="#t-automatica">presentación manual y automática</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPLICACIÓN PASO A PASO -->
+    <section class="section" id="desarrollo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ayuda para la actividad</p>
+          <h2>Explicación paso a paso</h2>
+          <p>
+            Abrí solo la consigna en la que necesitás ayuda. Si no recordás una herramienta, volvé a la parte de teoría correspondiente.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Esta sección es una ayuda para cuando te trabes con alguna consigna. Cada desplegable explica una consigna en pasos cortos, con el mismo orden y los mismos nombres de botones que vas a encontrar en PowerPoint. No hace falta leerla entera: abrí solo la parte que necesitás.</p>
+        </div>
+
+        <details class="paso-det">
+          <summary>Consigna 1 · Transición Empuje en la diapositiva 2</summary>
+          <ol class="step-list">
+            <li>En el panel de miniaturas, hacé clic en la <strong>diapositiva 2</strong>.</li>
+            <li>Abrí la ficha <strong>Transiciones</strong>.</li>
+            <li>En la galería <strong>Transición a esta diapositiva</strong> elegí <strong>Empuje</strong>. Aparece una estrella ★ junto a la miniatura.</li>
+            <li>Con <strong>Vista previa</strong> mirás cómo queda.</li>
+            <li>Para probarla de verdad: ubicate en la <strong>diapositiva 1</strong> y presioná <strong>Mayús + F5</strong> (o <strong>F5</strong> para empezar desde el principio). Hacé clic para avanzar: al pasar a la 2 se ve el efecto y <strong>después</strong> se animan sus objetos.</li>
+            <li>Presioná <strong>Esc</strong> para volver a la edición.</li>
+          </ol>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 2 · Transiciones distintas para el resto de las diapositivas</summary>
+          <ol class="step-list">
+            <li>Seleccioná la <strong>diapositiva 3</strong> en el panel de miniaturas.</li>
+            <li>En la ficha <strong>Transiciones</strong> pasá el cursor por la galería y mirá cómo se ve cada efecto (los hay <strong>sutiles</strong> y <strong>llamativos</strong>).</li>
+            <li>Elegí el que mejor acompañe el contenido de esa diapositiva y, si hace falta, ajustalo con <strong>Opciones de efectos</strong>.</li>
+            <li>Repetilo con cada una de las diapositivas restantes.</li>
+            <li>Probá toda la secuencia con <strong>F5</strong>. Si alguna transición queda exagerada para el tema, cambiala.</li>
+          </ol>
+          <p class="respuesta" style="font-size: 0.88rem; color: var(--muted);">
+            Recordá lo que dice el video: no siempre conviene una transición muy llamativa en un contexto formal. Pensá en el tema y en el auditorio.
+          </p>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 3 · Presentación automática</summary>
+          <ol class="step-list">
+            <li><strong>Los objetos.</strong> Abrí la ficha <strong>Animaciones</strong> y el <strong>panel de animación</strong>. En cada diapositiva con animaciones, seleccioná cada objeto y, en el grupo <strong>Intervalos</strong>, cambiá <strong>Inicio</strong> de <em>Al hacer clic</em> a <strong>Después de la anterior</strong>. Si querés, ajustá la <strong>Duración</strong>.</li>
+            <li><strong>Las diapositivas.</strong> Abrí la ficha <strong>Transiciones</strong>. En el grupo <strong>Intervalos</strong>, <strong>desmarcá</strong> <em>Al hacer clic con el mouse</em> y <strong>marcá</strong> <em>Después de</em>.</li>
+            <li>Escribí el tiempo, por ejemplo <strong>00:02,00</strong> (2 segundos, como en el video).</li>
+            <li>Para no repetirlo diapositiva por diapositiva, tocá <strong>Aplicar a todo</strong>.</li>
+            <li>Probala desde el principio: en <strong>Presentación con diapositivas</strong> elegí <strong>Desde el principio</strong> (<kbd>F5</kbd>). Tiene que ejecutarse sola, mostrando las animaciones una tras otra.</li>
+          </ol>
+          <p class="respuesta" style="font-size: 0.88rem; color: var(--muted);">
+            Si se frena, casi siempre hay un objeto que quedó con <em>Al hacer clic</em>, o una diapositiva con <em>Al hacer clic con el mouse</em> marcado. Revisá las dos cosas
+            (ver <a href="#errores-comunes">Errores comunes</a>).
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- TRABAJO PRÁCTICO SUGERIDO -->
+    <section class="section alt" id="tp">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Trabajo práctico · entregable</p>
+          <h2>Entregable: una presentación completa con todo lo de la Unidad 2</h2>
+          <p>
+            Con esta clase terminan los contenidos de las primeras cuatro clases de la Unidad 2. Para formalizar lo aprendido hay un
+            <strong>trabajo práctico entregable</strong>: armar una presentación sobre un tema a elección que cumpla las consignas de abajo y
+            <strong>entregarla en la plataforma</strong>, en el <strong>Foro para Subir Actividades</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>El trabajo práctico es un <strong>entregable</strong>: hay que presentarlo, y se entrega <strong>subiéndolo a la plataforma</strong>. Sirve para juntar en una sola presentación todo lo que se practicó en la unidad. Primero se elige un tema de la lista, el que más te interese. Después se arma una presentación que cumpla ocho consignas.</p>
+          <p>Cada consigna corresponde a algo que ya trabajamos en clase: los fondos y las transparencias, los gráficos SmartArt y las tablas, las animaciones de la clase anterior y, de hoy, las transiciones. Antes de entregar, repasá la lista de control: tienen que estar cumplidas las ocho. Si tenés dudas durante el proceso, tu tutor o tutora te acompaña.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Consigna 1</p>
+            <h3>Elegí un tema de tu interés</h3>
+            <ul>
+              <li>Salud y nuevas tecnologías</li>
+              <li>Software libre y propietario</li>
+              <li>Propiedad de la información: copyright y copyleft</li>
+              <li>Criptografía</li>
+              <li>Hackers y Crackers</li>
+              <li>Virus</li>
+              <li>Inteligencia Artificial</li>
+              <li>Realidad Virtual</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Consigna 2 · tu lista de control</p>
+            <h3>Armá una presentación que cumpla con…</h3>
+            <div class="tp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="tpBar"><div id="tpFill"></div></div>
+            <p class="tp-label" id="tpLabel">0 de 8 consignas cumplidas</p>
+            <ul class="tp-list" id="tpList">
+              <li><label><input type="checkbox" data-k="1" /><span>Al menos <strong>20 diapositivas</strong>.</span></label></li>
+              <li><label><input type="checkbox" data-k="2" /><span><strong>Fondo</strong> en las diapositivas y, en una de ellas, un <strong>fondo con imagen</strong>.</span></label></li>
+              <li><label><input type="checkbox" data-k="3" /><span><strong>Fondos en los cuadros de texto</strong>.</span></label></li>
+              <li><label><input type="checkbox" data-k="4" /><span><strong>Transparencias</strong> en los rellenos de fondo.</span></label></li>
+              <li><label><input type="checkbox" data-k="5" /><span>Gráficos <strong>SmartArt</strong>.</span></label></li>
+              <li><label><input type="checkbox" data-k="6" /><span><strong>Tablas</strong>.</span></label></li>
+              <li><label><input type="checkbox" data-k="7" /><span><strong>Animación</strong> de los objetos de al menos <strong>tres diapositivas</strong>.</span></label></li>
+              <li><label><input type="checkbox" data-k="8" /><span><strong>Transiciones</strong> aplicadas a toda la presentación.</span></label></li>
+            </ul>
+          </article>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 1rem 0 0; max-width: 46rem;">
+          Cada punto se trabajó en una clase: fondos y transparencias en la <a href="clase9.html">9</a> y la <a href="clase10.html">10</a>, SmartArt y tablas en la
+          <a href="clase10.html">10</a>, animaciones en la <a href="clase11.html">11</a> y transiciones en esta. Recordá que contás con el apoyo de tu tutor o tutora durante el proceso de aprendizaje.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase11.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 11 · Animar objetos en PowerPoint</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 2 · Clase 12</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    (function () {
+      const nav = document.querySelector('.topbar-nav');
+      let down = false, startX = 0, left = 0;
+      nav.addEventListener('mousedown', e => { down = true; nav.classList.add('dragging'); startX = e.pageX - nav.offsetLeft; left = nav.scrollLeft; });
+      nav.addEventListener('mouseleave', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mouseup', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mousemove', e => { if (!down) return; e.preventDefault(); nav.scrollLeft = left - (e.pageX - nav.offsetLeft - startX) * 1.5; });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        const r = a.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        nav.scrollBy({ left: r.left + r.width / 2 - (n.left + n.width / 2), behavior: 'smooth' });
+      }));
+    })();
+
+    /* ===== Utilidades compartidas ===== */
+    const REDUCE = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const coma = n => String(n).replace('.', ',');
+
+    const SLIDE_HTML = {
+      1: '<div class="anim-obj s1-title" data-o="t">Técnicas de comunicación no verbal</div>' +
+         '<div class="anim-obj obj-pic s1-pic" data-o="i"><svg viewBox="0 0 100 100"><use href="#i-person"></use></svg></div>',
+      2: '<div class="anim-obj p2-title">Técnicas de comunicación no verbales</div>' +
+         '<div class="anim-obj p2-list" data-o="l">' +
+         '<p>Es la habilidad más importante para las comunicaciones interpersonales</p>' +
+         '<p>Mirar a otra persona con sinceridad y sin titubear.</p>' +
+         '<p>El problema de la mayoría cuando nos sentimos presionados es mirar a cualquier sitio</p></div>',
+      3: '<div class="anim-obj s4-static" aria-hidden="true"><svg viewBox="0 0 100 70"><use href="#i-bubbles"></use></svg></div>' +
+         '<div class="anim-obj s4-title" data-o="t">¿Hacia dónde mirar?</div>' +
+         '<div class="anim-obj s4-arrow" data-o="f"><svg viewBox="0 0 60 100" preserveAspectRatio="none"><polygon points="18,0 42,0 42,55 60,55 30,100 0,55 18,55" fill="#2d6cc0"/></svg></div>' +
+         '<div class="anim-obj s4-call">No se mira directamente a los ojos. Cualquier lugar cerca de los ojos es aceptable. Cualquier otro no lo es.</div>' +
+         '<div class="anim-obj obj-pic s4-pic"><svg viewBox="0 0 100 100"><use href="#i-person"></use></svg></div>'
+    };
+    function makeSlide(n) {
+      const d = document.createElement('div');
+      d.className = 'tr-slide ' + (n === 1 ? 'dark' : 'light');
+      d.innerHTML = SLIDE_HTML[n];
+      return d;
+    }
+
+    /* Transición entre dos diapositivas apiladas (oldEl sale, newEl entra).
+       Devuelve { done: Promise, abort() }. */
+    function playTransition(stage, oldEl, newEl, effect, opt, ms) {
+      const anims = [], extras = [];
+      const D = REDUCE ? 10 : ms;
+      const A = (el, kf, o) => { const a = el.animate(kf, Object.assign({ duration: D, easing: 'ease', fill: 'forwards' }, o)); anims.push(a); return a; };
+      let over = false;
+      const cleanup = () => {
+        if (over) return; over = true;
+        anims.forEach(a => { try { a.cancel(); } catch (e) {} });
+        extras.forEach(e => e.remove());
+        oldEl.classList.remove('cur'); newEl.classList.add('cur');
+        oldEl.style.zIndex = ''; newEl.style.zIndex = '';
+        const fl = stage.querySelector('.tr-flash'); if (fl) fl.style.opacity = '';
+      };
+      oldEl.classList.add('cur'); newEl.classList.add('cur');
+      oldEl.style.zIndex = 1; newEl.style.zIndex = 2;
+
+      if (effect === 'ninguno' || effect === 'cortar') {
+        cleanup();
+        return { done: Promise.resolve(), abort: cleanup };
+      }
+      if (effect === 'desvanecer') {
+        A(newEl, [{ opacity: 0 }, { opacity: 1 }]);
+      } else if (effect === 'empuje') {
+        const v = {
+          bottom: ['translateY(100%)', 'translateY(-100%)'], top: ['translateY(-100%)', 'translateY(100%)'],
+          left: ['translateX(-100%)', 'translateX(100%)'], right: ['translateX(100%)', 'translateX(-100%)']
+        }[opt] || ['translateY(100%)', 'translateY(-100%)'];
+        A(newEl, [{ transform: v[0] }, { transform: 'none' }], { easing: 'ease-in-out' });
+        A(oldEl, [{ transform: 'none' }, { transform: v[1] }], { easing: 'ease-in-out' });
+      } else if (effect === 'barrido') {
+        const s = { right: 'inset(0 0 0 100%)', left: 'inset(0 100% 0 0)', top: 'inset(0 0 100% 0)', bottom: 'inset(100% 0 0 0)' }[opt] || 'inset(0 0 0 100%)';
+        A(newEl, [{ clipPath: s }, { clipPath: 'inset(0 0 0 0)' }], { easing: 'linear' });
+      } else if (effect === 'dividir') {
+        const P = {
+          'v-out': ['inset(0 50% 0 50%)', 'inset(0 0 0 0)'],
+          'h-out': ['inset(50% 0 50% 0)', 'inset(0 0 0 0)'],
+          'v-in': ['polygon(0% 0%, 0% 0%, 0% 100%, 100% 100%, 100% 0%, 100% 0%, 100% 100%, 0% 100%)', 'polygon(0% 0%, 50% 0%, 50% 100%, 50% 100%, 50% 0%, 100% 0%, 100% 100%, 0% 100%)'],
+          'h-in': ['polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%, 0% 100%, 100% 100%, 100% 100%, 0% 100%)', 'polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%, 0% 50%, 100% 50%, 100% 100%, 0% 100%)']
+        }[opt] || ['inset(0 50% 0 50%)', 'inset(0 0 0 0)'];
+        A(newEl, [{ clipPath: P[0] }, { clipPath: P[1] }], { easing: 'linear' });
+      } else if (effect === 'cortinas') {
+        newEl.style.zIndex = 1;
+        oldEl.classList.remove('cur');
+        [['inset(0 50% 0 0)', '-50%'], ['inset(0 0 0 50%)', '50%']].forEach(c => {
+          const k = oldEl.cloneNode(true);
+          k.removeAttribute('id'); k.style.zIndex = 3; k.style.clipPath = c[0]; k.classList.add('cur');
+          stage.appendChild(k); extras.push(k);
+          A(k, [{ transform: 'translateX(0)' }, { transform: 'translateX(' + c[1] + ')' }], { easing: 'ease-in' });
+        });
+      } else if (effect === 'flash') {
+        const fl = stage.querySelector('.tr-flash');
+        A(fl, [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }], { easing: 'ease-in-out' });
+        A(newEl, [{ opacity: 0, offset: 0 }, { opacity: 0, offset: 0.5 }, { opacity: 1, offset: 0.51 }, { opacity: 1, offset: 1 }], { easing: 'linear' });
+      }
+      const done = Promise.all(anims.map(a => a.finished)).then(cleanup, () => {});
+      return { done: done, abort: cleanup };
+    }
+
+    /* ===== 1. Simulador de transiciones ===== */
+    (function () {
+      const TX = {
+        ninguno:    { label: 'Ninguno',    grp: 's', opts: null },
+        cortar:     { label: 'Cortar',     grp: 's', opts: null },
+        desvanecer: { label: 'Desvanecer', grp: 's', opts: null },
+        empuje:     { label: 'Empuje',     grp: 's', opts: [['bottom', 'Desde abajo'], ['left', 'Desde la izquierda'], ['right', 'Desde la derecha'], ['top', 'Desde arriba']] },
+        barrido:    { label: 'Barrido',    grp: 's', opts: [['right', 'Desde la derecha'], ['left', 'Desde la izquierda'], ['bottom', 'Desde abajo'], ['top', 'Desde arriba']] },
+        dividir:    { label: 'Dividir',    grp: 's', opts: [['v-in', 'Vertical hacia dentro'], ['v-out', 'Vertical hacia fuera'], ['h-in', 'Horizontal hacia dentro'], ['h-out', 'Horizontal hacia fuera']] },
+        cortinas:   { label: 'Cortinas',   grp: 'l', opts: null },
+        flash:      { label: 'Flash',      grp: 'l', opts: null }
+      };
+      const stage = document.getElementById('trStage'), flash = document.getElementById('trFlash'),
+            chips = document.getElementById('trChips'), optSel = document.getElementById('trOpt'),
+            durSel = document.getElementById('trDur'), info = document.getElementById('trInfo'),
+            foot = document.getElementById('trFoot'), star = document.getElementById('trStar');
+      const A = makeSlide(1), B = makeSlide(2);
+      stage.insertBefore(A, flash); stage.insertBefore(B, flash);
+      let effect = 'ninguno', opt = null, run = null;
+
+      [['s', 'Sutiles'], ['l', 'Llamativas']].forEach(g => {
+        const lab = document.createElement('span'); lab.className = 'anim-label'; lab.textContent = g[1]; chips.appendChild(lab);
+        Object.keys(TX).filter(k => TX[k].grp === g[0]).forEach(k => {
+          const b = document.createElement('button');
+          b.type = 'button'; b.className = 'anim-chip'; b.textContent = TX[k].label; b.dataset.k = k;
+          b.setAttribute('aria-pressed', k === effect ? 'true' : 'false');
+          b.addEventListener('click', () => choose(k));
+          chips.appendChild(b);
+        });
+      });
+
+      function fillOpts() {
+        optSel.innerHTML = '';
+        const o = TX[effect].opts;
+        if (!o) {
+          const x = document.createElement('option'); x.textContent = '(sin opciones)'; optSel.appendChild(x);
+          optSel.disabled = true; opt = null; return;
+        }
+        optSel.disabled = false;
+        o.forEach(v => { const x = document.createElement('option'); x.value = v[0]; x.textContent = v[1]; optSel.appendChild(x); });
+        opt = o[0][0];
+      }
+      function rest() {
+        if (run) run.abort(); run = null;
+        A.classList.add('cur'); B.classList.remove('cur'); A.style.zIndex = B.style.zIndex = '';
+      }
+      function describe() {
+        const t = TX[effect];
+        const optTxt = t.opts ? t.opts.filter(v => v[0] === opt)[0][1] : null;
+        star.classList.toggle('on', effect !== 'ninguno');
+        if (effect === 'ninguno') {
+          foot.textContent = 'Sin transición: la diapositiva 2 aparece de golpe.';
+          info.innerHTML = 'La diapositiva 2 todavía <b>no tiene transición</b> (Ninguno): al pasar de la 1 a la 2 el cambio es un corte seco. Elegí un efecto para ver la diferencia.';
+          return;
+        }
+        foot.innerHTML = '★ La diapositiva 2 tiene la transición <b>' + t.label + '</b>.';
+        const dur = (effect === 'cortar') ? '' : ' · Duración: <b>' + coma(Number(durSel.value).toFixed(2)) + ' s</b>';
+        info.innerHTML = 'Transición aplicada a la <b>diapositiva 2</b>: <b>' + t.label + '</b>' + (optTxt ? ' · Opciones de efectos: <b>' + optTxt + '</b>' : '') + dur +
+          '. Se ve al pasar de la diapositiva 1 a la 2. La estrella ★ de la miniatura indica que esa diapositiva tiene transición.';
+      }
+      function play() {
+        rest();
+        describe();
+        // deja que el navegador pinte la diapositiva 1 antes de empezar
+        requestAnimationFrame(() => { run = playTransition(stage, A, B, effect, opt, Number(durSel.value) * 1000); });
+      }
+      function choose(k) {
+        effect = k;
+        chips.querySelectorAll('.anim-chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.k === k ? 'true' : 'false'));
+        fillOpts();
+        durSel.disabled = (k === 'ninguno' || k === 'cortar');
+        play();
+      }
+      optSel.addEventListener('change', () => { opt = optSel.value; play(); });
+      durSel.addEventListener('change', play);
+      document.getElementById('trPlay').addEventListener('click', play);
+      fillOpts(); durSel.disabled = true; rest(); describe();
+    })();
+    /* ===== Lista de control del trabajo práctico ===== */
+    (function () {
+      const KEY = 'm11-clase12-tp-v1';
+      const boxes = Array.from(document.querySelectorAll('#tpList input'));
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+      function update() {
+        const n = boxes.filter(b => b.checked).length;
+        document.getElementById('tpLabel').textContent = n + ' de ' + boxes.length + (n === 1 ? ' consigna cumplida' : ' consignas cumplidas');
+        document.getElementById('tpFill').style.width = (n / boxes.length * 100) + '%';
+        document.getElementById('tpBar').setAttribute('aria-valuenow', String(Math.round(n / boxes.length * 100)));
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    })();
+  </script>
+</body>
+</html>
