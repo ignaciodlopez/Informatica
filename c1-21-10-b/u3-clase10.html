@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 10</title>
+  <meta
+    name="description"
+    content="Clase 10 de Informática Aplicada (C1-21-10, Todas las comisiones): formato de tablas, filtros, formato condicional, PROMEDIO, SI anidado, MAX y MIN, gráficos y ordenamiento de datos en Excel."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== ACTIVIDADES ===== */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .progress { height: 0.7rem; background: var(--surface-soft); border-radius: 999px; overflow: hidden; margin: 0.4rem 0 0.2rem; }
+    .progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0; }
+    .chk-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .chk-list li { background: var(--surface-soft); border-radius: 12px; padding: 0.7rem 0.9rem; }
+    .chk-list label { display: flex; gap: 0.7rem; cursor: pointer; align-items: flex-start; }
+    .chk-list input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--accent); flex: none; }
+    .chk-list .chk-txt { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+    .chk-list .chk-txt small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+    .chk-list input:checked + .chk-txt { opacity: 0.6; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
+    .chk-list input:checked + .chk-txt small { text-decoration: none; }
+
+    .vs-page kbd, .fn-page kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    [data-theme="dark"] .la-box .la-link { color: #7db8ff; }
+
+    /* Preguntas frecuentes */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Video cards con miniatura */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+    .video-ask { margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .video-ask b { color: var(--primary); }
+    .video-ans { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+    .video-ans summary { cursor: pointer; font-weight: 700; color: var(--primary); }
+    .video-ans p { margin: 0.4rem 0 0; line-height: 1.55; }
+
+    /* ===== EXCEL DE BOLSILLO (ventana simulada) ===== */
+    .xl {
+      background: #fff;
+      color: #111;
+      border: 1px solid #9ca3af;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: none;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.78rem;
+      margin-top: 0.75rem;
+    }
+    .xl kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    .xl-title { background: #217346; color: #fff; padding: 0.4rem 0.8rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; }
+    .xl-title b { font-weight: 600; }
+    .xl-ribbon { background: #f3f3f3; border-bottom: 1px solid #d4d4d4; display: flex; flex-wrap: wrap; gap: 0; padding: 0 0.4rem; font-size: 0.72rem; overflow-x: auto; white-space: nowrap; }
+    .xl-ribbon span { padding: 0.4rem 0.65rem; color: #374151; }
+    .xl-ribbon span.on { color: #217346; font-weight: 700; border-bottom: 3px solid #217346; background: #fff; }
+    .xl-tools { background: #fff; border-bottom: 1px solid #d4d4d4; padding: 0.35rem 0.7rem; display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; align-items: center; font-size: 0.7rem; color: #4b5563; }
+    .xl-tools i { font-style: normal; border: 1px solid #d4d4d4; border-radius: 3px; padding: 0.05rem 0.4rem; background: #fafafa; color: #111; }
+    .xl-fbar { display: flex; align-items: stretch; border-bottom: 1px solid #d4d4d4; background: #fff; }
+    .xl-name { width: 5.6rem; flex: none; border-right: 1px solid #d4d4d4; padding: 0.3rem 0.5rem; font-weight: 600; background: #fff; display: flex; align-items: center; }
+    .xl-fx { flex: none; width: 2.2rem; display: flex; align-items: center; justify-content: center; font-style: italic; font-weight: 700; color: #6b7280; border-right: 1px solid #d4d4d4; font-family: Georgia, serif; }
+    .xl-input { flex: 1; min-width: 0; border: 0; padding: 0.3rem 0.55rem; font: inherit; background: #fff; color: #111; outline: none; }
+    .xl-input:focus { box-shadow: inset 0 0 0 2px #217346; }
+    .xl-scroll { overflow: auto; max-height: 21rem; outline: none; position: relative; background: #fff; }
+    .xl-scroll:focus-visible { box-shadow: inset 0 0 0 3px #f59e0b; }
+    table.xl-grid { border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 0.78rem; user-select: none; }
+    .xl-grid th, .xl-grid td { border-right: 1px solid #d4d4d4; border-bottom: 1px solid #d4d4d4; height: 1.45rem; padding: 0 0.35rem; white-space: nowrap; line-height: 1.45rem; box-sizing: border-box; }
+    .xl-grid thead th { position: sticky; top: 0; z-index: 3; background: #e6e6e6; font-weight: 500; text-align: center; color: #374151; }
+    .xl-grid th.rh { position: sticky; left: 0; z-index: 2; background: #e6e6e6; width: 2.4rem; min-width: 2.4rem; text-align: center; font-weight: 500; color: #374151; padding: 0; }
+    .xl-grid thead th.corner { left: 0; z-index: 4; }
+    .xl-grid th.hl { background: #d3e8dc !important; color: #14532d; font-weight: 700; }
+    .xl-grid thead th.hl { border-bottom: 2px solid #217346; }
+    .xl-grid th.rh.hl { border-right: 2px solid #217346; }
+    .xl-grid td { cursor: cell; position: relative; background: #fff; }
+    .xl-grid td > span { display: block; overflow: hidden; text-overflow: clip; }
+    .xl-grid td > span.spill { overflow: visible; position: relative; z-index: 1; }
+    .xl-grid td.num { text-align: right; }
+    .xl-grid td.err { text-align: center; }
+    .xl-grid td.inrange { background: #e4f1ea; }
+    .xl-grid td.active { background: #fff; box-shadow: inset 0 0 0 2px #217346; z-index: 1; }
+    .xl-grid td.target { background: #fde68a; }
+    .xl-grid td.target.active { background: #fff; }
+    .xl-grid td.hdr { font-weight: 700; background: #f3f4f6; }
+    .xl-rz { position: absolute; top: 0; right: -3px; width: 7px; height: 100%; cursor: col-resize; z-index: 5; }
+    .xl-rz:hover { background: rgba(33,115,70,0.35); }
+    .xl-sheets { display: flex; align-items: center; background: #f3f3f3; border-top: 1px solid #d4d4d4; padding: 0.25rem 0.5rem 0; gap: 0.25rem; }
+    .xl-sheets span { padding: 0.25rem 0.9rem; font-size: 0.72rem; color: #374151; }
+    .xl-sheets span.on { background: #fff; color: #217346; font-weight: 700; border-bottom: 3px solid #217346; border-radius: 3px 3px 0 0; }
+    .xl-sheets span.plus { font-weight: 800; color: #217346; padding: 0.2rem 0.6rem; }
+    .xl-status { background: #217346; color: #fff; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: 0.25rem 0.8rem; font-size: 0.7rem; }
+    .xl-hint { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    .xl-hint kbd { font-size: 0.78em; }
+    .xl-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 0; }
+    .xl-chip {
+      cursor: pointer;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .xl-chip:hover { border-color: var(--primary); }
+    .xl-chip.bad { border-style: dashed; color: #b91c1c; }
+    .xl-chip:focus-visible, .lab-btn:focus-visible, .fn-sel:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .xl-caption { margin: 0.7rem 0 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.85rem; line-height: 1.55; color: var(--text); }
+    .xl-caption b { color: var(--primary); }
+    .xl-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.55rem 1.2rem; list-style: none; margin: 1rem 0 0; padding: 0; }
+    .xl-legend li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
+    .xl-legend li strong { color: var(--text); }
+    .mk { flex: none; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: #217346; color: #fff; font-size: 0.72rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .xl .mk { width: 1.1rem; height: 1.1rem; font-size: 0.62rem; margin-right: 0.35rem; background: #f59e0b; color: #111; }
+    .xl-ribbon .mk { margin: 0 0.3rem; align-self: center; }
+
+
+    code.f { font-family: Consolas, 'Courier New', monospace; background: var(--surface-soft); border-radius: 4px; padding: 0.05rem 0.4rem; font-size: 0.85em; color: var(--primary); }
+    [data-theme="dark"] code.f { background: rgba(255,255,255,0.1); color: #93c5fd; }
+    kbd {
+      display: inline-block;
+      padding: 0.05rem 0.45rem;
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.8em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+    .topics { margin: 0; padding-left: 1.2rem; color: var(--text); line-height: 1.9; columns: 2; column-gap: 2.5rem; }
+    @media (max-width: 700px) { .topics { columns: 1; } }
+    .plain h3 { margin: 2rem 0 0.4rem; }
+    .plain p { margin: 0.4rem 0; color: var(--muted); max-width: 62rem; line-height: 1.65; }
+    .plain p strong, .plain li strong { color: var(--text); }
+    .plain ul { margin: 0.4rem 0; padding-left: 1.2rem; color: var(--muted); line-height: 1.7; max-width: 62rem; }
+    .plain .table-card { margin: 0.8rem 0; }
+    .rule { margin: 1rem 0 0; padding: 0.7rem 1rem; border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; font-size: 0.92rem; color: var(--text); max-width: 62rem; }
+
+    /* ===== CLASE 9: controles y demos ===== */
+    .xl-ctrls { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; margin: 0.9rem 0 0; }
+    .xl-btn { cursor: pointer; font: inherit; font-size: 0.82rem; font-weight: 700; padding: 0.45rem 0.9rem; border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff; }
+    .xl-btn.ghost { background: var(--surface); color: var(--primary); }
+    [data-theme="dark"] .xl-btn.ghost { color: #93c5fd; border-color: #93c5fd; }
+    .xl-btn:hover { filter: brightness(1.1); }
+    .xl-btn:focus-visible, .xl-field input:focus-visible, .xl-field select:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .xl-field { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .xl-field input[type="text"], .xl-field select { font-size: 0.82rem; font-weight: 600; padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-family: Consolas, 'Courier New', monospace; }
+    .xl-field input[type="text"] { width: 14rem; max-width: 100%; }
+    .xl-field input.short { width: 3.5rem; text-align: center; }
+    .xl-field.chk { gap: 0.35rem; font-weight: 600; cursor: pointer; }
+    .xl-field.chk input { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+    .xl + .xl-caption, .xl-ctrls + .xl { margin-top: 0.75rem; }
+    .xl-pad { overflow-x: auto; background: #fff; }
+    table.xl-simple { border-collapse: collapse; width: 100%; font-size: 0.78rem; color: #111; background: #fff; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .xl-simple th, .xl-simple td { border: 1px solid #d4d4d4; padding: 0 0.6rem; height: 1.6rem; text-align: left; white-space: nowrap; }
+    .xl-simple th { background: #e6e6e6; font-weight: 500; text-align: center; color: #374151; }
+    .xl-simple th.rh { width: 2.4rem; padding: 0; }
+    .xl-simple td.r { text-align: right; }
+    .xl-simple td.mg-head { font-weight: 700; background: #f3f4f6; text-align: center; }
+    .xl-simple td.mg-merged { text-align: center; font-weight: 800; background: #d3e8dc; color: #14532d; outline: 2px solid #217346; outline-offset: -2px; }
+    .xl-simple td.mg-title { position: relative; }
+    .xl-simple td.mg-title span { position: absolute; left: 0.6rem; top: 0.2rem; font-weight: 800; }
+
+    /* pasos numerados y fórmula destacada */
+    .plain h3.paso { display: flex; align-items: center; gap: 0.65rem; margin: 2.4rem 0 0.5rem; }
+    .paso-n { flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.9rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+    .plain p.fx-line { display: inline-block; margin: 0.4rem 0; padding: 0.55rem 0.95rem; border-radius: 10px; background: var(--surface-soft); border: 1px solid var(--line); font-family: Consolas, 'Courier New', monospace; font-size: 0.95rem; font-weight: 700; color: var(--primary); max-width: 100%; overflow-x: auto; }
+    [data-theme="dark"] .plain p.fx-line { color: #93c5fd; }
+
+    /* introducción de cada sección: globo blanco, sin franja de color */
+    .lectura { margin: 1.4rem 0 1.8rem; padding: 1.2rem 1.5rem 1.3rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); max-width: 62rem; }
+    .lectura-label { margin: 0 0 0.55rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .lectura p:not(.lectura-label) { margin: 0; font-size: 1.05rem; line-height: 1.8; color: var(--text); }
+    .lectura p + p:not(.lectura-label) { margin-top: 0.75rem; }
+
+    /* ===== CLASE 10: tablas, filtros, formato condicional y gráficos ===== */
+    .xl-grid td.cf-red { background: #ffc7ce; color: #9c0006; }
+    .xl-grid td.cf-yellow { background: #ffeb9c; color: #9c5700; }
+    .xl-grid td.cf-green { background: #c6efce; color: #006100; }
+    .xl-grid td.cf-dgreen { background: #2e7d32; color: #fff; }
+    .xl-grid td.cf-red.active, .xl-grid td.cf-yellow.active, .xl-grid td.cf-green.active, .xl-grid td.cf-dgreen.active { box-shadow: inset 0 0 0 2px #217346; }
+
+    .tb-wrap { overflow-x: auto; background: #fff; }
+    table.tb { border-collapse: collapse; width: 100%; font-size: 0.78rem; color: #111; background: #fff; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .tb th, .tb td { border: 1px solid #d4d4d4; padding: 0 0.6rem; height: 1.6rem; white-space: nowrap; text-align: left; }
+    .tb th { background: #f3f4f6; font-weight: 700; }
+    .tb td.r, .tb th.r { text-align: right; }
+    .tb.fmt { border-color: #217346; }
+    .tb.fmt th { background: #217346; color: #fff; border-color: #217346; }
+    .tb.fmt td { border-color: #cfe5d8; }
+    .tb.fmt tbody tr:nth-child(even) td { background: #e4f1ea; }
+    .tb.fmt tr.tot td { background: #fff; font-weight: 700; border-top: 2px solid #217346; }
+    .tb tr.tot td { background: #f9fafb; font-weight: 700; }
+    .tb .fa { display: inline-block; margin-left: 0.4rem; padding: 0 0.25rem; border: 1px solid rgba(255,255,255,0.8); border-radius: 2px; background: #fff; color: #217346; font-size: 0.6rem; line-height: 1rem; vertical-align: middle; }
+    .tb .fa.on { background: #fde68a; color: #92400e; border-color: #f59e0b; }
+    .tb td.new { animation: tbnew 1.4s ease-out; }
+    @keyframes tbnew { from { background: #fde68a; } to { background: transparent; } }
+    @media (prefers-reduced-motion: reduce) { .tb td.new { animation: none; } }
+    .tb td.empty { color: #9ca3af; font-style: italic; }
+    .tb td.rn { text-align: center; width: 2.4rem; padding: 0; background: #e6e6e6; color: #374151; font-weight: 500; }
+    .tb td.rn.hot { color: #1d4ed8; font-weight: 700; }
+    .tb th.rn { background: #e6e6e6; color: #374151; width: 2.4rem; padding: 0; }
+
+    .xl-ctrls select, .xl-field select { max-width: 100%; }
+    .xl-field input[type="number"] { font-size: 0.82rem; font-weight: 600; padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); width: 6rem; }
+    .xl-field input[type="number"]:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+
+    .chart-card { background: #fff; color: #111; border: 1px solid #d4d4d4; border-radius: 0 0 8px 8px; padding: 0.6rem 0.8rem 0.9rem; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .chart-card svg { display: block; width: 100%; height: auto; max-height: 21rem; }
+    .chart-card text { font-family: 'Segoe UI', system-ui, sans-serif; fill: #374151; }
+    .chart-card .ct { font-size: 15px; font-weight: 700; fill: #111; }
+    .chart-card .gl { stroke: #e5e7eb; stroke-width: 1; }
+    .chart-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; justify-content: center; margin: 0.3rem 0 0; padding: 0; list-style: none; font-size: 0.74rem; color: #374151; }
+    .chart-legend i { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 2px; margin-right: 0.3rem; vertical-align: -1px; }
+    .chart-pick { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin: 0.7rem 0 0; }
+    .chart-pick .xl-field.chk { font-size: 0.8rem; }
+
+    .cmp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0.9rem; margin-top: 0.75rem; }
+    .cmp-grid .xl { margin-top: 0; }
+    #xlNotas .xl-scroll { max-height: 28rem; }
+    .tb { min-width: 26rem; }
+    .cmp-note { margin: 0.4rem 0 0; font-size: 0.78rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#ruta">Contenidos</a>
+        <a href="#tablas">Formato de tablas</a>
+        <a href="#filtros">Filtros</a>
+        <a href="#condicional">Formato condicional</a>
+        <a href="#funciones">Promedio, SI anidado, MAX y MIN</a>
+        <a href="#graficos">Gráficos</a>
+        <a href="#ordenar">Ordenar datos</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 3</p>
+        <h1>Tablas, filtros, gráficos y funciones en Excel</h1>
+        <p class="lead">
+          Seguimos con la <strong>Unidad 3</strong>: cómo darle formato a una <strong>tabla</strong>, cómo <strong>filtrar</strong> datos,
+          cómo marcar celdas con <strong>formato condicional</strong>, cómo calcular <strong>promedios, máximos y mínimos</strong>,
+          cómo hacer un <strong>gráfico</strong> y cómo <strong>ordenar</strong> una lista.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ruta">Ver los contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 10</li>
+          <li>Microsoft Excel</li>
+          <li>Ejercicio: Alumnos</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Analizar y presentar datos: que la planilla calcule, marque y muestre los resultados</h2>
+        <p>
+          Dar formato de tabla, filtrar, resaltar con colores según una condición, calcular con
+          <code class="f">PROMEDIO</code>, <code class="f">SI</code> anidado, <code class="f">MAX</code> y <code class="f">MIN</code>,
+          graficar y ordenar.
+        </p>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- CONTENIDOS -->
+    <section class="section" id="ruta">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Lo que vamos a ver</p>
+          <h2>Contenidos de la clase</h2>
+          <p>
+            Se apoya en el <strong>capítulo 4 del curso básico de Excel</strong> (formatos de tabla, filtros, formato condicional,
+            gráficos y ordenamiento) y en un archivo de práctica. Las funciones <code class="f">PROMEDIO</code>, <code class="f">MAX</code> y
+            <code class="f">MIN</code> y el <code class="f">SI</code> anidado se usan en el ejercicio; la función <code class="f">SI</code> ya la vimos en la
+            <a href="u3-clase9.html#si">Clase 9</a>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Hasta ahora aprendimos a cargar datos y a hacer cuentas con ellos. Hoy damos el paso siguiente: <strong>analizar</strong> esos datos y <strong>presentarlos</strong> de manera clara. Una lista de notas es difícil de leer; con colores, filtros y un gráfico se entiende de un vistazo quién aprobó y quién no.</p>
+          <p>Son ocho temas: darle formato de tabla a los datos, filtrarlos, pintar celdas según una condición, calcular promedios, máximos y mínimos, tomar decisiones con un SI dentro de otro, hacer un gráfico y ordenar. Al final los aplicamos todos en un ejercicio con las notas de diez alumnos.</p>
+        </div>
+        <ol class="topics">
+          <li>Formatos de tablas</li>
+          <li>Filtros</li>
+          <li>Formato condicional de celdas</li>
+          <li>Función PROMEDIO</li>
+          <li>Función condicional SI anidado</li>
+          <li>Funciones MAX() y MIN()</li>
+          <li>Insertar gráficos</li>
+          <li>Ordenar datos</li>
+          <li>Práctica: Ejercicio 3 · Alumnos</li>
+        </ol>
+
+        <h3>Cómo está organizada la página</h3>
+        <p>
+          Cada tema sigue el mismo orden: primero <strong>qué es y para qué sirve</strong>, después <strong>cómo se hace paso a paso</strong>
+          y un espacio para <strong>probarlo vos</strong>. Los detalles y los errores más comunes están en los desplegables.
+          Las actividades están en la sección <a href="#actividades">Actividades</a>.
+        </p>
+        <p class="rule">
+          Las demostraciones de esta página son <strong>simuladores</strong>: reproducen lo básico de Excel para que practiques sin abrir el programa.
+          En las planillas hacé clic en una celda, escribí y usá las flechas. Las fórmulas se escriben como en Excel en español:
+          <code class="f">;</code> entre argumentos y coma decimal. No reemplazan al archivo de la actividad, que se hace en Excel.
+        </p>
+      </div>
+    </section>
+
+    <!-- FORMATO DE TABLAS -->
+    <section class="section alt" id="tablas">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Formatos de tablas</p>
+          <h2>Dar formato de tabla a los datos</h2>
+          <p>
+            Una lista de datos sueltos es solo un conjunto de celdas. Si le das <strong>formato de tabla</strong>, Excel la reconoce como una unidad
+            y te regala varias ventajas: estilo automático, <strong>filtros</strong>, fórmulas que se copian solas y una <strong>fila de totales</strong>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Imaginá que llevás la lista de personas que te deben plata. Con datos sueltos, cada vez que agregás una fila o una columna tenés que copiar fórmulas y arreglar el aspecto a mano. Con formato de tabla, Excel hace eso por vos.</p>
+          <p>Es como pasar de anotar en una hoja cualquiera a usar un cuaderno con renglones y encabezados: sigue siendo tu lista, pero ahora está ordenada y se mantiene sola.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Cómo se crea</h3>
+        <ol>
+          <li>Hacé clic en cualquier celda de la lista.</li>
+          <li>Andá a <strong>Inicio → Dar formato como tabla</strong> y elegí un estilo (o a <strong>Insertar → Tabla</strong>, o usá <kbd>Ctrl</kbd>+<kbd>T</kbd>).</li>
+          <li>Excel detecta el rango. Confirmá que esté marcado <strong>La tabla tiene encabezados</strong> y aceptá.</li>
+          <li>Aparece la pestaña <strong>Diseño de tabla</strong>. En <strong>Nombre de la tabla</strong> escribí uno propio (por ejemplo <code class="f">Deudas</code>) y presioná <kbd>Enter</kbd>.</li>
+        </ol>
+        <p class="rule"><strong>Sin celdas combinadas:</strong> una tabla no admite celdas combinadas. Si tu encabezado usa <em>Combinar y centrar</em> (como el del ejercicio de hoy), esa zona no se puede convertir en tabla.</p>
+
+        <h3 class="paso"><span class="paso-n">2</span> Probalo: sin tabla y con tabla</h3>
+        <p>
+          Esta lista tiene <strong>Deuda</strong>, <strong>Plazo</strong> e <strong>Interés</strong>. Activá el formato de tabla, agregá una columna calculada y una fila nueva,
+          y fijate qué pasa en cada caso. Después encendé la fila de totales.
+        </p>
+        <div class="xl-ctrls">
+          <button type="button" class="xl-btn" id="tbFmt">1 · Dar formato como tabla</button>
+          <button type="button" class="xl-btn" id="tbCalc">2 · Agregar columna Deuda total</button>
+          <button type="button" class="xl-btn" id="tbRow">3 · Agregar una fila</button>
+          <label class="xl-field chk"><input type="checkbox" id="tbTot" /> Fila de totales</label>
+          <button type="button" class="xl-btn ghost" id="tbReset">Volver a empezar</button>
+        </div>
+        <div class="xl" id="xlTabla">
+          <div class="xl-title"><b>Deudas - Excel</b></div>
+          <div class="tb-wrap"><table class="tb" id="tbTable" aria-label="Lista de deudas"></table></div>
+          <div class="xl-sheets"><span class="on">Tablas</span><span class="plus">＋</span></div>
+        </div>
+        <p class="xl-caption" id="capTabla"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: ventajas, fila de totales y cómo volver a un rango común</summary>
+          <p>
+            <strong>Ventajas del formato de tabla:</strong> el estilo (colores y filas alternadas) se aplica solo; al escribir debajo o al lado, la tabla <strong>crece sola</strong>;
+            una fórmula escrita en una celda de una columna se completa en <strong>toda la columna</strong>; cada columna trae su <strong>filtro</strong>; y se puede mostrar una <strong>fila de totales</strong>.
+          </p>
+          <ul>
+            <li><strong>Fila de totales:</strong> en <strong>Diseño de tabla</strong>, tildá <strong>Fila de totales</strong>. Hacé clic en la celda de cada columna y elegí la operación: <em>Suma, Promedio, Cuenta, Máx, Mín…</em>
+              Para ese cálculo Excel usa la función <code class="f">SUBTOTALES</code>, que <strong>respeta los filtros</strong> (suma solo lo que se ve).</li>
+            <li><strong>Columnas calculadas:</strong> si escribís <code class="f">=Deuda+Interés</code> señalando las columnas con el mouse, Excel escribe referencias como <code class="f">[@Deuda]</code> y las aplica a todas las filas.</li>
+            <li><strong>Volver a un rango común:</strong> <strong>Diseño de tabla → Convertir en rango</strong>.</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> dejar desmarcada la opción de encabezados (Excel inventa los títulos <em>Columna1, Columna2…</em>), intentar crear la tabla sobre celdas combinadas y dejar filas o columnas totalmente vacías en medio de la lista.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- FILTROS -->
+    <section class="section" id="filtros">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Filtros</p>
+          <h2>Mostrar solo los datos que te interesan</h2>
+          <p>
+            Un <strong>filtro</strong> es una lista desplegable en cada encabezado que permite <strong>ocultar temporalmente</strong> las filas que no cumplen una condición.
+            Los datos no se borran: solo dejan de verse.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Cuando la lista es larga, buscar a ojo es lento. Un filtro te permite preguntarle a la planilla cosas como “¿quiénes son de sexo femenino?” o “¿quién me debe más de dos mil dólares?”, y mostrar solo esa respuesta.</p>
+          <p>Se pueden combinar filtros de varias columnas: cada uno achica más el resultado. Y como las filas no se borran, al quitar el filtro todo vuelve a aparecer.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Cómo se usa</h3>
+        <ol>
+          <li>Si la lista tiene formato de tabla, los filtros ya están (las flechitas de los encabezados). Si no, ubicate en la lista y usá <strong>Datos → Filtro</strong> (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>L</kbd>).</li>
+          <li>Hacé clic en la flechita de la columna. Para texto, desmarcá <strong>Seleccionar todo</strong> y tildá los valores que querés ver.</li>
+          <li>Para números usá <strong>Filtros de número</strong> → <em>Mayor o igual que…</em>, <em>Entre…</em>, <em>Diez mejores…</em>.</li>
+          <li>Una columna filtrada muestra un <strong>embudito</strong> en su flecha, y los números de fila se ponen <strong>azules</strong>.</li>
+          <li>Para quitar los filtros: <strong>Datos → Filtro</strong> otra vez (o <em>Borrar</em> para limpiar y dejar los botones).</li>
+        </ol>
+
+        <h3 class="paso"><span class="paso-n">2</span> Probalo: ¿quién debe más de 2.000?</h3>
+        <p>
+          Combiná los tres filtros. Con <strong>Sexo = M</strong> y <strong>Deuda ≥ 2000</strong> reproducís el ejemplo del video.
+        </p>
+        <div class="xl-ctrls">
+          <label class="xl-field">Sexo
+            <select id="fSexo"><option value="">(Todos)</option><option value="F">F</option><option value="M">M</option></select>
+          </label>
+          <label class="xl-field">Plazo
+            <select id="fPlazo"><option value="">(Todos)</option><option value="30">30</option><option value="45">45</option><option value="60">60</option></select>
+          </label>
+          <label class="xl-field">Deuda mayor o igual que
+            <input type="number" id="fDeuda" min="0" step="100" placeholder="0" />
+          </label>
+          <button type="button" class="xl-btn ghost" id="fClear">Borrar filtros</button>
+        </div>
+        <div class="xl" id="xlFiltros">
+          <div class="xl-title"><b>Deudas - Excel</b></div>
+          <div class="tb-wrap"><table class="tb fmt" id="fTable" aria-label="Lista de deudas con filtros"></table></div>
+          <div class="xl-status"><span class="st-l" id="fStatus"></span><span class="st-r" id="fSum"></span></div>
+        </div>
+        <p class="xl-caption" id="capFiltros"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: filtro por color, buscar en el filtro y errores comunes</summary>
+          <ul>
+            <li><strong>Buscar en el filtro:</strong> en la lista desplegable hay un cuadro de búsqueda; sirve cuando hay muchos valores distintos.</li>
+            <li><strong>Filtros de texto:</strong> <em>Comienza con…</em>, <em>Contiene…</em>, <em>No contiene…</em>.</li>
+            <li><strong>Filtro por color:</strong> si pintaste celdas (a mano o con formato condicional) se puede filtrar por su color.</li>
+            <li><strong>Los totales:</strong> la fila de totales de una tabla suma solo las filas visibles; <code class="f">SUMA</code> común suma también las ocultas.</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> creer que se perdieron datos (están ocultos: quitá el filtro), olvidar que hay otra columna filtrada, y filtrar una lista con celdas combinadas o filas vacías en medio.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- FORMATO CONDICIONAL -->
+    <section class="section alt" id="condicional">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Formato condicional de celdas</p>
+          <h2>Que las celdas cambien de color solas</h2>
+          <p>
+            El <strong>formato condicional</strong> aplica un formato (color de relleno, color de letra, barras, íconos) a las celdas que <strong>cumplen una condición</strong>.
+            Si el dato cambia, el color se actualiza solo.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Pensá en un semáforo: verde si todo está bien, amarillo si hay que prestar atención y rojo si hay un problema. Eso mismo se puede hacer en una planilla: las notas aprobadas en verde, las pendientes en amarillo y las reprobadas en rojo, sin pintar nada a mano.</p>
+          <p>La clave es que el color depende del <strong>contenido</strong> de la celda. Si corregís una nota, el color se acomoda solo.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Cómo se aplica</h3>
+        <ol>
+          <li>Seleccioná las celdas que querés formatear (por ejemplo la columna <strong>Estado</strong>).</li>
+          <li><strong>Inicio → Formato condicional → Reglas para resaltar celdas</strong>.</li>
+          <li>Elegí el tipo de regla: <em>Es mayor que…</em>, <em>Es menor que…</em>, <em>Entre…</em>, <em>Es igual a…</em>, <em>Texto que contiene…</em>, <em>Fecha</em>, <em>Valores duplicados</em>.</li>
+          <li>Escribí el valor o texto (por ejemplo <code class="f">Aprobado</code>), elegí el formato y aceptá. Repetí con una regla por cada color.</li>
+        </ol>
+        <p>
+          Otras opciones del mismo menú: <strong>Reglas superiores e inferiores</strong>, <strong>Barras de datos</strong>, <strong>Escalas de color</strong> y <strong>Conjuntos de íconos</strong>.
+          Para ver, editar o borrar las reglas existentes: <strong>Formato condicional → Administrar reglas</strong>.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">2</span> Probalo: aprobado, pendiente o reprobado</h3>
+        <p>
+          La columna <strong>Estado</strong> se calcula con un <code class="f">SI</code> dentro de otro, usando los umbrales de <strong>B1</strong> y <strong>B2</strong>.
+          Cambiá una nota o un umbral y mirá cómo se actualiza el texto y el color. Usá el botón para encender y apagar el formato condicional.
+        </p>
+        <div class="xl-ctrls">
+          <button type="button" class="xl-btn" id="cfToggle">Formato condicional: activado</button>
+        </div>
+        <div class="xl" id="xlCond" data-cols="4" data-rows="12"></div>
+        <p class="xl-caption" id="capCond"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: tres reglas, administrar reglas y barras de datos</summary>
+          <p>
+            En el video se crearon <strong>tres reglas de “Texto que contiene”</strong> sobre la misma selección: <em>Aprobado</em> en verde, <em>Pendiente</em> en amarillo y <em>Reprobado</em> en rojo.
+            Se usa una regla por cada resultado posible.
+          </p>
+          <ul>
+            <li><strong>Cuidado con “contiene”:</strong> la palabra <em>Aprobado</em> está dentro de <em>Reprobado</em> si escribís solo “probado”. Escribí la palabra completa o usá la regla <em>Es igual a…</em>.</li>
+            <li><strong>Barras de datos:</strong> dibujan una barra dentro de la celda proporcional al valor. Por defecto el valor más alto llena la celda entera; para corregirlo se edita la regla (<em>Administrar reglas → Editar regla</em>) y se fija el mínimo y el máximo como <strong>Número</strong> (por ejemplo 0 y 1 para porcentajes, o 0 y 10 para notas).</li>
+            <li><strong>Borrar reglas:</strong> <em>Formato condicional → Borrar reglas → de las celdas seleccionadas / de toda la hoja</em>.</li>
+          </ul>
+          <p><strong>Errores comunes:</strong> aplicar la regla a una sola celda en lugar de a toda la columna, y escribir la condición con un texto distinto del que devuelve la fórmula (por ejemplo con tilde o espacios de más).</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- FUNCIONES -->
+    <section class="section" id="funciones">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Funciones PROMEDIO, SI anidado, MAX y MIN</p>
+          <h2>Calcular y decidir con varias condiciones</h2>
+          <p>
+            Cuatro herramientas para el ejercicio de hoy: <code class="f">PROMEDIO</code> para sacar el promedio, <code class="f">MAX</code> y <code class="f">MIN</code>
+            para encontrar el mayor y el menor, y el <strong>SI anidado</strong> para elegir entre más de dos resultados.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Con un solo SI la planilla elige entre dos opciones: aprobado o desaprobado. Pero una nota puede tener cuatro categorías: insuficiente, aprobado, notable y excelente. Para eso se ponen varios SI, uno dentro de otro, como una serie de preguntas encadenadas.</p>
+          <p>Primero se calcula el promedio de cada alumno con PROMEDIO. Después el SI anidado lee ese promedio y escribe la categoría. Y MAX y MIN buscan la mejor y la peor nota de cada examen.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> PROMEDIO, MAX y MIN</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Fórmula</th></tr></thead>
+            <tbody>
+              <tr><td>El promedio de las tres notas de un alumno</td><td><code class="f">=PROMEDIO(B4:D4)</code></td></tr>
+              <tr><td>La nota más alta de una columna</td><td><code class="f">=MAX(B4:B13)</code></td></tr>
+              <tr><td>La nota más baja de una columna</td><td><code class="f">=MIN(B4:B13)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Las tres reciben un <strong>rango</strong> de celdas. <code class="f">PROMEDIO</code> suma los números y los divide por la cantidad; ignora las celdas vacías y el texto.
+          Fijate que el promedio de un alumno se calcula <strong>en horizontal</strong> (<code class="f">B4:D4</code>) y el máximo y el mínimo <strong>en vertical</strong> (<code class="f">B4:B13</code>).
+        </p>
+
+        <h3 class="paso"><span class="paso-n">2</span> El SI anidado</h3>
+        <p class="fx-line">=SI(E4&lt;4;"Insuficiente";SI(E4&lt;8;"Aprobado";SI(E4&lt;9;"Notable";"Excelente")))</p>
+        <p>
+          Se lee de afuera hacia adentro: <em>“Si el promedio es menor que 4, Insuficiente. Si no, ¿es menor que 8? Entonces Aprobado. Si no, ¿es menor que 9? Entonces Notable. Si no, Excelente.”</em>
+          El <strong>valor si es falso</strong> del primer SI es otro SI completo, y así hasta el último.
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Promedio</th><th>Estado</th><th>Qué pregunta lo resuelve</th></tr></thead>
+            <tbody>
+              <tr><td>menor que 4</td><td>Insuficiente</td><td><code class="f">E4&lt;4</code></td></tr>
+              <tr><td>desde 4 y menor que 8</td><td>Aprobado</td><td><code class="f">E4&lt;8</code> (ya sabemos que no es menor que 4)</td></tr>
+              <tr><td>desde 8 y menor que 9</td><td>Notable</td><td><code class="f">E4&lt;9</code></td></tr>
+              <tr><td>9 o más</td><td>Excelente</td><td>ninguna: es el “si no” final</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="rule">
+          <strong>El orden importa.</strong> Excel responde con el <strong>primer SI que da verdadero</strong> y ya no mira los demás.
+          Si empezás por <code class="f">E4&lt;8</code>, un promedio de 2 se declara “Aprobado” y nunca llega a la pregunta de Insuficiente.
+          Cada SI abre un paréntesis: al final tienen que cerrarse <strong>todos</strong> (tres SI, tres <code class="f">)</code>).
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> Probalo: las notas del ejercicio</h3>
+        <p>
+          Esta planilla reproduce el ejercicio con diez alumnos. Probá los distintos modelos de fórmula con los botones. Después cambiá una nota y mirá cómo se recalculan
+          el promedio, el estado y los máximos y mínimos.
+        </p>
+        <div class="xl-chips" id="chipsSIA"></div>
+        <div class="xl" id="xlNotas" data-cols="6" data-rows="14"></div>
+        <p class="xl-caption" id="capNotas"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: otras formas de resolverlo y errores comunes</summary>
+          <ul>
+            <li><strong>Copiar hacia abajo:</strong> escribí la fórmula en la primera fila y arrastrá el controlador de relleno (o doble clic en él). Como las referencias son relativas, <code class="f">E4</code> pasa a <code class="f">E5</code>, <code class="f">E6</code>…</li>
+            <li><strong>Mejor que escribir los límites en la fórmula:</strong> poner 4, 8 y 9 en celdas y citarlas con <code class="f">$</code> (<code class="f">$M$3</code>) permite cambiarlos sin tocar la fórmula (ver <a href="u3-clase9.html#absoluta">referencia absoluta</a>).</li>
+            <li><strong>Redondear:</strong> <code class="f">PROMEDIO</code> no redondea; el formato de 2 decimales solo cambia cómo se ve. Un 7,996 se ve “8,00” pero sigue siendo menor que 8.</li>
+            <li><strong>Más funciones parecidas:</strong> <code class="f">CONTAR</code>, <code class="f">SUMA</code> y <code class="f">CONTAR.SI</code> (cuántos alumnos tienen cada estado).</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> olvidar las comillas de los textos (<code class="f">#¿NOMBRE?</code>), ordenar mal las preguntas, no cerrar todos los paréntesis, usar coma en lugar de punto y coma entre argumentos y calcular el promedio sobre un rango equivocado (por ejemplo <code class="f">B4:B13</code> en lugar de <code class="f">B4:D4</code>).
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- GRAFICOS -->
+    <section class="section alt" id="graficos">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Insertar gráficos</p>
+          <h2>Mostrar los datos en un gráfico</h2>
+          <p>
+            Un <strong>gráfico</strong> convierte números en una imagen que se entiende de un vistazo. Excel lo arma a partir de las celdas que seleccionás.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Una columna con quince números dice poco. Un gráfico de barras muestra enseguida cuál es el más grande, cuál el más chico y cómo se comparan. Por eso casi todos los informes combinan una tabla con un gráfico.</p>
+          <p>Para hacerlo solo hay que decirle a Excel qué datos graficar y de qué tipo. Lo demás (ejes, escalas, colores) lo hace solo, y después se puede ajustar.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Cómo se inserta</h3>
+        <ol>
+          <li>Seleccioná los datos: primero la columna de <strong>nombres</strong> (por ejemplo los artículos) y, con <kbd>Ctrl</kbd> presionada, la columna de <strong>valores</strong> (por ejemplo Total de venta).</li>
+          <li><strong>Insertar</strong> y elegí un tipo en el grupo <strong>Gráficos</strong>: columnas o barras para comparar, circular (“pastel”) para ver partes de un total, líneas para ver la evolución en el tiempo. <em>Gráficos recomendados</em> sugiere uno según los datos.</li>
+          <li>Con el gráfico seleccionado aparecen tres botones a su derecha: <strong>Elementos del gráfico</strong> (+: título, etiquetas de datos, leyenda, líneas de tendencia), <strong>Estilos del gráfico</strong> (pincel) y <strong>Filtros del gráfico</strong> (embudo: qué series y categorías se muestran).</li>
+          <li>Para cambiar el título hacé clic sobre él y escribí.</li>
+        </ol>
+
+        <h3 class="paso"><span class="paso-n">2</span> Probalo: ventas de autos</h3>
+        <p>
+          Estos son los datos del video. Cambiá el tipo de gráfico, lo que se grafica y qué artículos se muestran (como el <em>filtro del gráfico</em>).
+        </p>
+        <div class="xl-ctrls">
+          <label class="xl-field">Tipo
+            <select id="chType"><option value="col">Columnas</option><option value="bar">Barras</option><option value="pie">Circular</option></select>
+          </label>
+          <label class="xl-field">Datos
+            <select id="chSerie"><option value="total">Total de venta</option><option value="ventas">Cantidad vendida</option><option value="precio">Precio</option></select>
+          </label>
+          <label class="xl-field chk"><input type="checkbox" id="chLabels" checked /> Etiquetas de datos</label>
+          <label class="xl-field chk"><input type="checkbox" id="chTitle" checked /> Título</label>
+        </div>
+        <div class="chart-pick" id="chPick" role="group" aria-label="Artículos que se grafican"></div>
+        <div class="xl" id="xlGrafico">
+          <div class="xl-title"><b>Ventas - Excel</b></div>
+          <div class="chart-card" id="chCard"></div>
+        </div>
+        <p class="xl-caption" id="capGrafico"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: cuándo usar cada gráfico y errores comunes</summary>
+          <ul>
+            <li><strong>Columnas o barras:</strong> comparar valores entre categorías (ventas por artículo, promedio por alumno).</li>
+            <li><strong>Circular:</strong> mostrar qué parte del total representa cada categoría. Sirve con pocas categorías y valores positivos.</li>
+            <li><strong>Líneas:</strong> mostrar cómo cambia algo a lo largo del tiempo.</li>
+            <li><strong>Mover y cambiar el tamaño:</strong> arrastrá el gráfico desde el borde; los puntos de las esquinas cambian el tamaño. <strong>Diseño de gráfico → Cambiar tipo de gráfico</strong> permite cambiar el tipo después.</li>
+            <li><strong>Seleccionar con el teclado:</strong> para elegir columnas que no están juntas, usá <kbd>Ctrl</kbd>+clic.</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> incluir en la selección una fila de totales (el gráfico muestra una barra enorme), graficar datos de escalas muy distintas juntos (Precio y Cantidad), y olvidar el título y las etiquetas, con lo que nadie sabe qué muestra el gráfico.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ORDENAR -->
+    <section class="section" id="ordenar">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Ordenar datos</p>
+          <h2>Ordenar una lista</h2>
+          <p>
+            Ordenar significa reacomodar las <strong>filas completas</strong> según los valores de una columna: de A a Z, de menor a mayor o al revés.
+            Hay dos caminos: el <strong>menú</strong> (reordena la tabla original) y la <strong>función</strong> (crea una tabla nueva ordenada).
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Con las notas de diez alumnos cargadas en cualquier orden, lo primero que uno quiere saber es quién tiene el mejor promedio. Ordenar la lista de mayor a menor responde eso en un paso, sin tener que buscar a ojo.</p>
+          <p>Lo importante es que Excel mueva cada fila completa. El nombre, las notas y el estado de una persona tienen que viajar juntos; si se ordena una sola columna, los datos se mezclan.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Desde el menú</h3>
+        <ol>
+          <li>Ubicate dentro de la lista.</li>
+          <li><strong>Datos → Ordenar</strong>. Elegí la columna en <strong>Ordenar por</strong> y el orden (<em>A a Z</em> / <em>Z a A</em> para texto, <em>de menor a mayor</em> / <em>de mayor a menor</em> para números).</li>
+          <li>Verificá que esté tildado <strong>Mis datos tienen encabezados</strong> y aceptá. Con <strong>Agregar nivel</strong> se ordena por una segunda columna en caso de empate.</li>
+          <li>Atajo rápido: <strong>Datos → A→Z / Z→A</strong>, o la flecha del filtro → <em>Ordenar de mayor a menor</em>.</li>
+        </ol>
+
+        <h3 class="paso"><span class="paso-n">2</span> Con una función</h3>
+        <p class="fx-line">=ORDENARPOR(Deudas;Deudas[Deuda];-1)</p>
+        <p>
+          <code class="f">ORDENARPOR(matriz; por_matriz; orden)</code> devuelve una <strong>tabla nueva</strong> con los mismos datos ordenados según una columna: <code class="f">1</code> es ascendente y <code class="f">-1</code> descendente.
+          La tabla original <strong>no cambia</strong>. También existe <code class="f">ORDENAR(matriz; índice; orden)</code>, que ordena por el <em>número</em> de columna.
+          Estas funciones están en Excel 2021 y Microsoft 365.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> Probalo: menú o función</h3>
+        <div class="xl-ctrls">
+          <label class="xl-field">Ordenar por
+            <select id="soCol"><option value="1">Apellido</option><option value="0">Nombre</option><option value="2" selected>Deuda</option></select>
+          </label>
+          <label class="xl-field">Orden
+            <select id="soDir"><option value="1">Ascendente (A→Z, menor a mayor)</option><option value="-1">Descendente (Z→A, mayor a menor)</option></select>
+          </label>
+          <label class="xl-field">Método
+            <select id="soMode"><option value="menu">Menú Datos → Ordenar</option><option value="fn">Función ORDENARPOR</option></select>
+          </label>
+          <button type="button" class="xl-btn" id="soGo">Ordenar</button>
+          <button type="button" class="xl-btn ghost" id="soReset">Volver al orden original</button>
+        </div>
+        <div class="cmp-grid">
+          <div class="xl">
+            <div class="xl-title"><b>Tabla original</b></div>
+            <div class="tb-wrap"><table class="tb fmt" id="soOrig" aria-label="Tabla original"></table></div>
+          </div>
+          <div class="xl" id="soNewBox" hidden>
+            <div class="xl-title"><b id="soNewTitle">Tabla nueva</b></div>
+            <div class="tb-wrap"><table class="tb fmt" id="soNew" aria-label="Tabla nueva ordenada"></table></div>
+          </div>
+        </div>
+        <p class="xl-caption" id="capOrdenar"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: ordenar con encabezados combinados y errores comunes</summary>
+          <p>
+            En el ejercicio de hoy los encabezados ocupan <strong>dos filas</strong> (2 y 3) con celdas combinadas. Para ordenar sin problemas seleccioná <strong>solo las filas de los alumnos</strong> (<code class="f">A4:F13</code>),
+            andá a <strong>Datos → Ordenar</strong>, desmarcá <strong>Mis datos tienen encabezados</strong> y elegí la columna por letra (<em>Columna E</em>).
+          </p>
+          <p>
+            <strong>Errores comunes:</strong> seleccionar una sola columna y ordenar solo esa (Excel avisa si querés ampliar la selección: aceptá <strong>Ampliar la selección</strong>),
+            ordenar cuando hay fórmulas con referencias a otras filas, y olvidar que ordenar con el menú <strong>cambia</strong> la tabla original (se puede deshacer con <kbd>Ctrl</kbd>+<kbd>Z</kbd>).
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section alt" id="actividades">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Usá el archivo <strong>Ejercicio 3 - Alumnos.xlsx</strong> para aplicar las fórmulas y funciones de la clase y
+            <strong>compartí tu experiencia en el foro de la unidad</strong>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Para cerrar la clase vamos a practicar en un solo archivo: el Ejercicio 3, Alumnos. Tiene las notas de dos parciales y de un trabajo práctico de diez alumnos, y hay que completar el promedio, el estado, la nota máxima y la mínima.</p>
+          <p>Avancen en orden, tilden cada paso cuando lo terminen y, al final, cuenten su experiencia en el foro de la unidad.</p>
+        </div>
+
+        <p>El libro tiene una sola hoja, <strong>Estadistica alumnos</strong>:</p>
+        <ul>
+          <li><strong>A1:B1:</strong> la palabra “Fecha” y una celda con formato de fecha, vacía.</li>
+          <li><strong>Filas 2 y 3:</strong> encabezados con celdas combinadas: <strong>Alumno</strong>, <strong>notas</strong> (Parcial, Parcial, TP), <strong>Promedio</strong> y <strong>Estado</strong>.</li>
+          <li><strong>Filas 4 a 13:</strong> diez alumnos con sus tres notas cargadas. Las columnas <strong>E</strong> (Promedio) y <strong>F</strong> (Estado) están vacías.</li>
+          <li><strong>Filas 15 y 16:</strong> <strong>Nota máxima</strong> y <strong>Nota mínima</strong>, con las celdas de B a D vacías.</li>
+          <li><strong>M3:M6:</strong> la referencia de estados (<em>&lt;4 Insuficiente, &lt;8 Aprobado, &lt;9 Notable, 10 Excelente</em>) y, a su lado, una escala de 0 a 10 dibujada.</li>
+        </ul>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio 3 · Alumnos</p>
+          <h3>Tu lista de control</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="chkBar"><div id="chkFill"></div></div>
+          <p class="progress-label" id="chkLabel">0 de 9 pasos completados</p>
+
+          <ul class="chk-list" id="chkList">
+            <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Abrir y guardar.</strong> Abrí el archivo y guardalo como <strong>Ejercicio 3 - Alumnos</strong>.<small>Guardá al empezar y cada tanto: así no perdés lo hecho.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Fecha.</strong> En <strong>B1</strong> escribí <code class="f">=HOY()</code>. Ya tiene formato de fecha.<small>Si se ve un número como 46000, falta darle formato Fecha (<kbd>Ctrl</kbd>+<kbd>1</kbd>).</small></span></label></li>
+            <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Promedio.</strong> En <strong>E4</strong> escribí <code class="f">=PROMEDIO(B4:D4)</code> y copiala hasta <strong>E13</strong>.<small>El promedio va en horizontal: las tres notas del mismo alumno. Dejalo con dos decimales.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Estado con SI anidado.</strong> En <strong>F4</strong> escribí <code class="f">=SI(E4&lt;4;"Insuficiente";SI(E4&lt;8;"Aprobado";SI(E4&lt;9;"Notable";"Excelente")))</code> y copiala hasta <strong>F13</strong>.<small>Los límites salen de la referencia de M3:M6. Con 9 o más de promedio el estado es “Excelente”.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Nota máxima y mínima.</strong> En <strong>B15</strong> escribí <code class="f">=MAX(B4:B13)</code> y en <strong>B16</strong> <code class="f">=MIN(B4:B13)</code>. Copialas hacia la derecha hasta la columna <strong>D</strong>.<small>Ahora el rango es vertical: las diez notas de un mismo examen.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="6"><span class="chk-txt"><strong>6. Formato condicional.</strong> Seleccioná <strong>F4:F13</strong> y aplicá <em>Reglas para resaltar celdas → Es igual a…</em> (o <em>Texto que contiene…</em>): <strong>Insuficiente</strong> en rojo, <strong>Aprobado</strong> en amarillo, <strong>Notable</strong> en verde claro y <strong>Excelente</strong> en verde oscuro.<small>Una regla por cada estado, sobre la misma selección.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="7"><span class="chk-txt"><strong>7. Gráfico.</strong> Seleccioná <strong>A4:A13</strong> y, con <kbd>Ctrl</kbd>, <strong>E4:E13</strong>. <strong>Insertar → Columnas agrupadas</strong>. Ponele el título “Promedio por alumno”.<small>Si el gráfico sale con las tres notas, la selección incluía B:D por error.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="8"><span class="chk-txt"><strong>8. Ordenar.</strong> Seleccioná <strong>A4:F13</strong> y usá <strong>Datos → Ordenar</strong> por la columna <strong>E</strong> (Promedio), de mayor a menor. Desmarcá <em>Mis datos tienen encabezados</em>.<small>Los encabezados ocupan dos filas combinadas: por eso se ordena solo desde la fila 4. Verificá abajo el orden esperado.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="9"><span class="chk-txt"><strong>9. Compartir.</strong> Contá tu experiencia en el <strong>foro de la unidad</strong>.<small>Podés contar qué herramienta te resultó más útil, qué paso te costó y cómo lo resolviste.</small></span></label></li>
+          </ul>
+
+          <p class="card-example"><strong>Si terminás antes:</strong> usá <strong>Datos → Filtro</strong> para mostrar solo los alumnos “Insuficiente”; agregá un segundo gráfico (circular) con la cantidad de alumnos de cada estado; o reemplazá los límites 4, 8 y 9 de la fórmula por celdas con referencia absoluta (<code class="f">$</code>).</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>Para verificar: resultados esperados</summary>
+          <p><strong>Promedios y estados</strong> (columnas E y F, antes de ordenar):</p>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead>
+                <tr><th>Alumno</th><th>Parcial</th><th>Parcial</th><th>TP</th><th>Promedio (E)</th><th>Estado (F)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Laclena, Ariana</td><td>2,50</td><td>2,00</td><td>1,00</td><td>1,83</td><td>Insuficiente</td></tr>
+                <tr><td>Galleau, Nicolas</td><td>8,50</td><td>8,00</td><td>8,00</td><td>8,17</td><td>Notable</td></tr>
+                <tr><td>Kardagian, Kimberley</td><td>8,00</td><td>6,50</td><td>7,50</td><td>7,33</td><td>Aprobado</td></tr>
+                <tr><td>Casas, Gonzalo</td><td>4,00</td><td>3,50</td><td>2,00</td><td>3,17</td><td>Insuficiente</td></tr>
+                <tr><td>Fernandez, Matilda</td><td>7,00</td><td>8,50</td><td>4,00</td><td>6,50</td><td>Aprobado</td></tr>
+                <tr><td>Miño, Pierina</td><td>4,00</td><td>9,50</td><td>3,00</td><td>5,50</td><td>Aprobado</td></tr>
+                <tr><td>Perez, Juan</td><td>4,00</td><td>5,00</td><td>6,00</td><td>5,00</td><td>Aprobado</td></tr>
+                <tr><td>Ginagera, Roberto</td><td>9,50</td><td>9,00</td><td>10,00</td><td>9,50</td><td>Excelente</td></tr>
+                <tr><td>Rondeau, Blas</td><td>1,00</td><td>1,00</td><td>1,00</td><td>1,00</td><td>Insuficiente</td></tr>
+                <tr><td>Vonka, Ruth</td><td>2,00</td><td>3,00</td><td>3,00</td><td>2,67</td><td>Insuficiente</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Nota máxima</strong> (fila 15): Parcial 1 = <strong>9,50</strong>, Parcial 2 = <strong>9,50</strong>, TP = <strong>10,00</strong>.</li>
+            <li><strong>Nota mínima</strong> (fila 16): <strong>1,00</strong> en las tres columnas.</li>
+            <li><strong>Cantidad por estado:</strong> 4 Insuficiente, 4 Aprobado, 1 Notable y 1 Excelente.</li>
+            <li><strong>Orden por promedio, de mayor a menor:</strong> Ginagera (9,50), Galleau (8,17), Kardagian (7,33), Fernandez (6,50), Miño (5,50), Perez (5,00), Casas (3,17), Vonka (2,67), Laclena (1,83) y Rondeau (1,00).</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+        </div>
+
+        <div class="lectura">
+          <p>Estas son las dudas que más aparecen cuando se practica esta clase. Si en el ejercicio algo no sale como esperaban, antes de preguntar conviene mirar acá: casi siempre es una comilla que falta, un rango equivocado o un paréntesis sin cerrar.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>La fórmula del estado me da #¿NOMBRE?</summary>
+          <p>Faltan las comillas en algún texto: <code class="f">"Insuficiente"</code>, <code class="f">"Aprobado"</code>, <code class="f">"Notable"</code> y <code class="f">"Excelente"</code> van siempre entre comillas. Revisá también que no haya errores de escritura en <code class="f">PROMEDIO</code> o <code class="f">SI</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Excel dice que hay un problema con la fórmula y no me deja confirmarla.</summary>
+          <p>Casi siempre es un paréntesis de más o de menos. Con tres <code class="f">SI</code> anidados necesitás <strong>tres paréntesis de cierre</strong> al final. Otra causa frecuente es separar con coma en lugar de punto y coma (según la configuración regional de tu Excel).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Todos los alumnos me dan “Aprobado” (o ninguno “Insuficiente”).</summary>
+          <p>Las preguntas del SI están en el orden equivocado. Tienen que ir de <strong>menor a mayor</strong>: primero <code class="f">&lt;4</code>, después <code class="f">&lt;8</code> y después <code class="f">&lt;9</code>. Si empezás por <code class="f">&lt;8</code>, todo lo que sea menor que 8 (incluso un 1) queda como Aprobado.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El promedio me da un número raro o #¡DIV/0!.</summary>
+          <p><code class="f">PROMEDIO</code> ignora las celdas vacías y el texto. Si el rango no tiene ningún número (por ejemplo porque se seleccionó la columna equivocada o las notas están guardadas como texto) da <code class="f">#¡DIV/0!</code>. Revisá que el rango sea <code class="f">B4:D4</code> y que las notas estén alineadas a la derecha (números).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Un alumno con promedio 7,996 aparece como “Aprobado” pero se ve 8,00.</summary>
+          <p>El formato de dos decimales cambia lo que ves, no el valor. Excel usa el valor real (7,996), que es menor que 8. Si necesitás que cuente como 8, usá <code class="f">REDONDEAR(PROMEDIO(B4:D4);2)</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Al ordenar se me mezclaron los datos.</summary>
+          <p>Se ordenó una sola columna. Antes de ordenar, seleccioná <strong>todas</strong> las columnas de los alumnos (<code class="f">A4:F13</code>) o ubicate dentro de una tabla. Si ya pasó, deshacé con <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>No puedo convertir mi rango en tabla (Insertar → Tabla).</summary>
+          <p>Las tablas no admiten celdas combinadas. En el ejercicio, los encabezados de las filas 2 y 3 están combinados: podés aplicar estilos, filtros y formato condicional igual, pero no el formato de tabla completo (a menos que armes un encabezado de una sola fila).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Puse el filtro y desaparecieron filas.</summary>
+          <p>No se borraron: están ocultas por el filtro. Los números de fila se ven azules y la flecha de la columna muestra un embudito. Quitá el filtro con <strong>Datos → Filtro</strong> y vuelven todas.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El formato condicional no pinta nada.</summary>
+          <p>Revisá que el texto de la regla coincida exactamente con el resultado de la fórmula (sin tildes de más ni espacios), que la regla se haya aplicado a todo el rango <code class="f">F4:F13</code> y que, en <strong>Administrar reglas</strong>, la opción <em>Mostrar reglas de formato para</em> sea la <strong>hoja actual</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El gráfico muestra las tres notas de cada alumno, no el promedio.</summary>
+          <p>La selección incluyó las columnas B a D. Seleccioná de nuevo solo los nombres (<code class="f">A4:A13</code>) y, con <kbd>Ctrl</kbd> presionada, los promedios (<code class="f">E4:E13</code>), y volvé a insertar el gráfico. También podés corregirlo en <strong>Diseño de gráfico → Seleccionar datos</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Excel no me deja escribir una nota con decimales en la primera columna de notas.</summary>
+          <p>La columna <strong>B</strong> (B4:B13) del archivo tiene una <strong>validación de datos</strong> que solo admite números enteros del 1 al 10, aunque algunas notas ya cargadas tengan decimales (como 2,5). Si querés cambiar una nota por otra con decimales, andá a <strong>Datos → Validación de datos</strong> y elegí <em>Cualquier valor</em> (o <em>Decimal</em> entre 1 y 10).</p>
+        </details>
+        <details class="faq-item">
+          <summary>La fecha de B1 se ve como un número.</summary>
+          <p>La celda quedó en formato General. Seleccionala y usá <kbd>Ctrl</kbd>+<kbd>1</kbd> → <strong>Número → Fecha</strong>. El valor es el mismo: cambia solo cómo se muestra (ver <a href="u3-clase9.html#fechas">Clase 9</a>).</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+        </div>
+
+        <div class="lectura">
+          <p>Antes de terminar, repasemos lo esencial. Una tabla con formato se mantiene sola y trae filtros. Los filtros ocultan lo que no interesa sin borrarlo. El formato condicional pinta las celdas según su contenido. PROMEDIO, MAX y MIN calculan, y el SI anidado elige entre varias opciones. Y con un gráfico y un orden, los datos se entienden mejor.</p>
+        </div>
+        <ul>
+          <li><strong>Formato de tabla:</strong> <strong>Inicio → Dar formato como tabla</strong> (o <kbd>Ctrl</kbd>+<kbd>T</kbd>). Con encabezados, con nombre propio, sin celdas combinadas. Crece sola, copia las fórmulas y permite la <strong>fila de totales</strong>.</li>
+          <li><strong>Filtros:</strong> flechitas en los encabezados (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>L</kbd>). Ocultan filas sin borrarlas; se pueden combinar entre columnas.</li>
+          <li><strong>Formato condicional:</strong> <strong>Inicio → Formato condicional → Reglas para resaltar celdas</strong>, una regla por cada color. Se administra en <em>Administrar reglas</em>.</li>
+          <li><strong>PROMEDIO:</strong> <code class="f">=PROMEDIO(B4:D4)</code>. Suma y divide por la cantidad de números; ignora vacías y textos.</li>
+          <li><strong>SI anidado:</strong> <code class="f">=SI(E4&lt;4;"Insuficiente";SI(E4&lt;8;"Aprobado";SI(E4&lt;9;"Notable";"Excelente")))</code>. Las preguntas van ordenadas y se cierran todos los paréntesis.</li>
+          <li><strong>MAX y MIN:</strong> <code class="f">=MAX(B4:B13)</code> y <code class="f">=MIN(B4:B13)</code>: el mayor y el menor de un rango.</li>
+          <li><strong>Gráficos:</strong> seleccionar nombres y valores (con <kbd>Ctrl</kbd>) → <strong>Insertar</strong> → tipo de gráfico. Botones de elementos, estilos y filtros del gráfico.</li>
+          <li><strong>Ordenar:</strong> <strong>Datos → Ordenar</strong> reordena la tabla original; <code class="f">ORDENARPOR</code> / <code class="f">ORDENAR</code> crean una tabla nueva.</li>
+        </ul>
+
+        <h3>Vocabulario de la clase</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Palabra</th><th>Qué quiere decir</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Tabla</strong></td><td>Un rango con formato de tabla: tiene nombre, encabezados, filtros y crece sola.</td></tr>
+              <tr><td><strong>Filtro</strong></td><td>Una lista desplegable en el encabezado que oculta las filas que no cumplen una condición.</td></tr>
+              <tr><td><strong>Formato condicional</strong></td><td>Un formato que se aplica solo a las celdas que cumplen una regla.</td></tr>
+              <tr><td><strong>Regla</strong></td><td>La condición y el formato asociados (por ejemplo “igual a Aprobado → verde”).</td></tr>
+              <tr><td><strong>SI anidado</strong></td><td>Un SI escrito dentro de otro SI, para elegir entre más de dos resultados.</td></tr>
+              <tr><td><strong>Rango</strong></td><td>Un grupo de celdas contiguas (<code class="f">B4:D4</code>).</td></tr>
+              <tr><td><strong>Serie</strong></td><td>Cada conjunto de valores que se dibuja en un gráfico.</td></tr>
+              <tr><td><strong>Ordenar</strong></td><td>Reacomodar las filas según una columna, de menor a mayor, de mayor a menor o de A a Z.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos de la clase</h2>
+          <p>
+            Capítulo 4 del curso básico de Excel, con los capítulos oficiales del video. En el video se usa una configuración regional distinta de la nuestra
+            (por ejemplo, coma en lugar de punto y coma entre argumentos); los pasos son los mismos.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>El video es para repasar con calma, en casa o cuando algo no quedó claro. Cada tema tiene un enlace que lleva directo al minuto donde se explica, y debajo hay una consigna con su respuesta para comprobar si lo entendieron.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/ElHzngoo0Ow" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/ElHzngoo0Ow/hqdefault.jpg" alt="Miniatura del video Curso básico de Excel, capítulo cuatro" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Curso básico de Excel · Capítulo 4</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Inge Francisco · 41 min · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=87s" target="_blank" rel="noopener noreferrer">Formatos de tablas 1:27</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=150s" target="_blank" rel="noopener noreferrer">Dar formato como tabla 2:30</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=470s" target="_blank" rel="noopener noreferrer">Filas de totales 7:50</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=675s" target="_blank" rel="noopener noreferrer">Filtros 11:15</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=850s" target="_blank" rel="noopener noreferrer">Filtros de números 14:10</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=990s" target="_blank" rel="noopener noreferrer">Filtros por columnas 16:30</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=1095s" target="_blank" rel="noopener noreferrer">Formatos condicionales 18:15</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=1340s" target="_blank" rel="noopener noreferrer">Reglas para resaltar celdas 22:20</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=1690s" target="_blank" rel="noopener noreferrer">Gráficos estadísticos 28:10</a> ·
+                <a href="https://www.youtube.com/watch?v=ElHzngoo0Ow&t=2145s" target="_blank" rel="noopener noreferrer">Ordenamiento de datos 35:45</a>
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿qué ventaja tiene una columna con fórmula dentro de una tabla? ¿Cómo se sabe que una tabla está filtrada? ¿Qué diferencia hay entre ordenar con el menú y ordenar con una función?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>La fórmula se copia <strong>sola a toda la columna</strong> (y a las filas nuevas que se agreguen). Una tabla filtrada muestra un <strong>embudito</strong> en la flecha de cada columna filtrada y los números de fila en azul. El menú <strong>reordena la tabla original</strong>; la función (<code class="f">ORDENARPOR</code>) <strong>crea una tabla nueva</strong> ordenada y deja la original como estaba.</p></details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="u3-clase9.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Unidad 3 · Clase 9 · Fechas, textos y funciones</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 3 · Clase 10</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    /* ===== Lista de control de la actividad ===== */
+    (function () {
+      const KEY = 'c1-clase10-checklist-v1';
+      const boxes = document.querySelectorAll('#chkList input[type="checkbox"]');
+      const fill = document.getElementById('chkFill');
+      const bar = document.getElementById('chkBar');
+      const label = document.getElementById('chkLabel');
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+      function update() {
+        let done = 0;
+        boxes.forEach(b => { if (b.checked) done++; });
+        const pct = Math.round(done / boxes.length * 100);
+        fill.style.width = pct + '%';
+        bar.setAttribute('aria-valuenow', pct);
+        label.textContent = done === boxes.length
+          ? '🎉 ¡Completaste los ' + boxes.length + ' pasos! Contá tu experiencia en el Foro.'
+          : done + ' de ' + boxes.length + ' pasos completados';
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    })();
+
+
+    /* =====================================================
+       UTILIDADES DE FORMATO (estilo Argentina: 1.234,50)
+       ===================================================== */
+    function fmtGeneral(n) {
+      return String(parseFloat(n.toPrecision(12))).replace('.', ',');
+    }
+    function serialToDate(n) {
+      const base = n >= 61 ? Date.UTC(1899, 11, 30) : Date.UTC(1899, 11, 31);
+      return new Date(base + Math.floor(n) * 864e5);
+    }
+    function dateToSerial(d, m, y) {
+      let s = (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5;
+      if (s < 61) s -= 1;
+      return s;
+    }
+    function todaySerial() {
+      const t = new Date();
+      return dateToSerial(t.getDate(), t.getMonth() + 1, t.getFullYear());
+    }
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function fmtDateShort(n) {
+      const d = serialToDate(n);
+      return pad2(d.getUTCDate()) + '/' + pad2(d.getUTCMonth() + 1) + '/' + d.getUTCFullYear();
+    }
+    function parseDMY(s) {
+      const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s.trim());
+      if (!m) return null;
+      const d = +m[1], mo = +m[2], y = +m[3];
+      const t = new Date(Date.UTC(y, mo - 1, d));
+      if (t.getUTCFullYear() !== y || t.getUTCMonth() !== mo - 1 || t.getUTCDate() !== d) return null;
+      return { d: d, m: mo, y: y };
+    }
+    function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    /* =====================================================
+       MOTOR DE FÓRMULAS (Excel en español, separador ";")
+       Valores: {t:'n'|'s'|'b'(vacío)|'bool'|'e'|'m'(matriz)}
+       ===================================================== */
+    const ERR = { DIV: '#¡DIV/0!', NAME: '#¿NOMBRE?', VAL: '#¡VALOR!', REF: '#¡REF!', NUM: '#¡NUM!', NA: '#N/D' };
+
+    function colIndex(letters) {
+      let n = 0;
+      for (let i = 0; i < letters.length; i++) n = n * 26 + (letters.charCodeAt(i) - 64);
+      return n - 1;
+    }
+    function splitRef(id) {
+      const m = /^\$?([A-Za-z]{1,2})\$?(\d{1,3})$/.exec(id);
+      if (!m) return null;
+      return { c: colIndex(m[1].toUpperCase()), r: parseInt(m[2], 10) - 1 };
+    }
+    function colName(c) { return String.fromCharCode(65 + c); }
+    function cellId(c, r) { return colName(c) + (r + 1); }
+
+    function parseLiteral(raw) {
+      if (raw.charAt(0) === "'") return { t: 's', v: raw.slice(1) };
+      if (/^-?\d+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(',', '.')) };
+      if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(/\./g, '').replace(',', '.')) };
+      const m = /^(-?\d+(,\d+)?)%$/.exec(raw);
+      if (m) return { t: 'n', v: parseFloat(m[1].replace(',', '.')) / 100, show: raw };
+      const dt = parseDMY(raw);
+      if (dt && dt.y >= 1900) return { t: 'n', v: dateToSerial(dt.d, dt.m, dt.y), date: true };
+      return { t: 's', v: raw };
+    }
+
+    function cellValue(S, id, depth) {
+      const raw = S.cells[id];
+      if (raw == null || raw === '') return { t: 'b' };
+      if (raw.charAt(0) === '=') return evalFormula(S, raw, depth + 1);
+      const v = parseLiteral(raw);
+      if (v.t === 'n' && !v.date && !v.show) {
+        const p = splitRef(id);
+        if (p && S.fmt && S.fmt[p.c] === 'date') v.date = true;
+      }
+      return v;
+    }
+
+    /* --- conversiones --- */
+    function fail(e) { throw { e: e }; }
+    function toNum(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return 0;
+      if (v.t === 'n') return v.v;
+      if (v.t === 'bool') return v.v ? 1 : 0;
+      if (v.t === 's') {
+        const lit = parseLiteral(v.v);
+        if (lit.t === 'n') return lit.v;
+      }
+      return fail(ERR.VAL);
+    }
+    function toText(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return '';
+      if (v.t === 'n') return fmtGeneral(v.v);
+      if (v.t === 'bool') return v.v ? 'VERDADERO' : 'FALSO';
+      return v.v;
+    }
+    function toBool(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return false;
+      if (v.t === 'bool') return v.v;
+      if (v.t === 'n') return v.v !== 0;
+      return fail(ERR.VAL);
+    }
+    function scalar(v) {
+      if (v.t !== 'm') return v;
+      if (v.nr === 1 && v.nc === 1) return v.rows[0][0];
+      return fail(ERR.VAL);
+    }
+    function compare(op, a, b) {
+      if (a.t === 'e') fail(a.v);
+      if (b.t === 'e') fail(b.v);
+      if (a.t === 'b' && b.t === 's') a = { t: 's', v: '' };
+      else if (b.t === 'b' && a.t === 's') b = { t: 's', v: '' };
+      else { if (a.t === 'b') a = { t: 'n', v: 0 }; if (b.t === 'b') b = { t: 'n', v: 0 }; }
+      const rank = x => x.t === 's' ? 2 : (x.t === 'bool' ? 3 : 1);
+      let c;
+      if (rank(a) !== rank(b)) c = rank(a) - rank(b);
+      else if (a.t === 's') { const x = a.v.toLowerCase(), y = b.v.toLowerCase(); c = x < y ? -1 : (x > y ? 1 : 0); }
+      else { const x = +a.v, y = +b.v; c = x < y ? -1 : (x > y ? 1 : 0); }
+      switch (op) {
+        case '=': return c === 0;
+        case '<>': return c !== 0;
+        case '<': return c < 0;
+        case '>': return c > 0;
+        case '<=': return c <= 0;
+        default: return c >= 0;
+      }
+    }
+    function daysInMonth(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+
+    function sifecha(s1, s2, unit) {
+      s1 = Math.floor(s1); s2 = Math.floor(s2);
+      if (s1 > s2) fail(ERR.NUM);
+      const a = serialToDate(s1), b = serialToDate(s2);
+      let y = b.getUTCFullYear() - a.getUTCFullYear();
+      let m = b.getUTCMonth() - a.getUTCMonth();
+      let d = b.getUTCDate() - a.getUTCDate();
+      if (d < 0) {
+        m--;
+        const pm = b.getUTCMonth() === 0 ? 12 : b.getUTCMonth();
+        const py = b.getUTCMonth() === 0 ? b.getUTCFullYear() - 1 : b.getUTCFullYear();
+        d += daysInMonth(py, pm);
+      }
+      if (m < 0) { y--; m += 12; }
+      switch (unit.toUpperCase()) {
+        case 'Y': return y;
+        case 'M': return y * 12 + m;
+        case 'D': return s2 - s1;
+        case 'YM': return m;
+        case 'MD': return d;
+        case 'YD': {
+          let ref = Date.UTC(b.getUTCFullYear(), a.getUTCMonth(), a.getUTCDate());
+          if (ref > Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate())) ref = Date.UTC(b.getUTCFullYear() - 1, a.getUTCMonth(), a.getUTCDate());
+          return Math.round((Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate()) - ref) / 864e5);
+        }
+        default: return fail(ERR.NUM);
+      }
+    }
+
+    /* --- funciones: reciben las "thunks" de sus argumentos --- */
+    function numbersOf(args) {
+      const out = [];
+      args.forEach(t => {
+        const v = t();
+        if (v.t === 'm') {
+          v.rows.forEach(row => row.forEach(x => {
+            if (x.t === 'e') fail(x.v);
+            if (x.t === 'n') out.push(x.v);
+          }));
+        } else if (v.ref) {
+          if (v.t === 'e') fail(v.v);
+          if (v.t === 'n') out.push(v.v);
+        } else out.push(toNum(v));
+      });
+      return out;
+    }
+    function textsOf(args) {
+      const out = [];
+      args.forEach(t => {
+        const v = t();
+        if (v.t === 'm') v.rows.forEach(row => row.forEach(x => out.push(x)));
+        else out.push(v);
+      });
+      return out;
+    }
+    const num = n => ({ t: 'n', v: n });
+    const FN = {
+      SUMA: a => num(numbersOf(a).reduce((x, y) => x + y, 0)),
+      PRODUCTO: a => { const f = numbersOf(a); return num(f.length ? f.reduce((x, y) => x * y, 1) : 0); },
+      MAX: a => { const f = numbersOf(a); return num(f.length ? Math.max.apply(null, f) : 0); },
+      MIN: a => { const f = numbersOf(a); return num(f.length ? Math.min.apply(null, f) : 0); },
+      PROMEDIO: a => {
+        const f = numbersOf(a);
+        if (!f.length) fail(ERR.DIV);
+        return num(f.reduce((x, y) => x + y, 0) / f.length);
+      },
+      REDONDEAR: a => {
+        if (a.length !== 2) throw { syntax: true };
+        const k = Math.pow(10, Math.floor(toNum(scalar(a[1]()))));
+        return num(Math.round(toNum(scalar(a[0]())) * k + (toNum(scalar(a[0]())) < 0 ? -1e-9 : 1e-9)) / k);
+      },
+      MEDIANA: a => {
+        const f = numbersOf(a).sort((x, y) => x - y);
+        if (!f.length) fail(ERR.NUM);
+        const m = f.length >> 1;
+        return num(f.length % 2 ? f[m] : (f[m - 1] + f[m]) / 2);
+      },
+      HOY: a => ({ t: 'n', v: todaySerial(), date: true }),
+      SIFECHA: a => {
+        if (a.length !== 3) throw { syntax: true };
+        return num(sifecha(toNum(scalar(a[0]())), toNum(scalar(a[1]())), toText(scalar(a[2]()))));
+      },
+      SI: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        if (toBool(scalar(a[0]()))) return scalar(a[1]());
+        return a.length === 3 ? scalar(a[2]()) : { t: 'bool', v: false };
+      },
+      CONCATENAR: a => {
+        let s = '';
+        a.forEach(t => {
+          const v = t();
+          if (v.t === 'm') fail(ERR.VAL);
+          s += toText(v);
+        });
+        return { t: 's', v: s };
+      },
+      UNIRCADENAS: a => {
+        if (a.length < 3) throw { syntax: true };
+        const delim = toText(scalar(a[0]()));
+        const skip = toBool(scalar(a[1]()));
+        const parts = textsOf(a.slice(2)).filter(v => !(skip && (v.t === 'b' || (v.t === 's' && v.v === ''))));
+        return { t: 's', v: parts.map(toText).join(delim) };
+      },
+      INDICE: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        const m = a[0]();
+        if (m.t !== 'm') fail(ERR.VAL);
+        let r = Math.floor(toNum(scalar(a[1]()))), c = a.length === 3 ? Math.floor(toNum(scalar(a[2]()))) : 1;
+        if (a.length === 2 && m.nr === 1) { c = r; r = 1; }
+        if (r < 1 || c < 1 || r > m.nr || c > m.nc) fail(ERR.REF);
+        return m.rows[r - 1][c - 1];
+      },
+      COINCIDIR: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        const look = scalar(a[0]());
+        const m = a[1]();
+        if (m.t !== 'm') fail(ERR.VAL);
+        const type = a.length === 3 ? toNum(scalar(a[2]())) : 1;
+        const list = [];
+        m.rows.forEach(row => row.forEach(x => list.push(x)));
+        if (look.t === 'e') fail(look.v);
+        if (type === 0) {
+          for (let i = 0; i < list.length; i++) {
+            if (list[i].t !== 'e' && list[i].t !== 'b' && compare('=', list[i], look)) return num(i + 1);
+          }
+          return fail(ERR.NA);
+        }
+        let best = -1;
+        for (let i = 0; i < list.length; i++) {
+          const x = list[i];
+          if (x.t === 'b' || x.t === 'e') continue;
+          if (type > 0 ? compare('<=', x, look) : compare('>=', x, look)) best = i; else break;
+        }
+        if (best < 0) fail(ERR.NA);
+        return num(best + 1);
+      }
+    };
+
+    /* --- analizador léxico y sintáctico --- */
+    function tokenize(body) {
+      const re = /\s*(?:("(?:[^"]|"")*")|(\$?[A-Za-z]{1,2}\$?\d{1,3}):(\$?[A-Za-z]{1,2}\$?\d{1,3})|(\$?[A-Za-z]{1,2}\$?\d{1,3})(?![A-Za-z0-9_.(])|([A-Za-zÁÉÍÓÚÑáéíóúñ][A-Za-zÁÉÍÓÚÑáéíóúñ0-9_.]*)|(\d+(?:,\d+)?)|(<=|>=|<>|[-+*\/()^;&=<>%]))/y;
+      const toks = [];
+      let pos = 0;
+      body = body.trim();
+      while (pos < body.length) {
+        re.lastIndex = pos;
+        const m = re.exec(body);
+        if (!m) throw { syntax: true };
+        pos = re.lastIndex;
+        if (m[1] != null) toks.push({ k: 'str', v: m[1].slice(1, -1).replace(/""/g, '"') });
+        else if (m[2]) toks.push({ k: 'rng', a: m[2], b: m[3] });
+        else if (m[4]) toks.push({ k: 'ref', v: m[4] });
+        else if (m[5]) toks.push({ k: 'name', v: m[5].toUpperCase() });
+        else if (m[6]) toks.push({ k: 'num', v: parseFloat(m[6].replace(',', '.')) });
+        else toks.push({ k: 'op', v: m[7] });
+      }
+      return toks;
+    }
+
+    function compileFormula(toks, env) {
+      let p = 0;
+      const peek = () => toks[p];
+      const isOp = (...vs) => { const t = toks[p]; return t && t.k === 'op' && vs.indexOf(t.v) >= 0; };
+      const syntax = () => { throw { syntax: true }; };
+
+      function pCmp() {
+        let l = pConcat();
+        while (isOp('=', '<>', '<', '>', '<=', '>=')) {
+          const op = toks[p++].v, a = l, b = pConcat();
+          l = () => ({ t: 'bool', v: compare(op, scalar(a()), scalar(b())) });
+        }
+        return l;
+      }
+      function pConcat() {
+        let l = pAdd();
+        while (isOp('&')) {
+          p++;
+          const a = l, b = pAdd();
+          l = () => ({ t: 's', v: toText(scalar(a())) + toText(scalar(b())) });
+        }
+        return l;
+      }
+      function pAdd() {
+        let l = pMul();
+        while (isOp('+', '-')) {
+          const op = toks[p++].v, a = l, b = pMul();
+          l = () => {
+            const x = scalar(a()), y = scalar(b());
+            const n = op === '+' ? toNum(x) + toNum(y) : toNum(x) - toNum(y);
+            return { t: 'n', v: n, date: op === '+' ? !!(x.date || y.date) : (!!x.date && !y.date) };
+          };
+        }
+        return l;
+      }
+      function pMul() {
+        let l = pPow();
+        while (isOp('*', '/')) {
+          const op = toks[p++].v, a = l, b = pPow();
+          l = () => {
+            const x = toNum(scalar(a())), y = toNum(scalar(b()));
+            if (op === '/' && y === 0) fail(ERR.DIV);
+            return num(op === '*' ? x * y : x / y);
+          };
+        }
+        return l;
+      }
+      function pPow() {
+        let l = pUnary();
+        while (isOp('^')) {
+          p++;
+          const a = l, b = pUnary();
+          l = () => num(Math.pow(toNum(scalar(a())), toNum(scalar(b()))));
+        }
+        return l;
+      }
+      function pUnary() {
+        if (isOp('-')) { p++; const a = pUnary(); return () => num(-toNum(scalar(a()))); }
+        if (isOp('+')) { p++; return pUnary(); }
+        let l = pPrimary();
+        while (isOp('%')) { p++; const a = l; l = () => num(toNum(scalar(a())) / 100); }
+        return l;
+      }
+      function pPrimary() {
+        const t = toks[p++];
+        if (!t) return syntax();
+        if (t.k === 'num') return () => num(t.v);
+        if (t.k === 'str') return () => ({ t: 's', v: t.v });
+        if (t.k === 'ref') {
+          return () => {
+            const rf = splitRef(t.v);
+            if (!rf) fail(ERR.REF);
+            if (rf.c >= S_COLS(env) || rf.r >= S_ROWS(env)) fail(ERR.REF);
+            return Object.assign({ ref: true }, cellValue(env.S, cellId(rf.c, rf.r), env.depth));
+          };
+        }
+        if (t.k === 'rng') {
+          return () => {
+            const a = splitRef(t.a), b = splitRef(t.b);
+            if (!a || !b) fail(ERR.REF);
+            const rows = [];
+            for (let r = Math.min(a.r, b.r); r <= Math.max(a.r, b.r); r++) {
+              const row = [];
+              for (let c = Math.min(a.c, b.c); c <= Math.max(a.c, b.c); c++) row.push(cellValue(env.S, cellId(c, r), env.depth));
+              rows.push(row);
+            }
+            return { t: 'm', rows: rows, nr: rows.length, nc: rows[0].length };
+          };
+        }
+        if (t.k === 'op' && t.v === '(') {
+          const e = pCmp();
+          if (!isOp(')')) syntax();
+          p++;
+          return e;
+        }
+        if (t.k === 'name') {
+          if (isOp('(')) {
+            p++;
+            const args = [];
+            if (isOp(')')) p++;
+            else {
+              for (;;) {
+                if (isOp(';', ')')) { args.push(() => ({ t: 'b' })); } else args.push(pCmp());
+                if (isOp(';')) { p++; continue; }
+                if (isOp(')')) { p++; break; }
+                syntax();
+              }
+            }
+            const f = FN[t.v];
+            if (!f) return () => fail(ERR.NAME);
+            return () => f(args);
+          }
+          if (t.v === 'VERDADERO') return () => ({ t: 'bool', v: true });
+          if (t.v === 'FALSO') return () => ({ t: 'bool', v: false });
+          return () => fail(ERR.NAME);
+        }
+        return syntax();
+      }
+      const root = pCmp();
+      if (p < toks.length) syntax();
+      return root;
+    }
+    function S_COLS(env) { return env.S.cols; }
+    function S_ROWS(env) { return env.S.rows; }
+
+    function evalFormula(S, raw, depth) {
+      if (depth > 25) return { t: 'e', v: ERR.REF };
+      const body = raw.slice(1).trim();
+      if (!body) return { t: 'e', v: ERR.NAME, syntax: true };
+      let root;
+      try {
+        root = compileFormula(tokenize(body), { S: S, depth: depth });
+      } catch (e) {
+        return { t: 'e', v: ERR.VAL, syntax: true };
+      }
+      try {
+        let v = root();
+        if (v.t === 'm') v = scalar(v);
+        if (v.t === 'b') v = { t: 'n', v: 0 };
+        if (v.t === 'n' && !isFinite(v.v)) return { t: 'e', v: ERR.NUM };
+        const out = Object.assign({}, v);
+        delete out.ref;
+        return out;
+      } catch (e) {
+        if (e && e.e) return { t: 'e', v: e.e };
+        if (e && e.syntax) return { t: 'e', v: ERR.VAL, syntax: true };
+        return { t: 'e', v: ERR.VAL };
+      }
+    }
+
+    /* Corre las referencias de una fórmula al copiarla (respeta $) */
+    function shiftFormula(raw, dc, dr) {
+      return raw.replace(/("(?:[^"]|"")*")|([A-Za-z0-9_.]*)(\$?)([A-Za-z]{1,2})(\$?)(\d{1,3})(?![A-Za-z0-9_.(])/g, (all, str, pre, d1, col, d2, row) => {
+        if (str || pre) return all;
+        const c = d1 ? colIndex(col.toUpperCase()) : colIndex(col.toUpperCase()) + dc;
+        const r = d2 ? parseInt(row, 10) : parseInt(row, 10) + dr;
+        if (c < 0 || c > 25 || r < 1) return '#REF!';
+        return d1 + colName(c) + d2 + r;
+      });
+    }
+
+    /* =====================================================
+       EXCEL DE BOLSILLO
+       ===================================================== */
+    function makeSheet(el, opt) {
+      const cols = parseInt(el.dataset.cols, 10), rows = parseInt(el.dataset.rows, 10);
+      const S = {
+        cols: cols, rows: rows,
+        cells: Object.assign({}, opt.data || {}),
+        fmt: Object.assign({}, opt.fmt || {}),
+        showF: false,
+        widths: (opt.widths || []).slice(),
+        a: { c: 0, r: 0 }, b: { c: 0, r: 0 },
+        editing: false, tabStart: null, mode: 'cell', dragging: false
+      };
+      for (let i = 0; i < cols; i++) if (!S.widths[i]) S.widths[i] = 80;
+      const bold = new Set(opt.bold || []);
+      const RH = 38;
+      const id = (c, r) => cellId(c, r);
+
+      el.innerHTML =
+        '<div class="xl-title"><b>' + (opt.title || 'Libro1 - Excel') + '</b></div>' +
+        '<div class="xl-fbar"><div class="xl-name"></div><div class="xl-fx">fx</div>' +
+        '<input class="xl-input" type="text" autocomplete="off" spellcheck="false" aria-label="Barra de fórmulas" /></div>' +
+        '<div class="xl-scroll" tabindex="0" role="grid" aria-label="' + (opt.label || 'Planilla de práctica') + '"></div>' +
+        '<div class="xl-sheets"><span class="on">' + (opt.sheet || 'Hoja1') + '</span><span class="plus">＋</span></div>' +
+        '<div class="xl-status"><span class="st-l">Listo</span><span class="st-r"></span></div>';
+      const nameBox = el.querySelector('.xl-name');
+      const input = el.querySelector('.xl-input');
+      const scroll = el.querySelector('.xl-scroll');
+      const stL = el.querySelector('.st-l');
+      const stR = el.querySelector('.st-r');
+
+      /* --- tabla --- */
+      let h = '<table class="xl-grid"><colgroup><col style="width:' + RH + 'px">';
+      for (let c = 0; c < cols; c++) h += '<col style="width:' + S.widths[c] + 'px">';
+      h += '</colgroup><thead><tr><th class="corner rh"></th>';
+      for (let c = 0; c < cols; c++) h += '<th data-c="' + c + '">' + colName(c) + '<span class="xl-rz" data-c="' + c + '" title="Doble clic: ajustar ancho"></span></th>';
+      h += '</tr></thead><tbody>';
+      for (let r = 0; r < rows; r++) {
+        h += '<tr><th class="rh" data-r="' + r + '">' + (r + 1) + '</th>';
+        for (let c = 0; c < cols; c++) h += '<td data-c="' + c + '" data-r="' + r + '"><span></span></td>';
+        h += '</tr>';
+      }
+      h += '</tbody></table>';
+      scroll.innerHTML = h;
+      const table = scroll.querySelector('table');
+      const colEls = table.querySelectorAll('col');
+      const tds = [];
+      for (let r = 0; r < rows; r++) { tds[r] = []; }
+      table.querySelectorAll('td').forEach(td => { tds[+td.dataset.r][+td.dataset.c] = td; });
+      const colHs = table.querySelectorAll('thead th[data-c]');
+      const rowHs = table.querySelectorAll('tbody th.rh');
+      function setTableWidth() {
+        let w = RH; S.widths.forEach(x => w += x);
+        table.style.width = w + 'px';
+        colEls.forEach((ce, i) => { if (i > 0) ce.style.width = S.widths[i - 1] + 'px'; });
+      }
+      setTableWidth();
+
+      function bbox() {
+        return {
+          c1: Math.min(S.a.c, S.b.c), c2: Math.max(S.a.c, S.b.c),
+          r1: Math.min(S.a.r, S.b.r), r2: Math.max(S.a.r, S.b.r)
+        };
+      }
+      function numText(v, c) {
+        const mode = S.fmt[c];
+        const asDate = mode === 'date' || (v.date && mode !== 'general');
+        if (asDate) return (v.v >= 1 && v.v < 2958466) ? fmtDateShort(v.v) : '#####';
+        if (opt.dec && opt.dec[c] != null && !v.show) return v.v.toFixed(opt.dec[c]).replace('.', ',');
+        return v.show ? v.show : fmtGeneral(v.v);
+      }
+      function displayOf(c, r) {
+        const raw = S.cells[id(c, r)];
+        const v = cellValue(S, id(c, r), 0);
+        if (v.t === 'b') return { txt: '', cls: '' };
+        if (S.showF && raw && raw.charAt(0) === '=') return { txt: raw, cls: 'txt' };
+        if (v.t === 'e') return { txt: v.v, cls: 'err' };
+        if (v.t === 's') return { txt: v.v, cls: 'txt' };
+        if (v.t === 'bool') return { txt: v.v ? 'VERDADERO' : 'FALSO', cls: 'err' };
+        let txt = numText(v, c);
+        const cap = Math.floor((S.widths[c] - 10) / 6.5);
+        if (txt.length > cap && !v.date && !v.show && !(opt.dec && opt.dec[c] != null)) {
+          for (let d = 9; d >= 0; d--) {
+            const t = String(parseFloat(v.v.toFixed(d))).replace('.', ',');
+            if (t.length <= cap) { txt = t; break; }
+          }
+        }
+        if (txt.length > cap) txt = '#'.repeat(Math.max(3, Math.min(cap, 8)));
+        return { txt: txt, cls: 'num' };
+      }
+      function isEmptyRaw(c, r) {
+        if (c < 0 || c >= cols || r < 0 || r >= rows) return true;
+        const raw = S.cells[id(c, r)];
+        return raw == null || raw === '';
+      }
+
+      function draw() {
+        const bb = bbox();
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const td = tds[r][c], d = displayOf(c, r);
+            const sp = td.firstChild;
+            sp.textContent = d.txt;
+            sp.className = (d.cls === 'txt' && isEmptyRaw(c + 1, r) && d.txt.length * 7 > S.widths[c] - 12) ? 'spill' : '';
+            let cl = d.cls === 'num' ? 'num' : (d.cls === 'err' ? 'err' : '');
+            if (bold.has(id(c, r))) cl += ' hdr';
+            const inR = c >= bb.c1 && c <= bb.c2 && r >= bb.r1 && r <= bb.r2;
+            if (inR && (bb.c1 !== bb.c2 || bb.r1 !== bb.r2)) cl += ' inrange';
+            if (c === S.a.c && r === S.a.r) cl += ' active';
+            if (opt.target === id(c, r)) cl += ' target';
+            if (opt.cls) { const x = opt.cls(id(c, r), d.txt); if (x) cl += ' ' + x; }
+            td.className = cl;
+          }
+        }
+        colHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.c1 && i <= bb.c2));
+        rowHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.r1 && i <= bb.r2));
+        // cuadro de nombres
+        const single = bb.c1 === bb.c2 && bb.r1 === bb.r2;
+        if (S.mode === 'col') nameBox.textContent = colName(bb.c1) + ':' + colName(bb.c2);
+        else if (S.mode === 'row') nameBox.textContent = (bb.r1 + 1) + ':' + (bb.r2 + 1);
+        else nameBox.textContent = single ? id(bb.c1, bb.r1) : id(bb.c1, bb.r1) + ':' + id(bb.c2, bb.r2);
+        if (!S.editing) input.value = S.cells[id(S.a.c, S.a.r)] || '';
+        // barra de estado
+        let n = 0, sum = 0, cnt = 0;
+        for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) {
+          const v = cellValue(S, id(c, r), 0);
+          if (v.t !== 'b') cnt++;
+          if (v.t === 'n') { n++; sum += v.v; }
+        }
+        stL.textContent = S.editing ? 'Introducir' : 'Listo';
+        stR.textContent = n > 0 && !single
+          ? 'Promedio: ' + String(parseFloat((sum / n).toPrecision(9))).replace('.', ',') + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
+          : (cnt > 1 ? 'Recuento: ' + cnt : '');
+        if (opt.onChange) opt.onChange(api);
+      }
+
+      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+      function select(c, r, extend, mode) {
+        c = clamp(c, 0, cols - 1); r = clamp(r, 0, rows - 1);
+        S.mode = mode || 'cell';
+        if (extend) S.b = { c: c, r: r };
+        else { S.a = { c: c, r: r }; S.b = { c: c, r: r }; S.tabStart = null; }
+        draw();
+        const td = tds[r][c];
+        const sr = scroll.getBoundingClientRect(), tr = td.getBoundingClientRect();
+        if (tr.bottom > sr.bottom) scroll.scrollTop += tr.bottom - sr.bottom + 4;
+        if (tr.top < sr.top + 26) scroll.scrollTop -= (sr.top + 26 - tr.top) + 4;
+        if (tr.right > sr.right) scroll.scrollLeft += tr.right - sr.right + 4;
+        if (tr.left < sr.left + RH) scroll.scrollLeft -= (sr.left + RH - tr.left) + 4;
+      }
+      function setCell(cid, raw) {
+        if (raw === '' || raw == null) delete S.cells[cid]; else S.cells[cid] = raw;
+      }
+      function commit(move) {
+        if (!S.editing) return true;
+        const raw = input.value;
+        if (raw.charAt(0) === '=') {
+          const test = evalFormula(S, raw, 0);
+          if (test.syntax) {
+            stL.textContent = '⚠ Excel no acepta esa fórmula: revisá paréntesis, comillas, operadores y separadores (;)';
+            setTimeout(draw, 2600);
+            return false;
+          }
+        }
+        S.editing = false;
+        setCell(id(S.a.c, S.a.r), raw);
+        const c = S.a.c, r = S.a.r;
+        if (move === 'enter') {
+          if (S.tabStart != null) { const sc = S.tabStart; S.tabStart = null; select(sc, r + 1); }
+          else select(c, r + 1);
+        } else if (move === 'tab') {
+          const ts = S.tabStart == null ? c : S.tabStart;
+          select(c + 1, r); S.tabStart = ts;
+        } else draw();
+        return true;
+      }
+      function cancelEdit() { S.editing = false; draw(); }
+
+      /* --- mouse --- */
+      scroll.addEventListener('mousedown', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (rz) {
+          e.preventDefault();
+          const c = +rz.dataset.c, x0 = e.clientX, w0 = S.widths[c];
+          const mv = ev => { S.widths[c] = Math.max(28, w0 + ev.clientX - x0); setTableWidth(); draw(); };
+          const up = () => { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); };
+          document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up);
+          return;
+        }
+        const td = e.target.closest('td'), ch = e.target.closest('thead th[data-c]'), rh = e.target.closest('tbody th.rh');
+        if (S.editing) commit(null);
+        if (td) {
+          e.preventDefault(); scroll.focus({ preventScroll: true });
+          select(+td.dataset.c, +td.dataset.r, e.shiftKey);
+          S.dragging = true;
+        } else if (ch) {
+          const c = +ch.dataset.c; scroll.focus({ preventScroll: true });
+          S.a = { c: c, r: 0 }; S.b = { c: c, r: rows - 1 }; S.mode = 'col'; S.tabStart = null; draw();
+        } else if (rh) {
+          const r = +rh.dataset.r; scroll.focus({ preventScroll: true });
+          S.a = { c: 0, r: r }; S.b = { c: cols - 1, r: r }; S.mode = 'row'; S.tabStart = null; draw();
+        }
+      });
+      scroll.addEventListener('mouseover', e => {
+        if (!S.dragging) return;
+        const td = e.target.closest('td');
+        if (td) { S.mode = 'cell'; S.b = { c: +td.dataset.c, r: +td.dataset.r }; draw(); }
+      });
+      document.addEventListener('mouseup', () => { S.dragging = false; });
+      scroll.addEventListener('dblclick', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (!rz) {
+          if (e.target.closest('td')) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+          return;
+        }
+        const c = +rz.dataset.c;
+        let max = 0;
+        for (let r = 0; r < rows; r++) {
+          const v = cellValue(S, id(c, r), 0);
+          let t = '';
+          if (v.t === 'n') t = numText(v, c);
+          else if (v.t === 's' || v.t === 'e') t = v.v;
+          if (t.length > max) max = t.length;
+        }
+        S.widths[c] = Math.max(40, max * 7 + 16);
+        setTableWidth(); draw();
+      });
+
+      /* --- teclado sobre la grilla --- */
+      function jump(c, r, dc, dr) {
+        let nc = c + dc, nr = r + dr;
+        if (nc < 0 || nc >= cols || nr < 0 || nr >= rows) return { c: c, r: r };
+        if (!isEmptyRaw(c, r) && !isEmptyRaw(nc, nr)) {
+          while (!isEmptyRaw(nc + dc, nr + dr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+          return { c: nc, r: nr };
+        }
+        while (isEmptyRaw(nc, nr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+        return { c: nc, r: nr };
+      }
+      function lastUsed() {
+        let mc = 0, mr = 0;
+        Object.keys(S.cells).forEach(k => { const p = splitRef(k); if (p) { mc = Math.max(mc, p.c); mr = Math.max(mr, p.r); } });
+        return { c: mc, r: mr };
+      }
+      scroll.addEventListener('keydown', e => {
+        if (S.editing) return;
+        const k = e.key, cur = e.shiftKey ? S.b : S.a;
+        const dirs = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+        if (dirs[k]) {
+          e.preventDefault();
+          const d = dirs[k];
+          let t = e.ctrlKey ? jump(cur.c, cur.r, d[0], d[1]) : { c: cur.c + d[0], r: cur.r + d[1] };
+          select(t.c, t.r, e.shiftKey);
+        } else if (k === 'Enter') { e.preventDefault(); select(S.a.c, S.a.r + (e.shiftKey ? -1 : 1)); }
+        else if (k === 'Tab') { e.preventDefault(); select(S.a.c + (e.shiftKey ? -1 : 1), S.a.r); }
+        else if (k === 'Home') { e.preventDefault(); e.ctrlKey ? select(0, 0, e.shiftKey) : select(0, S.a.r, e.shiftKey); }
+        else if (k === 'End' && e.ctrlKey) { e.preventDefault(); const lu = lastUsed(); select(lu.c, lu.r, e.shiftKey); }
+        else if (k === 'PageDown') { e.preventDefault(); select(S.a.c, S.a.r + 10, e.shiftKey); }
+        else if (k === 'PageUp') { e.preventDefault(); select(S.a.c, S.a.r - 10, e.shiftKey); }
+        else if (k === 'Escape') { scroll.blur(); }
+        else if (k === 'F2') { e.preventDefault(); input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+        else if (k === 'Delete' || k === 'Backspace') {
+          e.preventDefault();
+          const bb = bbox();
+          for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) setCell(id(c, r), '');
+          draw();
+        } else if (k.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault();
+          input.value = k; S.editing = true; input.focus(); draw();
+        }
+      });
+
+      /* --- barra de fórmulas --- */
+      input.addEventListener('focus', () => { S.editing = true; stL.textContent = 'Introducir'; });
+      input.addEventListener('input', () => { S.editing = true; });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); if (commit(e.shiftKey ? null : 'enter')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Tab') { e.preventDefault(); if (commit('tab')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); scroll.focus({ preventScroll: true }); }
+      });
+      input.addEventListener('blur', () => { if (S.editing) { if (!commit(null)) cancelEdit(); } });
+
+      const api = {
+        S: S, redraw: draw, select: select, setCell: function (cid, raw) { setCell(cid, raw); draw(); },
+        activeId: function () { return id(S.a.c, S.a.r); },
+        reset: function () { S.editing = false; select(0, 0); scroll.scrollTop = 0; scroll.scrollLeft = 0; },
+        scroll: scroll, focus: function () { scroll.focus({ preventScroll: true }); },
+        display: function (cid) { const p = splitRef(cid); return displayOf(p.c, p.r).txt; },
+        raw: function (cid) { return S.cells[cid] || ''; },
+        setFmt: function (c, mode) { if (mode) S.fmt[c] = mode; else delete S.fmt[c]; draw(); },
+        showFormulas: function (on) { S.showF = !!on; draw(); },
+        /* copia la fórmula de (c, r1) hacia abajo hasta r2, corriendo las referencias (como arrastrar el controlador de relleno) */
+        fillDown: function (c, r1, r2) {
+          const src = S.cells[id(c, r1)] || '';
+          for (let r = r1 + 1; r <= r2; r++) setCell(id(c, r), src.charAt(0) === '=' ? shiftFormula(src, 0, r - r1) : src);
+          draw();
+        },
+        /* Buscar y reemplazar: sobre la selección (si es más de una celda) o sobre toda la hoja */
+        replaceAll: function (find, rep) {
+          const bb = bbox();
+          const multi = !(bb.c1 === bb.c2 && bb.r1 === bb.r2);
+          const re = new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+          let count = 0;
+          for (let r = multi ? bb.r1 : 0; r <= (multi ? bb.r2 : rows - 1); r++) {
+            for (let c = multi ? bb.c1 : 0; c <= (multi ? bb.c2 : cols - 1); c++) {
+              const raw = S.cells[id(c, r)];
+              if (!raw || raw.charAt(0) === '=') continue;
+              re.lastIndex = 0;
+              if (find && re.test(raw)) { re.lastIndex = 0; S.cells[id(c, r)] = raw.replace(re, () => rep); count++; }
+            }
+          }
+          draw();
+          return count;
+        },
+        restore: function () { S.cells = Object.assign({}, opt.data || {}); S.fmt = Object.assign({}, opt.fmt || {}); S.showF = false; draw(); }
+      };
+      if (opt.select) { const p = splitRef(opt.select.split(':')[0]); const q = splitRef(opt.select.split(':').pop()); S.a = { c: p.c, r: p.r }; S.b = { c: q.c, r: q.r }; }
+      draw();
+      return api;
+    }
+
+
+    /* =====================================================
+       Utilidades de las demos
+       ===================================================== */
+    function addChips(box, chips, onPick) {
+      chips.forEach(ch => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'xl-chip' + (ch.bad ? ' bad' : '');
+        b.textContent = ch.label || ch.f;
+        b.addEventListener('click', () => onPick(ch));
+        box.appendChild(b);
+      });
+    }
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+    /* =====================================================
+       DEMOS DE LA CLASE 10
+       ===================================================== */
+    const nf = new Intl.NumberFormat('es-AR');
+    function money(n) { return nf.format(Math.round(n * 100) / 100); }
+
+    /* ----- 1. Formato de tabla ----- */
+    (function () {
+      const base = [
+        ['Juan', 'Pérez', 2500, 30, 5],
+        ['María', 'Gómez', 1200, 45, 3],
+        ['Sara', 'Díaz', 3100, 60, 8],
+        ['Carlos', 'Ruiz', 450, 30, 2],
+        ['Lucía', 'Torres', 2200, 45, 6],
+        ['Martín', 'Ledesma', 2800, 60, 7]
+      ];
+      const extra = ['Pedro', 'Urdiales', 1000, 30, 10];
+      const S = { fmt: false, calc: false, add: false, tot: false, calcRows: 0 };
+      const tb = document.getElementById('tbTable');
+      const cap = document.getElementById('capTabla');
+      const bFmt = document.getElementById('tbFmt'), bCalc = document.getElementById('tbCalc'), bRow = document.getElementById('tbRow');
+      const cTot = document.getElementById('tbTot'), bReset = document.getElementById('tbReset');
+      let note = '', fresh = false;
+
+      function rows() { return S.add ? base.concat([extra]) : base; }
+      function render() {
+        const rs = rows();
+        const arrow = S.fmt ? '<span class="fa">▾</span>' : '';
+        let h = '<thead><tr><th>Nombre' + arrow + '</th><th>Apellido' + arrow + '</th><th class="r">Deuda' + arrow + '</th><th class="r">Plazo' + arrow + '</th><th class="r">Interés' + arrow + '</th>' +
+          (S.calc ? '<th class="r">Deuda total' + arrow + '</th>' : '') + '</tr></thead><tbody>';
+        rs.forEach((r, i) => {
+          const isNew = fresh && S.add && i === rs.length - 1;
+          const cl = isNew ? ' class="new"' : '';
+          h += '<tr><td' + cl + '>' + r[0] + '</td><td' + cl + '>' + r[1] + '</td><td class="r' + (isNew ? ' new' : '') + '">' + money(r[2]) + '</td><td class="r' + (isNew ? ' new' : '') + '">' + r[3] + '</td><td class="r' + (isNew ? ' new' : '') + '">' + r[4] + '</td>';
+          if (S.calc) {
+            const has = S.fmt || i < S.calcRows;
+            h += has ? '<td class="r' + (isNew ? ' new' : '') + '">' + money(r[2] + r[4]) + '</td>' : '<td class="r empty' + (isNew ? ' new' : '') + '">(vacío)</td>';
+          }
+          h += '</tr>';
+        });
+        if (S.fmt && S.tot) {
+          const sum = k => rs.reduce((a, r) => a + r[k], 0);
+          h += '<tr class="tot"><td>Total</td><td></td><td class="r">' + money(sum(2)) + '</td><td class="r">' + money(sum(3) / rs.length) + '</td><td class="r">' + Math.max.apply(null, rs.map(r => r[4])) + '</td>' +
+            (S.calc ? '<td class="r">' + money(rs.reduce((a, r) => a + r[2] + r[4], 0)) + '</td>' : '') + '</tr>';
+        }
+        tb.className = 'tb' + (S.fmt ? ' fmt' : '');
+        tb.innerHTML = h + '</tbody>';
+        bFmt.textContent = S.fmt ? '1 · Quitar formato de tabla' : '1 · Dar formato como tabla';
+        bCalc.disabled = S.calc; bCalc.style.opacity = S.calc ? '0.5' : '';
+        bRow.disabled = S.add; bRow.style.opacity = S.add ? '0.5' : '';
+        cTot.disabled = !S.fmt;
+        cTot.parentNode.title = S.fmt ? '' : 'La fila de totales es una función de las tablas: primero dales formato de tabla.';
+        cTot.checked = S.fmt && S.tot;
+        let msg = note;
+        if (!msg) msg = S.fmt ? 'Los datos ahora son una <b>tabla</b>: estilo con filas alternadas y una flechita de filtro en cada encabezado.' : 'Estos son <b>datos sueltos</b>: un rango común, sin estilo, sin filtros y sin fila de totales. Probá el botón 1.';
+        cap.innerHTML = msg;
+      }
+      bFmt.addEventListener('click', () => {
+        S.fmt = !S.fmt; if (!S.fmt) S.tot = false; fresh = false;
+        note = S.fmt ? 'Se aplicó el formato de tabla. Fijate en las <b>flechitas de filtro</b> de los encabezados: aparecieron solas.' : 'Se quitó el formato (<b>Diseño de tabla → Convertir en rango</b>). Los datos siguen ahí, pero ya no es una tabla.';
+        render();
+      });
+      bCalc.addEventListener('click', () => {
+        S.calc = true; S.calcRows = rows().length; fresh = false;
+        note = S.fmt ? 'En la tabla escribiste <code class="f">=Deuda+Interés</code> una sola vez y Excel la completó en <b>toda la columna</b>.' : 'Sin tabla, tuviste que escribir <code class="f">=C2+E2</code> y copiarla hacia abajo a mano.';
+        render();
+      });
+      bRow.addEventListener('click', () => {
+        S.add = true; fresh = true;
+        note = S.fmt
+          ? 'Escribiste una fila nueva debajo: la tabla <b>creció sola</b>, copió el estilo y calculó la <b>Deuda total</b>' + (S.tot ? ' y actualizó los totales' : '') + '.'
+          : 'Escribiste una fila nueva debajo, pero es un rango común: ' + (S.calc ? 'la <b>Deuda total</b> quedó vacía hasta que copies la fórmula a mano, ' : '') + 'y sin formato ni totales que se actualicen solos.';
+        render();
+      });
+      cTot.addEventListener('change', () => {
+        S.tot = cTot.checked; fresh = false;
+        note = S.tot ? '<b>Fila de totales</b>: en cada columna se elige la operación (acá Suma de Deuda, Promedio de Plazo y Máx de Interés).' : 'Se ocultó la fila de totales (<b>Diseño de tabla → Fila de totales</b>).';
+        render();
+      });
+      bReset.addEventListener('click', () => {
+        S.fmt = false; S.calc = false; S.add = false; S.tot = false; S.calcRows = 0; note = ''; fresh = false;
+        render();
+      });
+      render();
+    })();
+
+    /* ----- 2. Filtros ----- */
+    (function () {
+      const data = [
+        ['Juan', 'Pérez', 'M', 2500, 30], ['María', 'Gómez', 'F', 1200, 45], ['Sara', 'Díaz', 'F', 3100, 60],
+        ['Carlos', 'Ruiz', 'M', 450, 30], ['Lucía', 'Torres', 'F', 2200, 45], ['Martín', 'Ledesma', 'M', 2800, 60],
+        ['Ana', 'Suárez', 'F', 800, 30], ['Diego', 'Romero', 'M', 3500, 45], ['Paula', 'Vega', 'F', 1500, 60],
+        ['Hugo', 'Benítez', 'M', 2100, 30], ['Pedro', 'Urdiales', 'M', 1000, 30]
+      ];
+      const tb = document.getElementById('fTable');
+      const sSexo = document.getElementById('fSexo'), sPlazo = document.getElementById('fPlazo'), iDeuda = document.getElementById('fDeuda');
+      const cap = document.getElementById('capFiltros');
+      const st = document.getElementById('fStatus'), sm = document.getElementById('fSum');
+      function render() {
+        const sx = sSexo.value, pl = sPlazo.value;
+        const min = iDeuda.value === '' ? null : parseFloat(iDeuda.value);
+        const onS = !!sx, onP = !!pl, onD = min !== null && !isNaN(min) && min > 0;
+        const any = onS || onP || onD;
+        const fa = on => '<span class="fa' + (on ? ' on' : '') + '">' + (on ? '▼' : '▾') + '</span>';
+        let h = '<thead><tr><th class="rn"></th><th>Nombre' + fa(false) + '</th><th>Apellido' + fa(false) + '</th><th>Sexo' + fa(onS) + '</th><th class="r">Deuda' + fa(onD) + '</th><th class="r">Plazo' + fa(onP) + '</th></tr></thead><tbody>';
+        let n = 0, total = 0;
+        data.forEach((r, i) => {
+          if (onS && r[2] !== sx) return;
+          if (onP && String(r[4]) !== pl) return;
+          if (onD && r[3] < min) return;
+          n++; total += r[3];
+          h += '<tr><td class="rn' + (any ? ' hot' : '') + '">' + (i + 2) + '</td><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td class="r">' + money(r[3]) + '</td><td class="r">' + r[4] + '</td></tr>';
+        });
+        if (!n) h += '<tr><td class="rn"></td><td colspan="5" class="empty">No hay ningún registro que cumpla los filtros.</td></tr>';
+        tb.innerHTML = h + '</tbody>';
+        st.textContent = any ? n + ' de ' + data.length + ' registros encontrados' : 'Listo · ' + data.length + ' registros';
+        sm.textContent = 'Suma de Deuda (visibles): ' + money(total);
+        const act = [];
+        if (onS) act.push('<b>Sexo = ' + sx + '</b>');
+        if (onP) act.push('<b>Plazo = ' + pl + '</b>');
+        if (onD) act.push('<b>Deuda ≥ ' + money(min) + '</b>');
+        if (!any) cap.innerHTML = 'Sin filtros se ven los <b>' + data.length + ' registros</b>. Elegí un valor en cualquiera de los filtros.';
+        else cap.innerHTML = 'Filtros activos: ' + act.join(' y ') + '. Se ven <b>' + plural(n, 'registro', 'registros') + '</b> (las demás filas están <b>ocultas</b>, no borradas). Los números de fila azules y el embudito ▼ avisan que hay un filtro.';
+      }
+      [sSexo, sPlazo].forEach(el => el.addEventListener('change', render));
+      iDeuda.addEventListener('input', render);
+      document.getElementById('fClear').addEventListener('click', () => { sSexo.value = ''; sPlazo.value = ''; iDeuda.value = ''; render(); });
+      render();
+    })();
+
+    /* ----- 3. Formato condicional ----- */
+    (function () {
+      let cfOn = true;
+      let api = null;
+      const cap = document.getElementById('capCond');
+      const btn = document.getElementById('cfToggle');
+      const names = ['Ana', 'Bruno', 'Carla', 'Diego', 'Eva', 'Fede', 'Gise', 'Hugo'];
+      const notes = [92, 70, 65, 48, 85, 50, 33, 71];
+      const data = { A1: 'Aprobado desde', B1: '70', A2: 'Pendiente desde', B2: '50', A4: 'Alumno', B4: 'Nota', C4: 'Estado' };
+      names.forEach((n, i) => { data['A' + (i + 5)] = n; data['B' + (i + 5)] = String(notes[i]); });
+      const F = '=SI(B5>=$B$1;"Aprobado";SI(B5>=$B$2;"Pendiente";"Reprobado"))';
+      function report() {
+        if (!api) return;
+        const c = { Aprobado: 0, Pendiente: 0, Reprobado: 0 };
+        for (let r = 5; r <= 12; r++) { const v = api.display('C' + r); if (c[v] != null) c[v]++; }
+        cap.innerHTML = 'Resultado: <b>' + c.Aprobado + ' Aprobado</b> (verde), <b>' + c.Pendiente + ' Pendiente</b> (amarillo) y <b>' + c.Reprobado + ' Reprobado</b> (rojo). ' +
+          (cfOn ? 'El color lo pone el <b>formato condicional</b>: si cambiás una nota, cambia el texto <b>y</b> el color.' : 'Con el formato condicional apagado, el texto sigue igual pero todas las celdas se ven iguales.');
+      }
+      api = makeSheet(document.getElementById('xlCond'), {
+        title: 'Notas - Excel',
+        sheet: 'Notas',
+        label: 'Planilla con formato condicional según la nota',
+        data: data,
+        widths: [140, 80, 110, 20],
+        bold: ['A1', 'A2', 'A4', 'B4', 'C4'],
+        select: 'B5',
+        cls: function (cid, txt) {
+          if (!cfOn || !/^C(\d+)$/.test(cid) || +cid.slice(1) < 5) return '';
+          return txt === 'Aprobado' ? 'cf-green' : txt === 'Pendiente' ? 'cf-yellow' : txt === 'Reprobado' ? 'cf-red' : '';
+        },
+        onChange: report
+      });
+      api.setCell('C5', F); api.fillDown(2, 4, 11);
+      btn.addEventListener('click', () => {
+        cfOn = !cfOn;
+        btn.textContent = 'Formato condicional: ' + (cfOn ? 'activado' : 'desactivado');
+        btn.classList.toggle('ghost', !cfOn);
+        api.redraw(); report();
+      });
+      report();
+    })();
+
+    /* ----- 4. Promedio, SI anidado, MAX y MIN ----- */
+    (function () {
+      let api = null, note = '';
+      const cap = document.getElementById('capNotas');
+      const alumnos = [
+        ['Laclena, Ariana', '2,5', '2', '1'], ['Galleau, Nicolas', '8,5', '8', '8'], ['Kardagian, Kimberley', '8', '6,5', '7,5'],
+        ['Casas, Gonzalo', '4', '3,5', '2'], ['Fernandez, Matilda', '7', '8,5', '4'], ['Miño, Pierina', '4', '9,5', '3'],
+        ['Perez, Juan', '4', '5', '6'], ['Ginagera, Roberto', '9,5', '9', '10'], ['Rondeau, Blas', '1', '1', '1'], ['Vonka, Ruth', '2', '3', '3']
+      ];
+      const data = { A1: 'Alumno', B1: 'Parcial 1', C1: 'Parcial 2', D1: 'TP', E1: 'Promedio', F1: 'Estado', A13: 'Nota máxima', A14: 'Nota mínima' };
+      alumnos.forEach((a, i) => {
+        const r = i + 2;
+        data['A' + r] = a[0]; data['B' + r] = a[1]; data['C' + r] = a[2]; data['D' + r] = a[3];
+        data['E' + r] = '=PROMEDIO(B' + r + ':D' + r + ')';
+      });
+      ['B', 'C', 'D'].forEach(c => { data[c + '13'] = '=MAX(' + c + '2:' + c + '11)'; data[c + '14'] = '=MIN(' + c + '2:' + c + '11)'; });
+      const F_OK = '=SI(E2<4;"Insuficiente";SI(E2<8;"Aprobado";SI(E2<9;"Notable";"Excelente")))';
+      const CLS = { Insuficiente: 'cf-red', Aprobado: 'cf-yellow', Notable: 'cf-green', Excelente: 'cf-dgreen' };
+      function report() {
+        if (!api) return;
+        const c = {}; let err = 0;
+        for (let r = 2; r <= 11; r++) { const v = api.display('F' + r); if (v.charAt(0) === '#') err++; else c[v] = (c[v] || 0) + 1; }
+        const parts = ['Insuficiente', 'Aprobado', 'Notable', 'Excelente'].map(k => '<b>' + (c[k] || 0) + ' ' + k + '</b>');
+        cap.innerHTML = (note ? note + ' ' : '') + 'Cuenta: ' + parts.join(', ') + (err ? ' y <b>' + err + ' con error</b>' : '') + '. ' +
+          'Máximo del TP: <b>' + esc(api.display('D13')) + '</b>, mínimo del Parcial 1: <b>' + esc(api.display('B14')) + '</b>.';
+      }
+      api = makeSheet(document.getElementById('xlNotas'), {
+        title: 'Ejercicio 3 - Alumnos - Excel',
+        sheet: 'Estadistica alumnos',
+        label: 'Planilla de notas con promedio, estado, máximo y mínimo',
+        data: data,
+        dec: { 1: 2, 2: 2, 3: 2, 4: 2 },
+        widths: [150, 70, 70, 55, 80, 110],
+        bold: ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'A13', 'A14'],
+        select: 'F2',
+        cls: function (cid, txt) {
+          const m = /^F(\d+)$/.exec(cid);
+          return (m && +m[1] >= 2 && +m[1] <= 11) ? (CLS[txt] || '') : '';
+        },
+        onChange: report
+      });
+      function fill(f) { api.setCell('F2', f); api.fillDown(5, 1, 10); }
+      fill(F_OK);
+      const chips = [
+        { label: 'SI anidado correcto', f: F_OK, t: 'Con las preguntas en orden de menor a mayor, cada alumno cae en su categoría.' },
+        { label: 'Orden invertido (primero <8)', bad: true, f: '=SI(E2<8;"Aprobado";SI(E2<4;"Insuficiente";SI(E2<9;"Notable";"Excelente")))', t: 'Con <code class="f">E2&lt;8</code> primero, todo lo que es menor que 8 queda “Aprobado”, y la pregunta de Insuficiente nunca se evalúa.' },
+        { label: 'Un solo SI (incompleto)', bad: true, f: '=SI(E2<4;"Insuficiente";"Aprobado")', t: 'Un SI solo elige entre <b>dos</b> resultados: no hay forma de llegar a Notable o Excelente.' },
+        { label: 'Sin comillas en los textos', bad: true, f: '=SI(E2<4;Insuficiente;SI(E2<8;Aprobado;SI(E2<9;Notable;Excelente)))', t: 'Sin comillas Excel cree que son nombres de funciones o rangos y devuelve <code class="f">#¿NOMBRE?</code>.' }
+      ];
+      chips.forEach(ch => ch.label = ch.label.replace('<8', '&lt;8'));
+      const box = document.getElementById('chipsSIA');
+      chips.forEach(ch => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'xl-chip' + (ch.bad ? ' bad' : '');
+        b.innerHTML = ch.label;
+        b.addEventListener('click', () => { fill(ch.f); api.select(5, 1); note = ch.t; report(); });
+        box.appendChild(b);
+      });
+      report();
+    })();
+
+    /* ----- 5. Gráficos ----- */
+    (function () {
+      const autos = [
+        { n: 'Rav 4', precio: 37000, ventas: 5 }, { n: 'Corolla', precio: 29000, ventas: 4 }, { n: 'Fortuner', precio: 47000, ventas: 3 },
+        { n: 'Rush', precio: 27000, ventas: 6 }, { n: 'Yaris', precio: 19000, ventas: 5 }, { n: 'Rav 4 4x4', precio: 37000, ventas: 4 }, { n: 'Prado', precio: 97000, ventas: 1 }
+      ];
+      autos.forEach(a => { a.total = a.precio * a.ventas; });
+      const COL = ['#4472c4', '#ed7d31', '#a5a5a5', '#ffc000', '#5b9bd5', '#70ad47', '#264478'];
+      const SER = { total: 'Total de venta', ventas: 'Cantidad vendida', precio: 'Precio' };
+      const card = document.getElementById('chCard');
+      const cap = document.getElementById('capGrafico');
+      const selT = document.getElementById('chType'), selS = document.getElementById('chSerie');
+      const cL = document.getElementById('chLabels'), cT = document.getElementById('chTitle');
+      const pick = document.getElementById('chPick');
+      const on = autos.map(() => true);
+      autos.forEach((a, i) => {
+        const l = document.createElement('label');
+        l.className = 'xl-field chk';
+        l.innerHTML = '<input type="checkbox" checked /> ' + a.n;
+        l.firstChild.addEventListener('change', e => { on[i] = e.target.checked; render(); });
+        pick.appendChild(l);
+      });
+      function niceMax(v) {
+        const p = Math.pow(10, Math.floor(Math.log10(v)));
+        const f = v / p;
+        return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+      }
+      function render() {
+        const key = selS.value, type = selT.value;
+        const items = autos.map((a, i) => ({ a: a, i: i })).filter(x => on[x.i]);
+        const W = 640, H = 330;
+        const title = SER[key] + ' por artículo';
+        let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gráfico de ' + esc(title) + '">';
+        if (cT.checked) svg += '<text class="ct" x="' + W / 2 + '" y="26" text-anchor="middle">' + esc(title) + '</text>';
+        let legend = '';
+        if (!items.length) {
+          svg += '<text x="' + W / 2 + '" y="' + H / 2 + '" text-anchor="middle" font-size="14">Tildá al menos un artículo.</text></svg>';
+          card.innerHTML = svg; cap.innerHTML = 'El gráfico no tiene series para mostrar: se quitaron todos los artículos desde el <b>filtro del gráfico</b>.'; return;
+        }
+        const vals = items.map(x => x.a[key]);
+        const max = niceMax(Math.max.apply(null, vals));
+        const top = cT.checked ? 48 : 20;
+        if (type === 'col') {
+          const L = 70, R = 20, B = 44, w = W - L - R, h = H - top - B;
+          for (let k = 0; k <= 5; k++) {
+            const y = top + h - h * k / 5;
+            svg += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (L - 8) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11">' + nf.format(max * k / 5) + '</text>';
+          }
+          const sl = w / items.length, bw = Math.min(54, sl * 0.62);
+          items.forEach((x, j) => {
+            const v = x.a[key], bh = h * v / max, bx = L + sl * j + (sl - bw) / 2, by = top + h - bh;
+            svg += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" fill="' + COL[0] + '"/>';
+            svg += '<text x="' + (bx + bw / 2) + '" y="' + (top + h + 18) + '" text-anchor="middle" font-size="11">' + esc(x.a.n) + '</text>';
+            if (cL.checked) svg += '<text x="' + (bx + bw / 2) + '" y="' + (by - 5) + '" text-anchor="middle" font-size="10.5" font-weight="600">' + nf.format(v) + '</text>';
+          });
+        } else if (type === 'bar') {
+          const L = 92, R = 56, B = 30, w = W - L - R, h = H - top - B;
+          for (let k = 0; k <= 5; k++) {
+            const x = L + w * k / 5;
+            svg += '<line class="gl" x1="' + x + '" x2="' + x + '" y1="' + top + '" y2="' + (top + h) + '"/><text x="' + x + '" y="' + (top + h + 16) + '" text-anchor="middle" font-size="11">' + nf.format(max * k / 5) + '</text>';
+          }
+          const sl = h / items.length, bh = Math.min(30, sl * 0.62);
+          items.forEach((x, j) => {
+            const v = x.a[key], bw = w * v / max, by = top + sl * j + (sl - bh) / 2;
+            svg += '<rect x="' + L + '" y="' + by + '" width="' + bw + '" height="' + bh + '" fill="' + COL[0] + '"/>';
+            svg += '<text x="' + (L - 8) + '" y="' + (by + bh / 2 + 4) + '" text-anchor="end" font-size="11">' + esc(x.a.n) + '</text>';
+            if (cL.checked) svg += '<text x="' + (L + bw + 5) + '" y="' + (by + bh / 2 + 4) + '" font-size="10.5" font-weight="600">' + nf.format(v) + '</text>';
+          });
+        } else {
+          const sum = vals.reduce((p, q) => p + q, 0);
+          const cx = W / 2, cy = top + (H - top - 12) / 2, r = Math.min(110, (H - top - 30) / 2);
+          let ang = -Math.PI / 2;
+          items.forEach((x, j) => {
+            const v = x.a[key], da = 2 * Math.PI * v / sum, a2 = ang + da;
+            const c = COL[x.i % COL.length];
+            if (items.length === 1) svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + c + '"/>';
+            else {
+              const x1 = cx + r * Math.cos(ang), y1 = cy + r * Math.sin(ang), x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
+              svg += '<path d="M' + cx + ' ' + cy + ' L' + x1.toFixed(2) + ' ' + y1.toFixed(2) + ' A' + r + ' ' + r + ' 0 ' + (da > Math.PI ? 1 : 0) + ' 1 ' + x2.toFixed(2) + ' ' + y2.toFixed(2) + ' Z" fill="' + c + '" stroke="#fff" stroke-width="2"/>';
+            }
+            if (cL.checked) {
+              const m = ang + da / 2, lx = cx + r * 0.68 * Math.cos(m), ly = cy + r * 0.68 * Math.sin(m);
+              if (da > 0.28) svg += '<text x="' + lx.toFixed(1) + '" y="' + (ly + 4).toFixed(1) + '" text-anchor="middle" font-size="11" font-weight="700" style="fill:#fff">' + Math.round(100 * v / sum) + '%</text>';
+            }
+            ang = a2;
+          });
+          legend = '<ul class="chart-legend">' + items.map(x => '<li><i style="background:' + COL[x.i % COL.length] + '"></i>' + esc(x.a.n) + '</li>').join('') + '</ul>';
+        }
+        svg += '</svg>';
+        card.innerHTML = svg + legend;
+        let best = items[0];
+        items.forEach(x => { if (x.a[key] > best.a[key]) best = x; });
+        const tipo = type === 'col' ? 'de columnas' : type === 'bar' ? 'de barras' : 'circular';
+        cap.innerHTML = 'Gráfico <b>' + tipo + '</b> con <b>' + SER[key] + '</b> de ' + plural(items.length, 'artículo', 'artículos') + '. El mayor valor es <b>' + esc(best.a.n) + '</b> (' + nf.format(best.a[key]) + '). ' +
+          (type === 'pie' && key === 'precio' ? '<em>El precio no es una “parte de un total”: un circular de precios no tiene mucho sentido.</em>' : (type === 'pie' ? 'El circular muestra qué parte del total aporta cada artículo.' : 'Probá cambiar el tipo: los mismos datos, distinta forma de verlos.'));
+      }
+      [selT, selS, cL, cT].forEach(el => el.addEventListener('change', render));
+      render();
+    })();
+
+    /* ----- 6. Ordenar ----- */
+    (function () {
+      const init = [
+        ['Juan', 'Pérez', 2500], ['María', 'Gómez', 1200], ['Sara', 'Díaz', 3100], ['Carlos', 'Ruiz', 450],
+        ['Lucía', 'Torres', 2200], ['Martín', 'Ledesma', 2800], ['Ana', 'Suárez', 800], ['Diego', 'Romero', 3500]
+      ];
+      const HEAD = ['Nombre', 'Apellido', 'Deuda'];
+      let orig = init.slice(), nuevo = null, mark = null;
+      const tO = document.getElementById('soOrig'), tN = document.getElementById('soNew');
+      const box = document.getElementById('soNewBox'), ttl = document.getElementById('soNewTitle');
+      const sCol = document.getElementById('soCol'), sDir = document.getElementById('soDir'), sMode = document.getElementById('soMode');
+      const cap = document.getElementById('capOrdenar');
+      function sorted(col, dir) {
+        return init.slice().sort((a, b) => {
+          const x = a[col], y = b[col];
+          const c = typeof x === 'number' ? x - y : String(x).localeCompare(String(y), 'es');
+          return c * dir;
+        });
+      }
+      function draw(el, rows, m) {
+        let h = '<thead><tr>';
+        HEAD.forEach((t, i) => { h += '<th' + (i === 2 ? ' class="r"' : '') + '>' + t + '<span class="fa' + (m && m.col === i ? ' on' : '') + '">' + (m && m.col === i ? (m.dir === 1 ? '↑' : '↓') : '▾') + '</span></th>'; });
+        h += '</tr></thead><tbody>';
+        rows.forEach(r => { h += '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td class="r">' + money(r[2]) + '</td></tr>'; });
+        el.innerHTML = h + '</tbody>';
+      }
+      function render() {
+        draw(tO, orig, mark);
+        box.hidden = !nuevo;
+        if (nuevo) draw(tN, nuevo.rows, null);
+      }
+      document.getElementById('soGo').addEventListener('click', () => {
+        const col = +sCol.value, dir = +sDir.value, mode = sMode.value;
+        const rows = sorted(col, dir);
+        const desc = HEAD[col] + (dir === 1 ? ' ascendente' : ' descendente');
+        if (mode === 'menu') {
+          orig = rows; mark = { col: col, dir: dir }; nuevo = null;
+          cap.innerHTML = 'Con <b>Datos → Ordenar</b> se reacomodaron las <b>filas de la tabla original</b> por <b>' + desc + '</b>. La flechita ' + (dir === 1 ? '↑' : '↓') + ' del encabezado marca la columna por la que está ordenada. Cada fila viajó completa: Nombre, Apellido y Deuda siguen juntos.';
+        } else {
+          nuevo = { rows: rows }; ttl.textContent = '=ORDENARPOR(Deudas;Deudas[' + HEAD[col] + '];' + dir + ')';
+          cap.innerHTML = 'La función <b>creó una tabla nueva</b> ordenada por <b>' + desc + '</b>. La tabla original <b>no cambió</b>: es la diferencia con ordenar desde el menú.';
+        }
+        render();
+      });
+      document.getElementById('soReset').addEventListener('click', () => {
+        orig = init.slice(); nuevo = null; mark = null;
+        cap.innerHTML = 'Se volvió al orden original: los datos están cargados <b>sin ningún orden</b>. Elegí una columna, un orden y un método.';
+        render();
+      });
+      cap.innerHTML = 'Los datos están cargados <b>sin ningún orden</b>. Elegí una columna, un orden y un método, y tocá <b>Ordenar</b>.';
+      render();
+    })();
+  </script>
+</body>
+</html>

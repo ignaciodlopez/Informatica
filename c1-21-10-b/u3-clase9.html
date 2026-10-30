@@ -1312,10 +1312,10 @@
         <span class="class-nav-label">Clase anterior</span>
         <span class="class-nav-title">Unidad 3 · Clase 8 · Primeros pasos en Excel</span>
       </a>
-      <span class="class-nav-link next disabled" aria-disabled="true">
+      <a class="class-nav-link next" href="u3-clase10.html">
         <span class="class-nav-label">Próxima clase</span>
-        <span class="class-nav-title">Próximamente</span>
-      </span>
+        <span class="class-nav-title">Unidad 3 · Clase 10 · Tablas, filtros y gráficos</span>
+      </a>
     </div>
   </nav>
 
@@ -1583,6 +1583,18 @@
         const f = numbersOf(a);
         if (!f.length) fail(ERR.DIV);
         return num(f.reduce((x, y) => x + y, 0) / f.length);
+      },
+      MEDIANA: a => {
+        const f = numbersOf(a).sort((x, y) => x - y);
+        if (!f.length) fail(ERR.NUM);
+        const m = f.length >> 1;
+        return num(f.length % 2 ? f[m] : (f[m - 1] + f[m]) / 2);
+      },
+      REDONDEAR: a => {
+        if (a.length !== 2) throw { syntax: true };
+        const k = Math.pow(10, Math.floor(toNum(scalar(a[1]()))));
+        const x = toNum(scalar(a[0]()));
+        return num(Math.round(x * k + (x < 0 ? -1e-9 : 1e-9)) / k);
       },
       HOY: a => ({ t: 'n', v: todaySerial(), date: true }),
       SIFECHA: a => {
@@ -1907,7 +1919,13 @@
         if (v.t === 's') return { txt: v.v, cls: 'txt' };
         if (v.t === 'bool') return { txt: v.v ? 'VERDADERO' : 'FALSO', cls: 'err' };
         let txt = numText(v, c);
-        const cap = Math.floor((S.widths[c] - 12) / 7);
+        const cap = Math.floor((S.widths[c] - 10) / 6.5);
+        if (txt.length > cap && !v.date && !v.show && !(opt.dec && opt.dec[c] != null)) {
+          for (let d = 9; d >= 0; d--) {
+            const t = String(parseFloat(v.v.toFixed(d))).replace('.', ',');
+            if (t.length <= cap) { txt = t; break; }
+          }
+        }
         if (txt.length > cap) txt = '#'.repeat(Math.max(3, Math.min(cap, 8)));
         return { txt: txt, cls: 'num' };
       }
@@ -1951,7 +1969,7 @@
         }
         stL.textContent = S.editing ? 'Introducir' : 'Listo';
         stR.textContent = n > 0 && !single
-          ? 'Promedio: ' + fmtGeneral(sum / n).slice(0, 12) + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
+          ? 'Promedio: ' + String(parseFloat((sum / n).toPrecision(9))).replace('.', ',') + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
           : (cnt > 1 ? 'Recuento: ' + cnt : '');
         if (opt.onChange) opt.onChange(api);
       }
@@ -2031,7 +2049,10 @@
       document.addEventListener('mouseup', () => { S.dragging = false; });
       scroll.addEventListener('dblclick', e => {
         const rz = e.target.closest('.xl-rz');
-        if (!rz) return;
+        if (!rz) {
+          if (e.target.closest('td')) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+          return;
+        }
         const c = +rz.dataset.c;
         let max = 0;
         for (let r = 0; r < rows; r++) {
@@ -2465,10 +2486,11 @@
         { f: '=INDICE(A2:D7;COINCIDIR(999;A2:A7;0);2)', bad: true, t: 'El 999 no existe en la lista: COINCIDIR devuelve <code class="f">#N/D</code> (no disponible) y INDICE lo arrastra.' },
         { label: 'Cambiar código buscado → 103', cell: 'G1', f: '103', t: 'Ahora G2, G3 y G4 buscan el 103.' },
         { label: 'Cambiar código buscado → 999', cell: 'G1', f: '999', bad: true, t: 'Un código que no existe hace que las tres fórmulas den <code class="f">#N/D</code>.' },
-        { label: 'Volver a 105', cell: 'G1', f: '105', t: 'Todo vuelve a la normalidad.' }
+        { label: 'Volver a 105', cell: 'G1', f: '105', clear: 'G5', t: 'Todo vuelve a la normalidad (se borró también la prueba de G5).' }
       ];
       addChips(document.getElementById('chipsIdx'), chips, ch => {
         if (ch.cell) {
+          if (ch.clear) api.setCell(ch.clear, '');
           api.setCell(ch.cell, ch.f);
           api.select(6, 0);
           cap.innerHTML = '<b>G1 = ' + esc(ch.f) + '.</b> ' + ch.t + ' Producto: <b>' + esc(api.display('G3')) + '</b> · Precio: <b>' + esc(api.display('G4')) + '</b>.';

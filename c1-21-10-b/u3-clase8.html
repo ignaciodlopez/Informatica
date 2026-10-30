@@ -1267,7 +1267,13 @@
         if (v.t === 'e') return { txt: v.v, cls: 'err' };
         if (v.t === 's') return { txt: v.v, cls: 'txt' };
         let txt = v.show ? v.show : fmtGeneral(v.v);
-        const cap = Math.floor((S.widths[c] - 12) / 7);
+        const cap = Math.floor((S.widths[c] - 10) / 6.5);
+        if (txt.length > cap && !v.show) {
+          for (let d = 9; d >= 0; d--) {
+            const t = String(parseFloat(v.v.toFixed(d))).replace('.', ',');
+            if (t.length <= cap) { txt = t; break; }
+          }
+        }
         if (txt.length > cap) txt = '#'.repeat(Math.max(3, Math.min(cap, 8)));
         return { txt: txt, cls: 'num' };
       }
@@ -1311,7 +1317,7 @@
         }
         stL.textContent = S.editing ? 'Introducir' : 'Listo';
         stR.textContent = n > 0 && !single
-          ? 'Promedio: ' + fmtGeneral(sum / n).slice(0, 12) + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
+          ? 'Promedio: ' + String(parseFloat((sum / n).toPrecision(9))).replace('.', ',') + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
           : (cnt > 1 ? 'Recuento: ' + cnt : '');
         if (opt.onChange) opt.onChange(api);
       }
@@ -1391,7 +1397,10 @@
       document.addEventListener('mouseup', () => { S.dragging = false; });
       scroll.addEventListener('dblclick', e => {
         const rz = e.target.closest('.xl-rz');
-        if (!rz) return;
+        if (!rz) {
+          if (e.target.closest('td')) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+          return;
+        }
         const c = +rz.dataset.c;
         let max = 0;
         for (let r = 0; r < rows; r++) {
