@@ -438,7 +438,7 @@
           <li>Hacé clic en cualquier celda de la lista.</li>
           <li>Andá a <strong>Inicio → Dar formato como tabla</strong> y elegí un estilo (o a <strong>Insertar → Tabla</strong>, o usá <kbd>Ctrl</kbd>+<kbd>T</kbd>).</li>
           <li>Excel detecta el rango. Confirmá que esté marcado <strong>La tabla tiene encabezados</strong> y aceptá.</li>
-          <li>Aparece la pestaña <strong>Diseño de tabla</strong>. En <strong>Nombre de la tabla</strong> escribí uno propio (por ejemplo <code class="f">Deudas</code>) y presioná <kbd>Enter</kbd>.</li>
+          <li>Aparece la pestaña <strong>Diseño de tabla</strong>. En <strong>Nombre de la tabla</strong> escribí uno propio (por ejemplo <code class="f">Deudas</code>) y presioná <kbd>Enter</kbd>. Con ese nombre después podés citar la tabla y sus columnas en fórmulas, como <code class="f">Deudas[Deuda]</code>.</li>
         </ol>
         <p class="rule"><strong>Sin celdas combinadas:</strong> una tabla no admite celdas combinadas. Si tu encabezado usa <em>Combinar y centrar</em> (como el del ejercicio de hoy), esa zona no se puede convertir en tabla.</p>
 
@@ -569,7 +569,10 @@
           <li>Escribí el valor o texto (por ejemplo <code class="f">Aprobado</code>), elegí el formato y aceptá. Repetí con una regla por cada color.</li>
         </ol>
         <p>
-          Otras opciones del mismo menú: <strong>Reglas superiores e inferiores</strong>, <strong>Barras de datos</strong>, <strong>Escalas de color</strong> y <strong>Conjuntos de íconos</strong>.
+          Cada formato condicional se define con una <strong>regla</strong>: una condición (“es igual a Aprobado”) más el formato que se aplica cuando se cumple (“relleno verde”).
+          Otras opciones del mismo menú: <strong>Reglas superiores e inferiores</strong> (resaltan, por ejemplo, el 10 % más alto),
+          <strong>Barras de datos</strong> (una barra dentro de la celda, más larga cuanto mayor es el valor), <strong>Escalas de color</strong> (un degradado de colores según el valor)
+          y <strong>Conjuntos de íconos</strong> (flechas o semáforos que indican si el valor es alto, medio o bajo).
           Para ver, editar o borrar las reglas existentes: <strong>Formato condicional → Administrar reglas</strong>.
         </p>
 
@@ -618,6 +621,10 @@
         </div>
 
         <h3 class="paso"><span class="paso-n">1</span> PROMEDIO, MAX y MIN</h3>
+        <p>
+          <code class="f">PROMEDIO</code> calcula el <strong>promedio</strong> (la suma de los valores dividida por la cantidad de valores). <code class="f">MAX</code> devuelve el <strong>número más grande</strong> de un rango
+          y <code class="f">MIN</code> el <strong>más chico</strong>. Sirven para resumir una lista de números sin tener que mirarlos uno por uno.
+        </p>
         <div class="table-card">
           <table>
             <thead><tr><th>Quiero…</th><th>Fórmula</th></tr></thead>
@@ -634,6 +641,11 @@
         </p>
 
         <h3 class="paso"><span class="paso-n">2</span> El SI anidado</h3>
+        <p>
+          Un <strong>SI anidado</strong> es un <code class="f">SI</code> escrito <strong>dentro de otro <code class="f">SI</code></strong>. Un solo <code class="f">SI</code> solo puede dar dos resultados
+          (si se cumple la condición o si no); al poner otro <code class="f">SI</code> en el lugar del “si no”, la fórmula puede elegir entre <strong>tres, cuatro o más resultados</strong>.
+          Se usa cuando hay <strong>varias categorías</strong>, como en este ejercicio: Insuficiente, Aprobado, Notable y Excelente.
+        </p>
         <p class="fx-line">=SI(E4&lt;4;"Insuficiente";SI(E4&lt;8;"Aprobado";SI(E4&lt;9;"Notable";"Excelente")))</p>
         <p>
           Se lee de afuera hacia adentro: <em>“Si el promedio es menor que 4, Insuficiente. Si no, ¿es menor que 8? Entonces Aprobado. Si no, ¿es menor que 9? Entonces Notable. Si no, Excelente.”</em>
@@ -706,7 +718,8 @@
 
         <h3 class="paso"><span class="paso-n">2</span> Probalo: ventas de autos</h3>
         <p>
-          Estos son los datos del video. Cambiá el tipo de gráfico, lo que se grafica y qué artículos se muestran (como el <em>filtro del gráfico</em>).
+          Estos son los datos del video. Cada conjunto de valores que se dibuja (Total de venta, Cantidad vendida o Precio) es una <strong>serie</strong>.
+          Cambiá el tipo de gráfico, la serie que se grafica y qué artículos se muestran (como el <em>filtro del gráfico</em>).
         </p>
         <div class="xl-ctrls">
           <label class="xl-field">Tipo
@@ -767,6 +780,10 @@
         </ol>
 
         <h3 class="paso"><span class="paso-n">2</span> Con una función</h3>
+        <p>
+          Una <strong>función de ordenar</strong> es una fórmula que <strong>no mueve</strong> los datos originales: lee la lista y escribe en otra zona de la hoja una <strong>copia ya ordenada</strong>.
+          Es útil cuando querés conservar la lista como está y, además, ver el ranking.
+        </p>
         <p class="fx-line">=ORDENARPOR(Deudas;Deudas[Deuda];-1)</p>
         <p>
           <code class="f">ORDENARPOR(matriz; por_matriz; orden)</code> devuelve una <strong>tabla nueva</strong> con los mismos datos ordenados según una columna: <code class="f">1</code> es ascendente y <code class="f">-1</code> descendente.
@@ -834,7 +851,7 @@
         <p>El libro tiene una sola hoja, <strong>Estadistica alumnos</strong>:</p>
         <ul>
           <li><strong>A1:B1:</strong> la palabra “Fecha” y una celda con formato de fecha, vacía.</li>
-          <li><strong>Filas 2 y 3:</strong> encabezados con celdas combinadas: <strong>Alumno</strong>, <strong>notas</strong> (Parcial, Parcial, TP), <strong>Promedio</strong> y <strong>Estado</strong>.</li>
+          <li><strong>Filas 2 y 3:</strong> encabezados con <strong>celdas combinadas</strong> (varias celdas unidas en una sola): <strong>Alumno</strong>, <strong>notas</strong> (Parcial, Parcial, TP), <strong>Promedio</strong> y <strong>Estado</strong>.</li>
           <li><strong>Filas 4 a 13:</strong> diez alumnos con sus tres notas cargadas. Las columnas <strong>E</strong> (Promedio) y <strong>F</strong> (Estado) están vacías.</li>
           <li><strong>Filas 15 y 16:</strong> <strong>Nota máxima</strong> y <strong>Nota mínima</strong>, con las celdas de B a D vacías.</li>
           <li><strong>M3:M6:</strong> la referencia de estados (<em>&lt;4 Insuficiente, &lt;8 Aprobado, &lt;9 Notable, 10 Excelente</em>) y, a su lado, una escala de 0 a 10 dibujada.</li>
@@ -848,7 +865,7 @@
 
           <ul class="chk-list" id="chkList">
             <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Abrir y guardar.</strong> Abrí el archivo y guardalo como <strong>Ejercicio 3 - Alumnos</strong>.<small>Guardá al empezar y cada tanto: así no perdés lo hecho.</small></span></label></li>
-            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Fecha.</strong> En <strong>B1</strong> escribí <code class="f">=HOY()</code>. Ya tiene formato de fecha.<small>Si se ve un número como 46000, falta darle formato Fecha (<kbd>Ctrl</kbd>+<kbd>1</kbd>).</small></span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Fecha.</strong> En <strong>B1</strong> escribí <code class="f">=HOY()</code>, la función que devuelve la fecha de hoy y se actualiza sola cada día. Ya tiene formato de fecha.<small>Si se ve un número como 46000, falta darle formato Fecha (<kbd>Ctrl</kbd>+<kbd>1</kbd>).</small></span></label></li>
             <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Promedio.</strong> En <strong>E4</strong> escribí <code class="f">=PROMEDIO(B4:D4)</code> y copiala hasta <strong>E13</strong>.<small>El promedio va en horizontal: las tres notas del mismo alumno. Dejalo con dos decimales.</small></span></label></li>
             <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Estado con SI anidado.</strong> En <strong>F4</strong> escribí <code class="f">=SI(E4&lt;4;"Insuficiente";SI(E4&lt;8;"Aprobado";SI(E4&lt;9;"Notable";"Excelente")))</code> y copiala hasta <strong>F13</strong>.<small>Los límites salen de la referencia de M3:M6. Con 9 o más de promedio el estado es “Excelente”.</small></span></label></li>
             <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Nota máxima y mínima.</strong> En <strong>B15</strong> escribí <code class="f">=MAX(B4:B13)</code> y en <strong>B16</strong> <code class="f">=MIN(B4:B13)</code>. Copialas hacia la derecha hasta la columna <strong>D</strong>.<small>Ahora el rango es vertical: las diez notas de un mismo examen.</small></span></label></li>
