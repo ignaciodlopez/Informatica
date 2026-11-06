@@ -1252,7 +1252,7 @@
           <p class="eyebrow">Recursos multimedia</p>
           <h2>Videos de la clase</h2>
           <p>
-            Dos videos de <strong>El Tío Tech</strong>, con enlaces al minuto donde se explica cada tema. El primero cubre toda la clase; el segundo es una introducción corta a las macros, para ver el editor de Visual Basic paso a paso.
+            Tres videos, con enlaces al minuto donde se explica cada tema. El primero, de <strong>El Tío Tech</strong>, cubre toda la clase; el segundo, del mismo canal, es una introducción corta a las macros para ver el editor de Visual Basic paso a paso; el tercero, de <strong>comoconfigurar</strong>, muestra la otra forma de crear una macro: <strong>grabarla</strong>, sin escribir código.
             El primero usa un ejemplo de facturas en lugar de clientes morosos y una versión de Excel más vieja (2016), así que los menús pueden verse algo distintos;
             los pasos son los mismos. Los números del ejemplo (fechas de 2019, celdas donde guarda los contadores) no coinciden con los de esta página.
           </p>
@@ -1322,6 +1322,34 @@
               </p>
               <p class="video-ask"><b>Consigna:</b> ¿con qué palabras empieza y termina una macro? ¿Qué tres reglas tiene que cumplir el nombre de una macro? ¿En qué orden ejecuta Excel las instrucciones del código?</p>
               <details class="video-ans"><summary>Ver respuesta</summary><p>Una macro empieza con <code class="f">Sub nombre()</code> y termina con <code class="f">End Sub</code>; todo lo que va en el medio es lo que hace la macro. El nombre <strong>no puede empezar con un número</strong>, <strong>no puede tener espacios</strong> (se reemplazan con un guion bajo, por ejemplo <code class="f">mi_primera_macro</code>) y <strong>no puede llevar signos de puntuación ni caracteres especiales</strong>. El código se ejecuta <strong>de arriba hacia abajo</strong> y, en cada línea, de izquierda a derecha: si hay dos <code class="f">MsgBox</code>, aparece primero el de arriba y, cuando se acepta, el de abajo.</p></details>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/4BZ5oiAJ0Cg" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/4BZ5oiAJ0Cg/hqdefault.jpg" alt="Miniatura del video Qué es una macro en Excel, ejemplo paso a paso" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Qué es una macro en Excel: ejemplo paso a paso</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">comoconfigurar · 3 min · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=4BZ5oiAJ0Cg&t=19s" target="_blank" rel="noopener noreferrer">Qué es una macro 0:19</a> ·
+                <a href="https://www.youtube.com/watch?v=4BZ5oiAJ0Cg&t=28s" target="_blank" rel="noopener noreferrer">Activar la ficha Programador 0:28</a> ·
+                <a href="https://www.youtube.com/watch?v=4BZ5oiAJ0Cg&t=41s" target="_blank" rel="noopener noreferrer">Grabar macro y ponerle nombre 0:41</a> ·
+                <a href="https://www.youtube.com/watch?v=4BZ5oiAJ0Cg&t=55s" target="_blank" rel="noopener noreferrer">Las tareas que se graban 0:55</a> ·
+                <a href="https://www.youtube.com/watch?v=4BZ5oiAJ0Cg&t=102s" target="_blank" rel="noopener noreferrer">Detener la grabación 1:42</a> ·
+                <a href="https://www.youtube.com/watch?v=4BZ5oiAJ0Cg&t=112s" target="_blank" rel="noopener noreferrer">Crear un botón y asignarle la macro 1:52</a> ·
+                <a href="https://www.youtube.com/watch?v=4BZ5oiAJ0Cg&t=142s" target="_blank" rel="noopener noreferrer">Probar el botón 2:22</a>
+              </p>
+              <p style="margin:0.6rem 0 0;font-size:0.85rem;color:var(--muted);line-height:1.6;">
+                <strong>Ojo:</strong> acá la macro no se programa: se <strong>graba</strong> mientras se hacen los pasos a mano (es lo que vimos en “Más usos: otros eventos y grabar una macro”). Además, el botón que la ejecuta es un dibujo al que se le asigna la macro, en lugar del evento <code class="f">Open</code>.
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿qué es una macro? ¿Qué ficha hay que activar para grabarla y qué pasa mientras Excel está grabando? ¿Cómo se la puede ejecutar después con un solo clic?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>Una macro es la <strong>repetición automatizada de una serie de pasos</strong>. Hay que activar la ficha <strong>Programador</strong> (si no se ve) y usar <strong>Grabar macro</strong>: se le pone un nombre, se hacen los pasos a mano (por ejemplo, dar color a una fila o a una columna y eliminar otra) y se toca <strong>Detener grabación</strong>. Desde ese momento Excel repite todo eso cada vez que se ejecuta la macro. Para ejecutarla con un clic se inserta una <strong>forma</strong> (por ejemplo un círculo con un texto), se hace clic derecho → <strong>Asignar macro</strong> y se elige la que se grabó.</p></details>
             </div>
           </article>
         </div>
