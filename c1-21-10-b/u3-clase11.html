@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 11</title>
+  <meta
+    name="description"
+    content="Clase 11 de Informática Aplicada (C1-21-10, Todas las comisiones): operaciones con fechas, SI anidado, formato condicional con fórmulas, CONTAR.SI y macros en Excel."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== ACTIVIDADES ===== */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .progress { height: 0.7rem; background: var(--surface-soft); border-radius: 999px; overflow: hidden; margin: 0.4rem 0 0.2rem; }
+    .progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0; }
+    .chk-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .chk-list li { background: var(--surface-soft); border-radius: 12px; padding: 0.7rem 0.9rem; }
+    .chk-list label { display: flex; gap: 0.7rem; cursor: pointer; align-items: flex-start; }
+    .chk-list input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--accent); flex: none; }
+    .chk-list .chk-txt { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+    .chk-list .chk-txt small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+    .chk-list input:checked + .chk-txt { opacity: 0.6; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
+    .chk-list input:checked + .chk-txt small { text-decoration: none; }
+
+    .vs-page kbd, .fn-page kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    [data-theme="dark"] .la-box .la-link { color: #7db8ff; }
+
+    /* Preguntas frecuentes */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Video cards con miniatura */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+    .video-ask { margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .video-ask b { color: var(--primary); }
+    .video-ans { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+    .video-ans summary { cursor: pointer; font-weight: 700; color: var(--primary); }
+    .video-ans p { margin: 0.4rem 0 0; line-height: 1.55; }
+
+    /* ===== EXCEL DE BOLSILLO (ventana simulada) ===== */
+    .xl {
+      background: #fff;
+      color: #111;
+      border: 1px solid #9ca3af;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: none;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.78rem;
+      margin-top: 0.75rem;
+    }
+    .xl kbd { background: #fff; color: #111; border-color: #d1d5db; }
+    .xl-title { background: #217346; color: #fff; padding: 0.4rem 0.8rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.74rem; }
+    .xl-title b { font-weight: 600; }
+    .xl-ribbon { background: #f3f3f3; border-bottom: 1px solid #d4d4d4; display: flex; flex-wrap: wrap; gap: 0; padding: 0 0.4rem; font-size: 0.72rem; overflow-x: auto; white-space: nowrap; }
+    .xl-ribbon span { padding: 0.4rem 0.65rem; color: #374151; }
+    .xl-ribbon span.on { color: #217346; font-weight: 700; border-bottom: 3px solid #217346; background: #fff; }
+    .xl-tools { background: #fff; border-bottom: 1px solid #d4d4d4; padding: 0.35rem 0.7rem; display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; align-items: center; font-size: 0.7rem; color: #4b5563; }
+    .xl-tools i { font-style: normal; border: 1px solid #d4d4d4; border-radius: 3px; padding: 0.05rem 0.4rem; background: #fafafa; color: #111; }
+    .xl-fbar { display: flex; align-items: stretch; border-bottom: 1px solid #d4d4d4; background: #fff; }
+    .xl-name { width: 5.6rem; flex: none; border-right: 1px solid #d4d4d4; padding: 0.3rem 0.5rem; font-weight: 600; background: #fff; display: flex; align-items: center; }
+    .xl-fx { flex: none; width: 2.2rem; display: flex; align-items: center; justify-content: center; font-style: italic; font-weight: 700; color: #6b7280; border-right: 1px solid #d4d4d4; font-family: Georgia, serif; }
+    .xl-input { flex: 1; min-width: 0; border: 0; padding: 0.3rem 0.55rem; font: inherit; background: #fff; color: #111; outline: none; }
+    .xl-input:focus { box-shadow: inset 0 0 0 2px #217346; }
+    .xl-scroll { overflow: auto; max-height: 21rem; outline: none; position: relative; background: #fff; }
+    .xl-scroll:focus-visible { box-shadow: inset 0 0 0 3px #f59e0b; }
+    table.xl-grid { border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 0.78rem; user-select: none; }
+    .xl-grid th, .xl-grid td { border-right: 1px solid #d4d4d4; border-bottom: 1px solid #d4d4d4; height: 1.45rem; padding: 0 0.35rem; white-space: nowrap; line-height: 1.45rem; box-sizing: border-box; }
+    .xl-grid thead th { position: sticky; top: 0; z-index: 3; background: #e6e6e6; font-weight: 500; text-align: center; color: #374151; }
+    .xl-grid th.rh { position: sticky; left: 0; z-index: 2; background: #e6e6e6; width: 2.4rem; min-width: 2.4rem; text-align: center; font-weight: 500; color: #374151; padding: 0; }
+    .xl-grid thead th.corner { left: 0; z-index: 4; }
+    .xl-grid th.hl { background: #d3e8dc !important; color: #14532d; font-weight: 700; }
+    .xl-grid thead th.hl { border-bottom: 2px solid #217346; }
+    .xl-grid th.rh.hl { border-right: 2px solid #217346; }
+    .xl-grid td { cursor: cell; position: relative; background: #fff; }
+    .xl-grid td > span { display: block; overflow: hidden; text-overflow: clip; }
+    .xl-grid td > span.spill { overflow: visible; position: relative; z-index: 1; }
+    .xl-grid td.num { text-align: right; }
+    .xl-grid td.err { text-align: center; }
+    .xl-grid td.inrange { background: #e4f1ea; }
+    .xl-grid td.active { background: #fff; box-shadow: inset 0 0 0 2px #217346; z-index: 1; }
+    .xl-grid td.target { background: #fde68a; }
+    .xl-grid td.target.active { background: #fff; }
+    .xl-grid td.hdr { font-weight: 700; background: #f3f4f6; }
+    .xl-rz { position: absolute; top: 0; right: -3px; width: 7px; height: 100%; cursor: col-resize; z-index: 5; }
+    .xl-rz:hover { background: rgba(33,115,70,0.35); }
+    .xl-sheets { display: flex; align-items: center; background: #f3f3f3; border-top: 1px solid #d4d4d4; padding: 0.25rem 0.5rem 0; gap: 0.25rem; }
+    .xl-sheets span { padding: 0.25rem 0.9rem; font-size: 0.72rem; color: #374151; }
+    .xl-sheets span.on { background: #fff; color: #217346; font-weight: 700; border-bottom: 3px solid #217346; border-radius: 3px 3px 0 0; }
+    .xl-sheets span.plus { font-weight: 800; color: #217346; padding: 0.2rem 0.6rem; }
+    .xl-status { background: #217346; color: #fff; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: 0.25rem 0.8rem; font-size: 0.7rem; }
+    .xl-hint { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+    .xl-hint kbd { font-size: 0.78em; }
+    .xl-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.9rem 0 0; }
+    .xl-chip {
+      cursor: pointer;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .xl-chip:hover { border-color: var(--primary); }
+    .xl-chip.bad { border-style: dashed; color: #b91c1c; }
+    .xl-chip:focus-visible, .lab-btn:focus-visible, .fn-sel:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .xl-caption { margin: 0.7rem 0 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.85rem; line-height: 1.55; color: var(--text); }
+    .xl-caption b { color: var(--primary); }
+    .xl-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.55rem 1.2rem; list-style: none; margin: 1rem 0 0; padding: 0; }
+    .xl-legend li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
+    .xl-legend li strong { color: var(--text); }
+    .mk { flex: none; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: #217346; color: #fff; font-size: 0.72rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .xl .mk { width: 1.1rem; height: 1.1rem; font-size: 0.62rem; margin-right: 0.35rem; background: #f59e0b; color: #111; }
+    .xl-ribbon .mk { margin: 0 0.3rem; align-self: center; }
+
+
+    code.f { font-family: Consolas, 'Courier New', monospace; background: var(--surface-soft); border-radius: 4px; padding: 0.05rem 0.4rem; font-size: 0.85em; color: var(--primary); }
+    [data-theme="dark"] code.f { background: rgba(255,255,255,0.1); color: #93c5fd; }
+    kbd {
+      display: inline-block;
+      padding: 0.05rem 0.45rem;
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.8em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+    .topics { margin: 0; padding-left: 1.2rem; color: var(--text); line-height: 1.9; columns: 2; column-gap: 2.5rem; }
+    @media (max-width: 700px) { .topics { columns: 1; } }
+    .plain h3 { margin: 2rem 0 0.4rem; }
+    .plain p { margin: 0.4rem 0; color: var(--muted); max-width: 62rem; line-height: 1.65; }
+    .plain p strong, .plain li strong { color: var(--text); }
+    .plain ul { margin: 0.4rem 0; padding-left: 1.2rem; color: var(--muted); line-height: 1.7; max-width: 62rem; }
+    .plain .table-card { margin: 0.8rem 0; }
+    .rule { margin: 1rem 0 0; padding: 0.7rem 1rem; border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; font-size: 0.92rem; color: var(--text); max-width: 62rem; }
+
+    /* ===== CLASE 9: controles y demos ===== */
+    .xl-ctrls { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; margin: 0.9rem 0 0; }
+    .xl-btn { cursor: pointer; font: inherit; font-size: 0.82rem; font-weight: 700; padding: 0.45rem 0.9rem; border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff; }
+    .xl-btn.ghost { background: var(--surface); color: var(--primary); }
+    [data-theme="dark"] .xl-btn.ghost { color: #93c5fd; border-color: #93c5fd; }
+    .xl-btn:hover { filter: brightness(1.1); }
+    .xl-btn:focus-visible, .xl-field input:focus-visible, .xl-field select:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .xl-field { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .xl-field input[type="text"], .xl-field select { font-size: 0.82rem; font-weight: 600; padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-family: Consolas, 'Courier New', monospace; }
+    .xl-field input[type="text"] { width: 14rem; max-width: 100%; }
+    .xl-field input.short { width: 3.5rem; text-align: center; }
+    .xl-field.chk { gap: 0.35rem; font-weight: 600; cursor: pointer; }
+    .xl-field.chk input { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+    .xl + .xl-caption, .xl-ctrls + .xl { margin-top: 0.75rem; }
+    .xl-pad { overflow-x: auto; background: #fff; }
+    table.xl-simple { border-collapse: collapse; width: 100%; font-size: 0.78rem; color: #111; background: #fff; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .xl-simple th, .xl-simple td { border: 1px solid #d4d4d4; padding: 0 0.6rem; height: 1.6rem; text-align: left; white-space: nowrap; }
+    .xl-simple th { background: #e6e6e6; font-weight: 500; text-align: center; color: #374151; }
+    .xl-simple th.rh { width: 2.4rem; padding: 0; }
+    .xl-simple td.r { text-align: right; }
+    .xl-simple td.mg-head { font-weight: 700; background: #f3f4f6; text-align: center; }
+    .xl-simple td.mg-merged { text-align: center; font-weight: 800; background: #d3e8dc; color: #14532d; outline: 2px solid #217346; outline-offset: -2px; }
+    .xl-simple td.mg-title { position: relative; }
+    .xl-simple td.mg-title span { position: absolute; left: 0.6rem; top: 0.2rem; font-weight: 800; }
+
+    /* pasos numerados y fórmula destacada */
+    .plain h3.paso { display: flex; align-items: center; gap: 0.65rem; margin: 2.4rem 0 0.5rem; }
+    .paso-n { flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.9rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+    .plain p.fx-line { display: inline-block; margin: 0.4rem 0; padding: 0.55rem 0.95rem; border-radius: 10px; background: var(--surface-soft); border: 1px solid var(--line); font-family: Consolas, 'Courier New', monospace; font-size: 0.95rem; font-weight: 700; color: var(--primary); max-width: 100%; overflow-x: auto; }
+    [data-theme="dark"] .plain p.fx-line { color: #93c5fd; }
+
+    /* introducción de cada sección: globo blanco, sin franja de color */
+    .lectura { margin: 1.4rem 0 1.8rem; padding: 1.2rem 1.5rem 1.3rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); max-width: 62rem; }
+    .lectura-label { margin: 0 0 0.55rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .lectura p:not(.lectura-label) { margin: 0; font-size: 1.05rem; line-height: 1.8; color: var(--text); }
+    .lectura p + p:not(.lectura-label) { margin-top: 0.75rem; }
+
+    /* ===== CLASE 10: tablas, filtros, formato condicional y gráficos ===== */
+    .xl-grid td.cf-red { background: #ffc7ce; color: #9c0006; }
+    .xl-grid td.cf-yellow { background: #ffeb9c; color: #9c5700; }
+    .xl-grid td.cf-green { background: #c6efce; color: #006100; }
+    .xl-grid td.cf-dgreen { background: #2e7d32; color: #fff; }
+    .xl-grid td.cf-red.active, .xl-grid td.cf-yellow.active, .xl-grid td.cf-green.active, .xl-grid td.cf-dgreen.active { box-shadow: inset 0 0 0 2px #217346; }
+
+    .tb-wrap { overflow-x: auto; background: #fff; }
+    table.tb { border-collapse: collapse; width: 100%; font-size: 0.78rem; color: #111; background: #fff; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .tb th, .tb td { border: 1px solid #d4d4d4; padding: 0 0.6rem; height: 1.6rem; white-space: nowrap; text-align: left; }
+    .tb th { background: #f3f4f6; font-weight: 700; }
+    .tb td.r, .tb th.r { text-align: right; }
+    .tb.fmt { border-color: #217346; }
+    .tb.fmt th { background: #217346; color: #fff; border-color: #217346; }
+    .tb.fmt td { border-color: #cfe5d8; }
+    .tb.fmt tbody tr:nth-child(even) td { background: #e4f1ea; }
+    .tb.fmt tr.tot td { background: #fff; font-weight: 700; border-top: 2px solid #217346; }
+    .tb tr.tot td { background: #f9fafb; font-weight: 700; }
+    .tb .fa { display: inline-block; margin-left: 0.4rem; padding: 0 0.25rem; border: 1px solid rgba(255,255,255,0.8); border-radius: 2px; background: #fff; color: #217346; font-size: 0.6rem; line-height: 1rem; vertical-align: middle; }
+    .tb .fa.on { background: #fde68a; color: #92400e; border-color: #f59e0b; }
+    .tb td.new { animation: tbnew 1.4s ease-out; }
+    @keyframes tbnew { from { background: #fde68a; } to { background: transparent; } }
+    @media (prefers-reduced-motion: reduce) { .tb td.new { animation: none; } }
+    .tb td.empty { color: #9ca3af; font-style: italic; }
+    .tb td.rn { text-align: center; width: 2.4rem; padding: 0; background: #e6e6e6; color: #374151; font-weight: 500; }
+    .tb td.rn.hot { color: #1d4ed8; font-weight: 700; }
+    .tb th.rn { background: #e6e6e6; color: #374151; width: 2.4rem; padding: 0; }
+
+    .xl-ctrls select, .xl-field select { max-width: 100%; }
+    .xl-field input[type="number"] { font-size: 0.82rem; font-weight: 600; padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); width: 6rem; }
+    .xl-field input[type="number"]:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+
+    .chart-card { background: #fff; color: #111; border: 1px solid #d4d4d4; border-radius: 0 0 8px 8px; padding: 0.6rem 0.8rem 0.9rem; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .chart-card svg { display: block; width: 100%; height: auto; max-height: 21rem; }
+    .chart-card text { font-family: 'Segoe UI', system-ui, sans-serif; fill: #374151; }
+    .chart-card .ct { font-size: 15px; font-weight: 700; fill: #111; }
+    .chart-card .gl { stroke: #e5e7eb; stroke-width: 1; }
+    .chart-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; justify-content: center; margin: 0.3rem 0 0; padding: 0; list-style: none; font-size: 0.74rem; color: #374151; }
+    .chart-legend i { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 2px; margin-right: 0.3rem; vertical-align: -1px; }
+    .chart-pick { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin: 0.7rem 0 0; }
+    .chart-pick .xl-field.chk { font-size: 0.8rem; }
+
+    .cmp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0.9rem; margin-top: 0.75rem; }
+    .cmp-grid .xl { margin-top: 0; }
+    #xlNotas .xl-scroll { max-height: 28rem; }
+    .tb { min-width: 26rem; }
+    .cmp-note { margin: 0.4rem 0 0; font-size: 0.78rem; color: var(--muted); }
+
+    /* ===== CLASE 11: alertas, reglas con fórmula y macros ===== */
+    .xl-grid td.cf-r { background: #ff7c80; color: #4a0004; }
+    .xl-grid td.cf-o { background: #ffc000; color: #111; }
+    .xl-grid td.cf-a { background: #ffff99; color: #5c4a00; }
+    .xl-grid td.cf-v { background: #92d050; color: #12310a; }
+    .xl-grid td.cf-r.active, .xl-grid td.cf-o.active, .xl-grid td.cf-a.active, .xl-grid td.cf-v.active { box-shadow: inset 0 0 0 2px #217346; }
+
+    pre.vba {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      margin: 0.75rem 0 0;
+      overflow-x: auto;
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      tab-size: 4;
+      max-width: 62rem;
+    }
+    pre.vba .k { color: #569cd6; }
+    pre.vba .s { color: #ce9178; }
+    pre.vba .c { color: #6a9955; }
+
+    .msgbox { margin-top: 0.8rem; max-width: 26rem; border: 1px solid #7a7a7a; border-radius: 4px; background: #f0f0f0; color: #111; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); font-family: 'Segoe UI', system-ui, sans-serif; overflow: hidden; }
+    .msgbox[hidden] { display: none; }
+    .msgbox-title { background: #fff; padding: 0.4rem 0.75rem; font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center; color: #111; }
+    .msgbox-body { background: #fff; padding: 1.1rem 1.25rem 1.3rem; font-size: 0.88rem; line-height: 1.55; white-space: pre-line; color: #111; }
+    .msgbox-foot { background: #f0f0f0; padding: 0.65rem 0.8rem; text-align: right; }
+    .msgbox-foot button { font: inherit; font-size: 0.82rem; min-width: 5.2rem; padding: 0.3rem 0.9rem; border: 1px solid #adadad; background: #e1e1e1; color: #111; cursor: pointer; border-radius: 2px; }
+    .msgbox-foot button:hover { background: #e5f1fb; border-color: #0078d7; }
+    .msgbox-foot button:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#ruta">Contenidos</a>
+        <a href="#fechas">Operaciones con fechas</a>
+        <a href="#alertas">SI anidado</a>
+        <a href="#condicional">Formato condicional</a>
+        <a href="#contarsi">CONTAR.SI</a>
+        <a href="#macros">Macros</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 3</p>
+        <h1>Fechas, alertas y macros en Excel</h1>
+        <p class="lead">
+          Seguimos con la <strong>Unidad 3</strong>: cómo <strong>calcular con fechas</strong> (vencimientos y días que faltan),
+          cómo armar <strong>alertas</strong> con un <strong>SI anidado</strong>, cómo pintarlas con <strong>formato condicional</strong>,
+          cómo <strong>contar</strong> con <strong>CONTAR.SI</strong> y cómo hacer que Excel te avise solo al abrir el libro con una <strong>macro</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ruta">Ver los contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 11</li>
+          <li>Microsoft Excel</li>
+          <li>Ejercicio: Morosos</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Que la planilla vigile los vencimientos: calcule, avise, pinte y cuente por vos</h2>
+        <p>
+          Sumar y restar fechas con <code class="f">HOY</code>, escribir alertas con <code class="f">SI</code> anidado,
+          colorearlas con reglas de formato condicional con fórmula, contar con <code class="f">CONTAR.SI</code> y mostrar un resumen con una macro.
+        </p>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- CONTENIDOS -->
+    <section class="section" id="ruta">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Lo que vamos a ver</p>
+          <h2>Contenidos de la clase</h2>
+          <p>
+            Se apoya en el video <strong>“Cómo calcular fechas de vencimiento y crear alertas en Excel”</strong> y en un archivo de práctica.
+            Las <strong>fechas</strong> y la referencia absoluta ya las vimos en la <a href="u3-clase9.html">Clase 9</a>, y el <code class="f">SI</code> anidado y el
+            formato condicional en la <a href="u3-clase10.html">Clase 10</a>: hoy los usamos juntos para resolver un problema real.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Imaginá que tenés una lista de facturas y necesitás saber, todos los días, cuáles ya vencieron, cuáles vencen hoy y cuáles están por vencer. Hacerlo a mano es lento y se te puede pasar una. La idea de la clase es que la planilla lo haga sola.</p>
+          <p>Son cinco herramientas que se encadenan: las <strong>fechas</strong> dicen cuántos días faltan, el <strong>SI anidado</strong> escribe el aviso, el <strong>formato condicional</strong> lo pinta, <strong>CONTAR.SI</strong> cuenta cuántas hay de cada tipo y la <strong>macro</strong> muestra ese resumen al abrir el archivo. Al final lo aplicamos en el ejercicio de los clientes morosos.</p>
+        </div>
+        <ol class="topics">
+          <li>Operaciones con fechas</li>
+          <li>Función condicional SI anidado</li>
+          <li>Formato condicional de celdas</li>
+          <li>Función CONTAR.SI</li>
+          <li>Macros</li>
+          <li>Práctica: Ejercicio 4 · Morosos</li>
+        </ol>
+
+        <h3>Cómo está organizada la página</h3>
+        <p>
+          Cada tema sigue el mismo orden: primero <strong>qué es y para qué sirve</strong>, después <strong>cómo se hace paso a paso</strong>
+          y un espacio para <strong>probarlo vos</strong>. Los detalles y los errores más comunes están en los desplegables.
+          Las actividades están en la sección <a href="#actividades">Actividades</a>.
+        </p>
+        <p class="rule">
+          Las demostraciones de esta página son <strong>simuladores</strong>: reproducen lo básico de Excel para que practiques sin abrir el programa.
+          En las planillas hacé clic en una celda, escribí y usá las flechas. Las fórmulas se escriben como en Excel en español:
+          <code class="f">;</code> entre argumentos y coma decimal. No reemplazan al archivo de la actividad, que se hace en Excel.
+        </p>
+      </div>
+    </section>
+
+    <!-- OPERACIONES CON FECHAS -->
+    <section class="section alt" id="fechas">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Operaciones con fechas</p>
+          <h2>Calcular con fechas: vencimientos y días que faltan</h2>
+          <p>
+            Esto ya lo practicamos en la <a href="u3-clase9.html#fechas">Clase 9</a>: una fecha es un <strong>número</strong>, por eso se puede sumar y restar.
+            Acá hacemos un repaso corto de lo que necesitamos para las alertas: el <strong>vencimiento</strong> y los <strong>días que faltan</strong>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Todo el sistema de alertas depende de un solo número: <strong>cuántos días faltan</strong> para que venza cada factura. Si es negativo, ya venció; si es cero, vence hoy; si es positivo, todavía hay tiempo. Con ese número se escribe el aviso, se elige el color y se cuenta.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Repaso rápido de las tres fórmulas</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Fórmula</th><th>Detalle</th></tr></thead>
+            <tbody>
+              <tr><td>La fecha de hoy</td><td><code class="f">=HOY()</code></td><td>Se escribe una sola vez (en el ejercicio, en <strong>B1</strong>) y se actualiza sola.</td></tr>
+              <tr><td>El vencimiento</td><td><code class="f">=C4+D4</code></td><td>Emisión más los días a vencer.</td></tr>
+              <tr><td>Los días que faltan</td><td><code class="f">=E4-$B$1</code></td><td>Vencimiento menos hoy. El <code class="f">$B$1</code> es una <a href="u3-clase9.html#absoluta">referencia absoluta</a>: la fecha de hoy no se corre al copiar.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="rule"><strong>Lo importante es el signo del resultado:</strong> negativo = ya venció hace esa cantidad de días, <strong>0</strong> = vence hoy, positivo = faltan esos días. Si el resultado se ve como una fecha rara, cambiale el formato a <strong>General</strong>.</p>
+
+        <h3 class="paso"><span class="paso-n">2</span> Probalo: vencimientos y días que faltan</h3>
+        <p>
+          Estas son las facturas del video. La fecha de emisión se calculó a partir de la fecha de hoy, así que los resultados siempre son los mismos.
+          Cambiá un plazo en la columna <strong>D</strong> y mirá cómo se mueven el vencimiento y los días. Después probá las fórmulas de los botones para ver qué pasa cuando se escriben mal.
+        </p>
+        <div class="xl-chips" id="chipsFecha"></div>
+        <div class="xl-ctrls">
+          <label class="xl-field chk"><input type="checkbox" id="fechaNum" /> Ver las fechas como números</label>
+        </div>
+        <div class="xl" id="xlFechas" data-cols="6" data-rows="12"></div>
+        <p class="xl-caption" id="capFechas"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: plazo entre dos fechas y errores comunes</summary>
+          <ul>
+            <li><strong>Plazo en días:</strong> si ya tenés emisión y vencimiento, el plazo es <code class="f">=E4-C4</code>.</li>
+            <li><strong>Fecha fija o que se actualiza:</strong> <code class="f">HOY()</code> cambia todos los días; una fecha escrita a mano (<code class="f">17/10/2026</code>) no cambia nunca.</li>
+            <li><strong>Más funciones de fecha:</strong> <code class="f">AHORA()</code> (fecha y hora), <code class="f">DIAS.LAB</code> (cuenta solo días hábiles) y <code class="f">SIFECHA</code> (ver <a href="u3-clase9.html#fechas">Clase 9</a>).</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> escribir <code class="f">B1</code> sin <code class="f">$</code> y que al copiar se corra a una celda vacía, y cargar las fechas como texto (alineadas a la izquierda): Excel no puede restarlas.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- SI ANIDADO / ALERTAS -->
+    <section class="section" id="alertas">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Función condicional SI anidado</p>
+          <h2>Escribir el aviso: una alerta para cada situación</h2>
+          <p>
+            Con el número de días que faltan, un <strong>SI anidado</strong> elige qué mensaje mostrar:
+            <em>“Vencida hace 5 días”</em>, <em>“Vence hoy”</em>, <em>“Vence en 2 días”</em> o <em>“Faltan 15 días”</em>.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>En la <a href="u3-clase10.html#funciones">Clase 10</a> usamos el SI anidado para convertir un promedio en una categoría. Hoy lo usamos para convertir un número de días en una <strong>frase</strong>. La estructura es la misma, así que no la repetimos: acá solo vemos lo nuevo.</p>
+          <p>Lo nuevo es que el mensaje lleva un <strong>número adentro</strong> (“Vencida hace <em>5</em> días”). Para mezclar texto y números en una misma celda se usa el signo <code class="f">&amp;</code>. Y después vamos a <strong>pulir</strong> la alerta para que se vea bien con una sola factura o con filas vacías.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Primero, plantear los casos</h3>
+        <p>
+          Antes de escribir la fórmula conviene anotar, en un Bloc de notas o en un papel, <strong>qué texto corresponde a cada caso</strong>.
+          Los casos se ordenan <strong>de menor a mayor</strong> (la regla de la <a href="u3-clase10.html#funciones">Clase 10</a>):
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Días que faltan</th><th>Texto de la alerta</th><th>Pregunta que lo resuelve</th></tr></thead>
+            <tbody>
+              <tr><td>menor que 0</td><td>Vencida hace X días</td><td><code class="f">C2&lt;0</code></td></tr>
+              <tr><td>igual a 0</td><td>Vence hoy</td><td><code class="f">C2=0</code></td></tr>
+              <tr><td>1, 2 o 3</td><td>Vence en X días</td><td><code class="f">C2&lt;4</code> (ya sabemos que no es 0 ni negativo)</td></tr>
+              <tr><td>4 o más</td><td>Faltan X días</td><td>ninguna: es el “si no” final</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">2</span> La fórmula completa</h3>
+        <p>
+          Esta fórmula sirve para que Excel <strong>nos avise</strong> cómo está cada factura. En vez de mostrar solo un número (por ejemplo, -5 o 3), escribe una frase que se entiende de un vistazo: <em>“Vencida hace 5 días”</em>, <em>“Vence hoy”</em>, <em>“Vence en 3 días”</em> o <em>“Faltan 10 días”</em>. Y como se actualiza sola con la fecha de hoy, mañana el mensaje ya será otro sin tocar nada.
+        </p>
+        <p class="fx-line">=SI(C2&lt;0;"Vencida hace "&amp;C2*-1&amp;" días";SI(C2=0;"Vence hoy";SI(C2&lt;4;"Vence en "&amp;C2&amp;" días";"Faltan "&amp;C2&amp;" días")))</p>
+        <p>
+          Se lee de afuera hacia adentro: <em>“Si los días son menores que 0, escribí <strong>Vencida hace</strong> más el número y la palabra <strong>días</strong>. Si no, ¿es 0? Entonces <strong>Vence hoy</strong>. Si no, ¿es menor que 4? Entonces <strong>Vence en</strong>… Si no, <strong>Faltan</strong>…”</em>
+        </p>
+        <ul>
+          <li><strong>El signo <code class="f">&amp;</code></strong> (<kbd>Mayús</kbd>+<kbd>6</kbd>) <strong>une</strong> un texto con el contenido de una celda: <code class="f">"Faltan "&amp;C2&amp;" días"</code>. Cada texto va <strong>entre comillas</strong> y deja un espacio adentro para que no se pegue al número.</li>
+          <li><strong>Multiplicar por -1:</strong> cuando la factura está vencida, los días son negativos (-5). Escribir “Vencida hace -5 días” queda mal; multiplicar por <code class="f">-1</code> lo da vuelta (<code class="f">C2*-1</code> es 5).</li>
+          <li><strong>Un truco del video:</strong> armar la fórmula primero en el Bloc de notas, pregunta por pregunta, y recién después copiarla y pegarla en Excel.</li>
+        </ul>
+        <p class="rule">
+          <strong>Recordá el orden:</strong> se pregunta primero por lo más chico (<code class="f">&lt;0</code>, después <code class="f">=0</code>, después <code class="f">&lt;4</code>). Si empezás por <code class="f">&lt;4</code>, una factura vencida diría “Vence en -5 días”.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> Pulir la alerta: singular y filas vacías</h3>
+        <p>
+          La fórmula anterior ya funciona, pero si la miramos con ojo de usuario se notan dos cosas raras: dice <em>“1 días”</em> cuando falta un solo día, y muestra un aviso en las filas que todavía no tienen ninguna factura. Son dos arreglos chicos que hacen que la planilla se vea prolija:
+        </p>
+        <ul>
+          <li><strong>“Vence en 1 días”.</strong> Con un solo día habría que decir “1 día”. Se arregla escribiendo la palabra con otro <code class="f">SI</code> dentro del mensaje:
+            <code class="f">"Vence en "&amp;C2&amp;SI(C2=1;" día";" días")</code>. Si el número es 1 usa “día”; si no, “días”.</li>
+          <li><strong>Filas vacías que dicen “Vence hoy”.</strong> Una celda vacía vale cero para Excel, así que una fila sin datos aparece como “Vence hoy”. Se corrige con un <code class="f">SI</code> al principio de todo que pregunta si la celda está vacía:
+            <code class="f">=SI(C2="";"";SI(C2&lt;0;…))</code>. Las comillas vacías <code class="f">""</code> significan “no escribas nada”.</li>
+        </ul>
+        <p>
+          Cada mejora es <strong>un <code class="f">SI</code> más</strong>, sea dentro del texto o envolviendo toda la fórmula. Por eso conviene armarla de a una pregunta por vez, como en el video, y probar cada paso antes de agregar el siguiente.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">4</span> Probalo: las alertas de las facturas</h3>
+        <p>
+          La columna <strong>Alerta</strong> se calcula con los días de la columna <strong>C</strong>. Las filas 10 y 11 están <strong>vacías a propósito</strong>.
+          Probá las distintas versiones de la fórmula con los botones (las de borde punteado tienen un error a propósito) y después cambiá un número de la columna C para ver cómo se actualiza el mensaje.
+        </p>
+        <div class="xl-chips" id="chipsAlerta"></div>
+        <div class="xl" id="xlAlertas" data-cols="4" data-rows="11"></div>
+        <p class="xl-caption" id="capAlertas"></p>
+
+        <details class="faq-item">
+          <summary>Más detalle: ABS, filas vacías y errores comunes</summary>
+          <ul>
+            <li><strong>Otra forma de “dar vuelta” el signo:</strong> <code class="f">ABS(C2)</code> devuelve el valor absoluto (sin signo): <code class="f">"Vencida hace "&amp;ABS(C2)&amp;" días"</code>.</li>
+            <li><strong>Tabla:</strong> si el rango se convierte en tabla (<kbd>Ctrl</kbd>+<kbd>T</kbd>, ver <a href="u3-clase10.html#tablas">Clase 10</a>), las fórmulas y los colores se copian solos a cada fila nueva (se agrega con <kbd>Tab</kbd> en la última celda).</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> olvidar el <code class="f">&amp;</code> entre el texto y la celda (Excel no deja confirmar la fórmula), olvidar las comillas, no multiplicar por -1,
+            ordenar mal las preguntas y no cerrar todos los paréntesis (tres <code class="f">SI</code>, tres <code class="f">)</code>).
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- FORMATO CONDICIONAL -->
+    <section class="section alt" id="condicional">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Formato condicional de celdas</p>
+          <h2>Pintar las alertas con reglas que usan fórmulas</h2>
+          <p>
+            En la Clase 10 el formato condicional miraba el <strong>texto</strong> de la celda. Hoy usamos la opción más potente: una <strong>regla con fórmula</strong>,
+            que puede mirar <strong>otra celda</strong> (la de los días) para decidir el color.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Un aviso escrito dice “Vencida hace 5 días”, pero un color rojo se ve desde lejos. Con cuatro colores, un semáforo de facturas, se entiende toda la lista de un vistazo: rojo vencida, ámbar vence hoy, amarillo próxima a vencer y verde con tiempo de sobra.</p>
+          <p>Las reglas se escriben <strong>una vez</strong>, pensando en la primera fila, y Excel las aplica a todas las demás. Esa es la parte delicada: hay que decirle qué parte de la fórmula se mueve y qué parte queda fija. Para eso está el signo <code class="f">$</code>.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> Cómo se crea una regla con fórmula</h3>
+        <ol>
+          <li>Seleccioná las celdas que querés pintar (por ejemplo <strong>K3:K9</strong>, las alertas, <strong>sin el encabezado</strong>).</li>
+          <li><strong>Inicio → Formato condicional → Nueva regla</strong>.</li>
+          <li>Elegí la última opción: <strong>Utilice una fórmula que determine las celdas para aplicar formato</strong>.</li>
+          <li>Escribí la fórmula, que empieza con <code class="f">=</code> y se escribe <strong>para la primera celda de la selección</strong> (por ejemplo <code class="f">=$L3&lt;0</code>). Tiene que dar verdadero o falso.</li>
+          <li>Hacé clic en <strong>Formato…</strong>, pestaña <strong>Relleno</strong>, elegí el color y aceptá dos veces.</li>
+          <li>Repetí desde el paso 1 para cada color. Todas las reglas pueden aplicarse a las mismas celdas.</li>
+        </ol>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Cuando…</th><th>Fórmula de la regla</th><th>Color</th></tr></thead>
+            <tbody>
+              <tr><td>ya venció</td><td><code class="f">=$L3&lt;0</code></td><td>Rojo</td></tr>
+              <tr><td>vence hoy</td><td><code class="f">=$L3=0</code></td><td>Amarillo oscuro (mostaza)</td></tr>
+              <tr><td>vence en 1 a 3 días</td><td><code class="f">=Y($L3&gt;0;$L3&lt;4)</code></td><td>Amarillo claro</td></tr>
+              <tr><td>faltan 4 o más días</td><td><code class="f">=$L3&gt;=4</code></td><td>Verde</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">2</span> La función Y: dos condiciones a la vez</h3>
+        <p>
+          Para el color amarillo claro hay que preguntar dos cosas: que los días sean <strong>mayores que 0</strong> <em>y</em> <strong>menores que 4</strong>. La función <code class="f">Y</code> hace eso:
+        </p>
+        <p class="fx-line">=Y($L3&gt;0;$L3&lt;4)</p>
+        <p>
+          <code class="f">Y(condición1; condición2; …)</code> da <strong>verdadero solo si todas</strong> las condiciones se cumplen. Su hermana <code class="f">O</code> da verdadero si se cumple <strong>al menos una</strong>.
+          En un <code class="f">SI</code> anidado se arma el rango con dos preguntas encadenadas; en una regla de formato condicional es más corto usar <code class="f">Y</code>.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> El signo $ delante de la columna</h3>
+        <p>
+          La fórmula de una regla se escribe para la <strong>primera celda</strong> y Excel la copia a las demás, igual que cuando arrastrás una fórmula. Si en la regla escribís <code class="f">L3</code> sin <code class="f">$</code>,
+          al pasar a otra columna Excel la corre y empieza a mirar <code class="f">M3</code>, <code class="f">N3</code>…
+        </p>
+        <p class="rule">
+          <strong>Regla práctica:</strong> poné el <code class="f">$</code> delante de la <strong>letra de la columna</strong> (<code class="f">$L3</code>) y dejá la fila libre.
+          Así la columna de los días queda fija y la fila acompaña a cada factura. Con una sola columna seleccionada también funciona sin <code class="f">$</code>, pero conviene tomar el hábito.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">4</span> Probalo: las cuatro reglas</h3>
+        <p>
+          La planilla tiene las cuatro reglas del cuadro de arriba. Elegí a qué celdas se aplican y encendé o apagá el <code class="f">$</code>.
+          Con <strong>toda la tabla</strong> y <strong>sin <code class="f">$</code></strong> vas a ver el error del que habla el video.
+        </p>
+        <div class="xl-ctrls">
+          <label class="xl-field">Aplicar a
+            <select id="cfScope"><option value="alert">Solo la columna Alerta (D2:D9)</option><option value="tabla">Toda la tabla (A2:D9)</option></select>
+          </label>
+          <label class="xl-field chk"><input type="checkbox" id="cfAnc" checked /> Con <code class="f">$</code> delante de la columna</label>
+          <label class="xl-field chk"><input type="checkbox" id="cfOn" checked /> Reglas activadas</label>
+        </div>
+        <div class="xl" id="xlCond2" data-cols="6" data-rows="11"></div>
+        <div class="table-card" style="margin-top:0.75rem;">
+          <table>
+            <thead><tr><th>Regla (aplicada a <span id="cfRango">D2:D9</span>)</th><th>Color</th></tr></thead>
+            <tbody id="cfReglas"></tbody>
+          </table>
+        </div>
+        <p class="xl-caption" id="capCond2"></p>
+
+        <h3 class="paso"><span class="paso-n">5</span> Referencias mixtas y más reglas con fórmula</h3>
+        <p>
+          Cuando Excel copia una regla (o una fórmula) a otras celdas, tiene que saber <strong>qué parte de la referencia puede moverse y cuál tiene que quedarse quieta</strong>. El <code class="f">$</code> es el que “clava” esa parte: en <code class="f">$L3</code> queda clavada la columna L y la fila puede cambiar, por eso cada fila mira su propio valor. A eso se le llama <strong>referencia mixta</strong>. Hay cuatro formas de escribir una referencia, y en las reglas se usan todas:
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Se escribe</th><th>Qué queda fijo</th><th>Cuándo se usa</th></tr></thead>
+            <tbody>
+              <tr><td><code class="f">$L3</code></td><td>La <strong>columna</strong> (la fila se mueve)</td><td>Pintar una fila según el valor de una columna. Es el caso de hoy.</td></tr>
+              <tr><td><code class="f">L$3</code></td><td>La <strong>fila</strong> (la columna se mueve)</td><td>Pintar una columna según el valor de un encabezado.</td></tr>
+              <tr><td><code class="f">$L$3</code></td><td>Las <strong>dos</strong> (absoluta)</td><td>Comparar contra una celda única, como la fecha de hoy.</td></tr>
+              <tr><td><code class="f">L3</code></td><td>Nada (relativa)</td><td>Cuando cada celda se compara con su vecina.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Con la tecla <kbd>F4</kbd> se cambia entre las cuatro formas mientras tenés el cursor sobre la referencia (<code class="f">L3</code> → <code class="f">$L$3</code> → <code class="f">L$3</code> → <code class="f">$L3</code>).
+          Con esta idea se pueden armar muchas reglas distintas. Algunos ejemplos útiles, todos escritos para la <strong>primera celda</strong> del rango:
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero pintar…</th><th>Aplicada a</th><th>Fórmula</th></tr></thead>
+            <tbody>
+              <tr><td>La <strong>fila entera</strong> de las facturas vencidas</td><td><code class="f">A3:L9</code></td><td><code class="f">=$L3&lt;0</code></td></tr>
+              <tr><td>Las vencidas que <strong>además</strong> no están pagadas (si tuvieras una columna M “Pagada”)</td><td><code class="f">K3:K9</code></td><td><code class="f">=Y($L3&lt;0;$M3&lt;&gt;"Sí")</code></td></tr>
+              <tr><td>Las que vencen <strong>hoy o mañana</strong></td><td><code class="f">K3:K9</code></td><td><code class="f">=O($L3=0;$L3=1)</code></td></tr>
+              <tr><td>Los montos <strong>mayores que el promedio</strong></td><td><code class="f">E3:E9</code></td><td><code class="f">=E3&gt;PROMEDIO($E$3:$E$9)</code></td></tr>
+              <tr><td>Los apellidos <strong>repetidos</strong></td><td><code class="f">B3:B9</code></td><td><code class="f">=CONTAR.SI($B$3:$B$9;B3)&gt;1</code></td></tr>
+              <tr><td>Las filas <strong>alternadas</strong> (una sí, una no)</td><td><code class="f">A3:L9</code></td><td><code class="f">=RESIDUO(FILA();2)=0</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="rule">
+          Fijate en el cuarto ejemplo: <code class="f">E3</code> es relativa (cada monto se compara con el promedio) pero el rango del promedio es <code class="f">$E$3:$E$9</code>, <strong>absoluto</strong>, porque no puede correrse.
+          Una regla combina las dos cosas según lo que tenga que quedar fijo.
+        </p>
+
+        <details class="faq-item">
+          <summary>Más detalle: administrar reglas, filtrar por color y facturas pagadas</summary>
+          <ul>
+            <li><strong>Administrar reglas:</strong> <strong>Inicio → Formato condicional → Administrar reglas</strong> (con <em>Mostrar reglas de formato para: Esta hoja</em>) muestra todas las reglas, y con <strong>Editar regla</strong> podés corregir una fórmula; ahí se agrega el <code class="f">$</code> que faltó.</li>
+            <li><strong>Varias reglas sobre las mismas celdas:</strong> es lo normal. Se evalúan de arriba hacia abajo; si dos pintan la misma celda, gana la de más arriba.</li>
+            <li><strong>Filtrar por color:</strong> la flecha del filtro → <strong>Filtrar por color</strong> → <strong>Filtrar por color de celda</strong> y elegí rojo: se ven solo las facturas vencidas (ver <a href="u3-clase10.html#filtros">Clase 10</a>).</li>
+            <li><strong>Una condición más:</strong> al final del video se propone agregar una columna de <em>Pagada</em> y una regla que pinte de otro color las facturas pagadas, para que no sigan apareciendo como vencidas.</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> seleccionar el encabezado junto con los datos (la primera regla se evalúa sobre la fila de títulos), escribir la fórmula sin el <code class="f">=</code>,
+            usar la fila equivocada (la fórmula tiene que referirse a la <strong>primera fila de la selección</strong>) y olvidar el <code class="f">$</code> cuando se aplica a más de una columna.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CONTAR.SI -->
+    <section class="section" id="contarsi">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Función CONTAR.SI</p>
+          <h2>Contar cuántas celdas cumplen una condición</h2>
+          <p>
+            <code class="f">CONTAR.SI</code> cuenta <strong>cuántas celdas de un rango cumplen un criterio</strong>: cuántas facturas están vencidas, cuántos clientes son morosos, cuántas notas son mayores que 7.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Con los colores ya vemos qué facturas están vencidas, pero a veces hace falta el <strong>número</strong>: “hay 3 vencidas, 1 que vence hoy y 4 pendientes”. Contar a ojo cada vez que cambian los datos no es práctico.</p>
+          <p><code class="f">CONTAR.SI</code> hace esa cuenta y se actualiza sola. Es, además, el paso previo a la macro: la macro no cuenta nada, solo <strong>muestra</strong> los números que calculó esta función.</p>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">1</span> CONTAR.SI con una condición</h3>
+        <p>
+          Imaginá que tenés una lista de facturas y querés saber <strong>cuántas están vencidas</strong>. Podés recorrer la lista y contarlas con el dedo, pero si cambia un dato hay que volver a hacerlo. <code class="f">CONTAR.SI</code> lo hace por vos: mira la lista, cuenta las que cumplen lo que pedís y <strong>se actualiza solo</strong> cuando algo cambia. Por ejemplo, para contar las vencidas (días menores que 0):
+        </p>
+        <p class="fx-line">=CONTAR.SI(C2:C9;"&lt;0")</p>
+        <p>
+          Tiene <strong>dos argumentos</strong>: el <strong>rango</strong> donde se cuenta y el <strong>criterio</strong>. El criterio va <strong>entre comillas</strong> y lleva el operador pegado al valor:
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Quiero contar…</th><th>Fórmula</th></tr></thead>
+            <tbody>
+              <tr><td>Los días menores que 0 (vencidas)</td><td><code class="f">=CONTAR.SI(C2:C9;"&lt;0")</code></td></tr>
+              <tr><td>Los días iguales a 0 (vencen hoy)</td><td><code class="f">=CONTAR.SI(C2:C9;"=0")</code></td></tr>
+              <tr><td>Los días mayores que 3 (pendientes)</td><td><code class="f">=CONTAR.SI(C2:C9;"&gt;3")</code></td></tr>
+              <tr><td>Los clientes cuya condición es “Moroso”</td><td><code class="f">=CONTAR.SI(A3:A9;"Moroso")</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Los operadores son <code class="f">&lt;</code> (menor), <code class="f">&gt;</code> (mayor), <code class="f">=</code> (igual), <code class="f">&lt;=</code>, <code class="f">&gt;=</code> y <code class="f">&lt;&gt;</code> (distinto).
+          Para contar un <strong>texto</strong> alcanza con escribirlo entre comillas.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">2</span> Con dos condiciones: CONTAR.SI.CONJUNTO</h3>
+        <p>
+          Para contar las facturas que vencen <strong>entre 1 y 3 días</strong> hace falta cumplir dos condiciones a la vez (mayor que 0 <em>y</em> menor que 4).
+          <code class="f">CONTAR.SI</code> admite una sola, así que se usa su versión “conjunto”, que recibe <strong>pares de rango y criterio</strong>:
+        </p>
+        <p class="fx-line">=CONTAR.SI.CONJUNTO(C2:C9;"&gt;0";C2:C9;"&lt;4")</p>
+        <p>
+          Es el equivalente de la función <code class="f">Y</code> del formato condicional, pero para contar. Se puede repetir el rango (como acá) o usar rangos distintos, por ejemplo clientes morosos <strong>y</strong> con deuda mayor que 5.000.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> Su hermana: SUMAR.SI</h3>
+        <p>
+          Si en lugar de <em>contar</em> las celdas querés <em>sumar</em> otra columna para las que cumplen la condición, se usa <code class="f">SUMAR.SI(rango; criterio; rango_suma)</code>.
+          Por ejemplo, el monto total que deben los morosos del ejercicio:
+        </p>
+        <p class="fx-line">=SUMAR.SI(A3:A9;"Moroso";J3:J9)</p>
+        <p>
+          Se lee: “en el rango <strong>A3:A9</strong> buscá “Moroso” y sumá lo que haya en <strong>J3:J9</strong> en esas mismas filas”.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">4</span> Probalo: los contadores de las facturas</h3>
+        <p>
+          A la derecha de la lista hay cuatro contadores. Cambiá una cifra de la columna <strong>C</strong> y mirá cómo se mueven los resultados.
+          Después probá las variantes de los botones, incluidas las que tienen un error a propósito.
+        </p>
+        <div class="xl-chips" id="chipsContar"></div>
+        <div class="xl" id="xlContar" data-cols="6" data-rows="10"></div>
+        <p class="xl-caption" id="capContar"></p>
+
+        <h3 class="paso"><span class="paso-n">5</span> Criterios que salen de otra celda y comodines</h3>
+        <p>
+          Hasta acá el criterio estaba escrito dentro de la fórmula (<code class="f">"&gt;3"</code>). Si mañana querés contar “más de 5” hay que editar la fórmula. Es más cómodo <strong>poner el número en una celda</strong> y armar el criterio uniendo el operador con esa celda:
+        </p>
+        <p class="fx-line">=CONTAR.SI(C2:C9;"&gt;="&amp;F7)</p>
+        <p>
+          El operador va entre comillas y se une con <code class="f">&amp;</code> a la celda (acá <strong>F7</strong>, el “límite de días”). Cambiás el valor de F7 y el contador se actualiza solo, sin tocar la fórmula.
+          Para <strong>texto</strong> se pueden usar <strong>comodines</strong>: <code class="f">*</code> reemplaza cualquier cantidad de letras y <code class="f">?</code> reemplaza una sola.
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Criterio</th><th>Cuenta las celdas…</th></tr></thead>
+            <tbody>
+              <tr><td><code class="f">"*SAC*"</code></td><td>que contienen “SAC” en cualquier parte del texto.</td></tr>
+              <tr><td><code class="f">"Gon*"</code></td><td>que empiezan con “Gon” (Gonzalez, Gonzalo…).</td></tr>
+              <tr><td><code class="f">"*z"</code></td><td>que terminan con “z”.</td></tr>
+              <tr><td><code class="f">"&lt;&gt;Moroso"</code></td><td>que son distintas de “Moroso”.</td></tr>
+              <tr><td><code class="f">"&gt;="&amp;F7</code></td><td>mayores o iguales que el valor de la celda F7.</td></tr>
+              <tr><td><code class="f">"&gt;="&amp;HOY()</code></td><td>con fecha de hoy o posterior (se pueden contar fechas).</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="paso"><span class="paso-n">6</span> La familia de funciones “.SI”</h3>
+        <p>
+          Todas siguen la misma idea: un <strong>rango</strong>, un <strong>criterio</strong> y, según el caso, qué hacer con las celdas que lo cumplen. Una vez que entendés <code class="f">CONTAR.SI</code> las demás se leen solas:
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Función</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td><code class="f">CONTAR.SI</code></td><td>Cuenta con <strong>una</strong> condición.</td><td><code class="f">=CONTAR.SI(A3:A9;"Moroso")</code></td></tr>
+              <tr><td><code class="f">CONTAR.SI.CONJUNTO</code></td><td>Cuenta con <strong>varias</strong> condiciones a la vez.</td><td><code class="f">=CONTAR.SI.CONJUNTO(A3:A9;"Moroso";E3:E9;"&gt;5000")</code></td></tr>
+              <tr><td><code class="f">SUMAR.SI</code></td><td>Suma los valores que cumplen <strong>una</strong> condición.</td><td><code class="f">=SUMAR.SI(A3:A9;"Moroso";J3:J9)</code></td></tr>
+              <tr><td><code class="f">SUMAR.SI.CONJUNTO</code></td><td>Suma con <strong>varias</strong> condiciones.</td><td><code class="f">=SUMAR.SI.CONJUNTO(J3:J9;A3:A9;"Moroso";L3:L9;"&lt;-5")</code></td></tr>
+              <tr><td><code class="f">PROMEDIO.SI</code></td><td>Promedia los valores que cumplen una condición.</td><td><code class="f">=PROMEDIO.SI(A3:A9;"Moroso";E3:E9)</code></td></tr>
+              <tr><td><code class="f">CONTAR</code> / <code class="f">CONTARA</code></td><td>Cuenta celdas con números / celdas no vacías.</td><td><code class="f">=CONTAR(E3:E9)</code></td></tr>
+              <tr><td><code class="f">CONTAR.BLANCO</code></td><td>Cuenta las celdas vacías.</td><td><code class="f">=CONTAR.BLANCO(F3:F9)</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="rule">
+          <strong>Ojo con el orden de los argumentos:</strong> en <code class="f">SUMAR.SI</code> el rango que se suma va <strong>al final</strong>, pero en <code class="f">SUMAR.SI.CONJUNTO</code> va <strong>al principio</strong>.
+          Y para un <strong>porcentaje</strong> se divide un conteo por el total: <code class="f">=CONTAR.SI(A3:A9;"Moroso")/CONTARA(A3:A9)</code>, con formato Porcentaje.
+        </p>
+
+        <details class="faq-item">
+          <summary>Más detalle: rangos dinámicos y errores comunes</summary>
+          <ul>
+            <li><strong>Rango que crece:</strong> si los datos están en una tabla, el rango se ajusta solo cuando se agregan filas. En un rango común hay que ampliarlo a mano.</li>
+            <li><strong>Resumen de porcentajes:</strong> el porcentaje de clientes al día es <code class="f">=G14/G12</code> (al día sobre el total); con formato <strong>Porcentaje</strong> (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>%</kbd>).</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> escribir el criterio sin comillas (<code class="f">&lt;0</code>; Excel no deja confirmar la fórmula), escribir las comillas pero un texto distinto del criterio (<code class="f">"menor a 0"</code>: devuelve 0, porque lo busca como palabra),
+            pasar dos condiciones a <code class="f">CONTAR.SI</code> en lugar de usar <code class="f">CONTAR.SI.CONJUNTO</code>, y contar sobre el rango equivocado.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- MACROS -->
+    <section class="section alt" id="macros">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Macros</p>
+          <h2>Que Excel te avise al abrir el archivo</h2>
+          <p>
+            Una <strong>macro</strong> es una lista de instrucciones que se guarda dentro del libro de Excel y que el programa ejecuta solo, sin que tengas que repetir los pasos a mano.
+            Se escribe en un lenguaje de programación llamado <strong>VBA</strong> (<em>Visual Basic para Aplicaciones</em>), que viene incluido en Excel, Word y el resto de Office.
+            En esta clase armamos una muy corta: un cartel que aparece al abrir el libro con el resumen de las facturas.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Hasta ahora, para enterarte de que había facturas vencidas tenías que abrir el archivo y mirar los colores. Con una macro, apenas abrís el libro aparece un cartel: “Facturas vencidas: 3, vencen hoy: 1…”. Ya no depende de que te acuerdes de mirar.</p>
+          <p>No hace falta aprender a programar: en la clase se usan solo tres ideas, <strong>mostrar un mensaje</strong>, <strong>leer un valor de una celda</strong> y <strong>unir textos</strong>, y una cuarta opcional: <strong>decidir</strong> si mostrar o no el cartel. Los números salen de los contadores del tema anterior.</p>
+        </div>
+
+        <h3>¿Qué es una macro?</h3>
+        <p>
+          Una <strong>macro</strong> es una <strong>secuencia de instrucciones</strong> que queda guardada <strong>dentro del archivo</strong> y que Excel puede ejecutar cuando se lo pedís o cuando ocurre algo (por ejemplo, abrir el libro).
+          Pensala como una receta escrita: en lugar de hacer a mano, cada vez, los mismos diez pasos, se los escribís una vez a Excel y él los repite siempre igual y en un instante.
+        </p>
+        <p>
+          Sirven para <strong>automatizar tareas repetitivas</strong>: dar formato a un informe, copiar datos de una hoja a otra, mostrar avisos o ejecutar cálculos largos con un solo clic. Hay dos maneras de crearlas:
+        </p>
+        <ul>
+          <li><strong>Grabándolas:</strong> Excel anota lo que hacés (clics, formatos, fórmulas) y lo convierte en instrucciones. No hay que escribir código.</li>
+          <li><strong>Escribiéndolas:</strong> se redactan las instrucciones directamente en el editor. Es lo que hacemos hoy, con unas pocas líneas.</li>
+        </ul>
+
+        <h3>¿Qué es Visual Basic (VBA)?</h3>
+        <p>
+          Las instrucciones de una macro no se escriben en español ni en fórmulas de celda: se escriben en un <strong>lenguaje de programación</strong>. El de Office se llama <strong>VBA</strong>, sigla de <strong>Visual Basic para Aplicaciones</strong> (<em>Visual Basic for Applications</em>).
+          Es una versión del lenguaje Visual Basic que viene <strong>incluida dentro de Excel</strong> (y de Word, PowerPoint y Access) y que sirve para controlarlo: leer y escribir celdas, mostrar mensajes, abrir y cerrar archivos, etcétera.
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Concepto</th><th>Qué es</th><th>Ejemplo de hoy</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Macro</strong></td><td>El <em>resultado</em>: el programita completo guardado en el libro.</td><td>La macro que muestra el cartel de facturas.</td></tr>
+              <tr><td><strong>VBA</strong></td><td>El <em>lenguaje</em> en el que está escrita la macro.</td><td><code class="f">MsgBox</code>, <code class="f">Range</code>, <code class="f">Dim</code>…</td></tr>
+              <tr><td><strong>Editor de Visual Basic</strong></td><td>La <em>ventana</em> de Excel donde se escribe y se revisa el código (<kbd>Alt</kbd>+<kbd>F11</kbd>).</td><td>El panel con <em>ThisWorkbook</em> a la izquierda.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          La diferencia con las fórmulas que ya conocés: una <strong>fórmula</strong> vive en una celda y devuelve un valor; una <strong>macro</strong> es un programa que puede hacer <strong>acciones</strong> (mostrar un cartel, borrar datos, guardar el archivo), algo que una fórmula no puede hacer.
+          Por eso las macros se tratan con cuidado (ver “Más detalle: seguridad” al final de este tema).
+        </p>
+
+        <h3 class="paso"><span class="paso-n">1</span> Guardar el libro con macros</h3>
+        <p>
+          Un archivo común <strong>.xlsx</strong> no puede guardar macros: las descarta. Hay que usar <strong>Archivo → Guardar como</strong> y, en <strong>Tipo</strong>, elegir <strong>Libro de Excel habilitado para macros (*.xlsm)</strong>.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">2</span> Abrir el editor y elegir el evento</h3>
+        <ol>
+          <li>Hacé clic derecho en la <strong>pestaña de la hoja</strong> (abajo) → <strong>Ver código</strong> (o <kbd>Alt</kbd>+<kbd>F11</kbd>). Se abre el editor de Visual Basic.</li>
+          <li>En el panel de la izquierda hacé doble clic en <strong>ThisWorkbook</strong> (este libro).</li>
+          <li>Arriba a la izquierda, en la lista <em>(General)</em>, elegí <strong>Workbook</strong>. Arriba a la derecha elegí el evento <strong>Open</strong> (abrir).</li>
+          <li>Excel escribe solo el esqueleto:</li>
+        </ol>
+        <pre class="vba"><span class="k">Private Sub</span> Workbook_Open()
+
+<span class="k">End Sub</span></pre>
+        <p>
+          Todo lo que escribas <strong>entre esas dos líneas</strong> se ejecuta cada vez que se abre el libro. <code class="f">Open</code> es el <strong>evento</strong>: el momento en que Excel dispara la macro.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">3</span> Mostrar un mensaje, leer una celda y unir textos</h3>
+        <p>
+          El objetivo es que, al abrir el archivo, aparezca un <strong>cartel con un resumen</strong> de cómo están las facturas. Para armarlo la macro necesita hacer tres cosas: <strong>leer</strong> un número de la planilla, <strong>escribir</strong> un texto con ese número y <strong>mostrarlo</strong> en pantalla. Cada una tiene su instrucción:
+        </p>
+        <ul>
+          <li><strong><code class="f">MsgBox "texto"</code></strong> muestra un cartel con ese texto. El texto va entre comillas.</li>
+          <li><strong><code class="f">Range("O2").Value</code></strong> lee el valor que tiene la celda <strong>O2</strong>. Si lo guardás en una <strong>variable</strong> (<code class="f">vencidas = Range("O2").Value</code>) lo podés usar después.</li>
+          <li><strong><code class="f">&amp;</code></strong> une textos y variables, igual que en la fórmula de las alertas: <code class="f">"Facturas vencidas: " &amp; vencidas</code>.</li>
+          <li><strong><code class="f">vbNewLine</code></strong> baja a la línea siguiente, para que el cartel salga ordenado en lugar de todo seguido.</li>
+        </ul>
+        <p class="rule">
+          Los números del cartel salen de <strong>cuatro celdas con <code class="f">CONTAR.SI</code></strong> (en el ejercicio, <strong>O2:O5</strong>). La macro solo las lee y las muestra: si cambian los datos, cambia el cartel.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">4</span> Decidir: If … Then … Else</h3>
+        <p>
+          Un cartel que sale siempre, aunque no haya nada que avisar, termina molestando. Una macro también puede <strong>tomar decisiones</strong>, igual que el <code class="f">SI</code> de la hoja, pero con otra escritura:
+        </p>
+        <pre class="vba"><span class="k">If</span> vencidas &gt; 0 <span class="k">Then</span>
+    MsgBox <span class="s">"Hay facturas vencidas"</span>
+<span class="k">Else</span>
+    MsgBox <span class="s">"Todo al día"</span>
+<span class="k">End If</span></pre>
+        <p>
+          Se lee: “si <strong>vencidas</strong> es mayor que 0, mostrá este mensaje; si no, mostrá este otro”. La condición se escribe con los mismos operadores que ya conocés (<code class="f">&gt;</code>, <code class="f">&lt;</code>, <code class="f">=</code>, <code class="f">&lt;&gt;</code>) y el bloque siempre termina con <code class="f">End If</code>.
+          Además, <code class="f">MsgBox</code> admite dos datos más después del texto: un <strong>ícono</strong> (<code class="f">vbExclamation</code> para advertencia, <code class="f">vbInformation</code> para información) y un <strong>título</strong> para el cartel.
+        </p>
+
+        <h3 class="paso"><span class="paso-n">5</span> Probalo: armar la macro paso a paso</h3>
+        <p>
+          Elegí un paso, mirá cómo crece el código y apretá <strong>Abrir el libro</strong> para ver qué cartel aparece (con los datos de las ocho facturas de ejemplo).
+          En el paso 4 podés <strong>simular que no hay facturas vencidas</strong> y ver cómo cambia la decisión.
+        </p>
+        <div class="xl-ctrls" id="macroSteps">
+          <button type="button" class="xl-btn" data-s="1">1 · Hola mundo</button>
+          <button type="button" class="xl-btn ghost" data-s="2">2 · Leer una celda</button>
+          <button type="button" class="xl-btn ghost" data-s="3">3 · Mensaje completo</button>
+          <button type="button" class="xl-btn ghost" data-s="4">4 · Con If: solo si hace falta</button>
+        </div>
+        <pre class="vba" id="vbaCode" aria-label="Código de la macro"></pre>
+        <div class="xl-ctrls">
+          <button type="button" class="xl-btn" id="macroRun">▶ Abrir el libro</button>
+          <button type="button" class="xl-btn ghost" id="macroClose" hidden>Cerrar el libro</button>
+          <label class="xl-field chk" id="macroSimBox" style="display:none"><input type="checkbox" id="macroSim" /> Simular que no hay facturas vencidas</label>
+        </div>
+        <div class="msgbox" id="macroBox" hidden role="dialog" aria-label="Cartel de Excel">
+          <div class="msgbox-title"><span id="macroTitle">Microsoft Excel</span><span aria-hidden="true">✕</span></div>
+          <div class="msgbox-body" id="macroMsg"></div>
+          <div class="msgbox-foot"><button type="button" id="macroOk">Aceptar</button></div>
+        </div>
+        <p class="xl-caption" id="capMacro"></p>
+
+        <h3 class="paso"><span class="paso-n">6</span> Más usos: otros eventos y grabar una macro</h3>
+        <p>
+          <code class="f">Open</code> no es el único momento en que Excel puede ejecutar una macro. Cada uno de estos <strong>eventos</strong> se elige en las dos listas desplegables del editor (la de la izquierda elige el objeto y la de la derecha el evento):
+        </p>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Evento</th><th>Se dispara cuando…</th><th>Ejemplo de uso</th></tr></thead>
+            <tbody>
+              <tr><td><code class="f">Workbook_Open</code></td><td>se abre el libro</td><td>Mostrar el resumen de facturas (lo de hoy).</td></tr>
+              <tr><td><code class="f">Workbook_BeforeClose</code></td><td>está por cerrarse el libro</td><td>Recordar que hay facturas vencidas antes de salir.</td></tr>
+              <tr><td><code class="f">Workbook_BeforeSave</code></td><td>está por guardarse el libro</td><td>Anotar la fecha de la última modificación.</td></tr>
+              <tr><td><code class="f">Worksheet_Change</code></td><td>cambia el contenido de una celda de la hoja (este evento se escribe en el código de la <strong>hoja</strong>, no en ThisWorkbook)</td><td>Avisar si alguien carga un monto negativo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <strong>Grabar una macro (sin escribir código).</strong> Si lo que querés automatizar son pasos que ya sabés hacer a mano, Excel puede escribir el código por vos:
+        </p>
+        <ol>
+          <li><strong>Vista → Macros → Grabar macro…</strong> Escribí un nombre sin espacios (por ejemplo <code class="f">FormatoFactura</code>) y, si querés, un atajo de teclado. Aceptá.</li>
+          <li>Hacé los pasos normalmente: dar formato, pintar celdas, ordenar. Excel los va anotando.</li>
+          <li><strong>Vista → Macros → Detener grabación.</strong></li>
+          <li>Para repetirla: <strong>Vista → Macros → Ver macros → Ejecutar</strong> (o el atajo elegido). El código quedó guardado en un <strong>Módulo</strong>: lo ves en el editor, en <em>Módulos → Módulo1</em>.</li>
+        </ol>
+        <p class="rule">
+          Una macro grabada también exige guardar el libro como <strong>.xlsm</strong>. Y una buena costumbre al escribir código: poné <strong>comentarios</strong> (las líneas que empiezan con una comilla simple <code class="f">'</code> no se ejecutan) para explicar qué hace cada parte.
+        </p>
+
+        <details class="faq-item">
+          <summary>Más detalle: seguridad, habilitar contenido y errores comunes</summary>
+          <ul>
+            <li><strong>Seguridad:</strong> las macros pueden hacer cualquier cosa en tu computadora. Por eso Excel las bloquea y muestra una barra amarilla <strong>“Habilitar contenido”</strong>. Habilitalas <strong>solo en archivos que conocés y en los que confiás</strong>.</li>
+            <li><strong>Qué hoja lee:</strong> <code class="f">Range("O2")</code> sin más datos lee la hoja activa al abrir. Si el libro tiene varias hojas y querés una en particular se escribe <code class="f">Worksheets("Hoja1").Range("O2")</code>.</li>
+            <li><strong>Dim:</strong> <code class="f">Dim vencidas As Long</code> declara la variable (le dice a VBA que va a guardar un número entero). Es una buena costumbre, aunque en el video no se usa.</li>
+            <li><strong>Probar la macro:</strong> guardá, cerrá el libro y volvé a abrirlo: el cartel aparece <strong>recién al abrir</strong>.</li>
+            <li><strong>Archivos bajados de internet:</strong> si Excel muestra una barra <strong>roja</strong> que dice “Riesgo de seguridad: Microsoft bloqueó la ejecución de macros porque el origen del archivo no es de confianza” (y no hay botón de habilitar), cerrá el archivo, hacé clic derecho sobre él en el Explorador → <strong>Propiedades</strong> → tildá <strong>Desbloquear</strong> → Aceptar, y abrilo de nuevo. Hacelo solo con archivos de confianza.</li>
+          </ul>
+          <p>
+            <strong>Errores comunes:</strong> guardar como .xlsx (la macro desaparece), no habilitar el contenido al abrir, escribir el código fuera del par <code class="f">Sub … End Sub</code>, olvidar cerrar las comillas, y leer la celda equivocada (o una que todavía no tiene la fórmula de <code class="f">CONTAR.SI</code>).
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section" id="actividades">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Práctica de la clase</p>
+          <h2>Actividades</h2>
+          <p>
+            Usá el archivo <strong>Ejercicio 4 - Morosos.xlsx</strong> para aplicar las herramientas de la clase y
+            <strong>compartí tu experiencia en el foro de la unidad</strong> para la evaluación entre pares.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Para cerrar la clase aplicamos todo en un solo archivo: una lista de siete clientes con facturas atrasadas. Hay que calcular cuánto debe cada uno con el recargo, armar las alertas de vencimiento con sus colores, hacer un resumen con CONTAR.SI y, si el tiempo lo permite, agregar la macro del cartel.</p>
+          <p>Avancen en orden, tilden cada paso cuando lo terminen y, al final, cuenten su experiencia en el foro de la unidad.</p>
+        </div>
+
+        <p>El libro tiene una sola hoja y ya trae los <strong>datos de los clientes</strong>, los <strong>montos</strong> y los <strong>días de atraso</strong>. El resto hay que completarlo:</p>
+        <ul>
+          <li><strong>A1:B1:</strong> la palabra “Fecha” y una celda con formato de fecha, vacía.</li>
+          <li><strong>Fila 2:</strong> encabezados: Condición, Apellido, Nombre, Código, Monto de la factura, Fecha de emisión, Días de atraso, Fecha de vencimiento, Recargo por día (1,5%), Monto a abonar, <strong>Alertas</strong> y <strong>Días</strong>.</li>
+          <li><strong>Filas 3 a 9:</strong> siete clientes con apellido, nombre, código, monto y días de atraso cargados (G). Las columnas <strong>A</strong>, <strong>F</strong>, <strong>H</strong>, <strong>I</strong>, <strong>J</strong>, <strong>K</strong> y <strong>L</strong> están vacías.</li>
+          <li><strong>I10:J10:</strong> “Total” y una celda para la suma del monto a abonar.</li>
+          <li><strong>B12:G16:</strong> el resumen: cantidad de clientes, de morosos, de no morosos, porcentaje con la cuota al día y monto total que deben los morosos (los resultados van en la columna <strong>G</strong>).</li>
+        </ul>
+        <p class="rule">
+          <strong>Sobre las fechas:</strong> el archivo no trae fechas de emisión. Para que tus resultados coincidan con los de esta página <strong>cualquier día que lo hagas</strong>, las armamos a partir de <code class="f">HOY()</code>
+          (“la factura se emitió hace tantos días”) y suponemos que todas las facturas tienen un <strong>plazo de 30 días</strong>. La tabla de “Para verificar” usa esos mismos datos.
+        </p>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio 4 · Morosos</p>
+          <h3>Tu lista de control</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="chkBar"><div id="chkFill"></div></div>
+          <p class="progress-label" id="chkLabel">0 de 10 pasos completados</p>
+
+          <ul class="chk-list" id="chkList">
+            <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Abrir y guardar.</strong> Abrí el archivo y guardalo como <strong>Ejercicio 4 - Morosos</strong>.<small>Guardá al empezar y cada tanto: así no perdés lo hecho.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Fecha de hoy.</strong> En <strong>B1</strong> escribí <code class="f">=HOY()</code>.<small>Si se ve un número como 46000, falta darle formato Fecha (<kbd>Ctrl</kbd>+<kbd>1</kbd>).</small></span></label></li>
+            <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Condición.</strong> En <strong>A3</strong> escribí <code class="f">=SI(G3&gt;0;"Moroso";"Al día")</code> y copiala hasta <strong>A9</strong>.<small>Un cliente es moroso si tiene días de atraso.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Fechas de emisión y vencimiento.</strong> En <strong>F3:F9</strong> escribí la fecha de emisión como “hoy menos N días” (<code class="f">=$B$1-33</code>, <code class="f">=$B$1-30</code>, <code class="f">=$B$1-32</code>, <code class="f">=$B$1-37</code>, <code class="f">=$B$1-28</code>, <code class="f">=$B$1-32</code> y <code class="f">=$B$1-35</code>). En <strong>H3</strong> escribí <code class="f">=F3+30</code> y copiala hasta <strong>H9</strong>.<small>F y H tienen que verse como fechas. Si no, aplicá formato Fecha.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Recargo, monto y total.</strong> En <strong>I3</strong> escribí <code class="f">=E3*1,5%*G3</code> (monto por 1,5% por cada día de atraso) y en <strong>J3</strong> <code class="f">=E3+I3</code>. Copiá ambas hasta la fila 9. En <strong>J10</strong> escribí <code class="f">=SUMA(J3:J9)</code>.<small>Los clientes sin atraso tienen recargo cero y pagan solo el monto de la factura.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="6"><span class="chk-txt"><strong>6. Días y alertas.</strong> En <strong>L3</strong> escribí <code class="f">=H3-$B$1</code> (días que faltan). En <strong>K3</strong> escribí <code class="f">=SI(L3&lt;0;"Vencida hace "&amp;L3*-1&amp;" días";SI(L3=0;"Vence hoy";SI(L3&lt;4;"Vence en "&amp;L3&amp;" días";"Faltan "&amp;L3&amp;" días")))</code>. Copiá ambas hasta la fila 9.<small>Ensanchá la columna K para que se lea todo el texto.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="7"><span class="chk-txt"><strong>7. Formato condicional.</strong> Seleccioná <strong>K3:K9</strong> y creá <strong>cuatro reglas con fórmula</strong>: <code class="f">=$L3&lt;0</code> en rojo, <code class="f">=$L3=0</code> en amarillo oscuro, <code class="f">=Y($L3&gt;0;$L3&lt;4)</code> en amarillo claro y <code class="f">=$L3&gt;=4</code> en verde.<small>No olvides el <code class="f">$</code> delante de la L. Revisalas en <em>Administrar reglas</em>.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="8"><span class="chk-txt"><strong>8. Resumen con CONTAR.SI.</strong> En <strong>G12</strong> <code class="f">=CONTAR(E3:E9)</code>; en <strong>G13</strong> <code class="f">=CONTAR.SI(A3:A9;"Moroso")</code>; en <strong>G14</strong> <code class="f">=CONTAR.SI(A3:A9;"Al día")</code>; en <strong>G15</strong> <code class="f">=G14/G12</code> (con formato Porcentaje); en <strong>G16</strong> <code class="f">=SUMAR.SI(A3:A9;"Moroso";J3:J9)</code>.<small>G15 y G16 ya vienen con formato de porcentaje y de moneda.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="9"><span class="chk-txt"><strong>9. Macro (desafío).</strong> En <strong>N2:O5</strong> armá los cuatro contadores (<code class="f">=CONTAR.SI(L3:L9;"&lt;0")</code>, <code class="f">=CONTAR.SI(L3:L9;"=0")</code>, <code class="f">=CONTAR.SI.CONJUNTO(L3:L9;"&gt;0";L3:L9;"&lt;4")</code> y <code class="f">=CONTAR.SI(L3:L9;"&gt;3")</code>). Guardá como <strong>.xlsm</strong> y escribí en <em>ThisWorkbook → Workbook → Open</em> el código del tema Macros, leyendo O2, O3, O4 y O5.<small>Cerrá el archivo y abrilo de nuevo: tiene que aparecer el cartel. Verificá abajo qué números debería mostrar.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="10"><span class="chk-txt"><strong>10. Compartir.</strong> Contá tu experiencia en el <strong>foro de la unidad</strong>.<small>Podés contar qué herramienta te resultó más útil, qué paso te costó y cómo lo resolviste.</small></span></label></li>
+          </ul>
+
+          <p class="card-example"><strong>Si terminás antes:</strong> en <strong>H7</strong> escribí <code class="f">=F7+36</code> para que a esa factura le falten 8 días y mirá cómo cambian los días, la alerta (pasa a “Faltan 8 días”) y el color (verde); usá <strong>Datos → Filtro → Filtrar por color</strong> para mostrar solo las facturas rojas; ampliá la macro con un <code class="f">If</code> para que el cartel salga solo si hay facturas vencidas; o agregá una columna <em>Pagada</em> y una quinta regla de formato condicional que pinte de otro color las facturas pagadas.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>Para verificar: resultados esperados</summary>
+          <p><strong>Datos de cada cliente</strong> (con las fechas armadas a partir de HOY y plazo de 30 días):</p>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead>
+                <tr><th>Cliente</th><th>Condición (A)</th><th>Emitida hace</th><th>Días (L)</th><th>Recargo (I)</th><th>Monto a abonar (J)</th><th>Alerta (K)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Gonzalez, Oscar</td><td>Moroso</td><td>33 días</td><td>-3</td><td>$ 231,66</td><td>$ 5.379,66</td><td>Vencida hace 3 días</td></tr>
+                <tr><td>Castaño, Diego</td><td>Al día</td><td>30 días</td><td>0</td><td>$ 0,00</td><td>$ 6.168,00</td><td>Vence hoy</td></tr>
+                <tr><td>Perez, Cristian</td><td>Moroso</td><td>32 días</td><td>-2</td><td>$ 108,60</td><td>$ 3.728,60</td><td>Vencida hace 2 días</td></tr>
+                <tr><td>Ianello, Aníbal</td><td>Moroso</td><td>37 días</td><td>-7</td><td>$ 1.073,10</td><td>$ 11.293,10</td><td>Vencida hace 7 días</td></tr>
+                <tr><td>Castro, José</td><td>Al día</td><td>28 días</td><td>2</td><td>$ 0,00</td><td>$ 5.648,00</td><td>Vence en 2 días</td></tr>
+                <tr><td>Loberse, Leila</td><td>Moroso</td><td>32 días</td><td>-2</td><td>$ 256,80</td><td>$ 8.816,80</td><td>Vencida hace 2 días</td></tr>
+                <tr><td>Ibarrola, Sandra</td><td>Moroso</td><td>35 días</td><td>-5</td><td>$ 316,88</td><td>$ 4.541,88</td><td>Vencida hace 5 días</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Colores de la columna K:</strong> cinco celdas rojas (las vencidas), una amarillo oscuro (Castaño, vence hoy) y una amarillo claro (Castro, vence en 2 días). Ninguna verde: para verla hay que cambiar un plazo (ver <em>Si terminás antes</em>).</li>
+            <li><strong>Total a abonar (J10):</strong> <strong>$ 45.576,04</strong>.</li>
+            <li><strong>Resumen (columna G):</strong> cantidad de clientes <strong>7</strong>, morosos <strong>5</strong>, no morosos <strong>2</strong>, con la cuota al día <strong>29 %</strong> (2 de 7 = 28,57 %), monto total a abonar por los morosos <strong>$ 33.760,04</strong>.</li>
+            <li><strong>Contadores de la macro (O2:O5):</strong> vencidas <strong>5</strong>, vencen hoy <strong>1</strong>, próximas a vencer <strong>1</strong> y pendientes <strong>0</strong>.</li>
+            <li><strong>Cartel al abrir:</strong> <em>Facturas vencidas: 5 / Facturas que vencen hoy: 1 / Facturas próximas a vencer: 1 / Facturas pendientes: 0</em>.</li>
+          </ul>
+          <p><strong>Código de la macro (para comparar):</strong></p>
+          <pre class="vba"><span class="k">Private Sub</span> Workbook_Open()
+    <span class="k">Dim</span> vencidas <span class="k">As Long</span>, hoy <span class="k">As Long</span>, proximas <span class="k">As Long</span>, pendientes <span class="k">As Long</span>
+    <span class="k">Dim</span> mensaje <span class="k">As String</span>
+
+    <span class="c">' Leer los contadores de la hoja</span>
+    vencidas = Range(<span class="s">"O2"</span>).Value
+    hoy = Range(<span class="s">"O3"</span>).Value
+    proximas = Range(<span class="s">"O4"</span>).Value
+    pendientes = Range(<span class="s">"O5"</span>).Value
+
+    <span class="c">' Armar el mensaje, una línea por contador</span>
+    mensaje = <span class="s">"Facturas vencidas: "</span> &amp; vencidas &amp; vbNewLine
+    mensaje = mensaje &amp; <span class="s">"Facturas que vencen hoy: "</span> &amp; hoy &amp; vbNewLine
+    mensaje = mensaje &amp; <span class="s">"Facturas próximas a vencer: "</span> &amp; proximas &amp; vbNewLine
+    mensaje = mensaje &amp; <span class="s">"Facturas pendientes: "</span> &amp; pendientes
+
+    MsgBox mensaje
+<span class="k">End Sub</span></pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section alt" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+        </div>
+
+        <div class="lectura">
+          <p>Estas son las dudas que más aparecen cuando se practica esta clase. Si en el ejercicio algo no sale como esperaban, antes de preguntar conviene mirar acá: casi siempre es un <code class="f">$</code> que falta, una comilla o una celda con el formato equivocado.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>Las fechas se ven como números, o la resta me da una fecha.</summary>
+          <p>Es un tema de formato que vimos en la <a href="u3-clase9.html#fechas">Clase 9</a>: la celda de una fecha necesita formato <strong>Fecha</strong> y la de una resta de fechas necesita <strong>General</strong> o <strong>Número</strong> (<kbd>Ctrl</kbd>+<kbd>1</kbd>).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Me aparece ##### en una celda.</summary>
+          <p>La columna es demasiado angosta para el contenido: hacé doble clic en el borde derecho del encabezado de la columna para ajustarla. También aparece <code class="f">#####</code> si el resultado es una fecha negativa (por ejemplo, una resta que quedó con formato Fecha).</p>
+        </details>
+        <details class="faq-item">
+          <summary>La alerta dice “Vencida hace -3 días”.</summary>
+          <p>Falta darle vuelta el signo. Los días vencidos son negativos; multiplicalos por <code class="f">-1</code> dentro del mensaje: <code class="f">"Vencida hace "&amp;L3*-1&amp;" días"</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Excel no me deja confirmar la fórmula de la alerta.</summary>
+          <p>Revisá que entre cada texto y cada celda haya un <code class="f">&amp;</code>, que todos los textos tengan sus dos comillas, que los argumentos estén separados con punto y coma y que cierres <strong>tres paréntesis</strong> al final (hay tres <code class="f">SI</code>).</p>
+        </details>
+        <details class="faq-item">
+          <summary>En las filas vacías de mi tabla dice “Vence hoy” (o “Vencida…”).</summary>
+          <p>Una celda vacía vale cero, así que la fórmula la trata como “vence hoy”. Agregá un <code class="f">SI</code> al principio: <code class="f">=SI(L3="";"";SI(L3&lt;0;…))</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>La alerta dice “1 días” en lugar de “1 día”.</summary>
+          <p>Escribí la palabra con otro <code class="f">SI</code> dentro del mensaje: <code class="f">"Vence en "&amp;L3&amp;SI(L3=1;" día";" días")</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Apliqué el formato condicional y los colores salen mal o no salen.</summary>
+          <p>Casi siempre es el <code class="f">$</code>. Escribí <code class="f">$L3</code> y no <code class="f">L3</code>, y que la fórmula esté escrita para la <strong>primera fila</strong> de la selección (la 3). Revisá también en <strong>Administrar reglas</strong> que el rango sea <code class="f">K3:K9</code> y que no hayas seleccionado la fila de encabezados.</p>
+        </details>
+        <details class="faq-item">
+          <summary>En el formato condicional, ¿pongo Y o SI?</summary>
+          <p>En una regla de formato condicional no hace falta el <code class="f">SI</code>: la fórmula ya tiene que dar verdadero o falso. Para dos condiciones a la vez usá <code class="f">Y</code>: <code class="f">=Y($L3&gt;0;$L3&lt;4)</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>CONTAR.SI me devuelve 0 y hay celdas que cumplen la condición.</summary>
+          <p>Revisá tres cosas: que el criterio esté <strong>entre comillas</strong> (<code class="f">"&lt;0"</code>), que no tenga palabras de más (<code class="f">"menor a 0"</code> busca ese texto) y que el rango sea el de la columna correcta. Si el texto de una celda lleva espacios al final (por ejemplo “Ianello ”), tampoco coincide con la palabra exacta.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Quiero contar con dos condiciones y CONTAR.SI da error.</summary>
+          <p><code class="f">CONTAR.SI</code> solo admite <strong>una</strong> condición. Para dos o más, usá <code class="f">CONTAR.SI.CONJUNTO(rango1;criterio1;rango2;criterio2)</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El porcentaje me da 0,2857 en lugar de 29 %.</summary>
+          <p>Falta el formato. Seleccioná la celda y usá <strong>Inicio → Porcentaje</strong> (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>%</kbd>). En el archivo, G15 ya viene con ese formato.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Guardé el archivo con la macro pero no pasa nada al abrirlo.</summary>
+          <p>Hay tres causas típicas: se guardó como <strong>.xlsx</strong> (las macros se pierden: guardá como <strong>.xlsm</strong>), no se tocó <strong>Habilitar contenido</strong> en la barra amarilla, o el código quedó fuera de <code class="f">Private Sub Workbook_Open() … End Sub</code>. Cerrá el archivo por completo y volvé a abrirlo: el cartel aparece recién al abrir.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Excel muestra una barra roja y no me deja habilitar las macros.</summary>
+          <p>Es la protección para archivos que vienen de internet o de un mail. Cerrá el archivo, clic derecho sobre él → <strong>Propiedades</strong> → tildá <strong>Desbloquear</strong> en la parte de abajo → <strong>Aceptar</strong>, y volvé a abrirlo. Solo si confiás en quien te lo mandó.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El cartel de la macro muestra todo en una sola línea o con números raros.</summary>
+          <p>Para bajar de línea falta <code class="f">&amp; vbNewLine &amp;</code> entre los textos. Si los números salen en cero, probablemente las celdas que lee la macro (<strong>O2:O5</strong>) todavía no tienen las fórmulas de <code class="f">CONTAR.SI</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Puedo hacer que el cartel salga solo si hay facturas vencidas?</summary>
+          <p>Sí, con <code class="f">If vencidas &gt; 0 Then … End If</code>. Está explicado en el paso 4 del tema Macros, con un simulador para probarlo.</p>
+        </details>
+        <details class="faq-item">
+          <summary>CONTAR.SI con una celda en el criterio me da 0.</summary>
+          <p>Seguramente la celda quedó adentro de las comillas. El operador va entre comillas y la celda <strong>afuera</strong>, unida con <code class="f">&amp;</code>: <code class="f">"&gt;="&amp;F7</code>, no <code class="f">"&gt;=F7"</code>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>No encuentro la pestaña Programador.</summary>
+          <p>No la necesitás para esta clase: el editor se abre con clic derecho sobre la pestaña de la hoja → <strong>Ver código</strong>, o con <kbd>Alt</kbd>+<kbd>F11</kbd>.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+        </div>
+
+        <div class="lectura">
+          <p>Antes de terminar, repasemos lo esencial. Las fechas son números: se suman para calcular un vencimiento y se restan para saber cuántos días faltan. Con esos días, un SI anidado escribe el aviso y el formato condicional con fórmula lo pinta. CONTAR.SI cuenta cuántas hay de cada tipo, y una macro puede mostrar ese resumen al abrir el libro.</p>
+        </div>
+        <ul>
+          <li><strong>Fecha de hoy:</strong> <code class="f">=HOY()</code> (se actualiza sola). Se cita con referencia absoluta: <code class="f">$B$1</code>.</li>
+          <li><strong>Vencimiento:</strong> <code class="f">=C4+D4</code>, emisión más días a vencer. <strong>Días que faltan:</strong> <code class="f">=E4-$B$1</code>; negativo significa vencida.</li>
+          <li><strong>SI anidado con texto:</strong> <code class="f">=SI(C2&lt;0;"Vencida hace "&amp;C2*-1&amp;" días";SI(C2=0;"Vence hoy";SI(C2&lt;4;"Vence en "&amp;C2&amp;" días";"Faltan "&amp;C2&amp;" días")))</code>. <code class="f">&amp;</code> une texto y celdas; <code class="f">*-1</code> da vuelta el signo.</li>
+          <li><strong>Formato condicional con fórmula:</strong> <strong>Nueva regla → Utilice una fórmula…</strong>, una regla por color, escrita para la primera celda y con <code class="f">$</code> delante de la columna (<code class="f">$L3</code>). <code class="f">Y</code> para dos condiciones.</li>
+          <li><strong>CONTAR.SI:</strong> <code class="f">=CONTAR.SI(rango;"&lt;0")</code>, con una condición. <strong>CONTAR.SI.CONJUNTO</strong> para varias; <strong>SUMAR.SI</strong> para sumar según una condición.</li>
+          <li><strong>Referencias mixtas:</strong> <code class="f">$L3</code> fija la columna, <code class="f">L$3</code> fija la fila y <code class="f">$L$3</code> fija las dos; <kbd>F4</kbd> alterna entre las formas.</li>
+          <li><strong>Criterios flexibles:</strong> <code class="f">"&gt;="&amp;F7</code> toma el valor de una celda; <code class="f">"*SAC*"</code> usa comodines. Familia <code class="f">.SI</code>: <code class="f">SUMAR.SI</code>, <code class="f">PROMEDIO.SI</code> y las versiones <code class="f">.CONJUNTO</code>.</li>
+          <li><strong>Macros:</strong> guardar como <strong>.xlsm</strong>; <strong>Ver código → ThisWorkbook → Workbook → Open</strong>; <code class="f">MsgBox</code>, <code class="f">Range("O2").Value</code>, <code class="f">&amp;</code>, <code class="f">vbNewLine</code> e <code class="f">If … Then … Else</code>; también se pueden grabar. Habilitar contenido solo en archivos de confianza.</li>
+        </ul>
+
+        <h3>Vocabulario de la clase</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Palabra</th><th>Qué quiere decir</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Número de serie</strong></td><td>El número con el que Excel guarda una fecha (días desde 1900). Permite sumar y restar fechas.</td></tr>
+              <tr><td><strong>HOY()</strong></td><td>Función que devuelve la fecha de hoy y se actualiza sola.</td></tr>
+              <tr><td><strong>Vencimiento</strong></td><td>La fecha límite de pago: emisión más los días a vencer.</td></tr>
+              <tr><td><strong>Referencia absoluta</strong></td><td>Una referencia con <code class="f">$</code> que no se corre al copiar (<code class="f">$B$1</code>).</td></tr>
+              <tr><td><strong>Regla con fórmula</strong></td><td>Una regla de formato condicional cuya condición es una fórmula que da verdadero o falso.</td></tr>
+              <tr><td><strong>Y / O</strong></td><td>Funciones que combinan condiciones: Y exige que se cumplan todas; O, al menos una.</td></tr>
+              <tr><td><strong>Referencia mixta</strong></td><td>Una referencia con <code class="f">$</code> solo en la columna o solo en la fila (<code class="f">$L3</code>, <code class="f">L$3</code>).</td></tr>
+              <tr><td><strong>Comodín</strong></td><td>Un símbolo que reemplaza letras en un criterio de texto: <code class="f">*</code> (varias) y <code class="f">?</code> (una).</td></tr>
+              <tr><td><strong>Criterio</strong></td><td>La condición de CONTAR.SI, escrita entre comillas (<code class="f">"&lt;0"</code>, <code class="f">"Moroso"</code>).</td></tr>
+              <tr><td><strong>Macro</strong></td><td>Conjunto de instrucciones guardado en el libro que Excel ejecuta solo.</td></tr>
+              <tr><td><strong>VBA</strong></td><td>El lenguaje de programación en el que se escriben las macros de Office: Visual Basic para Aplicaciones, una versión de Visual Basic incluida dentro de Excel.</td></tr>
+              <tr><td><strong>Evento</strong></td><td>Un momento que dispara una macro, como abrir el libro (<code class="f">Workbook_Open</code>).</td></tr>
+              <tr><td><strong>Módulo</strong></td><td>El lugar del editor donde se guarda el código de una macro grabada o escrita a mano.</td></tr>
+              <tr><td><strong>Variable</strong></td><td>Un nombre que guarda un valor para usarlo más adelante (<code class="f">vencidas</code>).</td></tr>
+              <tr><td><strong>.xlsm</strong></td><td>El formato de archivo de Excel que puede guardar macros.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section alt" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Videos de la clase</h2>
+          <p>
+            Video de <strong>El Tío Tech</strong>, con los temas de la clase y enlaces al minuto donde se explica cada uno. El video usa un ejemplo de facturas en lugar de clientes morosos y una versión de Excel más vieja (2016), así que los menús pueden verse algo distintos;
+            los pasos son los mismos. Los números del ejemplo (fechas de 2019, celdas donde guarda los contadores) no coinciden con los de esta página.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/9qluJswHlRQ" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/9qluJswHlRQ/hqdefault.jpg" alt="Miniatura del video Cómo calcular fechas de vencimiento y crear alertas en Excel" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Cómo calcular fechas de vencimiento y crear alertas en Excel</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Tío Tech · 59 min · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=0s" target="_blank" rel="noopener noreferrer">Cómo funciona el ejemplo 0:00</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=277s" target="_blank" rel="noopener noreferrer">Guardar con macros 4:37</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=468s" target="_blank" rel="noopener noreferrer">Fecha de hoy con HOY() 7:48</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=661s" target="_blank" rel="noopener noreferrer">Sumar días: el vencimiento 11:01</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=706s" target="_blank" rel="noopener noreferrer">Restar fechas: días que faltan 11:46</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=809s" target="_blank" rel="noopener noreferrer">Plantear los cuatro casos 13:29</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=972s" target="_blank" rel="noopener noreferrer">La fórmula con SI anidado 16:12</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=1534s" target="_blank" rel="noopener noreferrer">Formato condicional con fórmula 25:34</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=1579s" target="_blank" rel="noopener noreferrer">El signo $ en las reglas 26:19</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=1788s" target="_blank" rel="noopener noreferrer">La función Y 29:48</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=1927s" target="_blank" rel="noopener noreferrer">Unir texto y números con &amp; 32:07</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=2283s" target="_blank" rel="noopener noreferrer">Convertir en tabla 38:03</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=2351s" target="_blank" rel="noopener noreferrer">Corregir filas vacías 39:11</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=2701s" target="_blank" rel="noopener noreferrer">CONTAR.SI 45:01</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=2784s" target="_blank" rel="noopener noreferrer">CONTAR.SI.CONJUNTO 46:24</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=2903s" target="_blank" rel="noopener noreferrer">La macro: MsgBox 48:23</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=3004s" target="_blank" rel="noopener noreferrer">Leer celdas y variables 50:04</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=3248s" target="_blank" rel="noopener noreferrer">Salto de línea 54:08</a> ·
+                <a href="https://www.youtube.com/watch?v=9qluJswHlRQ&t=3433s" target="_blank" rel="noopener noreferrer">Resultado final 57:13</a>
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿para qué sirve el signo <code class="f">$</code> delante de la columna en una regla de formato condicional? ¿Qué diferencia hay entre <code class="f">CONTAR.SI</code> y <code class="f">CONTAR.SI.CONJUNTO</code>? ¿Qué hay que hacer para que un libro conserve una macro y se ejecute al abrirlo?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>El <code class="f">$</code> <strong>fija la columna</strong> de la fórmula: la regla se escribe para la primera celda y se copia a las demás, y sin <code class="f">$</code> la columna se correría (<code class="f">L3</code> pasaría a <code class="f">M3</code>). <code class="f">CONTAR.SI</code> cuenta con <strong>una</strong> condición y <code class="f">CONTAR.SI.CONJUNTO</code> con <strong>varias</strong> (pares de rango y criterio), por ejemplo mayor que 0 <em>y</em> menor que 4. Para conservar la macro hay que <strong>guardar como Libro de Excel habilitado para macros (.xlsm)</strong>, escribir el código en <strong>ThisWorkbook → Workbook → Open</strong> y, al abrir el archivo, tocar <strong>Habilitar contenido</strong>.</p></details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="u3-clase10.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Unidad 3 · Clase 10 · Tablas, filtros y gráficos</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 3 · Clase 11</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    /* ===== Lista de control de la actividad ===== */
+    (function () {
+      const KEY = 'c1-clase11-checklist-v1';
+      const boxes = document.querySelectorAll('#chkList input[type="checkbox"]');
+      const fill = document.getElementById('chkFill');
+      const bar = document.getElementById('chkBar');
+      const label = document.getElementById('chkLabel');
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+      function update() {
+        let done = 0;
+        boxes.forEach(b => { if (b.checked) done++; });
+        const pct = Math.round(done / boxes.length * 100);
+        fill.style.width = pct + '%';
+        bar.setAttribute('aria-valuenow', pct);
+        label.textContent = done === boxes.length
+          ? '🎉 ¡Completaste los ' + boxes.length + ' pasos! Contá tu experiencia en el Foro.'
+          : done + ' de ' + boxes.length + ' pasos completados';
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    })();
+
+
+    /* =====================================================
+       UTILIDADES DE FORMATO (estilo Argentina: 1.234,50)
+       ===================================================== */
+    function fmtGeneral(n) {
+      return String(parseFloat(n.toPrecision(12))).replace('.', ',');
+    }
+    function serialToDate(n) {
+      const base = n >= 61 ? Date.UTC(1899, 11, 30) : Date.UTC(1899, 11, 31);
+      return new Date(base + Math.floor(n) * 864e5);
+    }
+    function dateToSerial(d, m, y) {
+      let s = (Date.UTC(y, m - 1, d) - Date.UTC(1899, 11, 30)) / 864e5;
+      if (s < 61) s -= 1;
+      return s;
+    }
+    function todaySerial() {
+      const t = new Date();
+      return dateToSerial(t.getDate(), t.getMonth() + 1, t.getFullYear());
+    }
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function fmtDateShort(n) {
+      const d = serialToDate(n);
+      return pad2(d.getUTCDate()) + '/' + pad2(d.getUTCMonth() + 1) + '/' + d.getUTCFullYear();
+    }
+    function parseDMY(s) {
+      const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s.trim());
+      if (!m) return null;
+      const d = +m[1], mo = +m[2], y = +m[3];
+      const t = new Date(Date.UTC(y, mo - 1, d));
+      if (t.getUTCFullYear() !== y || t.getUTCMonth() !== mo - 1 || t.getUTCDate() !== d) return null;
+      return { d: d, m: mo, y: y };
+    }
+    function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    /* =====================================================
+       MOTOR DE FÓRMULAS (Excel en español, separador ";")
+       Valores: {t:'n'|'s'|'b'(vacío)|'bool'|'e'|'m'(matriz)}
+       ===================================================== */
+    const ERR = { DIV: '#¡DIV/0!', NAME: '#¿NOMBRE?', VAL: '#¡VALOR!', REF: '#¡REF!', NUM: '#¡NUM!', NA: '#N/D' };
+
+    function colIndex(letters) {
+      let n = 0;
+      for (let i = 0; i < letters.length; i++) n = n * 26 + (letters.charCodeAt(i) - 64);
+      return n - 1;
+    }
+    function splitRef(id) {
+      const m = /^\$?([A-Za-z]{1,2})\$?(\d{1,3})$/.exec(id);
+      if (!m) return null;
+      return { c: colIndex(m[1].toUpperCase()), r: parseInt(m[2], 10) - 1 };
+    }
+    function colName(c) { return String.fromCharCode(65 + c); }
+    function cellId(c, r) { return colName(c) + (r + 1); }
+
+    function parseLiteral(raw) {
+      if (raw.charAt(0) === "'") return { t: 's', v: raw.slice(1) };
+      if (/^-?\d+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(',', '.')) };
+      if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(raw)) return { t: 'n', v: parseFloat(raw.replace(/\./g, '').replace(',', '.')) };
+      const m = /^(-?\d+(,\d+)?)%$/.exec(raw);
+      if (m) return { t: 'n', v: parseFloat(m[1].replace(',', '.')) / 100, show: raw };
+      const dt = parseDMY(raw);
+      if (dt && dt.y >= 1900) return { t: 'n', v: dateToSerial(dt.d, dt.m, dt.y), date: true };
+      return { t: 's', v: raw };
+    }
+
+    function cellValue(S, id, depth) {
+      const raw = S.cells[id];
+      if (raw == null || raw === '') return { t: 'b' };
+      if (raw.charAt(0) === '=') return evalFormula(S, raw, depth + 1);
+      const v = parseLiteral(raw);
+      if (v.t === 'n' && !v.date && !v.show) {
+        const p = splitRef(id);
+        if (p && S.fmt && S.fmt[p.c] === 'date') v.date = true;
+      }
+      return v;
+    }
+
+    /* --- conversiones --- */
+    function fail(e) { throw { e: e }; }
+    function toNum(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return 0;
+      if (v.t === 'n') return v.v;
+      if (v.t === 'bool') return v.v ? 1 : 0;
+      if (v.t === 's') {
+        const lit = parseLiteral(v.v);
+        if (lit.t === 'n') return lit.v;
+      }
+      return fail(ERR.VAL);
+    }
+    function toText(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return '';
+      if (v.t === 'n') return fmtGeneral(v.v);
+      if (v.t === 'bool') return v.v ? 'VERDADERO' : 'FALSO';
+      return v.v;
+    }
+    function toBool(v) {
+      if (v.t === 'e') fail(v.v);
+      if (v.t === 'b') return false;
+      if (v.t === 'bool') return v.v;
+      if (v.t === 'n') return v.v !== 0;
+      return fail(ERR.VAL);
+    }
+    function scalar(v) {
+      if (v.t !== 'm') return v;
+      if (v.nr === 1 && v.nc === 1) return v.rows[0][0];
+      return fail(ERR.VAL);
+    }
+    function compare(op, a, b) {
+      if (a.t === 'e') fail(a.v);
+      if (b.t === 'e') fail(b.v);
+      if (a.t === 'b' && b.t === 's') a = { t: 's', v: '' };
+      else if (b.t === 'b' && a.t === 's') b = { t: 's', v: '' };
+      else { if (a.t === 'b') a = { t: 'n', v: 0 }; if (b.t === 'b') b = { t: 'n', v: 0 }; }
+      const rank = x => x.t === 's' ? 2 : (x.t === 'bool' ? 3 : 1);
+      let c;
+      if (rank(a) !== rank(b)) c = rank(a) - rank(b);
+      else if (a.t === 's') { const x = a.v.toLowerCase(), y = b.v.toLowerCase(); c = x < y ? -1 : (x > y ? 1 : 0); }
+      else { const x = +a.v, y = +b.v; c = x < y ? -1 : (x > y ? 1 : 0); }
+      switch (op) {
+        case '=': return c === 0;
+        case '<>': return c !== 0;
+        case '<': return c < 0;
+        case '>': return c > 0;
+        case '<=': return c <= 0;
+        default: return c >= 0;
+      }
+    }
+    function daysInMonth(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+
+    function sifecha(s1, s2, unit) {
+      s1 = Math.floor(s1); s2 = Math.floor(s2);
+      if (s1 > s2) fail(ERR.NUM);
+      const a = serialToDate(s1), b = serialToDate(s2);
+      let y = b.getUTCFullYear() - a.getUTCFullYear();
+      let m = b.getUTCMonth() - a.getUTCMonth();
+      let d = b.getUTCDate() - a.getUTCDate();
+      if (d < 0) {
+        m--;
+        const pm = b.getUTCMonth() === 0 ? 12 : b.getUTCMonth();
+        const py = b.getUTCMonth() === 0 ? b.getUTCFullYear() - 1 : b.getUTCFullYear();
+        d += daysInMonth(py, pm);
+      }
+      if (m < 0) { y--; m += 12; }
+      switch (unit.toUpperCase()) {
+        case 'Y': return y;
+        case 'M': return y * 12 + m;
+        case 'D': return s2 - s1;
+        case 'YM': return m;
+        case 'MD': return d;
+        case 'YD': {
+          let ref = Date.UTC(b.getUTCFullYear(), a.getUTCMonth(), a.getUTCDate());
+          if (ref > Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate())) ref = Date.UTC(b.getUTCFullYear() - 1, a.getUTCMonth(), a.getUTCDate());
+          return Math.round((Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate()) - ref) / 864e5);
+        }
+        default: return fail(ERR.NUM);
+      }
+    }
+
+    /* --- funciones: reciben las "thunks" de sus argumentos --- */
+    function numbersOf(args) {
+      const out = [];
+      args.forEach(t => {
+        const v = t();
+        if (v.t === 'm') {
+          v.rows.forEach(row => row.forEach(x => {
+            if (x.t === 'e') fail(x.v);
+            if (x.t === 'n') out.push(x.v);
+          }));
+        } else if (v.ref) {
+          if (v.t === 'e') fail(v.v);
+          if (v.t === 'n') out.push(v.v);
+        } else out.push(toNum(v));
+      });
+      return out;
+    }
+    function textsOf(args) {
+      const out = [];
+      args.forEach(t => {
+        const v = t();
+        if (v.t === 'm') v.rows.forEach(row => row.forEach(x => out.push(x)));
+        else out.push(v);
+      });
+      return out;
+    }
+    const num = n => ({ t: 'n', v: n });
+
+    /* --- criterios de CONTAR.SI / SUMAR.SI ("<0", ">=4", "=0", "Moroso", "Gon*") --- */
+    function asMatrix(v) {
+      if (v.t === 'e') fail(v.v);
+      return v.t === 'm' ? v : { t: 'm', rows: [[v]], nr: 1, nc: 1 };
+    }
+    function critMatch(crit, v) {
+      let op = '=', rhs;
+      if (crit.t === 'e') fail(crit.v);
+      if (crit.t === 'n') rhs = crit;
+      else if (crit.t === 'bool') return v.t === 'bool' && v.v === crit.v;
+      else if (crit.t === 'b') rhs = { t: 'n', v: 0 };
+      else {
+        const m = /^(<=|>=|<>|<|>|=)?([\s\S]*)$/.exec(crit.v);
+        op = m[1] || '=';
+        rhs = /^\s*-?\d+(,\d+)?\s*$/.test(m[2]) ? { t: 'n', v: parseFloat(m[2].replace(',', '.')) } : { t: 's', v: m[2] };
+      }
+      if (v.t === 'e') return false;
+      if (v.t === 'b') return rhs.t === 's' && rhs.v === '' && op === '=';
+      if (rhs.t === 'n') {
+        if (v.t !== 'n') return op === '<>';
+        const x = v.v, y = rhs.v;
+        return op === '=' ? x === y : op === '<>' ? x !== y : op === '<' ? x < y : op === '>' ? x > y : op === '<=' ? x <= y : x >= y;
+      }
+      if (v.t !== 's') return op === '<>';
+      const x = v.v.toLowerCase(), y = rhs.v.toLowerCase();
+      if (op === '=' || op === '<>') {
+        const eq = /[*?]/.test(y) ? new RegExp('^' + y.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\?/g, '.') + '$').test(x) : x === y;
+        return op === '=' ? eq : !eq;
+      }
+      return op === '<' ? x < y : op === '>' ? x > y : op === '<=' ? x <= y : x >= y;
+    }
+    const FN = {
+      SUMA: a => num(numbersOf(a).reduce((x, y) => x + y, 0)),
+      PRODUCTO: a => { const f = numbersOf(a); return num(f.length ? f.reduce((x, y) => x * y, 1) : 0); },
+      MAX: a => { const f = numbersOf(a); return num(f.length ? Math.max.apply(null, f) : 0); },
+      MIN: a => { const f = numbersOf(a); return num(f.length ? Math.min.apply(null, f) : 0); },
+      PROMEDIO: a => {
+        const f = numbersOf(a);
+        if (!f.length) fail(ERR.DIV);
+        return num(f.reduce((x, y) => x + y, 0) / f.length);
+      },
+      REDONDEAR: a => {
+        if (a.length !== 2) throw { syntax: true };
+        const k = Math.pow(10, Math.floor(toNum(scalar(a[1]()))));
+        return num(Math.round(toNum(scalar(a[0]())) * k + (toNum(scalar(a[0]())) < 0 ? -1e-9 : 1e-9)) / k);
+      },
+      MEDIANA: a => {
+        const f = numbersOf(a).sort((x, y) => x - y);
+        if (!f.length) fail(ERR.NUM);
+        const m = f.length >> 1;
+        return num(f.length % 2 ? f[m] : (f[m - 1] + f[m]) / 2);
+      },
+      HOY: a => ({ t: 'n', v: todaySerial(), date: true }),
+      ABS: a => { if (a.length !== 1) throw { syntax: true }; return num(Math.abs(toNum(scalar(a[0]())))); },
+      Y: a => { if (!a.length) throw { syntax: true }; let ok = true; a.forEach(t => { if (!toBool(scalar(t()))) ok = false; }); return { t: 'bool', v: ok }; },
+      O: a => { if (!a.length) throw { syntax: true }; let ok = false; a.forEach(t => { if (toBool(scalar(t()))) ok = true; }); return { t: 'bool', v: ok }; },
+      CONTAR: a => num(numbersOf(a).length),
+      CONTARA: a => { let n = 0; textsOf(a).forEach(v => { if (v.t !== 'b') n++; }); return num(n); },
+      'CONTAR.SI': a => {
+        if (a.length !== 2) throw { syntax: true };
+        const m = asMatrix(a[0]()), crit = scalar(a[1]());
+        let n = 0;
+        m.rows.forEach(row => row.forEach(v => { if (critMatch(crit, v)) n++; }));
+        return num(n);
+      },
+      'CONTAR.SI.CONJUNTO': a => {
+        if (a.length < 2 || a.length % 2) throw { syntax: true };
+        const ms = [], cs = [];
+        for (let i = 0; i < a.length; i += 2) { ms.push(asMatrix(a[i]())); cs.push(scalar(a[i + 1]())); }
+        let n = 0;
+        ms[0].rows.forEach((row, r) => row.forEach((v, c) => {
+          if (ms.every((m, k) => m.rows[r] && m.rows[r][c] && critMatch(cs[k], m.rows[r][c]))) n++;
+        }));
+        return num(n);
+      },
+      'SUMAR.SI': a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        const m = asMatrix(a[0]()), crit = scalar(a[1]()), sm = a.length === 3 ? asMatrix(a[2]()) : m;
+        let s = 0;
+        m.rows.forEach((row, r) => row.forEach((v, c) => {
+          if (critMatch(crit, v)) { const x = sm.rows[r] && sm.rows[r][c]; if (x && x.t === 'n') s += x.v; }
+        }));
+        return num(s);
+      },
+      SIFECHA: a => {
+        if (a.length !== 3) throw { syntax: true };
+        return num(sifecha(toNum(scalar(a[0]())), toNum(scalar(a[1]())), toText(scalar(a[2]()))));
+      },
+      SI: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        if (toBool(scalar(a[0]()))) return scalar(a[1]());
+        return a.length === 3 ? scalar(a[2]()) : { t: 'bool', v: false };
+      },
+      CONCATENAR: a => {
+        let s = '';
+        a.forEach(t => {
+          const v = t();
+          if (v.t === 'm') fail(ERR.VAL);
+          s += toText(v);
+        });
+        return { t: 's', v: s };
+      },
+      UNIRCADENAS: a => {
+        if (a.length < 3) throw { syntax: true };
+        const delim = toText(scalar(a[0]()));
+        const skip = toBool(scalar(a[1]()));
+        const parts = textsOf(a.slice(2)).filter(v => !(skip && (v.t === 'b' || (v.t === 's' && v.v === ''))));
+        return { t: 's', v: parts.map(toText).join(delim) };
+      },
+      INDICE: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        const m = a[0]();
+        if (m.t !== 'm') fail(ERR.VAL);
+        let r = Math.floor(toNum(scalar(a[1]()))), c = a.length === 3 ? Math.floor(toNum(scalar(a[2]()))) : 1;
+        if (a.length === 2 && m.nr === 1) { c = r; r = 1; }
+        if (r < 1 || c < 1 || r > m.nr || c > m.nc) fail(ERR.REF);
+        return m.rows[r - 1][c - 1];
+      },
+      COINCIDIR: a => {
+        if (a.length < 2 || a.length > 3) throw { syntax: true };
+        const look = scalar(a[0]());
+        const m = a[1]();
+        if (m.t !== 'm') fail(ERR.VAL);
+        const type = a.length === 3 ? toNum(scalar(a[2]())) : 1;
+        const list = [];
+        m.rows.forEach(row => row.forEach(x => list.push(x)));
+        if (look.t === 'e') fail(look.v);
+        if (type === 0) {
+          for (let i = 0; i < list.length; i++) {
+            if (list[i].t !== 'e' && list[i].t !== 'b' && compare('=', list[i], look)) return num(i + 1);
+          }
+          return fail(ERR.NA);
+        }
+        let best = -1;
+        for (let i = 0; i < list.length; i++) {
+          const x = list[i];
+          if (x.t === 'b' || x.t === 'e') continue;
+          if (type > 0 ? compare('<=', x, look) : compare('>=', x, look)) best = i; else break;
+        }
+        if (best < 0) fail(ERR.NA);
+        return num(best + 1);
+      }
+    };
+
+    /* --- analizador léxico y sintáctico --- */
+    function tokenize(body) {
+      const re = /\s*(?:("(?:[^"]|"")*")|(\$?[A-Za-z]{1,2}\$?\d{1,3}):(\$?[A-Za-z]{1,2}\$?\d{1,3})|(\$?[A-Za-z]{1,2}\$?\d{1,3})(?![A-Za-z0-9_.(])|([A-Za-zÁÉÍÓÚÑáéíóúñ][A-Za-zÁÉÍÓÚÑáéíóúñ0-9_.]*)|(\d+(?:,\d+)?)|(<=|>=|<>|[-+*\/()^;&=<>%]))/y;
+      const toks = [];
+      let pos = 0;
+      body = body.trim();
+      while (pos < body.length) {
+        re.lastIndex = pos;
+        const m = re.exec(body);
+        if (!m) throw { syntax: true };
+        pos = re.lastIndex;
+        if (m[1] != null) toks.push({ k: 'str', v: m[1].slice(1, -1).replace(/""/g, '"') });
+        else if (m[2]) toks.push({ k: 'rng', a: m[2], b: m[3] });
+        else if (m[4]) toks.push({ k: 'ref', v: m[4] });
+        else if (m[5]) toks.push({ k: 'name', v: m[5].toUpperCase() });
+        else if (m[6]) toks.push({ k: 'num', v: parseFloat(m[6].replace(',', '.')) });
+        else toks.push({ k: 'op', v: m[7] });
+      }
+      return toks;
+    }
+
+    function compileFormula(toks, env) {
+      let p = 0;
+      const peek = () => toks[p];
+      const isOp = (...vs) => { const t = toks[p]; return t && t.k === 'op' && vs.indexOf(t.v) >= 0; };
+      const syntax = () => { throw { syntax: true }; };
+
+      function pCmp() {
+        let l = pConcat();
+        while (isOp('=', '<>', '<', '>', '<=', '>=')) {
+          const op = toks[p++].v, a = l, b = pConcat();
+          l = () => ({ t: 'bool', v: compare(op, scalar(a()), scalar(b())) });
+        }
+        return l;
+      }
+      function pConcat() {
+        let l = pAdd();
+        while (isOp('&')) {
+          p++;
+          const a = l, b = pAdd();
+          l = () => ({ t: 's', v: toText(scalar(a())) + toText(scalar(b())) });
+        }
+        return l;
+      }
+      function pAdd() {
+        let l = pMul();
+        while (isOp('+', '-')) {
+          const op = toks[p++].v, a = l, b = pMul();
+          l = () => {
+            const x = scalar(a()), y = scalar(b());
+            const n = op === '+' ? toNum(x) + toNum(y) : toNum(x) - toNum(y);
+            return { t: 'n', v: n, date: op === '+' ? !!(x.date || y.date) : (!!x.date && !y.date) };
+          };
+        }
+        return l;
+      }
+      function pMul() {
+        let l = pPow();
+        while (isOp('*', '/')) {
+          const op = toks[p++].v, a = l, b = pPow();
+          l = () => {
+            const x = toNum(scalar(a())), y = toNum(scalar(b()));
+            if (op === '/' && y === 0) fail(ERR.DIV);
+            return num(op === '*' ? x * y : x / y);
+          };
+        }
+        return l;
+      }
+      function pPow() {
+        let l = pUnary();
+        while (isOp('^')) {
+          p++;
+          const a = l, b = pUnary();
+          l = () => num(Math.pow(toNum(scalar(a())), toNum(scalar(b()))));
+        }
+        return l;
+      }
+      function pUnary() {
+        if (isOp('-')) { p++; const a = pUnary(); return () => num(-toNum(scalar(a()))); }
+        if (isOp('+')) { p++; return pUnary(); }
+        let l = pPrimary();
+        while (isOp('%')) { p++; const a = l; l = () => num(toNum(scalar(a())) / 100); }
+        return l;
+      }
+      function pPrimary() {
+        const t = toks[p++];
+        if (!t) return syntax();
+        if (t.k === 'num') return () => num(t.v);
+        if (t.k === 'str') return () => ({ t: 's', v: t.v });
+        if (t.k === 'ref') {
+          return () => {
+            const rf = splitRef(t.v);
+            if (!rf) fail(ERR.REF);
+            if (rf.c >= S_COLS(env) || rf.r >= S_ROWS(env)) fail(ERR.REF);
+            return Object.assign({ ref: true }, cellValue(env.S, cellId(rf.c, rf.r), env.depth));
+          };
+        }
+        if (t.k === 'rng') {
+          return () => {
+            const a = splitRef(t.a), b = splitRef(t.b);
+            if (!a || !b) fail(ERR.REF);
+            const rows = [];
+            for (let r = Math.min(a.r, b.r); r <= Math.max(a.r, b.r); r++) {
+              const row = [];
+              for (let c = Math.min(a.c, b.c); c <= Math.max(a.c, b.c); c++) row.push(cellValue(env.S, cellId(c, r), env.depth));
+              rows.push(row);
+            }
+            return { t: 'm', rows: rows, nr: rows.length, nc: rows[0].length };
+          };
+        }
+        if (t.k === 'op' && t.v === '(') {
+          const e = pCmp();
+          if (!isOp(')')) syntax();
+          p++;
+          return e;
+        }
+        if (t.k === 'name') {
+          if (isOp('(')) {
+            p++;
+            const args = [];
+            if (isOp(')')) p++;
+            else {
+              for (;;) {
+                if (isOp(';', ')')) { args.push(() => ({ t: 'b' })); } else args.push(pCmp());
+                if (isOp(';')) { p++; continue; }
+                if (isOp(')')) { p++; break; }
+                syntax();
+              }
+            }
+            const f = FN[t.v];
+            if (!f) return () => fail(ERR.NAME);
+            return () => f(args);
+          }
+          if (t.v === 'VERDADERO') return () => ({ t: 'bool', v: true });
+          if (t.v === 'FALSO') return () => ({ t: 'bool', v: false });
+          return () => fail(ERR.NAME);
+        }
+        return syntax();
+      }
+      const root = pCmp();
+      if (p < toks.length) syntax();
+      return root;
+    }
+    function S_COLS(env) { return env.S.cols; }
+    function S_ROWS(env) { return env.S.rows; }
+
+    function evalFormula(S, raw, depth) {
+      if (depth > 25) return { t: 'e', v: ERR.REF };
+      const body = raw.slice(1).trim();
+      if (!body) return { t: 'e', v: ERR.NAME, syntax: true };
+      let root;
+      try {
+        root = compileFormula(tokenize(body), { S: S, depth: depth });
+      } catch (e) {
+        return { t: 'e', v: ERR.VAL, syntax: true };
+      }
+      try {
+        let v = root();
+        if (v.t === 'm') v = scalar(v);
+        if (v.t === 'b') v = { t: 'n', v: 0 };
+        if (v.t === 'n' && !isFinite(v.v)) return { t: 'e', v: ERR.NUM };
+        const out = Object.assign({}, v);
+        delete out.ref;
+        return out;
+      } catch (e) {
+        if (e && e.e) return { t: 'e', v: e.e };
+        if (e && e.syntax) return { t: 'e', v: ERR.VAL, syntax: true };
+        return { t: 'e', v: ERR.VAL };
+      }
+    }
+
+    /* Corre las referencias de una fórmula al copiarla (respeta $) */
+    function shiftFormula(raw, dc, dr) {
+      return raw.replace(/("(?:[^"]|"")*")|([A-Za-z0-9_.]*)(\$?)([A-Za-z]{1,2})(\$?)(\d{1,3})(?![A-Za-z0-9_.(])/g, (all, str, pre, d1, col, d2, row) => {
+        if (str || pre) return all;
+        const c = d1 ? colIndex(col.toUpperCase()) : colIndex(col.toUpperCase()) + dc;
+        const r = d2 ? parseInt(row, 10) : parseInt(row, 10) + dr;
+        if (c < 0 || c > 25 || r < 1) return '#REF!';
+        return d1 + colName(c) + d2 + r;
+      });
+    }
+
+    /* =====================================================
+       EXCEL DE BOLSILLO
+       ===================================================== */
+    function makeSheet(el, opt) {
+      const cols = parseInt(el.dataset.cols, 10), rows = parseInt(el.dataset.rows, 10);
+      const S = {
+        cols: cols, rows: rows,
+        cells: Object.assign({}, opt.data || {}),
+        fmt: Object.assign({}, opt.fmt || {}),
+        showF: false,
+        widths: (opt.widths || []).slice(),
+        a: { c: 0, r: 0 }, b: { c: 0, r: 0 },
+        editing: false, tabStart: null, mode: 'cell', dragging: false
+      };
+      for (let i = 0; i < cols; i++) if (!S.widths[i]) S.widths[i] = 80;
+      const bold = new Set(opt.bold || []);
+      const RH = 38;
+      const id = (c, r) => cellId(c, r);
+
+      el.innerHTML =
+        '<div class="xl-title"><b>' + (opt.title || 'Libro1 - Excel') + '</b></div>' +
+        '<div class="xl-fbar"><div class="xl-name"></div><div class="xl-fx">fx</div>' +
+        '<input class="xl-input" type="text" autocomplete="off" spellcheck="false" aria-label="Barra de fórmulas" /></div>' +
+        '<div class="xl-scroll" tabindex="0" role="grid" aria-label="' + (opt.label || 'Planilla de práctica') + '"></div>' +
+        '<div class="xl-sheets"><span class="on">' + (opt.sheet || 'Hoja1') + '</span><span class="plus">＋</span></div>' +
+        '<div class="xl-status"><span class="st-l">Listo</span><span class="st-r"></span></div>';
+      const nameBox = el.querySelector('.xl-name');
+      const input = el.querySelector('.xl-input');
+      const scroll = el.querySelector('.xl-scroll');
+      const stL = el.querySelector('.st-l');
+      const stR = el.querySelector('.st-r');
+
+      /* --- tabla --- */
+      let h = '<table class="xl-grid"><colgroup><col style="width:' + RH + 'px">';
+      for (let c = 0; c < cols; c++) h += '<col style="width:' + S.widths[c] + 'px">';
+      h += '</colgroup><thead><tr><th class="corner rh"></th>';
+      for (let c = 0; c < cols; c++) h += '<th data-c="' + c + '">' + colName(c) + '<span class="xl-rz" data-c="' + c + '" title="Doble clic: ajustar ancho"></span></th>';
+      h += '</tr></thead><tbody>';
+      for (let r = 0; r < rows; r++) {
+        h += '<tr><th class="rh" data-r="' + r + '">' + (r + 1) + '</th>';
+        for (let c = 0; c < cols; c++) h += '<td data-c="' + c + '" data-r="' + r + '"><span></span></td>';
+        h += '</tr>';
+      }
+      h += '</tbody></table>';
+      scroll.innerHTML = h;
+      const table = scroll.querySelector('table');
+      const colEls = table.querySelectorAll('col');
+      const tds = [];
+      for (let r = 0; r < rows; r++) { tds[r] = []; }
+      table.querySelectorAll('td').forEach(td => { tds[+td.dataset.r][+td.dataset.c] = td; });
+      const colHs = table.querySelectorAll('thead th[data-c]');
+      const rowHs = table.querySelectorAll('tbody th.rh');
+      function setTableWidth() {
+        let w = RH; S.widths.forEach(x => w += x);
+        table.style.width = w + 'px';
+        colEls.forEach((ce, i) => { if (i > 0) ce.style.width = S.widths[i - 1] + 'px'; });
+      }
+      setTableWidth();
+
+      function bbox() {
+        return {
+          c1: Math.min(S.a.c, S.b.c), c2: Math.max(S.a.c, S.b.c),
+          r1: Math.min(S.a.r, S.b.r), r2: Math.max(S.a.r, S.b.r)
+        };
+      }
+      function numText(v, c) {
+        const mode = S.fmt[c];
+        const asDate = mode === 'date' || (v.date && mode !== 'general');
+        if (asDate) return (v.v >= 1 && v.v < 2958466) ? fmtDateShort(v.v) : '#####';
+        if (opt.dec && opt.dec[c] != null && !v.show) return v.v.toFixed(opt.dec[c]).replace('.', ',');
+        return v.show ? v.show : fmtGeneral(v.v);
+      }
+      function displayOf(c, r) {
+        const raw = S.cells[id(c, r)];
+        const v = cellValue(S, id(c, r), 0);
+        if (v.t === 'b') return { txt: '', cls: '' };
+        if (S.showF && raw && raw.charAt(0) === '=') return { txt: raw, cls: 'txt' };
+        if (v.t === 'e') return { txt: v.v, cls: 'err' };
+        if (v.t === 's') return { txt: v.v, cls: 'txt' };
+        if (v.t === 'bool') return { txt: v.v ? 'VERDADERO' : 'FALSO', cls: 'err' };
+        let txt = numText(v, c);
+        const cap = Math.floor((S.widths[c] - 10) / 6.5);
+        if (txt.length > cap && !v.date && !v.show && !(opt.dec && opt.dec[c] != null)) {
+          for (let d = 9; d >= 0; d--) {
+            const t = String(parseFloat(v.v.toFixed(d))).replace('.', ',');
+            if (t.length <= cap) { txt = t; break; }
+          }
+        }
+        if (txt.length > cap) txt = '#'.repeat(Math.max(3, Math.min(cap, 8)));
+        return { txt: txt, cls: 'num' };
+      }
+      function isEmptyRaw(c, r) {
+        if (c < 0 || c >= cols || r < 0 || r >= rows) return true;
+        const raw = S.cells[id(c, r)];
+        return raw == null || raw === '';
+      }
+
+      function draw() {
+        const bb = bbox();
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const td = tds[r][c], d = displayOf(c, r);
+            const sp = td.firstChild;
+            sp.textContent = d.txt;
+            sp.className = (d.cls === 'txt' && isEmptyRaw(c + 1, r) && d.txt.length * 7 > S.widths[c] - 12) ? 'spill' : '';
+            let cl = d.cls === 'num' ? 'num' : (d.cls === 'err' ? 'err' : '');
+            if (bold.has(id(c, r))) cl += ' hdr';
+            const inR = c >= bb.c1 && c <= bb.c2 && r >= bb.r1 && r <= bb.r2;
+            if (inR && (bb.c1 !== bb.c2 || bb.r1 !== bb.r2)) cl += ' inrange';
+            if (c === S.a.c && r === S.a.r) cl += ' active';
+            if (opt.target === id(c, r)) cl += ' target';
+            if (opt.cls) { const x = opt.cls(id(c, r), d.txt); if (x) cl += ' ' + x; }
+            td.className = cl;
+          }
+        }
+        colHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.c1 && i <= bb.c2));
+        rowHs.forEach((th, i) => th.classList.toggle('hl', i >= bb.r1 && i <= bb.r2));
+        // cuadro de nombres
+        const single = bb.c1 === bb.c2 && bb.r1 === bb.r2;
+        if (S.mode === 'col') nameBox.textContent = colName(bb.c1) + ':' + colName(bb.c2);
+        else if (S.mode === 'row') nameBox.textContent = (bb.r1 + 1) + ':' + (bb.r2 + 1);
+        else nameBox.textContent = single ? id(bb.c1, bb.r1) : id(bb.c1, bb.r1) + ':' + id(bb.c2, bb.r2);
+        if (!S.editing) input.value = S.cells[id(S.a.c, S.a.r)] || '';
+        // barra de estado
+        let n = 0, sum = 0, cnt = 0;
+        for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) {
+          const v = cellValue(S, id(c, r), 0);
+          if (v.t !== 'b') cnt++;
+          if (v.t === 'n') { n++; sum += v.v; }
+        }
+        stL.textContent = S.editing ? 'Introducir' : 'Listo';
+        stR.textContent = n > 0 && !single
+          ? 'Promedio: ' + String(parseFloat((sum / n).toPrecision(9))).replace('.', ',') + '   Recuento: ' + cnt + '   Suma: ' + fmtGeneral(sum)
+          : (cnt > 1 ? 'Recuento: ' + cnt : '');
+        if (opt.onChange) opt.onChange(api);
+      }
+
+      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+      function select(c, r, extend, mode) {
+        c = clamp(c, 0, cols - 1); r = clamp(r, 0, rows - 1);
+        S.mode = mode || 'cell';
+        if (extend) S.b = { c: c, r: r };
+        else { S.a = { c: c, r: r }; S.b = { c: c, r: r }; S.tabStart = null; }
+        draw();
+        const td = tds[r][c];
+        const sr = scroll.getBoundingClientRect(), tr = td.getBoundingClientRect();
+        if (tr.bottom > sr.bottom) scroll.scrollTop += tr.bottom - sr.bottom + 4;
+        if (tr.top < sr.top + 26) scroll.scrollTop -= (sr.top + 26 - tr.top) + 4;
+        if (tr.right > sr.right) scroll.scrollLeft += tr.right - sr.right + 4;
+        if (tr.left < sr.left + RH) scroll.scrollLeft -= (sr.left + RH - tr.left) + 4;
+      }
+      function setCell(cid, raw) {
+        if (raw === '' || raw == null) delete S.cells[cid]; else S.cells[cid] = raw;
+      }
+      function commit(move) {
+        if (!S.editing) return true;
+        const raw = input.value;
+        if (raw.charAt(0) === '=') {
+          const test = evalFormula(S, raw, 0);
+          if (test.syntax) {
+            stL.textContent = '⚠ Excel no acepta esa fórmula: revisá paréntesis, comillas, operadores y separadores (;)';
+            setTimeout(draw, 2600);
+            return false;
+          }
+        }
+        S.editing = false;
+        setCell(id(S.a.c, S.a.r), raw);
+        const c = S.a.c, r = S.a.r;
+        if (move === 'enter') {
+          if (S.tabStart != null) { const sc = S.tabStart; S.tabStart = null; select(sc, r + 1); }
+          else select(c, r + 1);
+        } else if (move === 'tab') {
+          const ts = S.tabStart == null ? c : S.tabStart;
+          select(c + 1, r); S.tabStart = ts;
+        } else draw();
+        return true;
+      }
+      function cancelEdit() { S.editing = false; draw(); }
+
+      /* --- mouse --- */
+      scroll.addEventListener('mousedown', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (rz) {
+          e.preventDefault();
+          const c = +rz.dataset.c, x0 = e.clientX, w0 = S.widths[c];
+          const mv = ev => { S.widths[c] = Math.max(28, w0 + ev.clientX - x0); setTableWidth(); draw(); };
+          const up = () => { document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); };
+          document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up);
+          return;
+        }
+        const td = e.target.closest('td'), ch = e.target.closest('thead th[data-c]'), rh = e.target.closest('tbody th.rh');
+        if (S.editing) commit(null);
+        if (td) {
+          e.preventDefault(); scroll.focus({ preventScroll: true });
+          select(+td.dataset.c, +td.dataset.r, e.shiftKey);
+          S.dragging = true;
+        } else if (ch) {
+          const c = +ch.dataset.c; scroll.focus({ preventScroll: true });
+          S.a = { c: c, r: 0 }; S.b = { c: c, r: rows - 1 }; S.mode = 'col'; S.tabStart = null; draw();
+        } else if (rh) {
+          const r = +rh.dataset.r; scroll.focus({ preventScroll: true });
+          S.a = { c: 0, r: r }; S.b = { c: cols - 1, r: r }; S.mode = 'row'; S.tabStart = null; draw();
+        }
+      });
+      scroll.addEventListener('mouseover', e => {
+        if (!S.dragging) return;
+        const td = e.target.closest('td');
+        if (td) { S.mode = 'cell'; S.b = { c: +td.dataset.c, r: +td.dataset.r }; draw(); }
+      });
+      document.addEventListener('mouseup', () => { S.dragging = false; });
+      scroll.addEventListener('dblclick', e => {
+        const rz = e.target.closest('.xl-rz');
+        if (!rz) {
+          if (e.target.closest('td')) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+          return;
+        }
+        const c = +rz.dataset.c;
+        let max = 0;
+        for (let r = 0; r < rows; r++) {
+          const v = cellValue(S, id(c, r), 0);
+          let t = '';
+          if (v.t === 'n') t = numText(v, c);
+          else if (v.t === 's' || v.t === 'e') t = v.v;
+          if (t.length > max) max = t.length;
+        }
+        S.widths[c] = Math.max(40, max * 7 + 16);
+        setTableWidth(); draw();
+      });
+
+      /* --- teclado sobre la grilla --- */
+      function jump(c, r, dc, dr) {
+        let nc = c + dc, nr = r + dr;
+        if (nc < 0 || nc >= cols || nr < 0 || nr >= rows) return { c: c, r: r };
+        if (!isEmptyRaw(c, r) && !isEmptyRaw(nc, nr)) {
+          while (!isEmptyRaw(nc + dc, nr + dr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+          return { c: nc, r: nr };
+        }
+        while (isEmptyRaw(nc, nr) && nc + dc >= 0 && nc + dc < cols && nr + dr >= 0 && nr + dr < rows) { nc += dc; nr += dr; }
+        return { c: nc, r: nr };
+      }
+      function lastUsed() {
+        let mc = 0, mr = 0;
+        Object.keys(S.cells).forEach(k => { const p = splitRef(k); if (p) { mc = Math.max(mc, p.c); mr = Math.max(mr, p.r); } });
+        return { c: mc, r: mr };
+      }
+      scroll.addEventListener('keydown', e => {
+        if (S.editing) return;
+        const k = e.key, cur = e.shiftKey ? S.b : S.a;
+        const dirs = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+        if (dirs[k]) {
+          e.preventDefault();
+          const d = dirs[k];
+          let t = e.ctrlKey ? jump(cur.c, cur.r, d[0], d[1]) : { c: cur.c + d[0], r: cur.r + d[1] };
+          select(t.c, t.r, e.shiftKey);
+        } else if (k === 'Enter') { e.preventDefault(); select(S.a.c, S.a.r + (e.shiftKey ? -1 : 1)); }
+        else if (k === 'Tab') { e.preventDefault(); select(S.a.c + (e.shiftKey ? -1 : 1), S.a.r); }
+        else if (k === 'Home') { e.preventDefault(); e.ctrlKey ? select(0, 0, e.shiftKey) : select(0, S.a.r, e.shiftKey); }
+        else if (k === 'End' && e.ctrlKey) { e.preventDefault(); const lu = lastUsed(); select(lu.c, lu.r, e.shiftKey); }
+        else if (k === 'PageDown') { e.preventDefault(); select(S.a.c, S.a.r + 10, e.shiftKey); }
+        else if (k === 'PageUp') { e.preventDefault(); select(S.a.c, S.a.r - 10, e.shiftKey); }
+        else if (k === 'Escape') { scroll.blur(); }
+        else if (k === 'F2') { e.preventDefault(); input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+        else if (k === 'Delete' || k === 'Backspace') {
+          e.preventDefault();
+          const bb = bbox();
+          for (let r = bb.r1; r <= bb.r2; r++) for (let c = bb.c1; c <= bb.c2; c++) setCell(id(c, r), '');
+          draw();
+        } else if (k.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          e.preventDefault();
+          input.value = k; S.editing = true; input.focus(); draw();
+        }
+      });
+
+      /* --- barra de fórmulas --- */
+      input.addEventListener('focus', () => { S.editing = true; stL.textContent = 'Introducir'; });
+      input.addEventListener('input', () => { S.editing = true; });
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); if (commit(e.shiftKey ? null : 'enter')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Tab') { e.preventDefault(); if (commit('tab')) scroll.focus({ preventScroll: true }); }
+        else if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); scroll.focus({ preventScroll: true }); }
+      });
+      input.addEventListener('blur', () => { if (S.editing) { if (!commit(null)) cancelEdit(); } });
+
+      const api = {
+        S: S, redraw: draw, select: select, setCell: function (cid, raw) { setCell(cid, raw); draw(); },
+        activeId: function () { return id(S.a.c, S.a.r); },
+        reset: function () { S.editing = false; select(0, 0); scroll.scrollTop = 0; scroll.scrollLeft = 0; },
+        scroll: scroll, focus: function () { scroll.focus({ preventScroll: true }); },
+        display: function (cid) { const p = splitRef(cid); return displayOf(p.c, p.r).txt; },
+        raw: function (cid) { return S.cells[cid] || ''; },
+        setFmt: function (c, mode) { if (mode) S.fmt[c] = mode; else delete S.fmt[c]; draw(); },
+        showFormulas: function (on) { S.showF = !!on; draw(); },
+        /* copia la fórmula de (c, r1) hacia abajo hasta r2, corriendo las referencias (como arrastrar el controlador de relleno) */
+        fillDown: function (c, r1, r2) {
+          const src = S.cells[id(c, r1)] || '';
+          for (let r = r1 + 1; r <= r2; r++) setCell(id(c, r), src.charAt(0) === '=' ? shiftFormula(src, 0, r - r1) : src);
+          draw();
+        },
+        /* Buscar y reemplazar: sobre la selección (si es más de una celda) o sobre toda la hoja */
+        replaceAll: function (find, rep) {
+          const bb = bbox();
+          const multi = !(bb.c1 === bb.c2 && bb.r1 === bb.r2);
+          const re = new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+          let count = 0;
+          for (let r = multi ? bb.r1 : 0; r <= (multi ? bb.r2 : rows - 1); r++) {
+            for (let c = multi ? bb.c1 : 0; c <= (multi ? bb.c2 : cols - 1); c++) {
+              const raw = S.cells[id(c, r)];
+              if (!raw || raw.charAt(0) === '=') continue;
+              re.lastIndex = 0;
+              if (find && re.test(raw)) { re.lastIndex = 0; S.cells[id(c, r)] = raw.replace(re, () => rep); count++; }
+            }
+          }
+          draw();
+          return count;
+        },
+        restore: function () { S.cells = Object.assign({}, opt.data || {}); S.fmt = Object.assign({}, opt.fmt || {}); S.showF = false; draw(); }
+      };
+      if (opt.select) { const p = splitRef(opt.select.split(':')[0]); const q = splitRef(opt.select.split(':').pop()); S.a = { c: p.c, r: p.r }; S.b = { c: q.c, r: q.r }; }
+      draw();
+      return api;
+    }
+
+
+    /* =====================================================
+       Utilidades de las demos
+       ===================================================== */
+    function addChips(box, chips, onPick) {
+      chips.forEach(ch => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'xl-chip' + (ch.bad ? ' bad' : '');
+        b.textContent = ch.label || ch.f;
+        b.addEventListener('click', () => onPick(ch));
+        box.appendChild(b);
+      });
+    }
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+    const nf = new Intl.NumberFormat('es-AR');
+    function money(n) { return nf.format(Math.round(n * 100) / 100); }
+
+    /* =====================================================
+       DEMOS DE LA CLASE 11
+       ===================================================== */
+    /* Facturas del video: [N°, cliente, emitida hace k días, días a vencer d]  →  días que faltan = d - k */
+    const FACT = [
+      ['Fact_001', 'Molinsa Corp SAC.', 16, 10],
+      ['Fact_002', 'Cajamarca E.I.R.L.', 10, 10],
+      ['Fact_003', 'Grupo MTM SAC.', 7, 5],
+      ['Fact_004', 'Inmobiliaria ABF', 9, 10],
+      ['Fact_005', 'Constructora PERL SAC.', 27, 30],
+      ['Fact_006', 'Emanuel SAC.', 22, 32],
+      ['Fact_007', 'Corporación Miller', 6, 20],
+      ['Fact_008', 'Seguros CDD SAC.', 5, 30]
+    ];
+    const FACT_DIAS = FACT.map(f => f[3] - f[2]);
+    const F_ALERTA = '=SI(C2<0;"Vencida hace "&C2*-1&" días";SI(C2=0;"Vence hoy";SI(C2<4;"Vence en "&C2&" días";"Faltan "&C2&" días")))';
+
+    /* Planilla simple: N° Factura, Cliente, Días (números escritos) */
+    function dataDias(extra) {
+      const d = { A1: 'N° Factura', B1: 'Cliente', C1: 'Días', D1: 'Alerta' };
+      FACT.forEach((f, i) => { d['A' + (i + 2)] = f[0]; d['B' + (i + 2)] = f[1]; d['C' + (i + 2)] = String(f[3] - f[2]); });
+      return Object.assign(d, extra || {});
+    }
+
+    /* ----- 1. Operaciones con fechas ----- */
+    (function () {
+      let api = null, note = '', bad = false;
+      const cap = document.getElementById('capFechas');
+      const today = todaySerial();
+      const data = { A1: 'Fecha actual', B1: '=HOY()', A3: 'N° Factura', B3: 'Cliente', C3: 'Emisión', D3: 'Días a vencer', E3: 'Vencimiento', F3: 'Días' };
+      FACT.forEach((f, i) => {
+        const r = i + 4;
+        data['A' + r] = f[0]; data['B' + r] = f[1];
+        data['C' + r] = fmtDateShort(today - f[2]);
+        data['D' + r] = String(f[3]);
+        data['E' + r] = '=C' + r + '+D' + r;
+      });
+      function fill(f) { api.setCell('F4', f); api.fillDown(5, 3, 10); }
+      function report() {
+        if (!api) return;
+        const v = cellValue(api.S, 'B1', 0);
+        const asNum = document.getElementById('fechaNum').checked;
+        const dias = [];
+        for (let r = 4; r <= 11; r++) { const x = cellValue(api.S, 'F' + r, 0); if (x.t === 'n') dias.push(x.v); }
+        const venc = dias.filter(x => x < 0).length, hoy = dias.filter(x => x === 0).length, falt = dias.filter(x => x > 0).length;
+        cap.innerHTML = (note ? note + ' ' : '') + 'Hoy es <b>' + fmtDateShort(v.v) + '</b>, que para Excel es el número <b>' + nf.format(v.v) + '</b>' + (asNum ? ' (así se ven ahora todas las fechas)' : '') + '. ' +
+          (bad ? 'Mirá la columna <b>Días</b>: los resultados no son los esperados.' : 'Resultado: <b>' + plural(venc, 'factura vencida', 'facturas vencidas') + '</b>, <b>' + plural(hoy, 'que vence hoy', 'que vencen hoy') + '</b> y <b>' + falt + ' con tiempo</b>.');
+      }
+      api = makeSheet(document.getElementById('xlFechas'), {
+        title: 'Facturas - Excel',
+        sheet: 'Facturas',
+        label: 'Planilla de facturas con fecha de emisión, días a vencer, vencimiento y días que faltan',
+        data: data,
+        fmt: { 2: 'date', 4: 'date' },
+        widths: [92, 160, 92, 94, 100, 66],
+        bold: ['A1', 'A3', 'B3', 'C3', 'D3', 'E3', 'F3'],
+        select: 'D4',
+        onChange: report
+      });
+      fill('=E4-$B$1');
+      const chips = [
+        { label: 'Resta correcta: =E4-$B$1', f: '=E4-$B$1', t: 'Vencimiento menos hoy: negativo es vencida, 0 vence hoy y positivo es que faltan días.' },
+        { label: 'Sin $: =E4-B1', bad: true, f: '=E4-B1', t: 'Sin <code class="f">$</code> la referencia se corre al copiar: la fila 5 resta <code class="f">B2</code>, la 6 resta <code class="f">B3</code>… y quedan celdas vacías o textos. Solo la primera fila sale bien.' },
+        { label: 'Al revés: =$B$1-E4', bad: true, f: '=$B$1-E4', t: 'Al restar hoy menos vencimiento los signos quedan invertidos: una factura vencida aparece como positiva.' },
+        { label: 'Con texto: =E4-"hoy"', bad: true, f: '=E4-"hoy"', t: 'Un texto entre comillas no es una fecha: Excel no puede restarlo y da <code class="f">#¡VALOR!</code>. Hay que usar <code class="f">HOY()</code> o una celda con la fecha.' }
+      ];
+      addChips(document.getElementById('chipsFecha'), chips, ch => { fill(ch.f); api.select(5, 3); note = ch.t; bad = !!ch.bad; report(); });
+      document.getElementById('fechaNum').addEventListener('change', e => {
+        api.setFmt(1, e.target.checked ? 'general' : null);
+        api.setFmt(2, e.target.checked ? 'general' : 'date');
+        api.setFmt(4, e.target.checked ? 'general' : 'date');
+        report();
+      });
+      report();
+    })();
+
+    /* ----- 2. SI anidado con texto ----- */
+    (function () {
+      let api = null, note = '';
+      const cap = document.getElementById('capAlertas');
+      function fill(f) { api.setCell('D2', f); api.fillDown(3, 1, 10); }
+      function report() {
+        if (!api) return;
+        cap.innerHTML = (note ? note + ' ' : '') + 'Primera factura: <b>“' + esc(api.display('D2')) + '”</b>. Cuarta: <b>“' + esc(api.display('D5')) + '”</b>. Última: <b>“' + esc(api.display('D9')) + '”</b>. Fila vacía (10): <b>“' + esc(api.display('D10')) + '”</b>.';
+      }
+      api = makeSheet(document.getElementById('xlAlertas'), {
+        title: 'Alertas - Excel',
+        sheet: 'Facturas',
+        label: 'Planilla con los días que faltan y la alerta escrita con un SI anidado',
+        data: dataDias(),
+        widths: [92, 160, 60, 240],
+        bold: ['A1', 'B1', 'C1', 'D1'],
+        select: 'C2',
+        onChange: report
+      });
+      fill(F_ALERTA);
+      const chips = [
+        { label: 'SI anidado correcto', f: F_ALERTA, t: 'Cuatro casos, de menor a mayor, con <code class="f">&amp;</code> para unir el texto con el número y <code class="f">*-1</code> para dar vuelta el signo. Fijate que la <b>fila vacía</b> dice “Vence hoy” y que la cuarta dice “1 días”.' },
+        { label: 'Pulida: “1 día” y filas vacías', f: '=SI(C2="";"";SI(C2<0;"Vencida hace "&C2*-1&SI(C2=-1;" día";" días");SI(C2=0;"Vence hoy";SI(C2<4;"Vence en "&C2&SI(C2=1;" día";" días");"Faltan "&C2&" días"))))', t: 'Con el <code class="f">SI(C2="";"";…)</code> de afuera la fila vacía queda <b>en blanco</b>, y con <code class="f">SI(C2=1;" día";" días")</code> la cuarta dice “1 día”.' },
+        { label: 'Solo filas vacías protegidas', f: '=SI(C2="";"";' + F_ALERTA.slice(1) + ')', t: 'La fila vacía ya no dice “Vence hoy”, pero la cuarta factura sigue diciendo “1 días”: falta el segundo arreglo.' },
+        { label: 'Sin multiplicar por -1', bad: true, f: '=SI(C2<0;"Vencida hace "&C2&" días";SI(C2=0;"Vence hoy";SI(C2<4;"Vence en "&C2&" días";"Faltan "&C2&" días")))', t: 'Sin <code class="f">*-1</code> el mensaje dice “Vencida hace -6 días”: el número vencido es negativo.' },
+        { label: 'Con ABS en lugar de *-1', f: '=SI(C2<0;"Vencida hace "&ABS(C2)&" días";SI(C2=0;"Vence hoy";SI(C2<4;"Vence en "&C2&" días";"Faltan "&C2&" días")))', t: '<code class="f">ABS</code> devuelve el valor sin signo, así que también sirve: queda igual de bien.' },
+        { label: 'Orden invertido (primero <4)', bad: true, f: '=SI(C2<4;"Vence en "&C2&" días";SI(C2<0;"Vencida hace "&C2*-1&" días";SI(C2=0;"Vence hoy";"Faltan "&C2&" días")))', t: 'Con <code class="f">C2&lt;4</code> primero, todo lo vencido y lo que vence hoy cae en “Vence en…”: las otras preguntas nunca se evalúan.' },
+        { label: 'Sin & entre texto y celda', bad: true, f: '=SI(C2<0;"Vencida hace "C2*-1" días";SI(C2=0;"Vence hoy";SI(C2<4;"Vence en "C2" días";"Faltan "C2" días")))', t: 'Sin el <code class="f">&amp;</code>, Excel no entiende cómo unir el texto con la celda: <b>no deja confirmar la fórmula</b> (en esta demo se ve el error).' }
+      ];
+      addChips(document.getElementById('chipsAlerta'), chips, ch => { fill(ch.f); api.select(3, 1); note = ch.t; report(); });
+      report();
+    })();
+
+    /* ----- 3. Formato condicional con fórmula ----- */
+    (function () {
+      let api = null;
+      const cap = document.getElementById('capCond2');
+      const selScope = document.getElementById('cfScope'), cAnc = document.getElementById('cfAnc'), cOn = document.getElementById('cfOn');
+      const RULES = [
+        { f: a => a ? '=$C2<0' : '=C2<0', cls: 'cf-r', name: 'Rojo' },
+        { f: a => a ? '=$C2=0' : '=C2=0', cls: 'cf-o', name: 'Amarillo oscuro' },
+        { f: a => a ? '=Y($C2>0;$C2<4)' : '=Y(C2>0;C2<4)', cls: 'cf-a', name: 'Amarillo claro' },
+        { f: a => a ? '=$C2>=4' : '=C2>=4', cls: 'cf-v', name: 'Verde' }
+      ];
+      const SW = { 'cf-r': '#ff7c80', 'cf-o': '#ffc000', 'cf-a': '#ffff99', 'cf-v': '#92d050' };
+      function scope() { return selScope.value === 'alert' ? { c1: 3, c2: 3, r1: 1, r2: 8, txt: 'D2:D9' } : { c1: 0, c2: 3, r1: 1, r2: 8, txt: 'A2:D9' }; }
+      function ruleClass(cid) {
+        if (!cOn.checked || !api) return '';
+        const m = /^([A-Z])(\d+)$/.exec(cid);
+        const c = colIndex(m[1]), r = +m[2] - 1, rg = scope();
+        if (c < rg.c1 || c > rg.c2 || r < rg.r1 || r > rg.r2) return '';
+        for (let i = 0; i < RULES.length; i++) {
+          const f = shiftFormula(RULES[i].f(cAnc.checked), c - rg.c1, r - rg.r1);
+          const v = evalFormula(api.S, f, 0);
+          if ((v.t === 'bool' && v.v) || (v.t === 'n' && v.v !== 0)) return RULES[i].cls;
+        }
+        return '';
+      }
+      function lista() {
+        document.getElementById('cfRango').textContent = scope().txt;
+        document.getElementById('cfReglas').innerHTML = RULES.map(r =>
+          '<tr><td><code class="f">' + esc(r.f(cAnc.checked)) + '</code></td><td><span style="display:inline-block;width:0.9rem;height:0.9rem;border-radius:3px;vertical-align:-2px;margin-right:0.4rem;border:1px solid rgba(0,0,0,0.25);background:' + SW[r.cls] + '"></span>' + r.name + '</td></tr>').join('');
+      }
+      function report() {
+        lista();
+        const alert = selScope.value === 'alert';
+        if (!cOn.checked) cap.innerHTML = 'Con las reglas apagadas la planilla se ve sin colores: los textos de la columna Alerta no cambian, pero ya no se destacan.';
+        else if (alert && cAnc.checked) cap.innerHTML = 'Cada alerta toma el color según los días de su fila: la regla <b>mira la columna C</b> y la <b>fila va cambiando</b>. Es el caso del ejercicio.';
+        else if (alert) cap.innerHTML = 'Funciona porque se aplicó a <b>una sola columna</b>: la fórmula sin <code class="f">$</code> “mira” una columna a la izquierda de la celda y no se corre. Igual conviene poner <code class="f">$</code>: en cuanto se aplique a más columnas deja de funcionar.';
+        else if (cAnc.checked) cap.innerHTML = 'Se pintó <b>toda la fila</b> de cada factura con el mismo color, porque <code class="f">$C</code> queda fijo en las cuatro columnas y la fila acompaña. Así se resalta una fila entera según el valor de una sola celda.';
+        else cap.innerHTML = '<b>Este es el error del video.</b> Sin <code class="f">$</code>, al pasar a la derecha la fórmula se corre: la columna B mira la D (un texto), la C mira la E y la D mira la F (vacías). Por eso los colores quedan mal. Con <code class="f">$C</code> se corrige.';
+      }
+      api = makeSheet(document.getElementById('xlCond2'), {
+        title: 'Formato condicional - Excel',
+        sheet: 'Facturas',
+        label: 'Planilla con reglas de formato condicional con fórmula',
+        data: dataDias(),
+        widths: [92, 160, 60, 220, 56, 56],
+        bold: ['A1', 'B1', 'C1', 'D1'],
+        select: 'C2',
+        cls: ruleClass,
+        onChange: report
+      });
+      api.setCell('D2', F_ALERTA); api.fillDown(3, 1, 8);
+      [selScope, cAnc, cOn].forEach(el => el.addEventListener('change', () => api.redraw()));
+      report();
+    })();
+
+    /* ----- 4. CONTAR.SI ----- */
+    (function () {
+      let api = null, note = '';
+      const cap = document.getElementById('capContar');
+      const data = dataDias({ E1: 'Cuántas facturas…', F1: 'Resultado',
+        E2: 'Vencidas (menor que 0)', E3: 'Vencen hoy (igual a 0)', E4: 'Próximas (de 1 a 3 días)', E5: 'Pendientes (más de 3 días)',
+        E6: 'Clientes con "SAC" en el nombre', E7: 'Límite de días (editable)', F7: '4' });
+      delete data.D1;
+      const OK = {
+        F2: '=CONTAR.SI(C2:C9;"<0")',
+        F3: '=CONTAR.SI(C2:C9;"=0")',
+        F4: '=CONTAR.SI.CONJUNTO(C2:C9;">0";C2:C9;"<4")',
+        F5: '=CONTAR.SI(C2:C9;">3")',
+        F6: '=CONTAR.SI(B2:B9;"*SAC*")'
+      };
+      Object.keys(OK).forEach(k => { data[k] = OK[k]; });
+      function report() {
+        if (!api) return;
+        cap.innerHTML = (note ? note + ' ' : '') + 'Contadores: vencidas <b>' + esc(api.display('F2')) + '</b>, vencen hoy <b>' + esc(api.display('F3')) + '</b>, próximas <b>' + esc(api.display('F4')) + '</b>, pendientes <b>' + esc(api.display('F5')) + '</b>, clientes con SAC <b>' + esc(api.display('F6')) + '</b>.';
+      }
+      api = makeSheet(document.getElementById('xlContar'), {
+        title: 'Contadores - Excel',
+        sheet: 'Facturas',
+        label: 'Planilla con contadores hechos con CONTAR.SI',
+        data: data,
+        widths: [92, 160, 60, 20, 190, 76],
+        bold: ['A1', 'B1', 'C1', 'E1', 'F1'],
+        select: 'F2',
+        onChange: report
+      });
+      const chips = [
+        { cell: 'F2', f: OK.F2, label: 'Vencidas: "<0"', t: 'Cuenta las celdas del rango que son <b>menores que 0</b>.' },
+        { cell: 'F3', f: OK.F3, label: 'Vencen hoy: "=0"', t: 'El criterio <code class="f">"=0"</code> cuenta las celdas iguales a cero.' },
+        { cell: 'F4', f: OK.F4, label: 'Próximas: CONTAR.SI.CONJUNTO', t: 'Dos condiciones a la vez (mayor que 0 <b>y</b> menor que 4), con pares de rango y criterio.' },
+        { cell: 'F5', f: OK.F5, label: 'Pendientes: ">3"', t: 'Cuenta las que tienen más de tres días de plazo.' },
+        { cell: 'F5', f: '=CONTAR.SI(C2:C9;">="&F7)', label: 'Criterio desde una celda: ">="&F7', t: 'El criterio se arma uniendo el operador con la celda <b>F7</b>. Cambiá el límite de F7 (por ejemplo a 10) y mirá cómo cambia el contador, sin tocar la fórmula.' },
+        { cell: 'F6', f: OK.F6, label: 'Con comodín: "*SAC*"', t: 'El asterisco reemplaza cualquier texto: cuenta los nombres que <b>contienen</b> “SAC”.' },
+        { cell: 'F5', f: '=CONTAR.SI(C2:C9;">=F7")', bad: true, label: 'Mal: ">=F7" entre comillas', t: 'Con F7 <b>adentro de las comillas</b> Excel lo toma como la palabra “F7”, no como la celda, y no encuentra nada: da 0.' },
+        { cell: 'F2', f: '=CONTAR.SI(C2:C9;<0)', bad: true, label: 'Sin comillas: <0', t: 'Sin comillas, Excel no entiende el criterio y <b>no deja confirmar la fórmula</b> (en esta demo se ve el error).' },
+        { cell: 'F2', f: '=CONTAR.SI(C2:C9;"menor a 0")', bad: true, label: '"menor a 0" (texto)', t: 'Con las comillas pero en palabras, Excel busca celdas que contengan <b>ese texto</b>: no encuentra ninguna y da 0.' },
+        { cell: 'F4', f: '=CONTAR.SI(C2:C9;">0";C2:C9;"<4")', bad: true, label: 'CONTAR.SI con dos condiciones', t: '<code class="f">CONTAR.SI</code> acepta una sola condición: para dos hay que usar <code class="f">CONTAR.SI.CONJUNTO</code>.' }
+      ];
+      addChips(document.getElementById('chipsContar'), chips, ch => {
+        api.setCell(ch.cell, ch.f);
+        api.select(5, +ch.cell.slice(1) - 1);
+        note = ch.t;
+        report();
+      });
+      const rb = document.createElement('button');
+      rb.type = 'button'; rb.className = 'xl-btn ghost'; rb.style.marginLeft = '0.3rem'; rb.textContent = 'Restaurar los cuatro contadores';
+      rb.addEventListener('click', () => { Object.keys(OK).forEach(k => api.setCell(k, OK[k])); note = ''; report(); });
+      document.getElementById('chipsContar').appendChild(rb);
+      report();
+    })();
+
+    /* ----- 5. Macros ----- */
+    (function () {
+      const code = document.getElementById('vbaCode');
+      const box = document.getElementById('macroBox'), msg = document.getElementById('macroMsg');
+      const cap = document.getElementById('capMacro');
+      const bRun = document.getElementById('macroRun'), bClose = document.getElementById('macroClose');
+      const cnt = {
+        v: FACT_DIAS.filter(x => x < 0).length,
+        h: FACT_DIAS.filter(x => x === 0).length,
+        p: FACT_DIAS.filter(x => x > 0 && x < 4).length,
+        n: FACT_DIAS.filter(x => x > 3).length
+      };
+      const SRC = {
+        1: [
+          'Private Sub Workbook_Open()',
+          '    MsgBox "Hola mundo"',
+          'End Sub'
+        ],
+        2: [
+          'Private Sub Workbook_Open()',
+          '    Dim vencidas As Long',
+          '    vencidas = Range("O2").Value',
+          '    MsgBox "Facturas vencidas: " & vencidas',
+          'End Sub'
+        ],
+        4: [
+          'Private Sub Workbook_Open()',
+          '    Dim vencidas As Long',
+          '    vencidas = Range("O2").Value',
+          '',
+          '    If vencidas > 0 Then',
+          '        MsgBox "Atención: hay " & vencidas & " facturas vencidas", vbExclamation, "Alerta de vencimientos"',
+          '    Else',
+          '        MsgBox "No hay facturas vencidas. ¡Todo al día!", vbInformation, "Alerta de vencimientos"',
+          '    End If',
+          'End Sub'
+        ],
+        3: [
+          'Private Sub Workbook_Open()',
+          '    Dim vencidas As Long, hoy As Long, proximas As Long, pendientes As Long',
+          '    Dim mensaje As String',
+          '',
+          "    ' Leer los contadores de la hoja",
+          '    vencidas = Range("O2").Value',
+          '    hoy = Range("O3").Value',
+          '    proximas = Range("O4").Value',
+          '    pendientes = Range("O5").Value',
+          '',
+          "    ' Armar el mensaje, una línea por contador",
+          '    mensaje = "Facturas vencidas: " & vencidas & vbNewLine',
+          '    mensaje = mensaje & "Facturas que vencen hoy: " & hoy & vbNewLine',
+          '    mensaje = mensaje & "Facturas próximas a vencer: " & proximas & vbNewLine',
+          '    mensaje = mensaje & "Facturas pendientes: " & pendientes',
+          '',
+          '    MsgBox mensaje',
+          'End Sub'
+        ]
+      };
+      const MSG = {
+        1: 'Hola mundo',
+        2: 'Facturas vencidas: ' + cnt.v,
+        3: 'Facturas vencidas: ' + cnt.v + '\nFacturas que vencen hoy: ' + cnt.h + '\nFacturas próximas a vencer: ' + cnt.p + '\nFacturas pendientes: ' + cnt.n
+      };
+      function msgFor(st) {
+        if (st !== 4) return { title: 'Microsoft Excel', text: MSG[st] };
+        const v = document.getElementById('macroSim').checked ? 0 : cnt.v;
+        return v > 0
+          ? { title: 'Alerta de vencimientos', text: '⚠  Atención: hay ' + v + ' facturas vencidas' }
+          : { title: 'Alerta de vencimientos', text: 'ℹ  No hay facturas vencidas. ¡Todo al día!' };
+      }
+      const CAP = {
+        1: 'Un <code class="f">MsgBox</code> con un texto fijo: sirve para comprobar que la macro se ejecuta al abrir el libro. Es lo primero que hace el video.',
+        2: 'Ahora la macro <b>lee la celda O2</b> (el contador de vencidas, hecho con <code class="f">CONTAR.SI</code>), la guarda en la variable <code class="f">vencidas</code> y la une al texto con <code class="f">&amp;</code>.',
+        3: 'La versión completa: cuatro variables, una por contador, y un <b>mensaje</b> que se arma línea por línea con <code class="f">vbNewLine</code>. Si cambia algún dato de la planilla, cambia el cartel.',
+        4: 'Con <code class="f">If … Then … Else</code> el cartel aparece <b>solo con lo que importa</b>: si hay vencidas avisa con un ícono de advertencia y, si no, muestra un mensaje tranquilo. Tildá la opción para simular que no hay vencidas. El segundo y el tercer dato de <code class="f">MsgBox</code> son el ícono y el título.'
+      };
+      let step = 1;
+      function hl(line) {
+        let s = esc(line);
+        if (/^\s*'/.test(line)) return '<span class="c">' + s + '</span>';
+        s = s.replace(/(&quot;[^&]*?&quot;)/g, '<span class="s">$1</span>');
+        s = s.replace(/\b(Private Sub|End Sub|End If|If|Then|Else|Dim|As Long|As String|As|Long|String)\b/g, '<span class="k">$1</span>');
+        return s;
+      }
+      function render() {
+        code.innerHTML = SRC[step].map(hl).join('\n');
+        cap.innerHTML = CAP[step];
+        document.querySelectorAll('#macroSteps .xl-btn').forEach(b => b.classList.toggle('ghost', +b.dataset.s !== step));
+        document.getElementById('macroSimBox').style.display = step === 4 ? '' : 'none';
+        box.hidden = true; bClose.hidden = true;
+        bRun.textContent = '▶ Abrir el libro';
+      }
+      document.querySelectorAll('#macroSteps .xl-btn').forEach(b => b.addEventListener('click', () => { step = +b.dataset.s; render(); }));
+      bRun.addEventListener('click', () => {
+        const mf = msgFor(step);
+        msg.textContent = mf.text;
+        document.getElementById('macroTitle').textContent = mf.title;
+        box.hidden = false; bClose.hidden = false;
+        bRun.textContent = '▶ Abrir de nuevo';
+        box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      });
+      function cerrar() { box.hidden = true; bClose.hidden = true; bRun.textContent = '▶ Abrir el libro'; }
+      document.getElementById('macroOk').addEventListener('click', () => { box.hidden = true; });
+      document.getElementById('macroSim').addEventListener('change', () => { if (!box.hidden) bRun.click(); });
+      bClose.addEventListener('click', cerrar);
+      render();
+    })();
+  </script>
+</body>
+</html>
