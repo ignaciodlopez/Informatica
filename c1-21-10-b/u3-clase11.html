@@ -2397,7 +2397,9 @@
         onChange: report
       });
       api.setCell('D2', F_ALERTA); api.fillDown(3, 1, 8);
-      [selScope, cAnc, cOn].forEach(el => el.addEventListener('change', () => api.redraw()));
+      // Si se toca el rango o el $ con las reglas apagadas, se encienden: si no, el cambio no se vería.
+      [selScope, cAnc].forEach(el => el.addEventListener('change', () => { cOn.checked = true; api.redraw(); }));
+      cOn.addEventListener('change', () => api.redraw());
       report();
     })();
 
