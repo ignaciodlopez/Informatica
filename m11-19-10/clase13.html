@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 13</title>
+  <meta
+    name="description"
+    content="Clase 13 de Informática Aplicada (M11-19-10), Unidad 2: índice de diapositivas con hipervínculos, botones de acción, área de notas e impresión de presentaciones en PowerPoint. Con simuladores, actividad paso a paso y cierre de la unidad."
+  />
+  <link rel="stylesheet" href="../styles.css?v=6" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== CLASE 13: simuladores de hipervínculos e impresión ===== */
+    .anim-ctrls { display: flex; flex-wrap: wrap; gap: 0.5rem 0.6rem; align-items: center; margin: 0.9rem 0 0; }
+    .anim-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 0.15rem; }
+    .anim-chip { cursor: pointer; font: inherit; font-size: 0.84rem; font-weight: 600; padding: 0.4rem 0.85rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+    .anim-chip:hover { border-color: var(--primary); }
+    .anim-chip[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .anim-btn { cursor: pointer; font: inherit; font-size: 0.84rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff; }
+    .anim-btn.ghost { background: var(--surface); color: var(--primary); }
+    [data-theme="dark"] .anim-btn.ghost { color: #93c5fd; border-color: #93c5fd; }
+    .anim-btn:hover:not(:disabled) { filter: brightness(1.1); }
+    .anim-btn:disabled { opacity: 0.45; cursor: default; }
+    .anim-btn:focus-visible, .anim-chip:focus-visible, .anim-select:focus-visible, .ix-item:focus-visible, .dlg-opt:focus-visible, .dlg-li:focus-visible, .anim-input:focus-visible, .bal-text:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .anim-select, .anim-input { font: inherit; font-size: 0.84rem; padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); }
+    .anim-input { width: 100%; }
+    .anim-select:disabled, .anim-input:disabled { opacity: 0.5; }
+    .anim-status { margin: 0.7rem 0 0; padding: 0.65rem 0.9rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.85rem; line-height: 1.55; color: var(--text); max-width: 46rem; }
+    .anim-status b { color: var(--primary); }
+    [data-theme="dark"] .anim-status b { color: #93c5fd; }
+
+    /* texto de lectura al inicio de cada sección */
+    .lectura-clase { max-width: 46rem; margin: 1.4rem 0 2rem; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 4px solid var(--primary); }
+    .lectura-clase p { margin: 0 0 0.85rem; font-size: 1.04rem; line-height: 1.75; color: var(--text); }
+    .lectura-clase p:last-child { margin-bottom: 0; }
+
+    .anim-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr); gap: 1.25rem; align-items: start; margin-top: 1rem; }
+    @media (max-width: 900px) { .anim-layout { grid-template-columns: minmax(0, 1fr); } }
+    .anim-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .anim-panel h4 { margin: 0; padding: 0.6rem 0.9rem; font-size: 0.85rem; background: var(--surface-soft); border-bottom: 1px solid var(--line); }
+    .anim-panel .body { padding: 0.75rem 0.9rem; font-size: 0.85rem; line-height: 1.5; }
+    .anim-panel .foot { padding: 0.6rem 0.9rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-end; }
+
+    /* diapositiva del índice */
+    .anim-stage { position: relative; aspect-ratio: 16 / 9; width: 100%; max-width: 46rem; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-soft); container-type: inline-size; font-family: "Calibri", "Segoe UI", Arial, sans-serif; line-height: 1.2; background: #fff; color: #1f2937; }
+    .anim-stage.presenting { box-shadow: 0 0 0 3px var(--primary), var(--shadow-soft); }
+    .ix-title { position: absolute; left: 6%; top: 4.5%; width: 88%; text-align: center; font-size: 4.6cqw; font-weight: 500; margin: 0; }
+    .ix-list { position: absolute; left: 12%; top: 19%; width: 76%; margin: 0; padding: 0; list-style: none; }
+    .ix-item { display: block; width: 100%; text-align: left; font: inherit; font-size: 2.9cqw; line-height: 1.45; padding: 0 0 0 3.2cqw; margin: 0; border: 0; background: transparent; color: #1f2937; cursor: default; position: relative; }
+    .ix-item::before { content: "•"; position: absolute; left: 0.6cqw; }
+    .ix-item.sel { background: #d4d4d4; }
+    .anim-stage:not(.presenting) .ix-item { cursor: pointer; }
+    .anim-stage:not(.presenting) .ix-item:hover:not(.sel) { background: #eef2f8; }
+    .ix-item.linked { color: #0563c1; text-decoration: underline; }
+    .anim-stage.presenting .ix-item.linked { cursor: pointer; }
+    .ix-over { position: absolute; inset: 0; background: #fff; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 1.6cqw; padding: 5cqw; z-index: 3; }
+    .ix-over.on { display: flex; }
+    .ix-over .num { font-size: 2.4cqw; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.08em; }
+    .ix-over .big { font-size: 5.2cqw; font-weight: 700; color: #ed7d31; }
+    .ix-over .msg { font-size: 2.7cqw; color: #374151; max-width: 80%; }
+    .ix-over .url { font-size: 2.5cqw; background: #eef2f8; border: 1px solid #c7d2e4; border-radius: 1cqw; padding: 1cqw 2cqw; font-family: Consolas, monospace; color: #1f2937; word-break: break-all; }
+    .ix-over .row { display: flex; gap: 1.4cqw; }
+    .ix-over button { font: inherit; font-size: 2.4cqw; font-weight: 700; padding: 0.9cqw 2.4cqw; border-radius: 1cqw; border: 1px solid #2f75b5; background: #2f75b5; color: #fff; cursor: pointer; }
+    .ix-over button.alt { background: #fff; color: #2f75b5; }
+    .ix-over button:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .ix-over.file { background: rgba(255,255,255,0.97); }
+
+    /* ventana "Insertar hipervínculo" */
+    .dlg-grid { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.75rem; }
+    @media (max-width: 480px) { .dlg-grid { grid-template-columns: minmax(0, 1fr); } }
+    .dlg-opts { display: grid; gap: 0.3rem; align-content: start; }
+    .dlg-opt { cursor: pointer; font: inherit; font-size: 0.78rem; font-weight: 600; text-align: left; padding: 0.45rem 0.5rem; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--text); line-height: 1.3; }
+    .dlg-opt[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .dlg-opt:hover:not([aria-pressed="true"]) { border-color: var(--primary); }
+    .dlg-lbl { margin: 0 0 0.3rem; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    .dlg-list { list-style: none; margin: 0 0 0.6rem; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: var(--bg, var(--surface)); max-height: 11rem; overflow: auto; }
+    .dlg-li { display: block; width: 100%; text-align: left; font: inherit; font-size: 0.82rem; padding: 0.35rem 0.55rem; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; }
+    .dlg-list li:last-child .dlg-li { border-bottom: 0; }
+    .dlg-li[aria-pressed="true"] { background: #cfe2f7; color: #0b2a4a; font-weight: 700; }
+    .dlg-note { margin: 0; font-size: 0.82rem; color: var(--muted); }
+    .dlg-txt { margin: 0 0 0.6rem; font-size: 0.85rem; }
+    .dlg-txt b { color: var(--primary); }
+    [data-theme="dark"] .dlg-txt b { color: #93c5fd; }
+
+    /* tabla de botones de acción */
+    .ab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.6rem; margin-top: 1rem; }
+    .ab-item { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.7rem 0.4rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); text-align: center; font-size: 0.8rem; line-height: 1.3; color: var(--text); }
+    .ab { display: inline-flex; align-items: center; justify-content: center; width: 2.6rem; height: 2.1rem; border-radius: 4px; border: 1px solid #1f4e79; background: linear-gradient(180deg, #5b9bd5, #2e75b6); color: #fff; font-weight: 800; font-size: 0.95rem; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.35); }
+
+    /* nota para copiar */
+    .nota-copy { position: relative; max-width: 46rem; margin: 1rem 0 0; padding: 0.9rem 1rem; border: 1px dashed var(--line); border-radius: 10px; background: var(--surface); font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+    .nota-copy ul { margin: 0.3rem 0 0.5rem 1.2rem; padding: 0; }
+    .nota-copy p { margin: 0 0 0.4rem; }
+    .nota-copy-bar { max-width: 46rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-top: 0.6rem; }
+
+    /* vista previa de impresión */
+    .pr-layout { display: grid; grid-template-columns: minmax(15rem, 1fr) minmax(0, 1.4fr); gap: 1.25rem; align-items: start; margin-top: 1rem; }
+    @media (max-width: 800px) { .pr-layout { grid-template-columns: minmax(0, 1fr); } }
+    .pr-cfg { display: grid; gap: 0.8rem; padding: 0.9rem; }
+    .pr-cfg label { display: grid; gap: 0.3rem; font-size: 0.8rem; font-weight: 700; color: var(--text); }
+    .pr-cfg label span.hint { font-weight: 400; color: var(--muted); }
+    .pr-view { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; padding: 1rem; background: var(--surface-soft); border: 1px solid var(--line); border-radius: 12px; }
+    .pr-stage { width: 100%; display: flex; justify-content: center; min-height: 14rem; }
+    .pr-sheet { position: relative; background: #fff; color: #1f2937; box-shadow: 0 2px 12px rgba(0,0,0,0.3); container-type: inline-size; width: 100%; }
+    .pr-sheet.portrait { max-width: 16rem; aspect-ratio: 210 / 297; }
+    .pr-sheet.landscape { max-width: 24rem; aspect-ratio: 297 / 210; }
+    .pr-in { position: absolute; inset: 0; padding: 6cqw; display: flex; flex-direction: column; }
+    .pr-s { aspect-ratio: 16 / 9; border: 0.5cqw solid #6b7280; background: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #2f5597; font-size: 5cqw; position: relative; overflow: hidden; }
+    .pr-s::before { content: ""; position: absolute; left: 12%; right: 12%; top: 18%; height: 8%; background: #ed7d31; opacity: 0.8; }
+    .pr-s.none { visibility: hidden; }
+    .pr-lines { display: grid; gap: 3.2cqw; align-content: start; }
+    .pr-lines i { display: block; border-bottom: 0.4cqw solid #9ca3af; height: 0; }
+    .pr-lines.sm { gap: 2.2cqw; }
+    .pr-pager { display: flex; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--muted); }
+
+    /* actividad y cierre */
+    .tp-bar { height: 0.55rem; border-radius: 999px; background: var(--surface-soft); border: 1px solid var(--line); overflow: hidden; margin: 0.6rem 0 0.3rem; }
+    .tp-bar > div { height: 100%; width: 0; background: var(--primary); transition: width 0.25s; }
+    .tp-label { margin: 0 0 0.6rem; font-size: 0.82rem; color: var(--muted); }
+    .tp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+    .tp-list label { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.55rem 0.75rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); cursor: pointer; font-size: 0.92rem; line-height: 1.45; }
+    .tp-list input { margin-top: 0.25rem; width: 1.05rem; height: 1.05rem; accent-color: var(--primary); flex: none; }
+    .tp-list input:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .tp-list input:checked + span { color: var(--muted); }
+    .tp-list span, .step-list li { overflow-wrap: anywhere; }
+    .info-card .tp-list { padding-left: 0; margin-left: 0; }
+    .tp-list.strike input:checked + span { text-decoration: line-through; }
+    .tp-list small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.1rem; }
+    .paso-det { margin-top: 0.75rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0.1rem 1.1rem; }
+    .paso-det summary { cursor: pointer; font-weight: 700; padding: 0.8rem 0; list-style: none; color: var(--text); font-size: 0.95rem; }
+    .paso-det summary::-webkit-details-marker { display: none; }
+    .paso-det summary::before { content: "+"; display: inline-block; width: 1.1rem; color: var(--primary); font-weight: 800; }
+    .paso-det[open] summary::before { content: "–"; }
+    .paso-det summary:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .paso-det .step-list { margin: 0 0 0.9rem; }
+    .paso-det p.respuesta { margin: 0 0 0.9rem; }
+    .bal-text { width: 100%; min-height: 6.5rem; font: inherit; font-size: 0.92rem; line-height: 1.5; padding: 0.6rem 0.75rem; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); resize: vertical; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#para-que">Introducción</a>
+        <a href="#mapa">Mapa de la clase</a>
+        <a href="#t-hipervinculos">Hipervínculos</a>
+        <a href="#t-botones">Botones de acción</a>
+        <a href="#t-notas">Notas</a>
+        <a href="#t-imprimir">Impresión</a>
+        <a href="#errores-comunes">Errores comunes</a>
+        <a href="#recomendaciones">Recomendaciones</a>
+        <a href="#video">Video</a>
+        <a href="#practica">Actividad</a>
+        <a href="#desarrollo">Paso a paso</a>
+        <a href="#cierre">Cierre</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 2</p>
+        <h1>Hipervínculos, notas e impresión</h1>
+        <p class="lead">
+          Es la <strong>última clase de la unidad</strong>. Ya sabés armar diapositivas,
+          darles formato y animarlas. Hoy sumás lo que hace cómoda una presentación
+          para quien la expone: un <strong>índice con enlaces</strong> para saltar de un
+          tema a otro, <strong>botones de acción</strong>, un lugar donde escribir lo que
+          vas a decir (las <strong>notas</strong>) y las distintas formas de
+          <strong>imprimirla</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#mapa">Ver el mapa de la clase</a>
+          <a class="btn btn-secondary" href="#practica">Ir a la actividad</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 13 · Unidad 2</li>
+          <li>Hipervínculos, notas e impresión</li>
+          <li>Con simuladores</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Que tu presentación se pueda recorrer sin perderse y llevar en papel</h2>
+        <p>
+          Vas a continuar con la presentación <em>PresentaciondeComunicacion</em>:
+          armás un <strong>índice de temas</strong> y lo enlazás con las diapositivas,
+          con un archivo y con una página web, escribís las notas de una diapositiva
+          y la imprimís de dos maneras.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Armar el índice</span>
+          <span>Enlazarlo</span>
+          <span>Escribir las notas</span>
+          <span>Imprimir</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta clase</span>
+          <p>
+            Probá los simuladores de esta página para entender la idea y después
+            repetí los pasos en PowerPoint con tu propio archivo. Antes de empezar
+            conviene <strong>guardar una copia</strong> de la presentación. Si algo
+            sale mal, <strong>Ctrl + Z</strong> deshace el último cambio.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PARA QUÉ -->
+    <section class="section" id="para-que">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Introducción teórica</p>
+          <h2>¿Para qué sirve enlazar una presentación?</h2>
+          <p>
+            Un <strong>hipervínculo</strong> (o <strong>enlace</strong>) es un texto o un objeto que,
+            al hacer clic, <strong>te lleva a otro lugar</strong>: otra diapositiva, un archivo de tu
+            computadora o una página web. Es lo mismo que hacés todos los días cuando tocás un
+            enlace en internet.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Hasta ahora las presentaciones que armaste se recorren en orden: diapositiva 1, 2, 3, y así hasta el final. Eso alcanza cuando la exposición es lineal. Pero muchas veces alguien del público pregunta por un tema que ya pasó, o querés saltar directamente a una parte sin atravesar todas las diapositivas intermedias.</p>
+          <p>Para eso sirve el <strong>índice de temas</strong>: una diapositiva con la lista de los temas de la presentación, donde <strong>cada título está enlazado</strong> con su diapositiva. En cualquier momento volvés al índice y de ahí vas al tema que necesites, sin ir pasando diapositivas una por una hasta encontrarlo.</p>
+          <p>Los enlaces no tienen por qué llevar a otra diapositiva. También pueden abrir un <strong>archivo</strong> (un PDF, una imagen, una planilla) o una <strong>página web</strong>, por ejemplo para mostrar un cuadro o una fuente que no entra en la diapositiva. Al final, la clase se ocupa de otro tema práctico: cómo <strong>imprimir</strong> la presentación para tenerla en papel.</p>
+        </div>
+
+        <div class="card-grid three">
+          <article class="simple-card">
+            <h3>Hipervínculo</h3>
+            <p>
+              Texto u objeto que <strong>lleva a otro lugar</strong>: una diapositiva, un archivo o una
+              página web. Se inserta desde la ficha <strong>Insertar</strong>.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Botón de acción</h3>
+            <p>
+              Una <strong>forma ya preparada</strong> (con una flecha, una casita…) que hace de botón:
+              salta a la diapositiva siguiente, a la anterior, al inicio, etc.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Notas e impresión</h3>
+            <p>
+              Las <strong>notas</strong> son tu guion para cada diapositiva. Al imprimir se puede elegir
+              qué diapositivas salen y <strong>con qué diseño</strong>.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Para no confundirlos</p>
+            <h3>Hipervínculo y botón de acción hacen lo mismo</h3>
+            <p style="margin: 0;">
+              Los dos <strong>saltan a otro lugar</strong> al hacer clic. La diferencia es cómo se ven:
+              el hipervínculo suele ser un <strong>texto</strong> (azul y subrayado) y el botón de acción es
+              una <strong>forma</strong> que se dibuja en la diapositiva. Podés usar el que te quede más
+              cómodo en cada caso.
+            </p>
+          </article>
+
+          <article class="hero-note" style="margin: 0;">
+            <span>Cuándo funcionan</span>
+            <p>
+              Los enlaces <strong>solo responden en la presentación con diapositivas</strong>
+              (<kbd>F5</kbd>). En la pantalla de edición, hacer clic sobre el texto solo lo
+              selecciona. Si querés probar un enlace sin salir de la edición, usá
+              <kbd>Ctrl</kbd> + clic.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA DE LA CLASE -->
+    <section class="section alt" id="mapa">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>El mapa de la clase de hoy, en cuatro metas</h2>
+          <p>
+            La clase tiene cuatro metas de aprendizaje. Esta tabla las relaciona con los temas de la
+            parte teórica. Después de la teoría están el video, la actividad, su explicación paso a paso
+            y el cierre de la unidad.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Las cuatro metas conviene hacerlas en este orden. Primero el <strong>índice y los hipervínculos</strong>, que es lo más importante de la clase y lo que más se practica. Después los <strong>botones de acción</strong>, que hacen algo parecido con otra forma. Más tarde las <strong>notas</strong>, y por último la <strong>impresión</strong>, que es el paso final: se imprime recién cuando la presentación ya está terminada.</p>
+          <p>Un aviso importante: los <strong>botones de acción</strong> figuran entre los objetivos de la clase, pero <strong>no aparecen en el video ni en las consignas de la actividad</strong>. Por eso en esta página tienen su propia sección, para que los conozcas igual.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Meta</th>
+                  <th>Qué vas a hacer</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Armar un índice de diapositivas con los títulos de cada tema, enlazados a las diapositivas correspondientes</td>
+                  <td><a href="#t-hipervinculos">Ver el tema →</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Insertar botones de acción</td>
+                  <td><a href="#t-botones">Ver el tema →</a></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Insertar hipervínculos a diapositivas, a páginas web y a archivos</td>
+                  <td><a href="#t-hipervinculos">Ver el tema →</a></td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Usar el área de notas e imprimir presentaciones</td>
+                  <td><a href="#t-notas">Notas</a> · <a href="#t-imprimir">Impresión →</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Plan de la clase en la plataforma</p>
+            <h3>Antes de la clase</h3>
+            <ul>
+              <li>Observar el video <em>Funciones para introducir interactividad a la presentación</em>.</li>
+              <li>Leer el documento en línea y desarrollar la propuesta.</li>
+              <li>Leer la bibliografía indicada.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Plan de la clase en la plataforma</p>
+            <h3>Antes de la próxima clase</h3>
+            <ul>
+              <li>Realizar la <strong>actividad de aprendizaje</strong> que está en la sección correspondiente: es el <a href="#cierre">cierre de la unidad</a>.</li>
+              <li>Compartir tus conclusiones en el <strong>Foro de la Unidad 2</strong>.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 1: HIPERVÍNCULOS -->
+    <section class="section" id="t-hipervinculos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 1 · Metas 1 y 3</p>
+          <h2>El índice de temas y los hipervínculos</h2>
+          <p>
+            Todo se hace desde la ficha <strong>Insertar → Vínculos → Hipervínculo</strong>. La regla
+            es siempre la misma: <strong>primero se selecciona el texto (o el objeto) que va a ser el
+            enlace, y después se elige a dónde lleva</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>El índice es una diapositiva común: un título (por ejemplo “Índice de temas”) y una lista con los nombres de los temas. La mayoría coincide con los <strong>títulos de las diapositivas</strong> de la presentación, aunque a veces un tema ocupa varias. En la guía de la clase se ubica como <strong>diapositiva 2</strong>, justo después de la portada.</p>
+          <p>Lo que la convierte en un índice <em>de verdad</em> son los enlaces. Seleccionás un renglón (por ejemplo “Técnicas de comunicación no verbal”), abrís la ventana <strong>Insertar hipervínculo</strong> y elegís la diapositiva a la que tiene que llevar. Cuando lo aceptás, el texto se pone <strong>azul y subrayado</strong>: así se muestran los enlaces. Eso se repite renglón por renglón.</p>
+          <p>La ventana tiene, a la izquierda, una columna <strong>Vincular a</strong> con cuatro opciones. En esta clase se usan dos: <strong>Lugar de este documento</strong> (para ir a otra diapositiva de la misma presentación) y <strong>Archivo o página web existente</strong> (para abrir un archivo de tu computadora o una página de internet). Las otras dos, crear un documento nuevo y enviar un correo, no se usan hoy.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se inserta</p>
+            <h3>Cinco pasos</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Seleccioná el <strong>texto</strong> que va a ser el enlace, por ejemplo un renglón del índice.</li>
+              <li>Abrí la ficha <strong>Insertar</strong>, grupo <strong>Vínculos</strong>, y hacé clic en <strong>Hipervínculo</strong>. También sirven <kbd>Ctrl</kbd> + <kbd>K</kbd> o clic derecho → <strong>Hipervínculo…</strong></li>
+              <li>En <strong>Vincular a</strong> elegí el tipo de destino (ver la tabla de abajo).</li>
+              <li>Elegí la diapositiva, el archivo o escribí la dirección web y tocá <strong>Aceptar</strong>.</li>
+              <li>El texto queda <strong>azul y subrayado</strong>. Probalo con <kbd>F5</kbd>.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para tener en cuenta</p>
+            <h3>Lo que conviene saber</h3>
+            <ul>
+              <li>Podés enlazar <strong>texto</strong> y también <strong>imágenes, formas y cuadros de texto</strong>.</li>
+              <li>Para <strong>cambiar</strong> un enlace: clic derecho sobre él → <strong>Editar hipervínculo</strong>. Para borrarlo, <strong>Quitar hipervínculo</strong>.</li>
+              <li>Cada enlace va <strong>en un solo sentido</strong>: para regresar al índice hace falta otro enlace (o un botón de acción) en cada diapositiva.</li>
+              <li>Según la versión de PowerPoint, el botón de la ficha Insertar puede llamarse <strong>Hipervínculo</strong> o <strong>Vínculo</strong>.</li>
+              <li>Si la presentación se mueve a otra computadora, <strong>los archivos enlazados tienen que ir con ella</strong>.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="summary-grid" style="margin-top: 1.5rem;">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>El enlace lleva a…</th>
+                  <th>Opción de “Vincular a”</th>
+                  <th>Qué se completa</th>
+                  <th>Qué pasa al hacer clic (F5)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Otra diapositiva</td>
+                  <td>Lugar de este documento</td>
+                  <td>Se elige un título de la lista de diapositivas</td>
+                  <td>La presentación salta a esa diapositiva</td>
+                </tr>
+                <tr>
+                  <td>Un archivo (Word, PDF, Excel, imagen…)</td>
+                  <td>Archivo o página web existente</td>
+                  <td>Se busca el archivo en la computadora (por ejemplo <em>cuadro.png</em>)</td>
+                  <td>PowerPoint avisa que está por abrir un archivo; al aceptar, se abre con su programa</td>
+                </tr>
+                <tr>
+                  <td>Una página web</td>
+                  <td>Archivo o página web existente</td>
+                  <td>Se pega la <strong>dirección</strong> (URL) en el campo <em>Dirección</em></td>
+                  <td>Se abre el navegador con esa página</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Probalo: armá los enlaces del índice</h3>
+          <p>
+            Es el índice de la guía. En <strong>Edición</strong>, hacé clic en un renglón y completá la ventana
+            <strong>Insertar hipervínculo</strong> de la derecha. Después pasá a <strong>Presentación</strong>
+            y hacé clic en los textos que quedaron azules. Si querés ver cómo queda el ejemplo de la guía, tocá
+            <strong>Cargar el ejemplo</strong>.
+          </p>
+        </div>
+
+        <div class="anim-ctrls" id="ixMode" role="group" aria-label="Modo de trabajo">
+          <span class="anim-label">Modo</span>
+          <button type="button" class="anim-chip" data-m="edit" aria-pressed="true">Edición</button>
+          <button type="button" class="anim-chip" data-m="show" aria-pressed="false">Presentación (F5)</button>
+          <button type="button" class="anim-btn ghost" id="ixLoad">Cargar el ejemplo</button>
+          <button type="button" class="anim-btn ghost" id="ixClear">Borrar los enlaces</button>
+        </div>
+
+        <div class="anim-layout">
+          <div>
+            <div class="anim-stage" id="ixStage" aria-label="Diapositiva 2: índice de temas">
+              <div class="ix-title">Índice de temas</div>
+              <ul class="ix-list" id="ixList"></ul>
+              <div class="ix-over" id="ixOver" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <aside class="anim-panel" aria-label="Ventana Insertar hipervínculo">
+            <h4>Insertar hipervínculo</h4>
+            <div class="body" id="dlgBody"></div>
+            <div class="foot">
+              <button type="button" class="anim-btn ghost" id="dlgRemove" hidden>Quitar hipervínculo</button>
+              <button type="button" class="anim-btn" id="dlgOk" disabled>Aceptar</button>
+            </div>
+          </aside>
+        </div>
+        <p class="anim-status" id="ixInfo" role="status" aria-live="polite"></p>
+        <p style="font-size: 0.8rem; color: var(--muted); margin: 0.5rem 0 0; max-width: 46rem;">
+          Nota: es una versión simplificada de la ventana de PowerPoint. En la actividad, el enlace al archivo va en un
+          cuadro de texto de la diapositiva 3, no en el índice; acá se puede probar en cualquier renglón.
+        </p>
+      </div>
+    </section>
+
+    <!-- TEORÍA 2: BOTONES DE ACCIÓN -->
+    <section class="section alt" id="t-botones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 2 · Meta 2</p>
+          <h2>Botones de acción</h2>
+          <p>
+            Son formas ya preparadas que funcionan como botones: al hacer clic en ellos la presentación
+            <strong>salta a donde les indiques</strong>. Están en <strong>Insertar → Formas</strong>, al
+            final de la galería.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Un botón de acción es una forma, como los rectángulos o las flechas que ya usaste, pero con un cartel pensado para navegar: una flecha hacia la derecha, otra hacia la izquierda, una casita para “inicio”. Lo más práctico es que, al dibujarlo, PowerPoint <strong>abre solo la ventana de configuración</strong> y ya te propone una acción habitual para ese botón.</p>
+          <p>Sirven, sobre todo, para <strong>volver</strong>: el índice te lleva a cada tema, pero por sí solo no te trae de vuelta. Si en cada diapositiva de contenido ponés un botón que regrese al índice, quien expone puede ir de un tema al índice y del índice a otro tema, sin tener que recordar números de diapositivas.</p>
+          <p>Este tema forma parte de los objetivos de la clase, pero <strong>no está en el video ni en la actividad de la guía</strong>. Es un complemento: conviene probarlo, pero no hace falta para entregar la actividad.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se inserta</p>
+            <h3>Seis pasos</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Ubicate en la diapositiva donde querés el botón (por ejemplo, una de contenido).</li>
+              <li>Abrí <strong>Insertar → Formas</strong> y bajá hasta el final de la galería: el grupo <strong>Botones de acción</strong>.</li>
+              <li>Elegí un botón, por ejemplo <strong>Inicio</strong> o <strong>Atrás o Anterior</strong>.</li>
+              <li>Dibujalo <strong>arrastrando</strong> con el mouse en un rincón de la diapositiva.</li>
+              <li>Se abre sola la ventana <strong>Configuración de acciones</strong>. En la pestaña <strong>Clic del mouse</strong>, marcá <strong>Hipervínculo a</strong> y elegí el destino de la lista (por ejemplo <em>Diapositiva…</em> para ir a la del índice).</li>
+              <li>Tocá <strong>Aceptar</strong> y probalo con <kbd>F5</kbd>.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para tener en cuenta</p>
+            <h3>Lo que conviene saber</h3>
+            <ul>
+              <li>La lista <strong>Hipervínculo a</strong> ofrece destinos como la diapositiva siguiente, la anterior, la primera, la última, otra diapositiva, una URL o un archivo.</li>
+              <li>Cualquier objeto (una imagen, una forma, un texto) puede hacer de botón con <strong>Insertar → Acción</strong>.</li>
+              <li>Una vez armado, el botón se puede <strong>copiar y pegar</strong> en las demás diapositivas.</li>
+              <li>Si lo ponés en el <strong>Patrón de diapositivas</strong> (<em>Vista → Patrón de diapositivas</em>), aparece en todas de una vez.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Los botones de la galería</h3>
+          <p>Estos son los que ofrece PowerPoint, con el uso más habitual de cada uno. Los nombres pueden variar un poco según la versión.</p>
+        </div>
+
+        <div class="ab-grid" role="list">
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">◀</span>Atrás o Anterior<br /><small>Diapositiva anterior</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">▶</span>Adelante o Siguiente<br /><small>Diapositiva siguiente</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">|◀</span>Principio<br /><small>Primera diapositiva</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">▶|</span>Fin<br /><small>Última diapositiva</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">⌂</span>Inicio<br /><small>Primera diapositiva o el índice</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">↩</span>Volver<br /><small>Última diapositiva vista</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">i</span>Información<br /><small>Una diapositiva de datos</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">?</span>Ayuda<br /><small>Una diapositiva de ayuda</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">▤</span>Documento<br /><small>Abre un archivo</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">♪</span>Sonido<br /><small>Reproduce un sonido</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">▣</span>Película<br /><small>Reproduce un video</small></div>
+          <div class="ab-item" role="listitem"><span class="ab" aria-hidden="true">□</span>Personalizado<br /><small>En blanco, para ponerle tu texto</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 3: NOTAS -->
+    <section class="section" id="t-notas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 3 · Meta 4</p>
+          <h2>El área de notas</h2>
+          <p>
+            Es un espacio ubicado <strong>debajo de la diapositiva</strong>, donde escribís lo que vas a decir
+            al presentarla. <strong>El público no lo ve</strong>: es solo para quien expone.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Una diapositiva con poco texto es más clara, pero entonces queda afuera parte de la explicación. Esa parte va en las notas. Por ejemplo, la diapositiva muestra tres ideas cortas y, en las notas, tenés la explicación completa de cada una. Es el lugar donde se escribe lo que uno estudia o necesita saber para poder hablar de esa diapositiva.</p>
+          <p>Si no ves el área de notas, <strong>está oculta</strong>. Se muestra y se oculta con el botón <strong>Notas</strong> de la barra inferior (abajo, a la derecha) o desde <em>Vista → Notas</em>. Una vez visible, hacés clic donde dice <em>Haga clic para agregar notas</em> y escribís. Cada diapositiva tiene sus propias notas.</p>
+          <p>Para la actividad hay que copiar un texto en las notas de una diapositiva. Según la imagen de la guía, es la <strong>diapositiva 3</strong>, la que tiene el <em>Cuadro ampliatorio</em>. Más abajo lo tenés para copiar. Después, esas notas son las que aparecen al imprimir con <strong>Páginas de notas</strong>.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se usa</p>
+            <h3>Cuatro pasos</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Seleccioná la diapositiva en el panel de miniaturas.</li>
+              <li>Si el área de notas no se ve, tocá el botón <strong>Notas</strong> de la barra inferior.</li>
+              <li>Hacé clic en <em>Haga clic para agregar notas</em> y escribí o pegá el texto.</li>
+              <li>Para esconderla de nuevo, tocá otra vez el botón <strong>Notas</strong>: el texto no se borra.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Para tener en cuenta</p>
+            <h3>Lo que conviene saber</h3>
+            <ul>
+              <li>Las notas <strong>no se ven en la pantalla del público</strong> durante la presentación.</li>
+              <li>Quien presenta puede verlas con la <strong>Vista del moderador</strong>, si usa dos pantallas.</li>
+              <li>Se pueden <strong>imprimir</strong> junto a cada diapositiva con el diseño <em>Páginas de notas</em>.</li>
+              <li>Escribí frases completas: están pensadas para leerlas rápido mientras hablás.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-head" style="margin-top: 2rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">El texto de la consigna 7</h3>
+          <p>Es el que hay que copiar en el área de notas. Podés seleccionarlo con el mouse o usar el botón.</p>
+        </div>
+
+        <div class="nota-copy" id="notaTexto">
+          <p>Mantente erguido. Parte superior: una mala postura refleja poca confianza en uno mismo. Las posturas negativas de la parte inferior del cuerpo son:</p>
+          <ul>
+            <li>Apoyarse sobre las caderas.</li>
+            <li>Balancearse de un lado a otro.</li>
+            <li>Apoyarse primero en los talones y luego sobre los dedos de los pies.</li>
+            <li>Dar pequeños pasos.</li>
+          </ul>
+          <p>Para combatir estos hábitos negativos hay que lanzar el peso adelante, con una ligera inclinación hacia adelante. Entonces es imposible apoyarse sobre las caderas o mecerse sobre los talones. Implica levantar los talones ligeramente y flexionar un poco las rodillas. Muévete sin exageración. Hay que adaptar los conceptos de postura y movimiento a tu estilo propio siempre.</p>
+        </div>
+        <div class="nota-copy-bar">
+          <button type="button" class="anim-btn ghost" id="notaCopy">Copiar el texto</button>
+          <span class="tp-label" id="notaMsg" role="status" aria-live="polite" style="margin: 0;"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEORÍA 4: IMPRESIÓN -->
+    <section class="section alt" id="t-imprimir">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Teoría 4 · Meta 4</p>
+          <h2>Imprimir una presentación</h2>
+          <p>
+            Se hace desde <strong>Archivo → Imprimir</strong> (o <kbd>Ctrl</kbd> + <kbd>P</kbd>). A la izquierda
+            se elige <strong>qué</strong> y <strong>cómo</strong> imprimir; a la derecha se ve una
+            <strong>vista previa</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Imprimir sirve para tener la presentación definitiva en papel y poder leerla en otro lugar, cuando no tenés la computadora a mano. Antes de mandar nada a la impresora hay que decidir dos cosas: <strong>cuáles diapositivas</strong> y <strong>con qué diseño</strong>.</p>
+          <p>Lo primero se resuelve con el campo <strong>Diapositivas</strong>. Si lo dejás vacío, se imprimen todas. Si querés solo algunas, se escribe el número (<code>5</code>), un intervalo con guion (<code>1-5</code>) o una combinación separada por comas (<code>1,3,5-7</code>). Lo segundo se elige en la lista de diseños, que por defecto dice <strong>Diapositivas de página completa</strong>: una diapositiva por hoja.</p>
+          <p>Los diseños más usados son tres. <strong>Páginas de notas</strong> imprime cada diapositiva arriba y, abajo, las notas que escribiste: es tu guion para exponer. <strong>3 diapositivas</strong> (de “Documentos”) pone tres por hoja y, al costado, líneas para anotar: se usa para <strong>entregar al público</strong>. Y los diseños de <strong>4, 6 o 9 por hoja</strong> sirven para imprimir muchas diapositivas gastando poco papel, por ejemplo para revisar un borrador.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Diseño</th>
+                  <th>Cómo sale en la hoja</th>
+                  <th>Para qué sirve</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Diapositivas de página completa</td>
+                  <td>Una diapositiva por hoja, grande</td>
+                  <td>Imprimirlas tal cual se ven (es el diseño por defecto)</td>
+                </tr>
+                <tr>
+                  <td>Páginas de notas</td>
+                  <td>La diapositiva arriba y las notas abajo</td>
+                  <td>Tu guion para exponer, <strong>consigna 8</strong> de la actividad</td>
+                </tr>
+                <tr>
+                  <td>3 diapositivas</td>
+                  <td>Tres por hoja, con líneas a la derecha para anotar</td>
+                  <td>Material para entregar al auditorio, <strong>consigna 9</strong> de la actividad</td>
+                </tr>
+                <tr>
+                  <td>2, 4, 6 o 9 diapositivas</td>
+                  <td>Varias por hoja, sin espacio para notas</td>
+                  <td>Revisar un borrador gastando pocas hojas</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 0.6rem 0 0; max-width: 46rem;">
+          En los diseños de 4, 6 y 9 diapositivas hay dos versiones. En <strong>horizontal</strong> se ordenan de izquierda a derecha y después hacia abajo;
+          en <strong>vertical</strong>, de arriba hacia abajo y después en la columna siguiente. Probalo en el simulador.
+        </p>
+
+        <div class="section-head" style="margin-top: 2.5rem;">
+          <h3 style="margin: 0 0 0.5rem; font-size: 1.35rem;">Probalo: la vista previa de impresión</h3>
+          <p>
+            Cambiá el <strong>diseño</strong> y el campo <strong>Diapositivas</strong> y mirá cómo cambia la hoja.
+            Si escribís un intervalo, se calcula cuántas hojas se gastan. Con las flechas pasás de una hoja a otra.
+          </p>
+        </div>
+
+        <div class="pr-layout">
+          <div class="anim-panel">
+            <h4>Configuración</h4>
+            <div class="pr-cfg">
+              <label>Total de diapositivas de la presentación
+                <input type="number" class="anim-input" id="prTotal" min="1" max="60" value="15" inputmode="numeric" />
+              </label>
+              <label>Diapositivas <span class="hint">(vacío = todas; por ejemplo 5, 1-5 o 1,3,5-7)</span>
+                <input type="text" class="anim-input" id="prRange" placeholder="Imprimir todas" autocomplete="off" />
+              </label>
+              <label>Diseño
+                <select class="anim-select" id="prLayout"></select>
+              </label>
+            </div>
+          </div>
+
+          <div class="pr-view">
+            <div class="pr-stage" id="prStage" aria-label="Vista previa de la hoja"></div>
+            <div class="pr-pager">
+              <button type="button" class="anim-btn ghost" id="prPrev" aria-label="Hoja anterior">◀</button>
+              <span id="prPage">Hoja 1 de 1</span>
+              <button type="button" class="anim-btn ghost" id="prNext" aria-label="Hoja siguiente">▶</button>
+            </div>
+          </div>
+        </div>
+        <p class="anim-status" id="prInfo" role="status" aria-live="polite"></p>
+        <p style="font-size: 0.8rem; color: var(--muted); margin: 0.5rem 0 0; max-width: 46rem;">
+          Nota: es un dibujo esquemático. En PowerPoint la vista previa muestra tus diapositivas reales, y con
+          <em>Escala de grises</em> o <em>Blanco y negro</em> se ahorra tinta.
+        </p>
+
+        <div class="two-col" style="margin-top: 1.5rem;">
+          <article class="info-card accent-blue">
+            <p class="card-label">Cómo se imprime</p>
+            <h3>Pasos en PowerPoint</h3>
+            <ol class="step-list" style="margin-top: 0.4rem;">
+              <li>Abrí <strong>Archivo → Imprimir</strong> (<kbd>Ctrl</kbd> + <kbd>P</kbd>).</li>
+              <li>En <strong>Diapositivas</strong> escribí cuáles querés, o dejalo vacío para todas.</li>
+              <li>En la lista de diseños elegí <strong>Páginas de notas</strong> o <strong>3 diapositivas</strong>.</li>
+              <li>Mirá la <strong>vista previa</strong> de la derecha y revisá las hojas.</li>
+              <li>Tocá <strong>Imprimir</strong>.</li>
+            </ol>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Si no tenés impresora</p>
+            <h3>Podés guardarlo como PDF</h3>
+            <p style="margin: 0;">
+              En la lista de impresoras elegí <strong>Microsoft Print to PDF</strong>: en lugar de imprimir,
+              guarda las hojas en un archivo PDF. Así comprobás cómo queda el diseño sin gastar papel, y lo
+              podés adjuntar si te lo piden.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERRORES COMUNES -->
+    <section class="section" id="errores-comunes">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para cuando algo no sale como esperabas</p>
+          <h2>Errores comunes de la clase</h2>
+          <p>
+            Casi todos se resuelven con dos preguntas: <strong>¿lo estoy probando en la presentación (F5)?</strong> y
+            <strong>¿qué diseño tengo elegido al imprimir?</strong>
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Los problemas de esta clase son de dos tipos. Los de los <strong>enlaces</strong> casi siempre tienen que ver con dónde se prueban o con dónde está el archivo. Los de la <strong>impresión</strong> casi siempre vienen de un diseño o de un rango mal elegido. Ninguno es grave: se arreglan rápido si sabés dónde mirar.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lo que pasa</th>
+                  <th>Por qué ocurre</th>
+                  <th>Cómo evitarlo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Hago clic en el texto azul y no pasa nada</td>
+                  <td>En la pantalla de edición los enlaces no se activan</td>
+                  <td>Probarlos con <kbd>F5</kbd> o con <kbd>Ctrl</kbd> + clic</td>
+                </tr>
+                <tr>
+                  <td>El enlace lleva a una diapositiva que no es</td>
+                  <td>Al armar el enlace se eligió otro título de la lista</td>
+                  <td>Clic derecho → <strong>Editar hipervínculo</strong> y elegir la correcta</td>
+                </tr>
+                <tr>
+                  <td>Un renglón del índice no se puso azul</td>
+                  <td>Se saltó ese renglón o no se llegó a tocar <em>Aceptar</em></td>
+                  <td>Repetir el proceso con ese texto y revisar que quede azul y subrayado</td>
+                </tr>
+                <tr>
+                  <td>El enlace al archivo dice que no lo encuentra</td>
+                  <td>El archivo se movió, se renombró o la presentación se abrió en otra computadora</td>
+                  <td>Guardar el archivo y la presentación en la <strong>misma carpeta</strong> y llevarlos juntos</td>
+                </tr>
+                <tr>
+                  <td>Al abrir el archivo aparece una advertencia</td>
+                  <td>PowerPoint avisa siempre antes de abrir un archivo enlazado</td>
+                  <td>Es normal: aceptá solo si el archivo es el tuyo</td>
+                </tr>
+                <tr>
+                  <td>El enlace a la web no abre la página</td>
+                  <td>La dirección se escribió incompleta o con un error</td>
+                  <td><strong>Copiar</strong> la dirección completa de la barra del navegador y pegarla en <em>Dirección</em></td>
+                </tr>
+                <tr>
+                  <td>No encuentro dónde escribir las notas</td>
+                  <td>El área de notas está oculta</td>
+                  <td>Tocar el botón <strong>Notas</strong> de la barra inferior o <em>Vista → Notas</em></td>
+                </tr>
+                <tr>
+                  <td>Imprimí y no salieron las notas</td>
+                  <td>Quedó el diseño <em>Diapositivas de página completa</em></td>
+                  <td>Elegir <strong>Páginas de notas</strong> antes de imprimir</td>
+                </tr>
+                <tr>
+                  <td>Salieron todas las diapositivas y quería solo algunas</td>
+                  <td>El campo <em>Diapositivas</em> estaba vacío</td>
+                  <td>Escribir el rango: <code>5</code>, <code>1-5</code> o <code>1,3,5-7</code></td>
+                </tr>
+                <tr>
+                  <td>El rango que escribí no se acepta</td>
+                  <td>Tiene un número que no existe o un separador raro</td>
+                  <td>Usar solo números, guion y coma, y números entre 1 y el total de diapositivas</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOMENDACIONES -->
+    <section class="section alt" id="recomendaciones">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de entregar o presentar</p>
+          <h2>Elegir con criterio</h2>
+          <p>
+            Un enlace que falla en plena exposición cuesta más que no haberlo puesto. Conviene <strong>probar todo antes</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Los enlaces hacen más cómoda una presentación, pero también la hacen más frágil: dependen de que el archivo esté donde tiene que estar o de que haya internet. Por eso, antes de presentar, <strong>recorré la presentación completa con F5 y hacé clic en todos los enlaces</strong>. Si algo falla, mejor enterarte en tu casa que frente al público.</p>
+          <p>Con la impresión pasa algo parecido: conviene mirar la <strong>vista previa</strong> antes de imprimir, porque es el momento de ver si se están por salir todas las diapositivas, si el diseño es el que querías y cuántas hojas se van a gastar.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="table-card" style="grid-column: 1 / -1;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Si necesitás…</th>
+                  <th>Usá</th>
+                  <th>Cuidá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Recorrer la presentación sin ir en orden</td>
+                  <td>Un índice con enlaces y un botón de acción para volver a él</td>
+                  <td>Que cada título del índice coincida con el de su diapositiva</td>
+                </tr>
+                <tr>
+                  <td>Mostrar un archivo o una página web</td>
+                  <td>Un hipervínculo en un texto o un cuadro con un nombre claro</td>
+                  <td>Probarlo antes y llevar el archivo junto con la presentación</td>
+                </tr>
+                <tr>
+                  <td>Tener tu guion para exponer</td>
+                  <td>El área de notas e impresión en <strong>Páginas de notas</strong></td>
+                  <td>Escribir frases cortas que se lean rápido</td>
+                </tr>
+                <tr>
+                  <td>Dar material al público</td>
+                  <td><strong>3 diapositivas</strong> por hoja, con líneas para anotar</td>
+                  <td>Revisar la vista previa antes de imprimir muchas copias</td>
+                </tr>
+                <tr>
+                  <td>Revisar un borrador sin gastar papel</td>
+                  <td>4, 6 o 9 por hoja, o <strong>Microsoft Print to PDF</strong></td>
+                  <td>Imprimir en escala de grises</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+
+        <div class="card-grid three" style="margin-top: 1.5rem;">
+          <article class="simple-card">
+            <h3>Texto del enlace claro</h3>
+            <p>
+              Evitá “hacé clic acá”. Es mejor que el texto diga a dónde lleva, como “Técnicas de comunicación no verbal”: se entiende solo y es más fácil de encontrar.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Pocos enlaces</h3>
+            <p>
+              Un índice y algún enlace puntual alcanzan. Una presentación llena de enlaces confunde a quien expone y al público.
+            </p>
+          </article>
+          <article class="simple-card">
+            <h3>Plan B</h3>
+            <p>
+              Si el enlace depende de internet o de un archivo, tené el contenido a mano (una captura, una copia) por si no funciona el día de la presentación.
+            </p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Mismos criterios que en las clases anteriores</span>
+          <p>
+            Contraste, pocos colores y poco texto siguen valiendo. Las
+            <a href="clase10.html#recomendaciones">recomendaciones de la clase 10</a>, las de
+            <a href="clase11.html#recomendaciones">animar con criterio</a> y las de
+            <a href="clase12.html#recomendaciones">transiciones</a> se aplican igual.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="section" id="video">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Material multimedia requerido</p>
+          <h2>Video: Funciones para introducir interactividad a la presentación</h2>
+          <p>
+            Es el video explicativo de la clase (<em>Power Clase 5</em>, de unos 13 minutos). La
+            recomendación de la materia es verlo <strong>dos veces</strong>: la primera para
+            familiarizarte con los contenidos y la segunda con PowerPoint abierto, repitiendo cada paso.
+            Si te queda alguna duda, podés consultar en el <strong>Foro: Dudas y Consultas · Unidad 2</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>El video dura unos trece minutos y sigue el mismo orden que la actividad: primero arma el índice y los hipervínculos (a diapositivas, a un archivo y a una página web), después muestra el área de notas y, al final, las formas de imprimir. Conviene verlo dos veces. La primera, para tener una idea general. La segunda, con PowerPoint abierto, repitiendo cada paso.</p>
+          <p>Mientras lo mirás, fijate en tres cosas: dónde está la opción <em>Lugar de este documento</em>, en qué se diferencia enlazar un archivo de enlazar una web, y qué diseños de impresión muestra al final. Los <strong>botones de acción no aparecen en el video</strong>: para eso está la <a href="#t-botones">sección de esta página</a>. Los enlaces de abajo llevan directo a cada parte.</p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/7CMnffVYIUE"
+                title="Unidad 2 – Clase 13: Funciones para introducir interactividad a la presentación"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0.2rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas (tiempos aproximados):</strong>
+                <a href="https://youtu.be/7CMnffVYIUE?t=43" target="_blank" rel="noopener noreferrer">El índice de temas ~0:43</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=108" target="_blank" rel="noopener noreferrer">Para qué sirve el índice ~1:48</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=138" target="_blank" rel="noopener noreferrer">Insertar un hipervínculo ~2:18</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=150" target="_blank" rel="noopener noreferrer">Lugar de este documento ~2:30</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=204" target="_blank" rel="noopener noreferrer">Hipervínculo a un archivo ~3:24</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=289" target="_blank" rel="noopener noreferrer">Probar los enlaces ~4:49</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=330" target="_blank" rel="noopener noreferrer">Otros tipos de archivo ~5:30</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=363" target="_blank" rel="noopener noreferrer">Hipervínculo a una página web ~6:03</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=457" target="_blank" rel="noopener noreferrer">El área de notas ~7:37</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=519" target="_blank" rel="noopener noreferrer">Imprimir ~8:39</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=548" target="_blank" rel="noopener noreferrer">Elegir qué diapositivas ~9:08</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=602" target="_blank" rel="noopener noreferrer">Páginas de notas ~10:02</a> ·
+                <a href="https://youtu.be/7CMnffVYIUE?t=660" target="_blank" rel="noopener noreferrer">Diapositivas por hoja ~11:00</a>
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVIDAD -->
+    <section class="section alt" id="practica">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Actividad de facilitación de los aprendizajes</p>
+          <h2>Qué tenés que hacer</h2>
+          <p>
+            Abrí la presentación <strong>"PresentaciondeComunicacion"</strong> con la que trabajaste la clase anterior y seguí estas nueve consignas.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>La actividad tiene nueve consignas y se trabaja sobre el mismo archivo de las clases anteriores. Las cuatro primeras preparan el <strong>índice</strong> y lo enlazan con dos diapositivas. La quinta enlaza un <strong>archivo</strong> y la sexta una <strong>página web</strong>. La séptima es de <strong>notas</strong>, y las dos últimas son de <strong>impresión</strong>.</p>
+          <p>Antes de empezar guardá una copia de la presentación. Probá los enlaces con F5 a medida que los vayas armando, así detectás los errores enseguida. Para la consigna 5 vas a necesitar el archivo <em>cuadro.png</em>; si no lo tenés, pedilo en el Foro de Dudas y Consultas. Abajo tenés una lista para ir tildando lo que ya hiciste, que queda guardada en tu navegador.</p>
+        </div>
+
+        <div class="info-card accent-blue">
+          <p class="card-label">Consignas</p>
+          <h3>Tu lista de control</h3>
+          <div class="tp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="actBar"><div id="actFill"></div></div>
+          <p class="tp-label" id="actLabel">0 de 9 consignas hechas</p>
+          <ul class="tp-list" id="actList">
+            <li><label><input type="checkbox" data-k="1" /><span>Abrí el archivo <strong>“PresentaciondeComunicacion.ppt”</strong>.</span></label></li>
+            <li><label><input type="checkbox" data-k="2" /><span>Insertá una <strong>nueva diapositiva después de la primera</strong> que contenga los títulos de los temas presentados en la misma.</span></label></li>
+            <li><label><input type="checkbox" data-k="3" /><span>Insertá un <strong>hipervínculo</strong> al texto <strong>“Técnicas de comunicación no verbal”</strong> que enlace a la diapositiva correspondiente.</span></label></li>
+            <li><label><input type="checkbox" data-k="4" /><span>Hacé lo mismo con el texto del índice llamado <strong>“Recomendación”</strong>.</span></label></li>
+            <li><label><input type="checkbox" data-k="5" /><span>Agregá, en la diapositiva siguiente, un <strong>cuadro de texto</strong> con el nombre <strong>“Cuadro ampliatorio”</strong>, cuyo hipervínculo apunte al archivo <strong>“cuadro.png”</strong>.</span></label></li>
+            <li><label><input type="checkbox" data-k="6" /><span>Agregá, en la diapositiva 2 (el índice), un enlace en <strong>“Link a web”</strong> que dirija a <strong>http://www.cienciapopular.com/ciencia/comunicacion-no-verbal</strong>.</span></label></li>
+            <li><label><input type="checkbox" data-k="7" /><span>Copiá en el <strong>área de notas</strong> el texto de la consigna (lo tenés <a href="#t-notas">más arriba</a>, para copiar).</span></label></li>
+            <li><label><input type="checkbox" data-k="8" /><span><strong>Imprimí</strong> la presentación con <strong>Páginas de notas</strong>.</span></label></li>
+            <li><label><input type="checkbox" data-k="9" /><span><strong>Imprimí</strong> la presentación con <strong>3 diapositivas por página</strong>, con espacio para notas.</span></label></li>
+          </ul>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--muted); margin: 0.9rem 0 0; max-width: 46rem;">
+          La guía no dice a qué diapositiva copiar la nota de la consigna 7. Por la imagen de la guía, es la <strong>diapositiva 3</strong>, la del <em>Cuadro ampliatorio</em>.
+          Los números de diapositiva pueden variar si tu archivo tiene alguna distinta.
+        </p>
+      </div>
+    </section>
+
+    <!-- EXPLICACIÓN PASO A PASO -->
+    <section class="section" id="desarrollo">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Ayuda para la actividad</p>
+          <h2>Explicación paso a paso</h2>
+          <p>
+            Abrí solo la parte en la que necesitás ayuda. Si no recordás una herramienta, volvé a la teoría correspondiente.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Esta sección es una ayuda para cuando te trabes con alguna consigna. Cada desplegable explica una o varias consignas en pasos cortos, con los mismos nombres de botones que vas a encontrar en PowerPoint. No hace falta leerla entera: abrí solo lo que necesitás.</p>
+        </div>
+
+        <details class="paso-det">
+          <summary>Consignas 1 y 2 · Abrir el archivo y armar la diapositiva del índice</summary>
+          <ol class="step-list">
+            <li>Abrí <strong>PresentaciondeComunicacion</strong> y, antes de tocar nada, guardá una copia con <strong>Archivo → Guardar como</strong>.</li>
+            <li>En el panel de miniaturas, hacé clic en la <strong>diapositiva 1</strong>.</li>
+            <li>En <strong>Inicio</strong>, tocá <strong>Nueva diapositiva</strong> y elegí el diseño <strong>Título y objetos</strong>. La diapositiva nueva queda en segundo lugar.</li>
+            <li>En el título escribí <strong>Índice de temas</strong>.</li>
+            <li>En el cuerpo escribí un tema por renglón, con los mismos nombres de los títulos de las diapositivas. Por ejemplo: <em>Técnicas de comunicación no verbal</em>, <em>Recomendación</em>, <em>Hacia dónde mirar</em>, <em>Postura y movimiento</em>, <em>Los gestos</em>, <em>El vestir y el aspecto</em>, <em>El lenguaje corporal</em>, <em>Estructura de la exposición oral</em> y, al final, <em>Link a web</em>.</li>
+          </ol>
+          <p class="respuesta" style="font-size: 0.88rem; color: var(--muted);">
+            Si tu presentación ya tenía esta diapositiva (como en el video), alcanza con revisar que esté en segundo lugar y que tenga los títulos de los temas.
+          </p>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consignas 3 y 4 · Hipervínculos del índice a las diapositivas</summary>
+          <ol class="step-list">
+            <li>En la diapositiva 2, <strong>seleccioná el renglón</strong> “Técnicas de comunicación no verbal” (con el mouse, sin los puntos).</li>
+            <li>Abrí <strong>Insertar → Vínculos → Hipervínculo</strong> (o <kbd>Ctrl</kbd> + <kbd>K</kbd>).</li>
+            <li>A la izquierda, en <strong>Vincular a</strong>, elegí <strong>Lugar de este documento</strong>.</li>
+            <li>En la lista, elegí la diapositiva correspondiente. Según el video, <strong>“Técnicas de comunicación no verbales” es la 3</strong>.</li>
+            <li>Tocá <strong>Aceptar</strong>. El renglón queda azul y subrayado.</li>
+            <li>Repetí con <strong>“Recomendación”</strong>: elegí la diapositiva de recomendación (en el video, la <strong>4</strong>).</li>
+            <li>Probalo: <kbd>F5</kbd> desde la diapositiva 2 y hacé clic en los dos renglones.</li>
+          </ol>
+          <p class="respuesta" style="font-size: 0.88rem; color: var(--muted);">
+            Si el renglón no queda azul, revisá que lo hayas seleccionado antes de abrir la ventana y que hayas tocado <em>Aceptar</em>.
+          </p>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 5 · Cuadro de texto con enlace al archivo cuadro.png</summary>
+          <ol class="step-list">
+            <li>Ubicate en la <strong>diapositiva siguiente</strong> al índice (la 3).</li>
+            <li>Abrí <strong>Insertar → Cuadro de texto</strong>, dibujalo abajo y escribí <strong>Cuadro ampliatorio</strong>. Si hace falta, agrandá la letra.</li>
+            <li><strong>Seleccioná el texto</strong> del cuadro y abrí <strong>Insertar → Hipervínculo</strong>.</li>
+            <li>En <strong>Vincular a</strong> elegí <strong>Archivo o página web existente</strong>.</li>
+            <li>Con <strong>Buscar en</strong> navegá hasta la carpeta donde guardaste <strong>cuadro.png</strong> y hacé clic sobre el archivo. Aparece su ubicación en <em>Dirección</em>.</li>
+            <li>Tocá <strong>Aceptar</strong> y probalo con <kbd>F5</kbd>: PowerPoint avisa que está por abrir un archivo; aceptá y se abre la imagen.</li>
+          </ol>
+          <p class="respuesta" style="font-size: 0.88rem; color: var(--muted);">
+            El video muestra que este mismo procedimiento sirve para enlazar archivos de Word, PDF, Excel o imágenes. Dejá <em>cuadro.png</em> en la misma carpeta que la presentación para que el enlace no se rompa.
+          </p>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 6 · “Link a web” en el índice</summary>
+          <ol class="step-list">
+            <li>Abrí en el navegador la página <strong>http://www.cienciapopular.com/ciencia/comunicacion-no-verbal</strong> y <strong>copiá la dirección</strong> completa de la barra (<kbd>Ctrl</kbd> + <kbd>C</kbd>).</li>
+            <li>Volvé a PowerPoint, a la <strong>diapositiva 2</strong>, y seleccioná el texto <strong>Link a web</strong>.</li>
+            <li>Abrí <strong>Insertar → Hipervínculo</strong> y, en <strong>Vincular a</strong>, elegí <strong>Archivo o página web existente</strong>.</li>
+            <li>En lugar de buscar un archivo, hacé clic en el campo <strong>Dirección</strong> y <strong>pegá</strong> la dirección (<kbd>Ctrl</kbd> + <kbd>V</kbd>).</li>
+            <li>Tocá <strong>Aceptar</strong>. Con <kbd>F5</kbd>, al hacer clic se abre el navegador con esa página.</li>
+          </ol>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consigna 7 · Copiar el texto en el área de notas</summary>
+          <ol class="step-list">
+            <li>Seleccioná la <strong>diapositiva 3</strong> en el panel de miniaturas.</li>
+            <li>Si no ves el área de notas, tocá el botón <strong>Notas</strong> de la barra inferior (o <em>Vista → Notas</em>).</li>
+            <li>Hacé clic donde dice <em>Haga clic para agregar notas</em>.</li>
+            <li>Pegá el texto (usá el botón <a href="#t-notas">Copiar el texto</a> de esta página y después <kbd>Ctrl</kbd> + <kbd>V</kbd>).</li>
+          </ol>
+        </details>
+
+        <details class="paso-det">
+          <summary>Consignas 8 y 9 · Imprimir con Páginas de notas y con 3 diapositivas</summary>
+          <ol class="step-list">
+            <li>Abrí <strong>Archivo → Imprimir</strong> (<kbd>Ctrl</kbd> + <kbd>P</kbd>).</li>
+            <li><strong>Consigna 8:</strong> en la lista de diseños, que dice <em>Diapositivas de página completa</em>, elegí <strong>Páginas de notas</strong>. En la vista previa vas a ver la diapositiva arriba y las notas abajo. Pasá de una hoja a otra: el índice (diapositiva 2) no tiene notas; la 3, sí.</li>
+            <li>Imprimí, o elegí <strong>Microsoft Print to PDF</strong> si no tenés impresora.</li>
+            <li><strong>Consigna 9:</strong> volvé a abrir <strong>Imprimir</strong>, abrí otra vez la lista de diseños y elegí <strong>3 diapositivas</strong> (del grupo <em>Documentos</em>). Cada hoja muestra tres diapositivas con líneas a la derecha para anotar.</li>
+            <li>Imprimí de nuevo.</li>
+          </ol>
+          <p class="respuesta" style="font-size: 0.88rem; color: var(--muted);">
+            Si querés imprimir solo algunas, escribí el rango en <strong>Diapositivas</strong>, por ejemplo <code>2-5</code>. Podés practicarlo en el
+            <a href="#t-imprimir">simulador de impresión</a>.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CIERRE DE LA UNIDAD -->
+    <section class="section alt" id="cierre">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Actividad de aprendizaje · Cierre de la Unidad 2</p>
+          <h2>Hacé el balance de lo que aprendiste</h2>
+          <p>
+            Con esta clase terminó la Unidad 2. Antes de seguir, la materia te propone <strong>mirar para atrás</strong>:
+            retomar los objetivos de las cinco clases y escribir tus conclusiones en el
+            <strong>Foro de la Unidad 2</strong>.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Esta actividad no se corrige con una respuesta correcta: es un momento para <strong>ordenarte a vos mismo</strong>. Se trata de ver qué aprendiste, qué todavía te cuesta y qué te quedó por preguntar. Eso le sirve a quien aprende, y también al tutor o tutora, que así sabe en qué puede ayudarte.</p>
+          <p>La guía pide dos cosas. <strong>Primero</strong>, un balance de tus aprendizajes: registrar los conocimientos y habilidades que ya lográs y los que todavía tenés que practicar. <strong>Segundo</strong>, anotar las inquietudes que te surgieron y si hay otras funciones que te gustaría conocer. Abajo tenés una ayuda para armarlo; después lo llevás al foro.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Consigna 1</p>
+            <h3>Marcá lo que ya lográs</h3>
+            <div class="tp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="balBar"><div id="balFill"></div></div>
+            <p class="tp-label" id="balLabel">0 de 5 clases logradas</p>
+            <ul class="tp-list" id="balList">
+              <li><label><input type="checkbox" data-k="c9" /><span><a href="clase9.html">Clase 9</a> · Entorno de PowerPoint, diapositivas, fondos, cuadros de texto, formas e imágenes.</span></label></li>
+              <li><label><input type="checkbox" data-k="c10" /><span><a href="clase10.html">Clase 10</a> · Fondos con imagen, transparencias, flechas de bloque, SmartArt y tablas.</span></label></li>
+              <li><label><input type="checkbox" data-k="c11" /><span><a href="clase11.html">Clase 11</a> · Animaciones: efectos de entrada, panel de animación y orden.</span></label></li>
+              <li><label><input type="checkbox" data-k="c12" /><span><a href="clase12.html">Clase 12</a> · Transiciones, intervalos y presentación automática.</span></label></li>
+              <li><label><input type="checkbox" data-k="c13" /><span><a href="#mapa">Clase 13</a> · Índice con hipervínculos, botones de acción, notas e impresión.</span></label></li>
+            </ul>
+            <p style="margin: 0.8rem 0 0; font-size: 0.85rem; color: var(--muted);">Lo que dejés sin tildar es lo que tenés para seguir practicando.</p>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Consigna 2</p>
+            <h3>Tus inquietudes</h3>
+            <p style="margin: 0 0 0.6rem; font-size: 0.9rem;">¿Qué dudas te quedaron? ¿Qué otras funciones de PowerPoint te gustaría conocer y aplicar?</p>
+            <textarea class="bal-text" id="balTxt" aria-label="Tus inquietudes y las funciones que te gustaría conocer" placeholder="Escribí acá tus dudas y lo que te gustaría aprender…"></textarea>
+            <p style="margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--muted);">Lo que escribís acá se guarda solo en este navegador. Para compartirlo, copialo y publicalo en el foro.</p>
+          </article>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Antes de cerrar la unidad</span>
+          <p>
+            Si todavía no lo hiciste, revisá el <a href="clase12.html#tp">trabajo práctico entregable de la clase 12</a>:
+            se entrega en el <strong>Foro para Subir Actividades</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase12.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 12 · Transiciones y presentación automática</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Fin de la Unidad 2</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 2 · Clase 13</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    (function () {
+      const nav = document.querySelector('.topbar-nav');
+      let down = false, startX = 0, left = 0;
+      nav.addEventListener('mousedown', e => { down = true; nav.classList.add('dragging'); startX = e.pageX - nav.offsetLeft; left = nav.scrollLeft; });
+      nav.addEventListener('mouseleave', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mouseup', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mousemove', e => { if (!down) return; e.preventDefault(); nav.scrollLeft = left - (e.pageX - nav.offsetLeft - startX) * 1.5; });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        const r = a.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        nav.scrollBy({ left: r.left + r.width / 2 - (n.left + n.width / 2), behavior: 'smooth' });
+      }));
+    })();
+
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    /* ===== 1. Simulador de hipervínculos ===== */
+    (function () {
+      const ITEMS = ['Técnicas de comunicación no verbal', 'Recomendación', 'Hacia dónde mirar', 'Postura y movimiento', 'Los gestos', 'El vestir y el aspecto', 'El lenguaje corporal', 'Estructura de la exposición oral', 'Link a web'];
+      const SLIDES = [[1, 'Técnicas de comunicación no verbal'], [2, 'Índice de temas'], [3, 'Técnicas de comunicación no verbales'], [4, 'Recomendación'], [5, 'Hacia dónde mirar']];
+      const FILES = ['cuadro.png', 'guia para presentaciones.doc', 'presentacion - comunicacion.pdf'];
+      const URL_EJ = 'http://www.cienciapopular.com/ciencia/comunicacion-no-verbal';
+      const stage = document.getElementById('ixStage'), list = document.getElementById('ixList'), over = document.getElementById('ixOver'),
+            body = document.getElementById('dlgBody'), ok = document.getElementById('dlgOk'), rem = document.getElementById('dlgRemove'),
+            info = document.getElementById('ixInfo'), modeBox = document.getElementById('ixMode');
+      let links = {}, sel = null, mode = 'edit', dest = 'slide', dSlide = null, dAddr = '';
+
+      const isUrl = v => /^(https?:\/\/|www\.)/i.test(v.trim());
+      function destText(l) {
+        if (l.type === 'slide') return 'la diapositiva ' + l.n + ' (' + SLIDES[l.n - 1][1] + ')';
+        if (l.type === 'file') return 'el archivo ' + l.v;
+        return 'la página web ' + l.v;
+      }
+
+      function drawList() {
+        list.innerHTML = '';
+        ITEMS.forEach((t, i) => {
+          const li = document.createElement('li');
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'ix-item' + (links[i] ? ' linked' : '') + (mode === 'edit' && sel === i ? ' sel' : '');
+          b.textContent = t;
+          b.setAttribute('aria-label', t + (links[i] ? ' (hipervínculo a ' + destText(links[i]) + ')' : ' (sin hipervínculo)'));
+          b.addEventListener('click', () => onItem(i));
+          li.appendChild(b); list.appendChild(li);
+        });
+      }
+
+      function drawDialog() {
+        if (mode === 'show') {
+          body.innerHTML = '<p class="dlg-note">Estás en la presentación con diapositivas: acá no se editan los enlaces. Volvé a <b>Edición</b> para cambiarlos.</p>';
+          ok.disabled = true; rem.hidden = true; return;
+        }
+        if (sel === null) {
+          body.innerHTML = '<p class="dlg-note">Hacé clic en un renglón del índice para seleccionarlo. Después podés elegir a dónde lleva.</p>';
+          ok.disabled = true; rem.hidden = true; return;
+        }
+        const opts = [['slide', 'Lugar de este documento'], ['addr', 'Archivo o página web existente'], ['new', 'Crear nuevo documento'], ['mail', 'Dirección de correo electrónico']];
+        let html = '<p class="dlg-txt">Texto: <b>' + esc(ITEMS[sel]) + '</b></p><div class="dlg-grid"><div class="dlg-opts"><p class="dlg-lbl" style="margin:0">Vincular a</p>';
+        opts.forEach(o => { html += '<button type="button" class="dlg-opt" data-d="' + o[0] + '" aria-pressed="' + (dest === o[0]) + '">' + o[1] + '</button>'; });
+        html += '</div><div>';
+        if (dest === 'slide') {
+          html += '<p class="dlg-lbl">Seleccionar un lugar de este documento</p><ul class="dlg-list">';
+          SLIDES.forEach(s => { html += '<li><button type="button" class="dlg-li" data-s="' + s[0] + '" aria-pressed="' + (dSlide === s[0]) + '">' + s[0] + '. ' + esc(s[1]) + '</button></li>'; });
+          html += '</ul>';
+        } else if (dest === 'addr') {
+          html += '<p class="dlg-lbl">Buscar en la carpeta (archivos)</p><ul class="dlg-list">';
+          FILES.forEach(f => { html += '<li><button type="button" class="dlg-li" data-f="' + esc(f) + '" aria-pressed="' + (dAddr === f) + '">' + esc(f) + '</button></li>'; });
+          html += '</ul><label class="dlg-lbl" for="dlgAddr">Dirección</label><input type="text" class="anim-input" id="dlgAddr" value="' + esc(dAddr) + '" placeholder="Elegí un archivo o pegá una dirección web" autocomplete="off" />';
+        } else {
+          html += '<p class="dlg-note">Esta opción existe en PowerPoint, pero no se usa en esta clase. Elegí <b>Lugar de este documento</b> o <b>Archivo o página web existente</b>.</p>';
+        }
+        html += '</div></div>';
+        body.innerHTML = html;
+        body.querySelectorAll('.dlg-opt').forEach(b => b.addEventListener('click', () => { dest = b.dataset.d; drawDialog(); }));
+        body.querySelectorAll('[data-s]').forEach(b => b.addEventListener('click', () => { dSlide = Number(b.dataset.s); drawDialog(); }));
+        body.querySelectorAll('[data-f]').forEach(b => b.addEventListener('click', () => { dAddr = b.dataset.f; drawDialog(); }));
+        const inp = document.getElementById('dlgAddr');
+        if (inp) inp.addEventListener('input', () => { dAddr = inp.value; refreshOk(); });
+        refreshOk();
+        rem.hidden = !links[sel];
+      }
+      function refreshOk() {
+        ok.disabled = !(sel !== null && ((dest === 'slide' && dSlide !== null) || (dest === 'addr' && dAddr.trim() !== '')));
+      }
+
+      function loadDraft() {
+        const l = links[sel];
+        if (l && l.type === 'slide') { dest = 'slide'; dSlide = l.n; dAddr = ''; }
+        else if (l) { dest = 'addr'; dSlide = null; dAddr = l.v; }
+        else { dest = 'slide'; dSlide = null; dAddr = ''; }
+      }
+
+      function say(html) { info.innerHTML = html; }
+      function idle() {
+        if (mode === 'show') say('Estás en la <b>presentación con diapositivas</b>. Hacé clic en un texto azul para seguir su enlace; los textos sin enlace no hacen nada.');
+        else say('Estás en <b>Edición</b>. Hacé clic en un renglón del índice para seleccionarlo y completar la ventana de la derecha.');
+      }
+
+      function showOver(html) { over.innerHTML = html; over.classList.add('on'); }
+      function hideOver() { over.classList.remove('on'); over.innerHTML = ''; over.classList.remove('file'); }
+
+      function follow(i) {
+        const l = links[i];
+        if (!l) { say('«<b>' + esc(ITEMS[i]) + '</b>» no tiene hipervínculo: no pasa nada al hacer clic. Por eso se ve en negro y sin subrayar.'); return; }
+        if (l.type === 'slide') {
+          showOver('<span class="num">Diapositiva ' + l.n + '</span><span class="big">' + esc(SLIDES[l.n - 1][1]) + '</span><span class="row"><button type="button" id="ixBack">← Volver al índice</button></span>');
+          say('Al hacer clic en «<b>' + esc(ITEMS[i]) + '</b>», la presentación <b>salta a ' + esc(destText(l)) + '</b>. Para volver, acá hay un botón; en PowerPoint haría falta otro enlace o un botón de acción.');
+        } else if (l.type === 'file') {
+          over.classList.add('file');
+          showOver('<span class="num">Aviso de PowerPoint</span><span class="msg">Está a punto de abrir un archivo. ¿Desea abrirlo?</span><span class="url">' + esc(l.v) + '</span><span class="row"><button type="button" id="ixYes">Sí, abrir</button><button type="button" class="alt" id="ixNo">No</button></span>');
+          say('Un enlace a un <b>archivo</b> hace que PowerPoint pida confirmación antes de abrirlo. Es normal.');
+        } else {
+          showOver('<span class="num">Se abre el navegador</span><span class="url">' + esc(l.v) + '</span><span class="row"><button type="button" id="ixBack">← Volver a la presentación</button></span>');
+          say('Un enlace a una <b>página web</b> abre el navegador con esa dirección. Tiene que estar escrita completa.');
+        }
+        const back = document.getElementById('ixBack'); if (back) back.addEventListener('click', () => { hideOver(); idle(); });
+        const yes = document.getElementById('ixYes');
+        if (yes) yes.addEventListener('click', () => { showOver('<span class="num">Archivo abierto</span><span class="big">' + esc(l.v) + '</span><span class="msg">Se abre con el programa asociado (una imagen, con el visor de imágenes).</span><span class="row"><button type="button" id="ixBack2">← Volver a la presentación</button></span>'); over.classList.remove('file'); document.getElementById('ixBack2').addEventListener('click', () => { hideOver(); idle(); }); say('El archivo <b>' + esc(l.v) + '</b> se abrió. Al cerrarlo, volvés a la presentación.'); });
+        const no = document.getElementById('ixNo'); if (no) no.addEventListener('click', () => { hideOver(); idle(); });
+      }
+
+      function onItem(i) {
+        if (mode === 'show') { follow(i); return; }
+        sel = i; loadDraft(); drawList(); drawDialog();
+        say('Seleccionaste «<b>' + esc(ITEMS[i]) + '</b>». ' + (links[i] ? 'Ya tiene un enlace a ' + esc(destText(links[i])) + '; podés cambiarlo o quitarlo.' : 'Elegí a dónde tiene que llevar y tocá <b>Aceptar</b>.'));
+      }
+
+      ok.addEventListener('click', () => {
+        if (sel === null) return;
+        const i = sel;
+        if (dest === 'slide') links[i] = { type: 'slide', n: dSlide };
+        else links[i] = { type: isUrl(dAddr) ? 'url' : 'file', v: dAddr.trim() };
+        drawList(); drawDialog();
+        say('Listo: «<b>' + esc(ITEMS[i]) + '</b>» ahora es un hipervínculo a ' + esc(destText(links[i])) + '. Se ve <b>azul y subrayado</b>. Pasá a Presentación para probarlo.');
+      });
+      rem.addEventListener('click', () => {
+        if (sel === null) return;
+        const i = sel; delete links[i]; loadDraft(); drawList(); drawDialog();
+        say('Se quitó el hipervínculo de «<b>' + esc(ITEMS[i]) + '</b>»: vuelve a ser texto común.');
+      });
+      document.getElementById('ixLoad').addEventListener('click', () => {
+        links = { 0: { type: 'slide', n: 3 }, 1: { type: 'slide', n: 4 }, 8: { type: 'url', v: URL_EJ } };
+        hideOver(); sel = null; drawList(); drawDialog();
+        say('Se cargó el ejemplo de la guía: «Técnicas de comunicación no verbal» lleva a la diapositiva 3, «Recomendación» a la 4 y «Link a web» a la página de Ciencia Popular. Pasá a <b>Presentación</b> para probarlos.');
+      });
+      document.getElementById('ixClear').addEventListener('click', () => {
+        links = {}; hideOver(); sel = null; loadDraft(); drawList(); drawDialog();
+        say('Se borraron todos los enlaces: el índice vuelve a ser una lista común.');
+      });
+      modeBox.querySelectorAll('[data-m]').forEach(b => b.addEventListener('click', () => {
+        mode = b.dataset.m;
+        modeBox.querySelectorAll('[data-m]').forEach(x => x.setAttribute('aria-pressed', x.dataset.m === mode ? 'true' : 'false'));
+        stage.classList.toggle('presenting', mode === 'show');
+        hideOver(); sel = null; loadDraft(); drawList(); drawDialog(); idle();
+      }));
+      drawList(); drawDialog(); idle();
+    })();
+
+    /* ===== 2. Vista previa de impresión ===== */
+    (function () {
+      const LAY = [
+        ['full', 'Diapositivas de página completa', 1, 'Diapositivas'],
+        ['notes', 'Páginas de notas', 1, 'Diapositivas'],
+        ['d2', '2 diapositivas', 2, 'Documentos'],
+        ['d3', '3 diapositivas (con líneas para notas)', 3, 'Documentos'],
+        ['d4h', '4 diapositivas horizontal', 4, 'Documentos'], ['d4v', '4 diapositivas vertical', 4, 'Documentos'],
+        ['d6h', '6 diapositivas horizontal', 6, 'Documentos'], ['d6v', '6 diapositivas vertical', 6, 'Documentos'],
+        ['d9h', '9 diapositivas horizontal', 9, 'Documentos'], ['d9v', '9 diapositivas vertical', 9, 'Documentos']
+      ];
+      const GRID = { d4: [2, 2], d6: [2, 3], d9: [3, 3] };
+      const total = document.getElementById('prTotal'), range = document.getElementById('prRange'), layout = document.getElementById('prLayout'),
+            stage = document.getElementById('prStage'), info = document.getElementById('prInfo'), pageLbl = document.getElementById('prPage'),
+            prev = document.getElementById('prPrev'), next = document.getElementById('prNext');
+      let page = 0;
+      layout.setAttribute('aria-label', 'Diseño de impresión');
+      ['Diapositivas', 'Documentos'].forEach(g => {
+        const og = document.createElement('optgroup'); og.label = g === 'Diapositivas' ? 'Impresión de diapositivas' : 'Documentos';
+        LAY.filter(l => l[3] === g).forEach(l => { const o = document.createElement('option'); o.value = l[0]; o.textContent = l[1]; og.appendChild(o); });
+        layout.appendChild(og);
+      });
+      layout.value = 'full';
+
+      function parseRange(txt, n) {
+        txt = txt.replace(/\s+/g, '');
+        if (!txt) { const all = []; for (let i = 1; i <= n; i++) all.push(i); return { list: all, all: true }; }
+        const set = {};
+        const parts = txt.split(',');
+        for (const p of parts) {
+          let m;
+          if ((m = /^(\d+)$/.exec(p))) { const a = +m[1]; if (a < 1 || a > n) return { error: 'La diapositiva ' + a + ' no existe: la presentación tiene ' + n + '.' }; set[a] = 1; }
+          else if ((m = /^(\d+)-(\d+)$/.exec(p))) {
+            const a = +m[1], b = +m[2];
+            if (a < 1 || b > n) return { error: 'El intervalo ' + p + ' se sale de 1 a ' + n + '.' };
+            if (a > b) return { error: 'En el intervalo ' + p + ' el primer número tiene que ser menor.' };
+            for (let i = a; i <= b; i++) set[i] = 1;
+          } else return { error: 'No entiendo «' + p + '». Usá números, guion y coma: 5, 1-5 o 1,3,5-7.' };
+        }
+        return { list: Object.keys(set).map(Number).sort((a, b) => a - b), all: false };
+      }
+
+      const box = (n) => '<div class="pr-s' + (n ? '' : ' none') + '">' + (n || '') + '</div>';
+      const lines = (k, cls) => '<div class="pr-lines' + (cls ? ' ' + cls : '') + '">' + '<i></i>'.repeat(k) + '</div>';
+
+      function sheet(kind, nums) {
+        if (kind === 'full') return '<div class="pr-sheet landscape"><div class="pr-in" style="justify-content:center">' + box(nums[0]) + '</div></div>';
+        if (kind === 'notes') return '<div class="pr-sheet portrait"><div class="pr-in"><div style="width:68%;margin:3cqw auto 7cqw">' + box(nums[0]) + '</div>' + lines(9) + '</div></div>';
+        if (kind === 'd2') return '<div class="pr-sheet portrait"><div class="pr-in" style="justify-content:space-around;align-items:center">' + [0, 1].map(i => '<div style="width:72%">' + box(nums[i]) + '</div>').join('') + '</div></div>';
+        if (kind === 'd3') return '<div class="pr-sheet portrait"><div class="pr-in" style="justify-content:space-around">' + [0, 1, 2].map(i => '<div style="display:grid;grid-template-columns:44% 1fr;gap:6cqw;align-items:center">' + box(nums[i]) + lines(3, 'sm') + '</div>').join('') + '</div></div>';
+        const base = kind.slice(0, 2), vert = kind.charAt(2) === 'v', g = GRID[base], cols = g[0], rows = g[1];
+        let cells = '';
+        for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+          const idx = vert ? c * rows + r : r * cols + c;
+          cells += '<div>' + box(nums[idx]) + '</div>';
+        }
+        return '<div class="pr-sheet portrait"><div class="pr-in" style="justify-content:center"><div style="display:grid;grid-template-columns:repeat(' + cols + ',1fr);gap:' + (cols === 3 ? 3 : 5) + 'cqw;align-content:space-around;height:100%">' + cells + '</div></div></div>';
+      }
+
+      function update(resetPage) {
+        if (resetPage) page = 0;
+        let n = Math.max(1, Math.min(60, parseInt(total.value, 10) || 1));
+        const r = parseRange(range.value, n);
+        const lay = LAY.filter(l => l[0] === layout.value)[0], per = lay[2], kind = lay[0];
+        if (r.error) {
+          stage.innerHTML = '<p class="anim-status" style="margin:0;align-self:center">' + esc(r.error) + '</p>';
+          info.innerHTML = '<b>Rango no válido.</b> ' + esc(r.error) + ' Corregí el rango para ver la hoja.';
+          pageLbl.textContent = 'Hoja –'; prev.disabled = next.disabled = true; return;
+        }
+        const list = r.list, pages = Math.max(1, Math.ceil(list.length / per));
+        if (page > pages - 1) page = pages - 1;
+        const nums = []; for (let i = 0; i < per; i++) nums.push(list[page * per + i]);
+        stage.innerHTML = sheet(kind, nums);
+        pageLbl.textContent = 'Hoja ' + (page + 1) + ' de ' + pages;
+        prev.disabled = page === 0; next.disabled = page >= pages - 1;
+        const cuales = r.all ? 'todas las diapositivas' : (list.length === 1 ? 'la diapositiva ' + list[0] : 'las diapositivas ' + esc(range.value.replace(/\s+/g, '')));
+        let extra = '';
+        if (kind === 'notes') extra = ' Cada hoja lleva <b>una diapositiva con sus notas</b> debajo (si no escribiste notas, el espacio queda vacío).';
+        else if (kind === 'd3') extra = ' Es el diseño para <b>entregar al público</b>: tiene líneas para anotar.';
+        else if (per >= 4) extra = ' Gasta pocas hojas, pero las diapositivas salen chicas y sin espacio para notas.';
+        else if (kind === 'full') extra = ' Es el diseño por defecto: una diapositiva grande por hoja.';
+        info.innerHTML = 'Se imprimen <b>' + cuales + '</b> (' + list.length + (list.length === 1 ? ' diapositiva' : ' diapositivas') + ') con el diseño <b>' + esc(lay[1]) + '</b>: <b>' + pages + (pages === 1 ? ' hoja' : ' hojas') + '</b>.' + extra;
+      }
+      [total, range].forEach(e => e.addEventListener('input', () => update(true)));
+      layout.addEventListener('change', () => update(true));
+      prev.addEventListener('click', () => { page--; update(false); });
+      next.addEventListener('click', () => { page++; update(false); });
+      update(true);
+    })();
+
+    /* ===== Copiar el texto de las notas ===== */
+    (function () {
+      const btn = document.getElementById('notaCopy'), msg = document.getElementById('notaMsg'), box = document.getElementById('notaTexto');
+      btn.addEventListener('click', async () => {
+        const txt = box.innerText.replace(/\n{2,}/g, '\n').trim();
+        try {
+          await navigator.clipboard.writeText(txt);
+          msg.textContent = 'Texto copiado. Pegalo en el área de notas con Ctrl + V.';
+        } catch (e) {
+          const rg = document.createRange(); rg.selectNodeContents(box);
+          const s = window.getSelection(); s.removeAllRanges(); s.addRange(rg);
+          msg.textContent = 'No se pudo copiar solo: el texto quedó seleccionado, copialo con Ctrl + C.';
+        }
+      });
+    })();
+
+    /* ===== Listas de control (se guardan en el navegador) ===== */
+    function checklist(key, listId, barId, fillId, labelId, noun) {
+      const boxes = Array.from(document.querySelectorAll('#' + listId + ' input'));
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch (e) { saved = {}; }
+      function update() {
+        const n = boxes.filter(b => b.checked).length;
+        document.getElementById(labelId).textContent = n + ' de ' + boxes.length + ' ' + noun[n === 1 ? 0 : 1];
+        document.getElementById(fillId).style.width = (n / boxes.length * 100) + '%';
+        document.getElementById(barId).setAttribute('aria-valuenow', String(Math.round(n / boxes.length * 100)));
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(key, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    }
+    checklist('m11-clase13-act-v1', 'actList', 'actBar', 'actFill', 'actLabel', ['consigna hecha', 'consignas hechas']);
+    checklist('m11-clase13-balance-v1', 'balList', 'balBar', 'balFill', 'balLabel', ['clase lograda', 'clases logradas']);
+    (function () {
+      const t = document.getElementById('balTxt'), KEY = 'm11-clase13-inquietudes-v1';
+      try { t.value = localStorage.getItem(KEY) || ''; } catch (e) {}
+      t.addEventListener('input', () => { try { localStorage.setItem(KEY, t.value); } catch (e) {} });
+    })();
+  </script>
+</body>
+</html>
