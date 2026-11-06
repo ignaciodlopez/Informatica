@@ -1252,7 +1252,8 @@
           <p class="eyebrow">Recursos multimedia</p>
           <h2>Videos de la clase</h2>
           <p>
-            Video de <strong>El Tío Tech</strong>, con los temas de la clase y enlaces al minuto donde se explica cada uno. El video usa un ejemplo de facturas en lugar de clientes morosos y una versión de Excel más vieja (2016), así que los menús pueden verse algo distintos;
+            Dos videos de <strong>El Tío Tech</strong>, con enlaces al minuto donde se explica cada tema. El primero cubre toda la clase; el segundo es una introducción corta a las macros, para ver el editor de Visual Basic paso a paso.
+            El primero usa un ejemplo de facturas en lugar de clientes morosos y una versión de Excel más vieja (2016), así que los menús pueden verse algo distintos;
             los pasos son los mismos. Los números del ejemplo (fechas de 2019, celdas donde guarda los contadores) no coinciden con los de esta página.
           </p>
         </div>
@@ -1292,6 +1293,35 @@
               </p>
               <p class="video-ask"><b>Consigna:</b> ¿para qué sirve el signo <code class="f">$</code> delante de la columna en una regla de formato condicional? ¿Qué diferencia hay entre <code class="f">CONTAR.SI</code> y <code class="f">CONTAR.SI.CONJUNTO</code>? ¿Qué hay que hacer para que un libro conserve una macro y se ejecute al abrirlo?</p>
               <details class="video-ans"><summary>Ver respuesta</summary><p>El <code class="f">$</code> <strong>fija la columna</strong> de la fórmula: la regla se escribe para la primera celda y se copia a las demás, y sin <code class="f">$</code> la columna se correría (<code class="f">L3</code> pasaría a <code class="f">M3</code>). <code class="f">CONTAR.SI</code> cuenta con <strong>una</strong> condición y <code class="f">CONTAR.SI.CONJUNTO</code> con <strong>varias</strong> (pares de rango y criterio), por ejemplo mayor que 0 <em>y</em> menor que 4. Para conservar la macro hay que <strong>guardar como Libro de Excel habilitado para macros (.xlsm)</strong>, escribir el código en <strong>ThisWorkbook → Workbook → Open</strong> y, al abrir el archivo, tocar <strong>Habilitar contenido</strong>.</p></details>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/vm7jl9Dfts0" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/vm7jl9Dfts0/hqdefault.jpg" alt="Miniatura del video Mi primera MACRO en EXCEL | Curso de VBA" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Mi primera MACRO en EXCEL | Curso de VBA</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Tío Tech · 7 min · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=0s" target="_blank" rel="noopener noreferrer">Presentación 0:00</a> ·
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=14s" target="_blank" rel="noopener noreferrer">Guardar como libro con macros 0:14</a> ·
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=43s" target="_blank" rel="noopener noreferrer">Abrir el editor de VBA 0:43</a> ·
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=57s" target="_blank" rel="noopener noreferrer">Crear un módulo 0:57</a> ·
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=87s" target="_blank" rel="noopener noreferrer">Estructura de una macro: Sub y End Sub 1:27</a> ·
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=171s" target="_blank" rel="noopener noreferrer">Reglas para el nombre 2:51</a> ·
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=249s" target="_blank" rel="noopener noreferrer">Comando MsgBox 4:09</a> ·
+                <a href="https://www.youtube.com/watch?v=vm7jl9Dfts0&t=281s" target="_blank" rel="noopener noreferrer">Ejecutar la macro 4:41</a>
+              </p>
+              <p style="margin:0.6rem 0 0;font-size:0.85rem;color:var(--muted);line-height:1.6;">
+                <strong>Ojo:</strong> en este video la macro se escribe en un <strong>módulo</strong> y se ejecuta a mano con el botón ▶. En la clase la escribimos en <strong>ThisWorkbook</strong> con el evento <code class="f">Open</code>, para que corra sola al abrir el archivo. El editor, <code class="f">Sub</code>, <code class="f">End Sub</code> y <code class="f">MsgBox</code> son los mismos.
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿con qué palabras empieza y termina una macro? ¿Qué tres reglas tiene que cumplir el nombre de una macro? ¿En qué orden ejecuta Excel las instrucciones del código?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>Una macro empieza con <code class="f">Sub nombre()</code> y termina con <code class="f">End Sub</code>; todo lo que va en el medio es lo que hace la macro. El nombre <strong>no puede empezar con un número</strong>, <strong>no puede tener espacios</strong> (se reemplazan con un guion bajo, por ejemplo <code class="f">mi_primera_macro</code>) y <strong>no puede llevar signos de puntuación ni caracteres especiales</strong>. El código se ejecuta <strong>de arriba hacia abajo</strong> y, en cada línea, de izquierda a derecha: si hay dos <code class="f">MsgBox</code>, aparece primero el de arriba y, cuando se acepta, el de abajo.</p></details>
             </div>
           </article>
         </div>
