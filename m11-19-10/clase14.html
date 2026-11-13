@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | M11-19-10 · Clase 14</title>
+  <meta
+    name="description"
+    content="Clase 14 de Informática Aplicada (M11-19-10): parcial de la Unidad 2. Cada estudiante desarrolla una presentación de PowerPoint y la expone en clase. Consigna, requisitos, criterios de evaluación y consejos para preparar la exposición."
+  />
+  <link rel="stylesheet" href="../styles.css?v=6" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== CLASE 14: parcial (presentación en PowerPoint) ===== */
+    .lectura-clase { max-width: 46rem; margin: 1.4rem 0 2rem; padding: 0.2rem 0 0.2rem 1.1rem; border-left: 4px solid var(--primary); }
+    .lectura-clase p { margin: 0 0 0.85rem; font-size: 1.04rem; line-height: 1.75; color: var(--text); }
+    .lectura-clase p:last-child { margin-bottom: 0; }
+
+    /* listas de control */
+    .tp-bar { height: 0.55rem; border-radius: 999px; background: var(--surface-soft); border: 1px solid var(--line); overflow: hidden; margin: 0.6rem 0 0.3rem; }
+    .tp-bar > div { height: 100%; width: 0; background: var(--primary); transition: width 0.25s; }
+    .tp-label { margin: 0 0 0.6rem; font-size: 0.82rem; color: var(--muted); }
+    .tp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+    .tp-list label { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.55rem 0.75rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); cursor: pointer; font-size: 0.92rem; line-height: 1.45; }
+    .tp-list input { margin-top: 0.25rem; width: 1.05rem; height: 1.05rem; accent-color: var(--primary); flex: none; }
+    .tp-list input:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .tp-list input:checked + span { color: var(--muted); }
+    .tp-list span { overflow-wrap: anywhere; }
+    .tp-list small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.1rem; }
+    .info-card .tp-list { padding-left: 0; margin-left: 0; }
+
+    /* grupos de requisitos */
+    .req-group { margin-top: 1.4rem; }
+    .req-group:first-of-type { margin-top: 0.4rem; }
+    .req-group h4 { margin: 0 0 0.5rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+    /* plan de trabajo (pasos numerados) */
+    .plan-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.7rem; counter-reset: plan; max-width: 52rem; }
+    .plan-list li { counter-increment: plan; position: relative; padding: 0.8rem 1rem 0.8rem 3.6rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); font-size: 0.94rem; line-height: 1.55; color: var(--text); overflow-wrap: anywhere; }
+    .plan-list li::before { content: counter(plan); position: absolute; left: 0.9rem; top: 0.75rem; width: 2rem; height: 2rem; border-radius: 50%; background: var(--primary); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .plan-list li strong:first-child { display: block; font-size: 1rem; margin-bottom: 0.1rem; }
+    .plan-list small { display: block; margin-top: 0.2rem; color: var(--muted); font-size: 0.82rem; }
+
+    /* datos del parcial */
+    .dato-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.8rem; margin-top: 1.2rem; }
+    .dato { padding: 0.95rem 1rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .dato .dato-k { margin: 0; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .dato .dato-v { margin: 0.25rem 0 0; font-size: 1.25rem; font-weight: 800; color: var(--text); line-height: 1.25; }
+    .dato .dato-n { margin: 0.2rem 0 0; font-size: 0.82rem; color: var(--muted); line-height: 1.4; }
+
+    .paso-det { margin-top: 0.75rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0.1rem 1.1rem; }
+    .paso-det summary { cursor: pointer; font-weight: 700; padding: 0.8rem 0; list-style: none; color: var(--text); font-size: 0.95rem; }
+    .paso-det summary::-webkit-details-marker { display: none; }
+    .paso-det summary::before { content: "+"; display: inline-block; width: 1.1rem; color: var(--primary); font-weight: 800; }
+    .paso-det[open] summary::before { content: "–"; }
+    .paso-det summary:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+    .paso-det p, .paso-det ul, .paso-det ol { margin: 0 0 0.9rem; font-size: 0.93rem; line-height: 1.6; }
+    .paso-det ul, .paso-det ol { padding-left: 1.3rem; }
+    .paso-det li { overflow-wrap: anywhere; margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">M11-19-10</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#parcial">El parcial</a>
+        <a href="#consigna">Consigna</a>
+        <a href="#plan">Plan de trabajo</a>
+        <a href="#requisitos">Requisitos</a>
+        <a href="#evaluacion">Evaluación</a>
+        <a href="#exposicion">Exposición</a>
+        <a href="#dia">El día del parcial</a>
+        <a href="#repaso">Repaso</a>
+        <a href="#consultas">Consultas</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · M11-19-10 · Unidad 2</p>
+        <h1>Parcial: tu presentación en PowerPoint</h1>
+        <p class="lead">
+          En esta clase <strong>no hay teoría nueva</strong>. Vas a usar todo lo que
+          aprendiste en la Unidad 2 para <strong>desarrollar una presentación de
+          PowerPoint</strong> sobre un tema que elijas y <strong>exponerla en la clase virtual</strong>.
+          Esta página te explica qué se pide, cómo se evalúa y cómo prepararte.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#consigna">Ver la consigna</a>
+          <a class="btn btn-secondary" href="#requisitos">Ir a los requisitos</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 14 · Unidad 2</li>
+          <li>Parcial</li>
+          <li>Exposición en la clase virtual</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo del parcial</p>
+        <h2>Demostrar que sabés armar y presentar una presentación completa</h2>
+        <p>
+          Se mira el <strong>archivo</strong> (diseño, animaciones, índice con enlaces, notas) y
+          también <strong>cómo lo exponés</strong>: claridad, orden y manejo del tiempo.
+        </p>
+
+        <div class="mini-flow" aria-hidden="true">
+          <span>Elegir el tema</span>
+          <span>Armar las diapositivas</span>
+          <span>Ensayar</span>
+          <span>Presentar</span>
+        </div>
+
+        <div class="hero-note">
+          <span>Cómo trabajar esta página</span>
+          <p>
+            Leé la consigna, seguí el <a href="#plan">plan de trabajo</a> y usá la
+            <a href="#requisitos">lista de requisitos</a> para controlar tu archivo antes de
+            entregarlo. Lo que tildás queda guardado en tu navegador.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- EL PARCIAL -->
+    <section class="section" id="parcial">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Cómo es el parcial</p>
+          <h2>Una presentación propia, expuesta en clase</h2>
+          <p>
+            El parcial tiene <strong>dos partes que se evalúan juntas</strong>: el archivo de PowerPoint que desarrollás y la exposición oral que hacés en clase.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Hasta ahora trabajaste sobre archivos ya armados: agregabas un fondo, una animación o un enlace a una presentación que te daba la guía. En el parcial pasa a ser <strong>tu presentación de principio a fin</strong>. Vos elegís el tema, decidís cuántas diapositivas necesita cada idea y cómo se ve.</p>
+          <p>No se busca una presentación recargada. Se busca una presentación <strong>clara y bien armada</strong>, que use las herramientas de la unidad cuando ayudan a explicar y que puedas contar sin leerla toda.</p>
+          <p>Como la exposición es por videollamada, <strong>necesitás tener funcionando el micrófono, la cámara y la opción de compartir pantalla</strong>. Probalos con tiempo: en el <a href="#dia">día del parcial</a> y en las <a href="#consultas">consultas</a> está qué hacer si alguno falla.</p>
+        </div>
+
+        <div class="dato-grid">
+          <div class="dato">
+            <p class="dato-k">Qué entregás</p>
+            <p class="dato-v">Un archivo .pptx</p>
+            <p class="dato-n">Con tu apellido en el nombre del archivo.</p>
+          </div>
+          <div class="dato">
+            <p class="dato-k">Tamaño</p>
+            <p class="dato-v">7 a 10 diapositivas</p>
+            <p class="dato-n">Contando portada, índice y cierre.</p>
+          </div>
+          <div class="dato">
+            <p class="dato-k">Exposición</p>
+            <p class="dato-v">5 a 7 minutos</p>
+            <p class="dato-n">Seguida de unas pocas preguntas.</p>
+          </div>
+          <div class="dato">
+            <p class="dato-k">Necesitás</p>
+            <p class="dato-v">Micrófono, cámara y compartir pantalla</p>
+            <p class="dato-n">Para exponer en la clase virtual.</p>
+          </div>
+          <div class="dato">
+            <p class="dato-k">Tema</p>
+            <p class="dato-v">A elección</p>
+            <p class="dato-n">Ver ideas en la consigna.</p>
+          </div>
+          <div class="dato">
+            <p class="dato-k">Evaluación</p>
+            <p class="dato-v">Cinco criterios</p>
+            <p class="dato-n">Se mira el archivo y la exposición.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSIGNA -->
+    <section class="section alt" id="consigna">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Consigna</p>
+          <h2>Qué tenés que hacer</h2>
+          <p>
+            Desarrollá una presentación de PowerPoint sobre un tema de tu elección y exponela en clase.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>La presentación tiene que <strong>explicarle algo a tu curso</strong>. Puede ser un tema de la vida cotidiana, de tu trabajo o de algo que te guste. Lo importante es que tengas algo para contar y que puedas organizarlo en partes.</p>
+          <p>Elegí un tema que conozcas un poco, para no gastar el tiempo buscando información. Si dudás entre dos, elegí el que te resulte más fácil de ilustrar con imágenes, un cuadro o un esquema.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-blue">
+            <p class="card-label">Ideas de temas</p>
+            <h3>Si no se te ocurre uno</h3>
+            <ul>
+              <li>Mi ciudad o mi barrio: qué tiene para mostrar.</li>
+              <li>Un oficio o una profesión: en qué consiste y cómo se aprende.</li>
+              <li>Un deporte, un hobby o un instrumento.</li>
+              <li>Hábitos saludables: sueño, alimentación o actividad física.</li>
+              <li>Cómo cuidarse en internet: contraseñas, estafas y privacidad.</li>
+              <li>Un emprendimiento que te gustaría armar.</li>
+              <li>Técnicas de estudio o de comunicación (como en la presentación de la Clase 13).</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-green">
+            <p class="card-label">Qué tiene que tener</p>
+            <h3>En resumen</h3>
+            <ul>
+              <li>Una <strong>portada</strong> y un <strong>índice con enlaces</strong>.</li>
+              <li>Un <strong>desarrollo</strong> de 4 a 7 diapositivas, con imágenes y formas.</li>
+              <li>Animaciones y transiciones <strong>con criterio</strong>.</li>
+              <li><strong>Notas</strong> con lo que vas a decir.</li>
+              <li>Un <strong>cierre</strong> con las ideas principales.</li>
+            </ul>
+            <p style="margin: 0.7rem 0 0; font-size: 0.85rem; color: var(--muted);">El detalle está en la <a href="#requisitos">lista de requisitos</a>.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAN DE TRABAJO -->
+    <section class="section" id="plan">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para no dejarlo para último momento</p>
+          <h2>Plan de trabajo en seis pasos</h2>
+          <p>
+            Una presentación se arma mucho más rápido si primero se piensa y recién después se abre PowerPoint.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>El error más común es abrir PowerPoint sin saber qué se va a contar. El resultado son diapositivas llenas de texto copiado y un diseño que se cambia diez veces. Seguí este orden y vas a trabajar más tranquilo o tranquila.</p>
+        </div>
+
+        <ol class="plan-list">
+          <li>
+            <strong>Elegí el tema y definí qué querés que entiendan.</strong>
+            Escribí en una sola frase la idea principal de tu presentación.
+            <small>Por ejemplo: “Quiero que entiendan por qué conviene usar contraseñas largas”.</small>
+          </li>
+          <li>
+            <strong>Armá el esquema en papel.</strong>
+            Anotá los títulos de las diapositivas, una por renglón: portada, índice, entre 4 y 7 temas y cierre.
+            <small>Cada diapositiva tiene una sola idea. Si tiene dos, son dos diapositivas.</small>
+          </li>
+          <li>
+            <strong>Armá las diapositivas.</strong>
+            Primero el contenido y el diseño: fondo, títulos, imágenes, formas y, si ayuda, un SmartArt o una tabla.
+            <small>Repasá la <a href="clase9.html">Clase 9</a> y la <a href="clase10.html">Clase 10</a>.</small>
+          </li>
+          <li>
+            <strong>Sumá el movimiento.</strong>
+            Elegí un par de animaciones y una transición. Menos es mejor: que se note qué importa.
+            <small>Repasá la <a href="clase11.html">Clase 11</a> y la <a href="clase12.html">Clase 12</a>.</small>
+          </li>
+          <li>
+            <strong>Armá la navegación y las notas.</strong>
+            Creá el índice con hipervínculos a cada tema, un botón para volver y escribí en las notas lo que vas a decir.
+            <small>Repasá la <a href="clase13.html">Clase 13</a>.</small>
+          </li>
+          <li>
+            <strong>Ensayá en voz alta, con cronómetro.</strong>
+            Presentá como si hubiera público, al menos dos veces, y ajustá lo que sobre o falte.
+            <small>La meta es quedar entre 5 y 7 minutos.</small>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- REQUISITOS -->
+    <section class="section alt" id="requisitos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Lista de control</p>
+          <h2>Requisitos de la presentación</h2>
+          <p>
+            Antes de entregar, revisá que tu archivo cumpla con todo lo de esta lista. Los títulos de cada grupo indican en qué clase se explica la herramienta.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>La lista está agrupada por tema. Tildá cada punto a medida que lo resolvés, y al final comprobá que la barra llegue al 100 %. Esta lista es solo para vos: no se envía a ningún lado ni se guarda fuera de tu navegador.</p>
+        </div>
+
+        <div class="info-card accent-blue">
+          <p class="card-label">Requisitos</p>
+          <h3>Tu lista de control</h3>
+          <div class="tp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="reqBar"><div id="reqFill"></div></div>
+          <p class="tp-label" id="reqLabel">0 de 19 requisitos cumplidos</p>
+
+          <div class="req-group">
+            <h4>Estructura</h4>
+            <ul class="tp-list" data-grupo="req">
+              <li><label><input type="checkbox" data-k="e1" /><span><strong>Portada</strong> con el título del tema, tu nombre y la fecha.</span></label></li>
+              <li><label><input type="checkbox" data-k="e2" /><span><strong>Índice</strong> en la diapositiva 2, con el título de cada tema.</span></label></li>
+              <li><label><input type="checkbox" data-k="e3" /><span><strong>Desarrollo</strong>: entre 4 y 7 diapositivas, cada una con una sola idea.</span></label></li>
+              <li><label><input type="checkbox" data-k="e4" /><span><strong>Cierre</strong>: una diapositiva final con las ideas principales o una conclusión.</span></label></li>
+            </ul>
+          </div>
+
+          <div class="req-group">
+            <h4>Diseño · <a href="clase9.html">Clase 9</a> y <a href="clase10.html">Clase 10</a></h4>
+            <ul class="tp-list" data-grupo="req">
+              <li><label><input type="checkbox" data-k="d1" /><span><strong>Un mismo estilo</strong> en todas las diapositivas: fondo, tipo de letra y colores coherentes.</span></label></li>
+              <li><label><input type="checkbox" data-k="d2" /><span><strong>Texto legible</strong>: letra grande (24 puntos o más) y pocas líneas por diapositiva.</span></label></li>
+              <li><label><input type="checkbox" data-k="d3" /><span>Al menos <strong>tres imágenes o formas</strong> que ayuden a explicar (no de adorno).</span></label></li>
+              <li><label><input type="checkbox" data-k="d4" /><span>Al menos <strong>un SmartArt o una tabla</strong> para mostrar una idea de manera visual.</span></label></li>
+            </ul>
+          </div>
+
+          <div class="req-group">
+            <h4>Movimiento · <a href="clase11.html">Clase 11</a> y <a href="clase12.html">Clase 12</a></h4>
+            <ul class="tp-list" data-grupo="req">
+              <li><label><input type="checkbox" data-k="m1" /><span><strong>Animaciones</strong> en al menos tres diapositivas, con un efecto de entrada que no distraiga.</span></label></li>
+              <li><label><input type="checkbox" data-k="m2" /><span>Una <strong>transición</strong> entre diapositivas, la misma en toda la presentación.</span></label></li>
+              <li><label><input type="checkbox" data-k="m3" /><span>Probaste todo con <strong>F5</strong>: el orden de las animaciones es el que querés.</span></label></li>
+            </ul>
+          </div>
+
+          <div class="req-group">
+            <h4>Navegación y notas · <a href="clase13.html">Clase 13</a></h4>
+            <ul class="tp-list" data-grupo="req">
+              <li><label><input type="checkbox" data-k="n1" /><span><strong>Hipervínculos</strong> del índice a cada diapositiva de tema.</span></label></li>
+              <li><label><input type="checkbox" data-k="n2" /><span>Un <strong>botón de acción</strong> (por ejemplo, “Inicio”) para volver al índice desde el desarrollo.</span></label></li>
+              <li><label><input type="checkbox" data-k="n3" /><span>Un <strong>enlace a una página web</strong> o a un archivo, que abra bien al hacer clic.</span></label></li>
+              <li><label><input type="checkbox" data-k="n4" /><span><strong>Notas</strong> en las diapositivas del desarrollo, con lo que vas a decir.</span></label></li>
+            </ul>
+          </div>
+
+          <div class="req-group">
+            <h4>Entrega</h4>
+            <ul class="tp-list" data-grupo="req">
+              <li><label><input type="checkbox" data-k="n5" /><span>El archivo se llama con tu <strong>apellido</strong> (por ejemplo, <em>Lopez - Parcial.pptx</em>).</span></label></li>
+              <li><label><input type="checkbox" data-k="n6" /><span>Tenés una <strong>copia de seguridad</strong> en tu correo o en la nube.</span></label></li>
+              <li><label><input type="checkbox" data-k="n8" /><span>Probaste que te funcionen el <strong>micrófono</strong>, la <strong>cámara</strong> y la opción de <strong>compartir pantalla</strong>.</span></label></li>
+              <li><label><input type="checkbox" data-k="n7" /><span>Ensayaste la exposición <strong>con cronómetro</strong> y quedó entre 5 y 7 minutos.</span></label></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hero-note" style="margin-top: 1.5rem;">
+          <span>Un detalle de los enlaces a archivos</span>
+          <p>
+            Si enlazás un archivo (una imagen, un PDF, un documento), guardalo <strong>en la misma carpeta que la presentación</strong> y tené la carpeta entera a mano el día del parcial. Si movés solo el .pptx a otra carpeta o a otra computadora, el enlace se rompe. Y si tu docente tiene que abrir tu presentación en su equipo, un enlace a un archivo tampoco funcionaría. Por eso, <strong>conviene que el enlace sea a una página web</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVALUACIÓN -->
+    <section class="section" id="evaluacion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Criterios de evaluación</p>
+          <h2>Cómo se evalúa el parcial</h2>
+          <p>
+            Hay cinco criterios. La tabla dice qué se mira en cada uno y qué hace falta para llegar al máximo.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Fijate que <strong>la exposición cuenta tanto como el archivo</strong>. Una presentación hermosa que se lee de corrido, o un archivo con errores que se explica bien, no alcanzan por sí solos. Los dos aspectos cuentan.</p>
+          <p>La nota final la define tu docente.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Criterio</th>
+                <th>Para llegar al máximo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Contenido y organización</strong></td>
+                <td>El tema se entiende. Hay portada, índice, desarrollo y cierre. Cada diapositiva tiene una sola idea y el texto está escrito con tus palabras, no copiado.</td>
+              </tr>
+              <tr>
+                <td><strong>2. Diseño y recursos visuales</strong></td>
+                <td>Estilo coherente, texto legible, imágenes y formas que ayudan, un SmartArt o una tabla bien usados. No hay elementos desalineados ni superpuestos.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Animaciones y transiciones</strong></td>
+                <td>Animaciones en al menos tres diapositivas, con un orden pensado, y una transición uniforme. Ayudan a explicar y no distraen.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Navegación y notas</strong></td>
+                <td>Todos los hipervínculos funcionan. Hay botón para volver, un enlace web o a un archivo y notas en el desarrollo.</td>
+              </tr>
+              <tr>
+                <td><strong>5. Exposición oral</strong></td>
+                <td>Se explica con claridad y sin leer toda la diapositiva. Se respeta el tiempo (5 a 7 minutos). Se responde con seguridad a las preguntas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPOSICIÓN -->
+    <section class="section alt" id="exposicion">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Para exponer mejor</p>
+          <h2>Cómo preparar la exposición</h2>
+          <p>
+            La presentación es tu apoyo. Quien habla sos vos.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Una buena regla es que la diapositiva muestre <strong>pocas palabras</strong> y vos pongas el resto. Si lo que dice la diapositiva es lo mismo que decís en voz alta, el público lee y no te escucha. Por eso existe el área de notas: ahí va tu guion, que solo ves vos.</p>
+          <p>Para imprimir el guion, usá <strong>Páginas de notas</strong>, como practicaste en la <a href="clase13.html#t-imprimir">Clase 13</a>. Conviene tenerlo impreso (o en otro dispositivo) porque, mientras compartís pantalla con la presentación en marcha, <strong>las notas no se ven</strong>.</p>
+        </div>
+
+        <div class="two-col">
+          <article class="info-card accent-green">
+            <p class="card-label">Qué hacer</p>
+            <h3>Buenas prácticas</h3>
+            <ul>
+              <li>Empezá diciendo de qué vas a hablar y por qué lo elegiste.</li>
+              <li>Mirá a la cámara, no solo a la pantalla. Compartí la presentación y pasá vos las diapositivas.</li>
+              <li>Hablá más despacio de lo que te parece necesario.</li>
+              <li>Explicá con tus palabras cada imagen o esquema.</li>
+              <li>Mostrá el índice y, al menos una vez, usá un enlace para saltar a un tema.</li>
+              <li>Cerrá repasando las dos o tres ideas principales.</li>
+            </ul>
+          </article>
+
+          <article class="info-card accent-blue">
+            <p class="card-label">Qué evitar</p>
+            <h3>Errores frecuentes</h3>
+            <ul>
+              <li>Leer la diapositiva de corrido.</li>
+              <li>Poner párrafos enteros en letra chica.</li>
+              <li>Usar un efecto distinto en cada diapositiva.</li>
+              <li>Animar todo: si todo se mueve, nada resalta.</li>
+              <li>Dejar enlaces sin probar.</li>
+              <li>Pasarse del tiempo por no haber ensayado.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EL DÍA DEL PARCIAL -->
+    <section class="section" id="dia">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Antes de conectarte a la clase</p>
+          <h2>El día del parcial</h2>
+          <p>
+            Un problema técnico de último momento no tiene por qué arruinar el trabajo.
+          </p>
+        </div>
+
+        <div class="lectura-clase">
+          <p>Lo que más suele fallar el día de la presentación no es PowerPoint, sino la conexión o el archivo: no anda el micrófono, no se puede compartir pantalla, se perdió un enlace o se abre con otra fuente. Para exponer necesitás <strong>micrófono, cámara y compartir pantalla</strong>. Estas tres precauciones evitan casi todos los problemas.</p>
+        </div>
+
+        <div class="summary-grid">
+          <article class="info-card accent-blue">
+            <p class="card-label">Tené a mano</p>
+            <h3>El archivo, con copia</h3>
+            <p>La carpeta completa de la presentación (el .pptx y los archivos enlazados), con una copia en tu correo o en la nube. Así podés enviarla si no lográs compartir pantalla.</p>
+          </article>
+          <article class="info-card accent-green">
+            <p class="card-label">Probá</p>
+            <h3>Micrófono, cámara y pantalla</h3>
+            <p>Antes de tu turno, revisá que se escuche tu micrófono, que se vea tu cámara y que puedas compartir pantalla, además de la conexión. Abrí la presentación con F5 y comprobá que los enlaces y las animaciones funcionen.</p>
+          </article>
+          <article class="info-card accent-blue">
+            <p class="card-label">Por si falla</p>
+            <h3>Tu guion a mano</h3>
+            <p>Si usás las notas, imprimí las Páginas de notas. Si no podés compartir pantalla, igual podés hablar mientras tu docente pasa tu presentación en PowerPoint.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPASO -->
+    <section class="section alt" id="repaso">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Si no recordás cómo se hace algo</p>
+          <h2>Repaso rápido: dónde está cada herramienta</h2>
+          <p>
+            Cada tema del parcial se explicó en una clase de la unidad. Esta tabla te lleva directo a la página correspondiente.
+          </p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Si necesitás…</th>
+                <th>Mirá la</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Insertar diapositivas, cambiar el fondo, agregar cuadros de texto, formas e imágenes</td><td><a href="clase9.html">Clase 9</a></td></tr>
+              <tr><td>Usar un fondo con imagen, transparencias, SmartArt o tablas</td><td><a href="clase10.html">Clase 10</a></td></tr>
+              <tr><td>Animar textos y objetos, y ordenar las animaciones</td><td><a href="clase11.html">Clase 11</a></td></tr>
+              <tr><td>Elegir transiciones y presentar con intervalos de tiempo</td><td><a href="clase12.html">Clase 12</a></td></tr>
+              <tr><td>Crear el índice con hipervínculos y botones de acción</td><td><a href="clase13.html#t-hipervinculos">Clase 13 · Hipervínculos</a></td></tr>
+              <tr><td>Escribir las notas e imprimirlas</td><td><a href="clase13.html#t-notas">Clase 13 · Notas</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSULTAS -->
+    <section class="section" id="consultas">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Preguntas frecuentes</p>
+          <h2>Consultas sobre el parcial</h2>
+          <p>
+            Abrí la pregunta que tengas. Si no encontrás tu duda, escribila en el <strong>Foro: Dudas y Consultas · Unidad 2</strong>.
+          </p>
+        </div>
+
+        <details class="paso-det">
+          <summary>¿Puedo usar una plantilla de diseño de PowerPoint?</summary>
+          <p>Sí, si la elegís vos y la usás en toda la presentación. Lo que importa es que el estilo sea coherente y que el texto se lea bien. Pero el diseño es parte de lo que se evalúa, así que aunque la plantilla ayude, el fondo, las imágenes y los colores tienen que estar pensados para tu tema.</p>
+        </details>
+
+        <details class="paso-det">
+          <summary>¿Dónde consigo las imágenes?</summary>
+          <p>Podés usar fotos propias o imágenes de internet. Elegí imágenes nítidas, que no queden estiradas, y evitá las que tengan marcas de agua. Si las bajás de una página, nombrá la fuente en la diapositiva de cierre.</p>
+        </details>
+
+        <details class="paso-det">
+          <summary>¿Puedo leer las notas mientras expongo?</summary>
+          <p>Podés apoyarte en ellas, pero no leer todo de corrido. Las notas sirven para no olvidarte de nada, como una guía. Si pasás la presentación leyendo, se resiente la exposición.</p>
+        </details>
+
+        <details class="paso-det">
+          <summary>¿Qué pasa si no me alcanza el tiempo o me paso?</summary>
+          <p>Conviene ensayar antes con cronómetro. Si te pasás, sacá detalles y quedate con las ideas principales. Es mejor una presentación corta y clara que una larga que se corta a la mitad.</p>
+        </details>
+
+        <details class="paso-det">
+          <summary>¿Qué hago si no puedo compartir pantalla o falla algo en la videollamada?</summary>
+          <p>No pasa nada: <strong>podés hablar y tu docente presenta tu archivo en PowerPoint</strong>. Avisá que no podés compartir pantalla, enviá la presentación (y los archivos enlazados, si los hay) por el medio que te indique tu docente y exponé con tus palabras mientras se pasan las diapositivas. Podés indicar “siguiente” cada vez que quieras avanzar.</p>
+          <p>Antes de tu turno, probá la cámara, el micrófono, la conexión y la opción de compartir pantalla. Y si usás enlaces, probalos: un enlace que no abre es un error evitable.</p>
+        </details>
+
+        <details class="paso-det">
+          <summary>¿Dónde está el archivo de ejemplo?</summary>
+          <p>No hay un archivo base: la presentación es tuya desde cero. Como modelo de cómo se ve un índice con enlaces podés tomar la presentación <em>PresentaciondeComunicacion</em> con la que trabajaste en la <a href="clase13.html#practica">Clase 13</a>.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGACIÓN ENTRE CLASES -->
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="clase13.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Clase 13 · Hipervínculos, notas e impresión</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Fin de la Unidad 2</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · M11-19-10 · Unidad 2 · Clase 14</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    (function () {
+      const nav = document.querySelector('.topbar-nav');
+      let down = false, startX = 0, left = 0;
+      nav.addEventListener('mousedown', e => { down = true; nav.classList.add('dragging'); startX = e.pageX - nav.offsetLeft; left = nav.scrollLeft; });
+      nav.addEventListener('mouseleave', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mouseup', () => { down = false; nav.classList.remove('dragging'); });
+      nav.addEventListener('mousemove', e => { if (!down) return; e.preventDefault(); nav.scrollLeft = left - (e.pageX - nav.offsetLeft - startX) * 1.5; });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        const r = a.getBoundingClientRect(), n = nav.getBoundingClientRect();
+        nav.scrollBy({ left: r.left + r.width / 2 - (n.left + n.width / 2), behavior: 'smooth' });
+      }));
+    })();
+
+    /* ===== Lista de requisitos (se guarda en el navegador) ===== */
+    (function () {
+      const KEY = 'm11-clase14-req-v1';
+      const boxes = Array.from(document.querySelectorAll('.tp-list[data-grupo="req"] input'));
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+      function update() {
+        const n = boxes.filter(b => b.checked).length;
+        document.getElementById('reqLabel').textContent = n + ' de ' + boxes.length + ' requisito' + (n === 1 ? ' cumplido' : 's cumplidos');
+        document.getElementById('reqFill').style.width = (n / boxes.length * 100) + '%';
+        document.getElementById('reqBar').setAttribute('aria-valuenow', String(Math.round(n / boxes.length * 100)));
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    })();
+  </script>
+</body>
+</html>
