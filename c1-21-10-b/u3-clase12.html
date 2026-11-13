@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informática Aplicada | C1-21-10 · Todas las comisiones · Clase 12</title>
+  <meta
+    name="description"
+    content="Clase 12 de Informática Aplicada (C1-21-10, Todas las comisiones): función BUSCAR, hipervínculos, segmentación de datos e impresión correcta en Excel, y un trabajo práctico integrador de toda la Unidad 3."
+  />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B754967QP7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B754967QP7');
+  </script>
+  <link rel="stylesheet" href="../styles.css" />
+  <script data-cfasync="false">if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+  <style>
+    /* ===== ACTIVIDADES ===== */
+    .actividad-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .actividad-block::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .actividad-block .act-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .actividad-block h3 { font-size: 1rem; margin: 0 0 0.75rem; }
+    .progress { height: 0.7rem; background: var(--surface-soft); border-radius: 999px; overflow: hidden; margin: 0.4rem 0 0.2rem; }
+    .progress > div { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 999px; transition: width 0.3s; }
+    .progress-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); margin: 0; }
+    .chk-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+    .chk-list li { background: var(--surface-soft); border-radius: 12px; padding: 0.7rem 0.9rem; }
+    .chk-list label { display: flex; gap: 0.7rem; cursor: pointer; align-items: flex-start; }
+    .chk-list input { width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; accent-color: var(--accent); flex: none; }
+    .chk-list .chk-txt { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+    .chk-list .chk-txt small { display: block; color: var(--muted); font-size: 0.8rem; margin-top: 0.15rem; }
+    .chk-list input:checked + .chk-txt { opacity: 0.6; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.25); }
+    .chk-list input:checked + .chk-txt small { text-decoration: none; }
+
+    /* Preguntas frecuentes y respuestas que se despliegan */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0.5rem;
+      padding: 0.1rem 1.1rem;
+      margin-top: 0.75rem;
+      max-width: 62rem;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0.75rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: "+";
+      display: inline-block;
+      width: 1.1rem;
+      margin-right: 0.5rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .faq-item[open] summary::before { content: "–"; }
+    .faq-item p {
+      margin: 0 0 0.9rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .faq-item ul, .faq-item ol { margin: 0 0 0.9rem; padding-left: 1.2rem; font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .faq-item p strong, .faq-item li strong { color: var(--text); }
+
+    /* Video cards con miniatura */
+    .video-thumb-link { position: absolute; inset: 0; display: block; }
+    .video-thumb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,23,42,0.15);
+    }
+    .video-thumb-play span {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(15,23,42,0.75);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .video-thumb-play span::after {
+      content: "";
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 13px 0 13px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 5px;
+      display: block;
+    }
+    .video-ask { margin: 0.6rem 0 0; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--surface-soft); font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .video-ask b { color: var(--primary); }
+    .video-ans { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+    .video-ans summary { cursor: pointer; font-weight: 700; color: var(--primary); }
+    .video-ans p { margin: 0.4rem 0 0; line-height: 1.55; }
+
+    /* ===== Texto base ===== */
+    code.f { font-family: Consolas, 'Courier New', monospace; background: var(--surface-soft); border-radius: 4px; padding: 0.05rem 0.4rem; font-size: 0.85em; color: var(--primary); }
+    [data-theme="dark"] code.f { background: rgba(255,255,255,0.1); color: #93c5fd; }
+    kbd {
+      display: inline-block;
+      padding: 0.05rem 0.45rem;
+      border: 1px solid var(--line);
+      border-bottom-width: 3px;
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.8em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    /* fórmulas largas: que se partan en lugar de ensanchar la página en el celular */
+    .chk-list .chk-txt, .leyenda li > span:last-child { min-width: 0; }
+    .chk-txt code.f, .nota code.f, .faq-item code.f, .plain li code.f, .plain p code.f { overflow-wrap: anywhere; }
+    .topbar-nav { cursor: grab; }
+    .topbar-nav.dragging { cursor: grabbing; user-select: none; }
+    .topics { margin: 0; padding-left: 1.2rem; color: var(--text); line-height: 1.9; columns: 2; column-gap: 2.5rem; }
+    @media (max-width: 700px) { .topics { columns: 1; } }
+    .plain h3 { margin: 2rem 0 0.4rem; }
+    .plain p { margin: 0.4rem 0; color: var(--muted); max-width: 62rem; line-height: 1.7; }
+    .plain p strong, .plain li strong { color: var(--text); }
+    .plain ul, .plain ol.lista { margin: 0.4rem 0; padding-left: 1.2rem; color: var(--muted); line-height: 1.75; max-width: 62rem; }
+    .plain .table-card { margin: 0.8rem 0; }
+    .rule { margin: 1rem 0 0; padding: 0.7rem 1rem; border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; font-size: 0.92rem; color: var(--text); max-width: 62rem; }
+    .plain p.rule { color: var(--text); }
+
+    /* pasos numerados y fórmula destacada */
+    .plain h3.paso { display: flex; align-items: center; gap: 0.65rem; margin: 2.4rem 0 0.5rem; }
+    .paso-n { flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.9rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+    .plain p.fx-line { display: inline-block; margin: 0.4rem 0; padding: 0.55rem 0.95rem; border-radius: 10px; background: var(--surface-soft); border: 1px solid var(--line); font-family: Consolas, 'Courier New', monospace; font-size: 0.95rem; font-weight: 700; color: var(--primary); max-width: 100%; overflow-x: auto; }
+    [data-theme="dark"] .plain p.fx-line { color: #93c5fd; }
+
+    /* introducción de cada sección: globo blanco, sin franja de color */
+    .lectura { margin: 1.4rem 0 1.8rem; padding: 1.2rem 1.5rem 1.3rem; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); max-width: 62rem; }
+    .lectura p:not(.lectura-label) { margin: 0; font-size: 1.05rem; line-height: 1.8; color: var(--text); }
+    .lectura p + p:not(.lectura-label) { margin-top: 0.75rem; }
+
+    /* ===== CLASE 12: recursos de estudio ===== */
+    /* cajas de color: borde fino del mismo tono en todo el contorno y etiqueta en píldora (sin franja lateral) */
+    .nota { --tono: var(--primary); --tono-borde: rgba(41, 92, 136, 0.28); --tono-txt: #fff; margin: 1.4rem 0; padding: 1rem 1.3rem 1.1rem; border-radius: 14px; border: 1px solid var(--tono-borde); background: var(--surface-soft); max-width: 62rem; color: var(--text); font-size: 0.95rem; line-height: 1.7; }
+    .nota .nota-t { display: inline-block; margin: 0 0 0.45rem; padding: 0.2rem 0.75rem; border-radius: 999px; background: var(--tono); color: var(--tono-txt); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; }
+    .plain .nota p, .nota p { margin: 0.35rem 0 0; color: var(--text); max-width: none; }
+    .nota ul, .nota ol { margin: 0.4rem 0 0; padding-left: 1.2rem; color: var(--text); line-height: 1.7; }
+    .nota.analogia { --tono: #a8641f; --tono-borde: rgba(212, 138, 67, 0.4); background: var(--warm-soft); }
+    .nota.error { --tono: #a23a68; --tono-borde: rgba(196, 104, 141, 0.4); background: var(--rose-soft); }
+    .nota.pensa { --tono: #1c6b5c; --tono-borde: rgba(35, 135, 117, 0.35); background: var(--accent-soft); }
+    .nota.meta { --tono: var(--primary); --tono-borde: rgba(41, 92, 136, 0.3); background: var(--sky-soft); }
+    [data-theme="dark"] .nota { --tono-txt: #0f172a; }
+    [data-theme="dark"] .nota.analogia { --tono: #f0b57a; --tono-borde: rgba(240, 181, 122, 0.35); }
+    [data-theme="dark"] .nota.error { --tono: #f09bc0; --tono-borde: rgba(240, 155, 192, 0.35); }
+    [data-theme="dark"] .nota.pensa { --tono: #6fd6bf; --tono-borde: rgba(111, 214, 191, 0.35); }
+    [data-theme="dark"] .nota.meta { --tono: #93c5fd; --tono-borde: rgba(147, 197, 253, 0.35); }
+    .nota .faq-item { background: var(--surface); }
+
+    /* pasos cortos: una tarjeta por paso, con el número a la izquierda */
+    ol.pasos { list-style: none; counter-reset: paso; margin: 0.8rem 0 1rem; padding: 0; display: grid; gap: 0.6rem; max-width: 62rem; }
+    ol.pasos > li { counter-increment: paso; display: flex; gap: 0.85rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 0.8rem 1rem; color: var(--text); font-size: 0.98rem; line-height: 1.6; }
+    ol.pasos > li::before { content: counter(paso); flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--primary); color: #fff; font-size: 0.9rem; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+    ol.pasos > li > div { min-width: 0; }
+    ol.pasos small { display: block; margin-top: 0.2rem; color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+    .faq-item .table-card { margin: 0.2rem 0 1rem; }
+    .faq-item .table-card:hover { transform: none; box-shadow: none; }
+    .plain > .faq-item { margin-top: 0.6rem; }
+
+    /* sin franjas laterales en el resto de los destacados de esta página */
+    .rule { border-left: 0; border: 1px solid rgba(35, 135, 117, 0.35); border-radius: 12px; padding: 0.8rem 1.1rem; }
+    .card-example { border-left: 0; border: 1px solid var(--line); border-radius: 10px; }
+    .actividad-block::before { display: none; }
+
+    .tiempo { display: inline-block; margin: 0.2rem 0 0.6rem; padding: 0.2rem 0.7rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 0.78rem; color: var(--muted); }
+    .tiempo a { color: var(--primary); font-weight: 700; text-decoration: underline; }
+    [data-theme="dark"] .tiempo a { color: #93c5fd; }
+
+    /* anatomía de una fórmula: tres colores */
+    .p1, .p2, .p3 { border-radius: 4px; padding: 0.05rem 0.25rem; }
+    .p1 { background: rgba(41, 92, 136, 0.22); }
+    .p2 { background: rgba(35, 135, 117, 0.28); }
+    .p3 { background: rgba(212, 138, 67, 0.34); }
+    .leyenda { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; gap: 0.5rem; max-width: 62rem; }
+    .leyenda li { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.92rem; line-height: 1.6; color: var(--muted); }
+    .leyenda li strong { color: var(--text); }
+    .leyenda .sw { flex: none; width: 1.1rem; height: 1.1rem; border-radius: 4px; margin-top: 0.25rem; }
+
+    /* recortes de planilla (estáticos) */
+    .tb-wrap { overflow-x: auto; background: #fff; border: 1px solid #9ca3af; border-radius: 8px; margin: 0.8rem 0 0; max-width: 62rem; }
+    table.tb { border-collapse: collapse; width: 100%; font-size: 0.78rem; color: #111; background: #fff; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .tb th, .tb td { border: 1px solid #d4d4d4; padding: 0 0.6rem; height: 1.6rem; white-space: nowrap; text-align: left; }
+    .tb th { background: #f3f4f6; font-weight: 700; }
+    .tb th.cl { background: #e6e6e6; color: #374151; font-weight: 500; text-align: center; }
+    .tb td.r, .tb th.r { text-align: right; }
+    .tb td.rn { text-align: center; width: 2.4rem; padding: 0; background: #e6e6e6; color: #374151; font-weight: 500; }
+    .tb td.hot { background: #fde68a; font-weight: 700; }
+    .tb td.res { background: #e4f1ea; font-weight: 700; color: #14532d; }
+    .tb td.in { background: #fff7d6; font-weight: 700; }
+    .tb th.sheet { background: #217346; color: #fff; }
+    .tb-cap { margin: 0.35rem 0 0; font-size: 0.8rem; color: var(--muted); max-width: 62rem; }
+
+    /* dibujo de un segmentador */
+    .slicers { display: flex; flex-wrap: wrap; gap: 0.9rem; margin: 0.9rem 0 0; }
+    .slicer { width: 11rem; background: #fff; border: 1px solid #9ca3af; border-radius: 4px; font-family: 'Segoe UI', system-ui, sans-serif; color: #111; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .slicer .sl-h { display: flex; justify-content: space-between; align-items: center; padding: 0.3rem 0.6rem; font-size: 0.8rem; font-weight: 700; background: #f3f4f6; border-bottom: 1px solid #d4d4d4; }
+    .slicer .sl-h i { font-style: normal; font-size: 0.7rem; color: #6b7280; font-weight: 500; }
+    .slicer .sl-b { padding: 0.4rem; display: grid; gap: 0.3rem; }
+    .slicer .sl-b span { display: block; padding: 0.25rem 0.5rem; border: 1px solid #d4d4d4; font-size: 0.78rem; background: #fff; }
+    .slicer .sl-b span.on { background: #217346; color: #fff; border-color: #217346; font-weight: 700; }
+    .slicer .sl-b span.off { color: #9ca3af; background: #f3f4f6; }
+
+    /* cartel de descarga del archivo del TP */
+    .descarga { display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap; margin: 1.2rem 0; padding: 1.1rem 1.4rem; background: linear-gradient(135deg, var(--sky-soft), var(--accent-soft)); border: 1px solid var(--tono-borde, rgba(35, 135, 117, 0.35)); border-radius: 16px; max-width: 62rem; }
+    .descarga .d-ico { flex: none; width: 2.8rem; height: 2.8rem; color: var(--accent); }
+    .descarga .d-ico svg { width: 100%; height: 100%; display: block; }
+    .descarga .d-txt { flex: 1 1 14rem; min-width: 0; font-size: 1.05rem; font-weight: 700; color: var(--text); overflow-wrap: anywhere; }
+    .descarga .btn { flex: none; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap topbar-content">
+      <a class="topbar-brand" href="index.html">C1-21-10 · Todas las comisiones</a>
+      <nav class="topbar-nav" aria-label="Navegación por secciones">
+        <a href="#inicio">Inicio</a>
+        <a href="#ruta">Contenidos</a>
+        <a href="#buscar">BUSCAR</a>
+        <a href="#vinculos">Hipervínculos</a>
+        <a href="#segmentacion">Segmentación</a>
+        <a href="#imprimir">Imprimir</a>
+        <a href="#actividades">Actividades</a>
+        <a href="#tp">TP integrador</a>
+        <a href="#faq">Preguntas frecuentes</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#videos">Videos</a>
+      </nav>
+      <button id="darkmode-toggle" class="darkmode-btn" aria-label="Activar modo oscuro" title="Modo oscuro"></button>
+    </div>
+  </div>
+
+  <header class="hero" id="inicio">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Informática Aplicada · C1-21-10 · Todas las comisiones · Unidad 3</p>
+        <h1>Buscar, enlazar, segmentar e imprimir en Excel</h1>
+        <p class="lead">
+          Cerramos la <strong>Unidad 3</strong> con cuatro herramientas para sacarle provecho a una lista grande de datos:
+          la función <strong>BUSCAR</strong> para encontrar un dato, los <strong>hipervínculos</strong> para moverse entre hojas con un clic,
+          la <strong>segmentación de datos</strong> para ver la información por categorías y la configuración de <strong>impresión</strong> para llevarla a papel o a PDF sin que se corte.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#ruta">Ver los contenidos</a>
+          <a class="btn btn-secondary" href="#actividades">Ir a actividades</a>
+        </div>
+
+        <ul class="hero-meta" aria-label="Datos rápidos de la clase">
+          <li>Clase 12</li>
+          <li>Microsoft Excel</li>
+          <li>Ejercicio: Elementos</li>
+          <li>TP integrador</li>
+        </ul>
+      </div>
+
+      <aside class="hero-card">
+        <p class="card-label">Objetivo de la clase</p>
+        <h2>Encontrar, enlazar, filtrar con botones e imprimir bien una lista de 61 repuestos</h2>
+        <p>
+          Con una sola lista de datos vas a practicar <code class="f">BUSCAR</code>, vínculos entre hojas, segmentadores y la configuración de página.
+        </p>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- CONTENIDOS -->
+    <section class="section" id="ruta">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Lo que vamos a ver</p>
+          <h2>Contenidos de la clase</h2>
+          <p>
+            Se apoya en el video <strong>“Curso básico de Excel · Capítulo 5”</strong> y en la hoja <strong>Elementos</strong> del archivo <strong>Ejercicio 2 - Fechas y funciones</strong>.
+            Es la última clase del curso básico: junta cosas que ya viste. Las <strong>referencias absolutas</strong> (<a href="u3-clase9.html#absoluta">Clase 9</a>),
+            las <strong>tablas y filtros</strong> (<a href="u3-clase10.html">Clase 10</a>) y el <strong>SI anidado</strong> (<a href="u3-clase11.html">Clase 11</a>) vuelven a aparecer hoy.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Imaginá que alguien te entrega una lista con <strong>61 repuestos</strong> de una máquina y te hace cuatro pedidos: “decime cuánto cuesta el repuesto número 25”, “armame un acceso rápido para pasar de una hoja a otra”, “mostrame solo los repuestos caros” y “imprimímelo para la reunión”.</p>
+          <p>Con lo que sabías hasta ahora, cada pedido te llevaría un buen rato de buscar con la vista, cambiar de pestaña, ocultar filas a mano y pelearte con la impresora. Hoy aprendés una herramienta para cada pedido, y vas a ver que, una vez que entendés la idea de cada una, se hacen en pocos clics.</p>
+        </div>
+
+        <div class="nota meta">
+          <span class="nota-t">Al terminar la clase vas a poder</span>
+          <ul>
+            <li><strong>Explicar</strong> qué hace <code class="f">BUSCAR</code>, qué le tenés que dar y por qué la lista debe estar ordenada.</li>
+            <li><strong>Escribir</strong> una búsqueda que traiga varios datos de una fila a partir de un solo número.</li>
+            <li><strong>Crear</strong> vínculos hacia otra hoja, un archivo, una página web o un correo, tanto en celdas como en dibujos.</li>
+            <li><strong>Armar</strong> segmentadores sobre una tabla y leer los totales de lo que queda filtrado.</li>
+            <li><strong>Configurar</strong> la impresión: área, encabezados repetidos, ajuste a la hoja y exportación a PDF.</li>
+          </ul>
+        </div>
+
+        <ol class="topics">
+          <li>Función BUSCAR</li>
+          <li>Insertar vínculos (hipervínculos)</li>
+          <li>Segmentación de datos</li>
+          <li>Imprimir</li>
+          <li>Práctica: Ejercicio 2 · Elementos</li>
+          <li>Trabajo práctico integrador: Ventas del mes (toda la Unidad 3)</li>
+        </ol>
+
+        <h3>Primero, activá lo que ya sabés</h3>
+        <p>
+          Recordar antes de aprender algo nuevo ayuda a que lo nuevo “se enganche” con lo viejo. Contestá mentalmente estas tres preguntas y después abrí la respuesta para comparar.
+          No pasa nada si no te acordás: justamente para eso sirve intentarlo.
+        </p>
+        <details class="faq-item">
+          <summary>¿Qué hace el signo $ en una referencia como $A$2:$A$62?</summary>
+          <p>Fija la referencia para que no se corra cuando copiás la fórmula a otra celda. Lo vimos en la <a href="u3-clase9.html#absoluta">Clase 9</a>. Hoy lo vamos a necesitar en las búsquedas.</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo se convierte un rango de datos en una tabla y para qué sirve?</summary>
+          <p>Seleccionando una celda de los datos y apretando <kbd>Ctrl</kbd>+<kbd>T</kbd> (o <strong>Insertar → Tabla</strong>). La tabla tiene formato propio, botones de filtro en los encabezados y se agranda sola cuando agregás filas. Es el requisito de la segmentación de datos.</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo se escribe un SI anidado con tres resultados posibles?</summary>
+          <p>Poniendo un <code class="f">SI</code> adentro del “falso” del primero: <code class="f">=SI(A1&lt;10;"Bajo";SI(A1&lt;50;"Medio";"Alto"))</code>. Lo practicamos en las clases <a href="u3-clase10.html">10</a> y <a href="u3-clase11.html">11</a>; hoy lo usamos para crear una categoría.</p>
+        </details>
+
+        <h3>Cómo está armada la página</h3>
+        <p>
+          Tené Excel abierto al lado y <strong>hacé mientras leés</strong>. Cada tema sigue el mismo recorrido corto: <strong>qué es → una comparación → cómo se hace (4 pasos) → pensá antes de seguir</strong>.
+          Lo demás (errores típicos, variantes, tablas de apoyo) está en <strong>desplegables cerrados</strong>: abrilos solo si los necesitás. Calculá unos 10 a 15 minutos por tema y, si te trabás, mirá ese tema en el video (cada uno tiene el minuto).
+        </p>
+
+        <h3>Conocé tus datos antes de usarlos</h3>
+        <p>
+          La hoja <strong>Elementos</strong> es una <strong>lista de repuestos</strong> de una máquina (por los nombres, una excavadora): sellos, bombas, engranajes, filtros. Tiene <strong>61 filas</strong> de datos, de la 2 a la 62, y esta estructura:
+        </p>
+        <div class="tb-wrap">
+          <table class="tb">
+            <thead>
+              <tr><th class="cl"></th><th class="cl">A</th><th class="cl">B</th><th class="cl">C</th><th class="cl">D</th><th class="cl">E</th><th class="cl">F</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="rn">1</td><th>ITEM</th><th>NRO-PARTE</th><th>DESCRIPCION</th><th>CANTIDAD</th><th>PRECIO/U</th><th>PRECIO/T</th></tr>
+              <tr><td class="rn">2</td><td class="r">1</td><td>31N6-10110-SK</td><td>MCV SEAL KIT</td><td class="r">3</td><td class="r">24,72</td><td class="r">74,16</td></tr>
+              <tr><td class="rn">3</td><td class="r">2</td><td>S732-085030</td><td>BUSHING-DU</td><td class="r">6</td><td class="r">7,61</td><td class="r">45,66</td></tr>
+              <tr><td class="rn">4</td><td class="r">3</td><td>11N7-10020</td><td>ELEMENT-COUPLING</td><td class="r">2</td><td class="r">40,27</td><td class="r">80,54</td></tr>
+              <tr><td class="rn">5</td><td class="r">4</td><td>2474-7009</td><td>PUMP COUPLING RUBBER</td><td class="r">2</td><td class="r">23,80</td><td class="r">47,60</td></tr>
+              <tr><td class="rn">...</td><td class="r">…</td><td>…</td><td>…</td><td class="r">…</td><td class="r">…</td><td class="r">…</td></tr>
+              <tr><td class="rn">62</td><td class="r">61</td><td>E131-0212-A</td><td>ELEMENT-RETURN FILTER</td><td class="r">8</td><td class="r">11,90</td><td class="r">95,20</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tb-cap">Recorte de la hoja Elementos (columnas A a F). Las columnas G y H guardan el peso unitario y el peso total.</p>
+        <ul>
+          <li><strong>ITEM:</strong> el número de orden, del 1 al 61. <strong>No se repite</strong> y la lista ya está <strong>ordenada de menor a mayor</strong>. Guardá esta observación: la vamos a necesitar en el tema de BUSCAR.</li>
+          <li><strong>NRO-PARTE:</strong> el código del fabricante. Ojo: <strong>algunos códigos se repiten</strong> (por ejemplo, los ítems 16 y 17).</li>
+          <li><strong>DESCRIPCION:</strong> el nombre del repuesto, en inglés.</li>
+          <li><strong>CANTIDAD</strong> y <strong>PRECIO/U:</strong> cuántas unidades hay y cuánto cuesta cada una.</li>
+          <li><strong>PRECIO/T:</strong> el precio total de la fila: <strong>CANTIDAD × PRECIO/U</strong>. Ya viene calculado.</li>
+        </ul>
+        <p class="rule">
+          Antes de usar una lista, <strong>mirala con ojo crítico</strong>: ¿qué columna no se repite?, ¿cuáles son números y cuáles texto?, ¿está ordenada? Esas tres preguntas definen qué herramienta conviene usar y evitan la mayoría de los errores de esta clase.
+        </p>
+      </div>
+    </section>
+
+    <!-- BUSCAR -->
+    <section class="section alt" id="buscar">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Función BUSCAR</p>
+          <h2>Encontrar un dato en una lista a partir de otro dato</h2>
+        </div>
+
+        <h3>¿Qué es la función BUSCAR?</h3>
+        <p>
+          <strong>BUSCAR</strong> es la más simple de las funciones de búsqueda de Excel: <strong>encuentra un valor en una columna y te devuelve el dato que está en la misma fila de otra columna</strong>.
+          Sirve para pasar de un dato que conocés (el número de ítem) a otro que necesitás (la descripción o el precio) sin recorrer la lista con la vista.
+        </p>
+        <div class="nota meta">
+          <span class="nota-t">En una frase</span>
+          <p>Escribís un número de ítem y BUSCAR te trae los demás datos de esa fila.</p>
+        </div>
+        <details class="faq-item">
+          <summary>Ver más: qué recibe, qué devuelve y qué no hace</summary>
+          <div class="table-card">
+            <table>
+              <thead><tr><th>Pregunta</th><th>En BUSCAR</th></tr></thead>
+              <tbody>
+                <tr><td><strong>¿Qué recibe?</strong></td><td>El dato a encontrar, la columna donde buscarlo y, si querés, la columna de donde traer la respuesta.</td></tr>
+                <tr><td><strong>¿Qué devuelve?</strong></td><td>Un solo dato: el que está en la misma fila que el valor encontrado.</td></tr>
+                <tr><td><strong>¿Qué necesita?</strong></td><td>Que la columna donde busca esté <strong>ordenada de menor a mayor</strong>.</td></tr>
+                <tr><td><strong>¿Qué no hace?</strong></td><td>No modifica la lista, no suma ni filtra. Tampoco avisa si el valor que buscás no existe.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <p class="tiempo">En el video: <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=154s" target="_blank" rel="noopener noreferrer">tema BUSCAR desde 2:34</a></p>
+
+        <div class="nota analogia">
+          <span class="nota-t">Una comparación</span>
+          <p>Es como buscar una palabra en un <strong>diccionario</strong>: lo abrís por la mitad y te vas acercando. Eso funciona porque las palabras están <strong>en orden</strong>. Por eso BUSCAR necesita la columna <strong>ordenada de menor a mayor</strong>.</p>
+        </div>
+
+        <h3>Cómo se hace</h3>
+        <ol class="pasos">
+          <li><div><strong>Armá el buscador.</strong> Creá una hoja nueva llamada <strong>Buscador</strong> y escribí en <strong>B3</strong> el ítem a buscar, por ejemplo <code class="f">12</code>.</div></li>
+          <li><div><strong>Escribí la fórmula.</strong> En <strong>B4</strong>: <code class="f">=BUSCAR($B$3;Elementos!$A$2:$A$62;Elementos!$B$2:$B$62)</code><small>Se lee: “buscá lo de B3 en la columna ITEM y traeme lo de NRO-PARTE, de la misma fila”.</small></div></li>
+          <li><div><strong>Copiala hacia abajo</strong> (B5 a B8), cambiando solo el último rango: C, D, E y F.</div></li>
+          <li><div><strong>Probalo.</strong> Cambiá el número de B3 y mirá cómo cambian todos los datos.</div></li>
+        </ol>
+        <div class="tb-wrap">
+          <table class="tb">
+            <thead>
+              <tr><th class="cl"></th><th class="cl">A</th><th class="cl">B</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="rn">3</td><th>Ítem a buscar</th><td class="in r">12</td></tr>
+              <tr><td class="rn">4</td><th>Número de parte</th><td class="res">XKAQ-00228</td></tr>
+              <tr><td class="rn">5</td><th>Descripción</th><td class="res">GEAR PLANET NO.2</td></tr>
+              <tr><td class="rn">6</td><th>Cantidad</th><td class="res r">8</td></tr>
+              <tr><td class="rn">7</td><th>Precio unitario</th><td class="res r">44,94</td></tr>
+              <tr><td class="rn">8</td><th>Precio total</th><td class="res r">359,52</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tb-cap">La hoja Buscador. En amarillo, lo único que escribís vos (B3). En verde, lo que calcula Excel.</p>
+        <details class="faq-item">
+          <summary>Ver las cinco fórmulas (B4 a B8)</summary>
+          <p>Son todas iguales salvo el último rango, que cambia según el dato que querés traer.</p>
+          <ul>
+            <li><strong>B4</strong> número de parte: <code class="f">=BUSCAR($B$3;Elementos!$A$2:$A$62;Elementos!$B$2:$B$62)</code></li>
+            <li><strong>B5</strong> descripción: <code class="f">…;Elementos!$C$2:$C$62)</code></li>
+            <li><strong>B6</strong> cantidad: <code class="f">…;Elementos!$D$2:$D$62)</code></li>
+            <li><strong>B7</strong> precio unitario: <code class="f">…;Elementos!$E$2:$E$62)</code></li>
+            <li><strong>B8</strong> precio total: <code class="f">…;Elementos!$F$2:$F$62)</code></li>
+          </ul>
+          <p>Los <code class="f">$</code> (<a href="u3-clase9.html#absoluta">Clase 9</a>) evitan que los rangos se corran al copiar. Para escribir un rango de otra hoja, con la fórmula a medio escribir hacé clic en la pestaña <strong>Elementos</strong> y seleccioná la columna con el mouse.</p>
+        </details>
+
+        <h3>Las tres piezas</h3>
+        <p class="fx-line">=BUSCAR(<span class="p1">valor_buscado</span>; <span class="p2">vector_de_comparación</span>; <span class="p3">[vector_resultado]</span>)</p>
+        <ul class="leyenda">
+          <li><span class="sw p1"></span><span><strong>Valor buscado:</strong> lo que querés encontrar. Un solo dato (acá, <code class="f">$B$3</code>).</span></li>
+          <li><span class="sw p2"></span><span><strong>Vector de comparación:</strong> la columna donde se busca. Tiene que estar <strong>ordenada de menor a mayor</strong>.</span></li>
+          <li><span class="sw p3"></span><span><strong>Vector de resultado:</strong> la columna de donde se trae la respuesta. Es opcional (por eso va entre corchetes).</span></li>
+        </ul>
+
+        <div class="nota pensa">
+          <span class="nota-t">Pensá antes de seguir</span>
+          <p>Si escribís <strong>70</strong> en B3 (un ítem que <em>no existe</em>; la lista llega hasta el 61): ¿BUSCAR da error o muestra algún repuesto? ¿Y si escribís <strong>0</strong>?</p>
+          <details class="faq-item">
+            <summary>Ver respuesta</summary>
+            <p>Con <strong>70</strong> <strong>no da error</strong>: muestra el <strong>ítem 61</strong>, el más cercano hacia abajo. Con <strong>0</strong> da <code class="f">#N/D</code>, porque no hay ningún valor menor o igual.</p>
+            <p><strong>Lo importante:</strong> BUSCAR puede darte una respuesta que <em>parece</em> correcta pero no lo es. Comprobá siempre que el valor exista.</p>
+          </details>
+        </div>
+
+        <details class="faq-item">
+          <summary>Probalo: qué pasa si la lista no está ordenada</summary>
+          <ol>
+            <li>En la hoja <strong>Elementos</strong> ordená por <strong>PRECIO/U</strong> (<strong>Datos → Ordenar</strong>, de menor a mayor). La columna ITEM queda mezclada.</li>
+            <li>En <strong>Buscador</strong> probá los ítems 12, 25 y 40 y compará con Elementos: algunos resultados ya no coinciden o aparece <code class="f">#N/D</code>.</li>
+            <li>Volvé a ordenar Elementos por <strong>ITEM</strong> de menor a mayor y todo funciona de nuevo.</li>
+          </ol>
+          <p>Por eso existe la columna ITEM: es el “orden original” y siempre podés volver a él. El video lo muestra con una lista de nombres (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=398s" target="_blank" rel="noopener noreferrer">6:38</a>).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Errores típicos y más detalle</summary>
+          <ul>
+            <li><strong>No ordenar la columna de comparación:</strong> el resultado es incorrecto aunque la fórmula esté bien escrita.</li>
+            <li><strong>Buscar por una columna con repetidos:</strong> BUSCAR trae una sola fila (normalmente la última) y no avisa de las demás. El número de parte XKAQ-00208 está en los ítems 16 y 17: por eso se busca por ITEM.</li>
+            <li><strong>Vectores de distinto tamaño</strong> (<code class="f">$A$2:$A$62</code> con <code class="f">$B$2:$B$61</code>): los resultados se desfasan.</li>
+            <li><strong>Olvidar los <code class="f">$</code>:</strong> al copiar, los rangos se corren.</li>
+            <li><strong>El tercer argumento es opcional</strong> (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=488s" target="_blank" rel="noopener noreferrer">8:08</a>): si lo omitís, devuelve el mismo dato que buscaste. El resultado puede estar a la izquierda o a la derecha del dato buscado.</li>
+            <li><strong>Las “hermanas”:</strong> BUSCARX (y también BUSCARV y BUSCARH, si les ponés <code class="f">FALSO</code> como último argumento) pueden buscar valores exactos aunque la lista esté desordenada. Se ven en el curso intermedio.</li>
+          </ul>
+        </details>
+
+        <h3>Chequeá si entendiste</h3>
+        <details class="faq-item">
+          <summary>1. ¿Qué diferencia hay entre el “valor buscado” y el “vector de comparación”?</summary>
+          <p>El valor buscado es <strong>un solo dato</strong>; el vector de comparación es la <strong>lista</strong> (columna o fila) donde Excel lo busca.</p>
+        </details>
+        <details class="faq-item">
+          <summary>2. ¿Por qué se buscó por ITEM y no por NRO-PARTE?</summary>
+          <p>Porque ITEM no tiene repetidos y ya está ordenado de menor a mayor. NRO-PARTE tiene códigos repetidos.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- HIPERVÍNCULOS -->
+    <section class="section" id="vinculos">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Hipervínculos</p>
+          <h2>Insertar vínculos para moverse con un clic</h2>
+        </div>
+
+        <h3>¿Qué es un hipervínculo?</h3>
+        <p>
+          Un <strong>hipervínculo</strong> (o <em>vínculo</em>) es un <strong>atajo guardado en una celda o en un dibujo</strong>: al hacer clic, Excel te lleva a otra hoja, a un archivo, a una página web o a un correo.
+          Sirve para armar accesos rápidos en un libro con varias hojas. No calcula ni cambia datos: solo te lleva a otro lugar.
+        </p>
+        <div class="nota meta">
+          <span class="nota-t">En una frase</span>
+          <p>Un hipervínculo es un atajo: un clic y estás en otro lugar.</p>
+        </div>
+        <details class="faq-item">
+          <summary>Ver más: dónde se coloca, qué guarda y qué no hace</summary>
+          <div class="table-card">
+            <table>
+              <thead><tr><th>Pregunta</th><th>En un hipervínculo</th></tr></thead>
+              <tbody>
+                <tr><td><strong>¿Dónde se coloca?</strong></td><td>En una celda (con texto o un número) o en un objeto: una forma, una imagen o un icono.</td></tr>
+                <tr><td><strong>¿Qué guarda?</strong></td><td>La dirección de destino y el texto que se muestra.</td></tr>
+                <tr><td><strong>¿A dónde puede llevar?</strong></td><td>A un lugar del mismo libro, a un archivo, a una página web o a un correo electrónico.</td></tr>
+                <tr><td><strong>¿Qué no hace?</strong></td><td>No calcula, no copia datos del destino ni modifica nada: solo navega.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <p class="tiempo">En el video: <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=695s" target="_blank" rel="noopener noreferrer">tema Hipervínculos desde 11:35</a></p>
+
+        <div class="nota analogia">
+          <span class="nota-t">Una comparación</span>
+          <p>Es como el <strong>índice de un libro</strong> o los <strong>enlaces de una página web</strong>: tocás una palabra y te lleva adonde dice. La diferencia es que acá elegís vos qué texto o qué dibujo es el enlace.</p>
+        </div>
+
+        <h3>Cómo se hace</h3>
+        <p>Vamos a poner, en la hoja Elementos, un acceso para volver a la hoja <strong>Contenido</strong> (el índice del archivo).</p>
+        <ol class="pasos">
+          <li><div><strong>Elegí la celda.</strong> En la hoja <strong>Elementos</strong>, hacé clic en <strong>K1</strong> y apretá <kbd>Ctrl</kbd>+<kbd>K</kbd> (o clic derecho → <strong>Vínculo</strong>).</div></li>
+          <li><div><strong>Elegí el destino.</strong> A la izquierda, <strong>Lugar de este documento</strong>; en la lista, la hoja <strong>Contenido</strong> (referencia <code class="f">A1</code>).</div></li>
+          <li><div><strong>Poné el texto.</strong> En <strong>Texto para mostrar</strong> escribí <code class="f">← Volver al Contenido</code> y apretá <strong>Aceptar</strong>.<small>La celda queda azul y subrayada.</small></div></li>
+          <li><div><strong>Probalo.</strong> Un clic sobre K1 y estás en la hoja Contenido.</div></li>
+        </ol>
+
+        <h3>Los cuatro destinos posibles</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Destino (en “Vincular a”)</th><th>A dónde lleva</th><th>En el video</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Archivo o página web existente</strong></td><td>A otro archivo o a una página de internet.</td><td><a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=795s" target="_blank" rel="noopener noreferrer">13:15</a> y <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=868s" target="_blank" rel="noopener noreferrer">14:28</a></td></tr>
+              <tr><td><strong>Lugar de este documento</strong></td><td>A otra hoja o celda del mismo libro.</td><td><a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=904s" target="_blank" rel="noopener noreferrer">15:04</a></td></tr>
+              <tr><td><strong>Crear nuevo documento</strong></td><td>A un archivo nuevo que se crea al momento.</td><td>No se muestra</td></tr>
+              <tr><td><strong>Dirección de correo electrónico</strong></td><td>Abre tu programa de correo con el mensaje armado.</td><td><a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=947s" target="_blank" rel="noopener noreferrer">15:47</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="nota pensa">
+          <span class="nota-t">Pensá antes de seguir</span>
+          <p>Si más adelante le cambiás el nombre a la hoja <strong>Contenido</strong> por “Índice”, ¿qué le pasa al vínculo de K1?</p>
+          <details class="faq-item">
+            <summary>Ver respuesta</summary>
+            <p>Se rompe: Excel sigue buscando una hoja llamada “Contenido” y avisa que la referencia no es válida. Para arreglarlo hay que editar el vínculo y elegir la hoja de nuevo. <strong>Definí los nombres de las hojas antes de crear los vínculos.</strong></p>
+          </details>
+        </div>
+
+        <details class="faq-item">
+          <summary>Hacerlo con un dibujo (botón), con una web o con un correo</summary>
+          <ul>
+            <li><strong>Un dibujo como botón</strong> (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=749s" target="_blank" rel="noopener noreferrer">12:29</a>): <strong>Insertar → Ilustraciones → Formas</strong>, dibujá un rectángulo, escribí el texto adentro, clic derecho → <strong>Vínculo</strong> y elegí el destino. La forma no cambia de color: sabés que tiene vínculo porque el puntero se vuelve una manito.</li>
+            <li><strong>Una página web:</strong> en <strong>Archivo o página web existente</strong> escribí la dirección completa, con <code class="f">https://</code>.</li>
+            <li><strong>Un correo:</strong> escribí el mail de destino y, si querés, el asunto; al hacer clic se abre tu programa de correo.</li>
+          </ul>
+        </details>
+        <details class="faq-item">
+          <summary>Editar, quitar, errores típicos y la función HIPERVINCULO</summary>
+          <ul>
+            <li><strong>Editar:</strong> clic derecho → <strong>Editar hipervínculo</strong>. <strong>Quitar:</strong> clic derecho → <strong>Quitar hipervínculo</strong> (el texto queda, ya no es enlace).</li>
+            <li><strong>Seleccionar una celda con vínculo sin abrirlo:</strong> hacé clic en una vecina y movete con las <strong>flechas</strong>, o mantené apretado el clic un segundo.</li>
+            <li><strong>Vínculos a archivos de tu computadora:</strong> guardan la ruta; si movés el archivo o se lo pasás a otra persona, dejan de funcionar. Los vínculos dentro del mismo libro son los más seguros.</li>
+            <li><strong>Función HIPERVINCULO:</strong> <code class="f">=HIPERVINCULO("#Contenido!A1";"Volver al Contenido")</code> hace lo mismo desde una fórmula.</li>
+            <li><strong>Seguridad:</strong> no hagas clic en vínculos que no conocés en archivos que te mandaron.</li>
+          </ul>
+        </details>
+
+        <h3>Chequeá si entendiste</h3>
+        <details class="faq-item">
+          <summary>1. ¿Qué destino elegís para volver al índice del mismo libro?</summary>
+          <p><strong>Lugar de este documento.</strong> Es el más seguro porque no depende de dónde esté guardado el archivo.</p>
+        </details>
+        <details class="faq-item">
+          <summary>2. ¿Cómo sabés que una forma tiene un vínculo, si no cambia de color?</summary>
+          <p>Al pasar el mouse, el puntero se convierte en una <strong>manito</strong>.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- SEGMENTACIÓN DE DATOS -->
+    <section class="section alt" id="segmentacion">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Segmentación de datos</p>
+          <h2>Filtrar la información con botones</h2>
+        </div>
+
+        <h3>¿Qué es la segmentación de datos?</h3>
+        <p>
+          Una <strong>segmentación de datos</strong> (en inglés, <em>slicer</em>) es un <strong>cuadro con botones conectado a una columna de una tabla</strong>: cada botón es un valor de esa columna y, al tocarlo, la tabla muestra solo las filas que lo tienen.
+          Es un filtro como el de las flechitas de la <a href="u3-clase10.html">Clase 10</a>, pero con los botones siempre a la vista. Sirve para mirar los datos por categorías sin abrir menús.
+        </p>
+        <div class="nota meta">
+          <span class="nota-t">En una frase</span>
+          <p>Una segmentación es un filtro con botones: tocás un valor y la tabla muestra solo las filas que lo tienen.</p>
+        </div>
+        <details class="faq-item">
+          <summary>Ver más: con qué se conecta, qué necesita y qué no hace</summary>
+          <div class="table-card">
+            <table>
+              <thead><tr><th>Pregunta</th><th>En una segmentación</th></tr></thead>
+              <tbody>
+                <tr><td><strong>¿Con qué se conecta?</strong></td><td>Con una columna de una tabla.</td></tr>
+                <tr><td><strong>¿Qué muestra?</strong></td><td>Un botón por cada valor distinto de esa columna.</td></tr>
+                <tr><td><strong>¿Qué pasa al tocar un botón?</strong></td><td>La tabla oculta las filas que no coinciden. Siguen existiendo: al borrar el filtro vuelven.</td></tr>
+                <tr><td><strong>¿Qué necesita?</strong></td><td>Que los datos tengan <strong>formato de tabla</strong>.</td></tr>
+                <tr><td><strong>¿Qué no hace?</strong></td><td>No borra, no modifica ni ordena los datos.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <p class="tiempo">En el video: <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1021s" target="_blank" rel="noopener noreferrer">tema Segmentación de datos desde 17:01</a></p>
+
+        <div class="nota analogia">
+          <span class="nota-t">Una comparación</span>
+          <p>Es como los botones de una <strong>tienda online</strong> (“Marca”, “Color”, “Precio”): a medida que los tocás, la lista de productos se achica. No cambia los datos: solo <strong>oculta temporalmente</strong> las filas que no cumplen.</p>
+        </div>
+
+        <h3>Cómo se hace</h3>
+        <ol class="pasos">
+          <li><div><strong>Creá una categoría.</strong> Un segmentador necesita una columna con pocos valores distintos. En <strong>I1</strong> escribí <code class="f">CATEGORÍA</code> y en <strong>I2</strong> <code class="f">=SI(E2&lt;20;"Económico";SI(E2&lt;60;"Medio";"Costoso"))</code>, copiada hasta la fila 62.<small>Los límites (20 y 60) son un criterio inventado para la clase.</small></div></li>
+          <li><div><strong>Convertí los datos en tabla.</strong> Seleccioná <strong>A1:I62</strong> y apretá <kbd>Ctrl</kbd>+<kbd>T</kbd>, con encabezados.<small>No ordenes la tabla por otra columna: rompería el buscador del tema anterior.</small></div></li>
+          <li><div><strong>Insertá los segmentadores.</strong> Con una celda de la tabla seleccionada: <strong>Insertar → Segmentación de datos</strong>, tildá <strong>CATEGORÍA</strong> y <strong>CANTIDAD</strong> y <strong>Aceptar</strong>. Arrastralos a la derecha de la tabla.</div></li>
+          <li><div><strong>Usalos.</strong> Un clic en un botón filtra; <kbd>Ctrl</kbd>+clic suma valores; el embudo con una cruz roja borra el filtro.</div></li>
+        </ol>
+        <div class="slicers" aria-label="Dibujo de dos segmentadores">
+          <div class="slicer">
+            <div class="sl-h">CATEGORÍA <i>Borrar filtro ✕</i></div>
+            <div class="sl-b"><span>Costoso</span><span>Económico</span><span>Medio</span></div>
+          </div>
+          <div class="slicer">
+            <div class="sl-h">CANTIDAD <i>Borrar filtro ✕</i></div>
+            <div class="sl-b"><span>1</span><span>2</span><span>3</span><span>…</span></div>
+          </div>
+        </div>
+        <p class="tb-cap">Así se ven (dibujo): un botón por cada valor distinto. Al principio ninguno está seleccionado y la tabla muestra todo.</p>
+        <p>
+          <strong>Para sumar lo que queda a la vista</strong> (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1228s" target="_blank" rel="noopener noreferrer">20:28</a>): en <strong>Diseño de tabla</strong> tildá <strong>Fila de totales</strong> y elegí <strong>Suma</strong> en CANTIDAD y PRECIO/T. Con el segmentador en <em>Costoso</em>, tiene que dar:
+        </p>
+        <div class="tb-wrap">
+          <table class="tb">
+            <thead>
+              <tr><th>Filas visibles</th><th class="r">Total CANTIDAD</th><th class="r">Total PRECIO/T</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="res">10</td><td class="res r">32</td><td class="res r">3.225,76</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tb-cap">Sin ningún filtro, los totales de toda la tabla son 259 unidades y 7.977,55.</p>
+
+        <div class="nota pensa">
+          <span class="nota-t">Pensá antes de seguir</span>
+          <p>Si tocás <strong>Costoso</strong> y, con <kbd>Ctrl</kbd> apretada, también <strong>Económico</strong>, ¿cuántas filas quedan? (Económico tiene 23 y Costoso tiene 10.)</p>
+          <details class="faq-item">
+            <summary>Ver respuesta</summary>
+            <p><strong>33 filas</strong> (23 + 10). Dentro del <em>mismo</em> segmentador, las selecciones se <strong>suman</strong> (“Económico <em>o</em> Costoso”). Entre <em>dos segmentadores distintos</em> se <strong>combinan</strong> (“Costoso <em>y</em> cantidad 4”).</p>
+          </details>
+        </div>
+
+        <details class="faq-item">
+          <summary>Errores típicos y más detalle</summary>
+          <ul>
+            <li><strong>“Segmentación de datos” aparece en gris:</strong> no estás dentro de una tabla. Hacé clic en una celda de la tabla (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1080s" target="_blank" rel="noopener noreferrer">18:00</a>).</li>
+            <li><strong>Segmentador con decenas de botones:</strong> elegiste una columna con demasiados valores distintos. Usá una categoría.</li>
+            <li><strong>Cosas que “desaparecen” al filtrar:</strong> los filtros ocultan <em>filas enteras</em>, incluido lo que hayas escrito al lado de la tabla. Por eso el vínculo está en la fila 1 y el buscador en otra hoja.</li>
+            <li><strong>Un filtro activo olvidado:</strong> si parece que faltan datos, mirá si hay botones resaltados y usá <em>Borrar filtro</em>.</li>
+            <li><strong>Combinar dos segmentadores</strong> (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1263s" target="_blank" rel="noopener noreferrer">21:03</a>): <em>Costoso</em> y cantidad <em>4</em> muestran los repuestos que cumplen las dos cosas. Los botones sin filas se ven apagados.</li>
+            <li><strong>Cambiar el aspecto:</strong> al seleccionar el segmentador aparece la ficha <strong>Segmentación</strong>, con estilos, columnas de botones y tamaño.</li>
+          </ul>
+        </details>
+
+        <h3>Chequeá si entendiste</h3>
+        <details class="faq-item">
+          <summary>1. ¿Por qué el total de la fila de totales cambia al filtrar?</summary>
+          <p>Porque usa <code class="f">SUBTOTALES</code>, que suma <strong>solo las filas visibles</strong>. Una <code class="f">SUMA</code> común sumaría siempre todo.</p>
+        </details>
+        <details class="faq-item">
+          <summary>2. ¿Qué columna de Elementos sería una mala elección para un segmentador?</summary>
+          <p>DESCRIPCION o NRO-PARTE: casi cada fila tiene un valor distinto, así que habría decenas de botones.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- IMPRIMIR -->
+    <section class="section" id="imprimir">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Imprimir</p>
+          <h2>Configurar la hoja para que se imprima bien</h2>
+        </div>
+
+        <h3>¿Qué es configurar la impresión?</h3>
+        <p>
+          Es <strong>decidir vos qué parte de la hoja se imprime, cómo se reparte en páginas y qué títulos se repiten</strong>, en lugar de dejar que Excel corte la planilla donde se termina el papel.
+          No cambia los datos: solo cómo se ven en el papel o en el PDF. Sirve para evitar columnas cortadas y páginas sin títulos.
+        </p>
+        <div class="nota meta">
+          <span class="nota-t">En una frase</span>
+          <p>Configurar la impresión es decirle a Excel qué sacar, cómo repartirlo y qué títulos repetir, antes de imprimir.</p>
+        </div>
+        <details class="faq-item">
+          <summary>Ver más: las piezas de la impresión</summary>
+          <div class="table-card">
+            <table>
+              <thead><tr><th>Pieza</th><th>Qué es</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Página</strong></td><td>Cada hoja de papel (o de PDF) en la que Excel reparte la planilla.</td></tr>
+                <tr><td><strong>Salto de página</strong></td><td>El lugar donde Excel corta la hoja para empezar una página nueva.</td></tr>
+                <tr><td><strong>Área de impresión</strong></td><td>La parte de la hoja que va a salir impresa; lo demás queda afuera.</td></tr>
+                <tr><td><strong>Títulos repetidos</strong></td><td>Las filas (por ejemplo, los encabezados) que se imprimen arriba de cada página.</td></tr>
+                <tr><td><strong>Orientación y escala</strong></td><td>Si la página es vertical u horizontal, y cuánto se achica el contenido para que entre.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <p class="tiempo">En el video: <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1378s" target="_blank" rel="noopener noreferrer">tema Imprimir desde 22:58</a></p>
+
+        <div class="nota analogia">
+          <span class="nota-t">Una comparación</span>
+          <p>Es como armar un <strong>cuaderno con hojas sueltas</strong>: querés que <strong>cada hoja tenga el rótulo arriba</strong> y que no quede una hoja con una sola columna colgada.</p>
+        </div>
+
+        <h3>Cómo se hace</h3>
+        <p>
+          Antes de tocar nada, apretá <kbd>Ctrl</kbd>+<kbd>P</kbd> y <strong>mirá la vista previa</strong> (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1378s" target="_blank" rel="noopener noreferrer">22:58</a>): ¿se corta alguna columna?, ¿faltan los títulos en la segunda hoja? Eso te dice qué arreglar.
+        </p>
+        <ol class="pasos">
+          <li><div><strong>Elegí qué se imprime.</strong> Seleccioná <strong>A1:I63</strong> (los datos más la fila de totales) y andá a <strong>Disposición de página → Área de impresión → Establecer área de impresión</strong>.</div></li>
+          <li><div><strong>Repetí los títulos.</strong> <strong>Disposición de página → Imprimir títulos</strong>; en <em>Repetir filas en extremo superior</em> hacé clic en el número de la <strong>fila 1</strong> (queda <code class="f">$1:$1</code>).</div></li>
+          <li><div><strong>Acomodá la hoja.</strong> <strong>Orientación → Horizontal</strong> y, en <em>Ajustar área de impresión</em>, <strong>Ancho: 1 página</strong>.<small>Así ninguna columna queda en otra hoja.</small></div></li>
+          <li><div><strong>Guardá como PDF.</strong> <kbd>Ctrl</kbd>+<kbd>P</kbd>, impresora <strong>Microsoft Print to PDF</strong> y <strong>Imprimir</strong>. Revisá que cada página tenga los títulos arriba.</div></li>
+        </ol>
+        <p class="rule">
+          <strong>Truco:</strong> las filas ocultas por un filtro <strong>no se imprimen</strong>. Si con el segmentador elegís <em>Costoso</em> y después exportás a PDF, el archivo trae solo esos 10 repuestos.
+        </p>
+
+        <div class="nota pensa">
+          <span class="nota-t">Pensá antes de seguir</span>
+          <p>Tu tabla ocupa tres páginas y querés imprimir solo las dos primeras. ¿Qué herramienta usarías?</p>
+          <details class="faq-item">
+            <summary>Ver respuesta</summary>
+            <p>En <strong>Vista → Ver salto de página</strong> seleccionás solo lo que corresponde a las dos primeras páginas y establecés ese <strong>área de impresión</strong>: la tercera queda fuera (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1645s" target="_blank" rel="noopener noreferrer">27:25</a>).</p>
+          </details>
+        </div>
+
+        <details class="faq-item">
+          <summary>¿Qué herramienta uso para cada problema?</summary>
+          <div class="table-card">
+            <table>
+              <thead><tr><th>Problema en la vista previa</th><th>Herramienta</th><th>Dónde está</th></tr></thead>
+              <tbody>
+                <tr><td>Una columna salió sola en otra hoja</td><td>Ajustar al ancho / orientación horizontal</td><td>Disposición de página</td></tr>
+                <tr><td>Las páginas siguientes no tienen títulos</td><td>Imprimir títulos</td><td>Disposición de página</td></tr>
+                <tr><td>Se imprime de más (vínculos, segmentadores)</td><td>Área de impresión</td><td>Disposición de página</td></tr>
+                <tr><td>No sabés dónde corta cada página</td><td>Ver salto de página</td><td>Vista</td></tr>
+                <tr><td>Querés un archivo, no papel</td><td>Microsoft Print to PDF / Exportar</td><td><kbd>Ctrl</kbd>+<kbd>P</kbd> / Archivo</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Más detalle: saltos de página, errores típicos, encabezado y márgenes</summary>
+          <ul>
+            <li><strong>Ver salto de página</strong> (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1463s" target="_blank" rel="noopener noreferrer">24:23</a>): en la ficha <strong>Vista</strong> muestra <strong>líneas azules</strong> donde corta cada página. Podés arrastrarlas hasta el borde de los datos para que entren en menos páginas (<a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1490s" target="_blank" rel="noopener noreferrer">24:50</a>).</li>
+            <li><strong>Más de una fila de títulos:</strong> seleccionalas todas (por ejemplo <code class="f">$1:$2</code>).</li>
+            <li><strong>Exportar sin impresora:</strong> <strong>Archivo → Exportar → Crear documento PDF/XPS</strong>.</li>
+            <li><strong>Error típico:</strong> imprimir sin mirar la vista previa. Otro: reducir tanto la escala que no se lee; mejor aceptar dos páginas.</li>
+            <li><strong>Error típico:</strong> esperar que la configuración valga para todo el libro. Es <strong>por hoja</strong>.</li>
+            <li><strong>Numerar páginas:</strong> <strong>Insertar → Encabezado y pie de página</strong> permite poner “Página 1 de 2”, la fecha o el nombre del archivo en el pie.</li>
+            <li><strong>Márgenes:</strong> <strong>Disposición de página → Márgenes</strong> (Normal, Ancho, Estrecho). Más estrechos, más lugar para la tabla.</li>
+          </ul>
+        </details>
+
+        <h3>Chequeá si entendiste</h3>
+        <details class="faq-item">
+          <summary>1. ¿Qué hace “Repetir filas en extremo superior”?</summary>
+          <p>Imprime la fila que indiques (normalmente los encabezados) <strong>al principio de cada página</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>2. ¿Cómo imprimirías solo los repuestos “Costoso”?</summary>
+          <p>Filtrando con el segmentador <strong>CATEGORÍA = Costoso</strong> y después imprimiendo o exportando a PDF: las filas ocultas no salen.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="section alt" id="actividades">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Práctica guiada</p>
+          <h2>Actividad de aprendizaje</h2>
+          <p>
+            Usamos el archivo <strong>Excel - Ejercicio 2 - Fechas y funciones</strong> y, en particular, la hoja <strong>Elementos</strong>. Al finalizar, compartí tu experiencia en el <strong>foro de la unidad</strong> para la evaluación entre pares.
+          </p>
+        </div>
+
+        <div class="lectura">
+          <p>Es el mismo archivo que usaste en la <a href="u3-clase9.html">Clase 9</a>, pero hoy trabajás en otra de sus hojas: la lista de 61 repuestos. La actividad aplica, en orden, los cuatro temas de la clase: armás un buscador (BUSCAR), una categoría con un SI anidado y una tabla con segmentadores, después los hipervínculos y por último la configuración de impresión.</p>
+          <p>Es una guía <strong>paso a paso, con un resultado para cada paso</strong>, para que sepas en cada momento si vas bien. Avanzá en orden, tildá cada paso cuando lo termines y, si algo no te sale, mirá las preguntas frecuentes antes de seguir.</p>
+        </div>
+
+        <div class="nota meta">
+          <span class="nota-t">Antes de empezar</span>
+          <ul>
+            <li>Abrí el archivo y <strong>guardalo con otro nombre</strong> (por ejemplo, <strong>Ejercicio 2 - Elementos</strong>) para no pisar el original. Guardá cada tanto.</li>
+            <li>Trabajá en la hoja <strong>Elementos</strong>, salvo cuando el paso diga otra.</li>
+            <li>Escribí las fórmulas en español, con <code class="f">;</code> entre argumentos y coma decimal.</li>
+          </ul>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">Ejercicio 2 · Elementos</p>
+          <h3>Tu lista de control</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="chkBar"><div id="chkFill"></div></div>
+          <p class="progress-label" id="chkLabel">0 de 11 pasos completados</p>
+
+          <ul class="chk-list" id="chkList">
+            <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Conocer los datos.</strong> Abrí la hoja <strong>Elementos</strong> y respondé: ¿cuántas filas de datos hay?, ¿qué columna no se repite?, ¿qué columna es el producto de otras dos?<small>Respuestas: 61 filas (de la 2 a la 62); ITEM no se repite; PRECIO/T = CANTIDAD × PRECIO/U.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Crear la hoja Buscador.</strong> Agregá una hoja nueva y llamala <strong>Buscador</strong>. En <strong>A3:A8</strong> escribí: <em>Ítem a buscar, Número de parte, Descripción, Cantidad, Precio unitario, Precio total</em>. En <strong>B3</strong> escribí <code class="f">12</code>.<small>B3 es la única celda que vas a escribir a mano; las demás calculan solas.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Escribir los BUSCAR.</strong> En <strong>B4</strong> escribí <code class="f">=BUSCAR($B$3;Elementos!$A$2:$A$62;Elementos!$B$2:$B$62)</code>. Repetila en B5:B8 cambiando <strong>solo el último rango</strong> a C, D, E y F.<small>Con el ítem 12 tenés que ver: XKAQ-00228, GEAR PLANET NO.2, 8, 44,94 y 359,52.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Probar el buscador.</strong> Probá con los ítems <strong>25</strong>, <strong>7</strong>, <strong>70</strong> y <strong>0</strong>. Compará cada resultado con la hoja Elementos.<small>25 → BOOM CYL SEAL KIT; 7 → RELIEF VALVE ASSY; 70 → trae el ítem 61 (¡no da error!); 0 → #N/D. Anotá por qué.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Ver qué pasa sin orden.</strong> En Elementos ordená por <strong>PRECIO/U</strong> y volvé a probar el buscador. Después ordená por <strong>ITEM</strong> de menor a mayor para dejar todo como estaba.<small>Al final, el buscador tiene que dar otra vez los resultados del paso 3.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="6"><span class="chk-txt"><strong>6. Crear la categoría.</strong> En Elementos, <strong>I1</strong>: <code class="f">CATEGORÍA</code>. En <strong>I2</strong>: <code class="f">=SI(E2&lt;20;"Económico";SI(E2&lt;60;"Medio";"Costoso"))</code>, copiada hasta la fila 62.<small>Tiene que haber 23 Económico, 28 Medio y 10 Costoso (podés comprobarlo con CONTAR.SI).</small></span></label></li>
+            <li><label><input type="checkbox" data-k="7"><span class="chk-txt"><strong>7. Formato de tabla y totales.</strong> Seleccioná <strong>A1:I62</strong>, apretá <kbd>Ctrl</kbd>+<kbd>T</kbd> (con encabezados). En <strong>Diseño de tabla</strong> tildá <strong>Fila de totales</strong> y elegí <strong>Suma</strong> en CANTIDAD y PRECIO/T.<small>Sin filtros: CANTIDAD 259 y PRECIO/T 7.977,55.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="8"><span class="chk-txt"><strong>8. Segmentadores.</strong> Insertá dos segmentadores: <strong>CATEGORÍA</strong> y <strong>CANTIDAD</strong>. Ubicalos a la derecha de la tabla, desde la <strong>K3</strong> (así no tapan la celda K1, que usás en el paso 9). Probá <em>Costoso</em>, después <em>Costoso + cantidad 4</em>.<small>Costoso: 10 filas, 32 y 3.225,76. Costoso + 4: 2 filas, 8 y 1.201,32. Dejá los filtros borrados al terminar.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="9"><span class="chk-txt"><strong>9. Hipervínculos.</strong> En <strong>Elementos!K1</strong> creá un vínculo <em>← Volver al Contenido</em> hacia <strong>Contenido!A1</strong>. En la hoja <strong>Contenido</strong>, dibujá una forma con el texto <em>Ir a la lista de repuestos</em> y vinculala con <strong>Elementos!A1</strong>.<small>Probá los dos vínculos de ida y vuelta.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="10"><span class="chk-txt"><strong>10. Imprimir.</strong> En Elementos: <strong>Ctrl+P</strong> y mirá la vista previa; <strong>Ver salto de página</strong>; área de impresión <strong>A1:I63</strong> (tabla con su fila de totales); <strong>Imprimir títulos</strong> con la fila <code class="f">$1:$1</code>; orientación <strong>horizontal</strong>; <strong>Ancho: 1 página</strong>. Exportá a <strong>PDF</strong>.<small>Lo que importa: ninguna columna cortada y los títulos repetidos arriba de cada página. La cantidad de páginas depende de tu impresora.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="11"><span class="chk-txt"><strong>11. Compartir.</strong> Contá tu experiencia en el <strong>foro de la unidad</strong>.<small>Podés agregar una captura del buscador o del segmentador funcionando.</small></span></label></li>
+          </ul>
+
+          <p class="card-example"><strong>Si terminás antes:</strong> 1) probá un buscador por <strong>NRO-PARTE</strong> (ordenando antes por esa columna) y fijate qué pasa con los códigos repetidos, por ejemplo <code class="f">XKAQ-00208</code>; 2) agregá un tercer segmentador y combinalo con los otros; 3) agregá en la hoja Buscador una celda con <code class="f">=HIPERVINCULO("#Contenido!A1";"Volver al Contenido")</code>; 4) numerá las páginas del PDF desde <strong>Insertar → Encabezado y pie de página</strong>; 5) intentá imprimir solo los repuestos “Medio” con cantidad mayor que 5.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>Para verificar: resultados esperados</summary>
+          <p><strong>Buscador</strong> (columna B según el ítem que escribas en B3):</p>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead><tr><th>Ítem (B3)</th><th>Número de parte</th><th>Descripción</th><th>Cantidad</th><th>Precio unitario</th><th>Precio total</th></tr></thead>
+              <tbody>
+                <tr><td>12</td><td>XKAQ-00228</td><td>GEAR PLANET NO.2</td><td>8</td><td>44,94</td><td>359,52</td></tr>
+                <tr><td>25</td><td>401107-00277A</td><td>BOOM CYL SEAL KIT</td><td>4</td><td>42,90</td><td>171,60</td></tr>
+                <tr><td>7</td><td>C011B-50146</td><td>RELIEF VALVE ASSY</td><td>1</td><td>89,98</td><td>89,98</td></tr>
+                <tr><td>70</td><td>E131-0212-A</td><td>ELEMENT-RETURN FILTER</td><td>8</td><td>11,90</td><td>95,20</td></tr>
+                <tr><td>0</td><td colspan="5">#N/D en las cinco celdas</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Con el ítem <strong>70</strong>, el buscador muestra el <strong>ítem 61</strong> (el último de la lista) en lugar de avisar que no existe: es el comportamiento de BUSCAR cuando el valor no está.</p>
+          <p><strong>Categorías y totales</strong> (con la fila de totales de la tabla y un segmentador por CATEGORÍA):</p>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead><tr><th>Segmentador</th><th>Filas visibles</th><th>Total CANTIDAD</th><th>Total PRECIO/T</th></tr></thead>
+              <tbody>
+                <tr><td>Sin filtros</td><td>61</td><td>259</td><td>7.977,55</td></tr>
+                <tr><td>Económico (menos de 20)</td><td>23</td><td>131</td><td>1.046,79</td></tr>
+                <tr><td>Medio (de 20 a menos de 60)</td><td>28</td><td>96</td><td>3.705,00</td></tr>
+                <tr><td>Costoso (60 o más)</td><td>10</td><td>32</td><td>3.225,76</td></tr>
+                <tr><td>Costoso + CANTIDAD 4</td><td>2 (ítems 39 y 41)</td><td>8</td><td>1.201,32</td></tr>
+                <tr><td>Económico + Costoso (Ctrl)</td><td>33</td><td>163</td><td>4.272,55</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Vínculos:</strong> el de K1 te lleva a <em>Contenido</em> y el botón de Contenido te lleva a <em>Elementos</em>, ambos con un solo clic.</li>
+            <li><strong>Impresión:</strong> en la vista previa, cada página muestra la fila de títulos arriba y no se ve ninguna columna cortada. La cantidad exacta de páginas varía con tu impresora y la escala.</li>
+            <li><strong>PDF:</strong> abrilo y revisá que las dos o tres páginas tengan los encabezados.</li>
+          </ul>
+          <p>Los totales sin filtrar son 259 unidades y 7.977,55, y los de las tres categorías suman lo mismo: 131 + 96 + 32 = 259 y 1.046,79 + 3.705,00 + 3.225,76 = 7.977,55. Es una buena forma de comprobar tu trabajo.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- TRABAJO PRACTICO INTEGRADOR -->
+    <section class="section" id="tp">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de la Unidad 3</p>
+          <h2>Trabajo práctico integrador: Ventas del mes</h2>
+        </div>
+
+        <div class="lectura">
+          <p>Una librería te entrega el <strong>registro de sus últimas 20 ventas</strong>. Solo tiene cuatro datos de cada una: número, fecha, código del producto y cantidad. Tu tarea es completarlo para saber <strong>qué se vendió y a qué precio</strong>, <strong>cuánto hay que cobrar</strong> (con descuento) y <strong>qué entregas siguen pendientes</strong>, y dejarlo listo para imprimir.</p>
+          <p>No hay nada nuevo: son herramientas que ya usaste, en 7 pasos cortos. Si te trabás en uno, la tabla de más abajo te dice en qué clase se explica.</p>
+        </div>
+
+        <div class="descarga">
+          <span class="d-ico" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5h17l9 9v29a1 1 0 0 1-1 1H12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M29 5v9h9"/><path d="M17 22h14M17 29h14M17 36h14M24 20v18"/></svg></span>
+          <div class="d-txt">Descargá el archivo de Excel para hacer el TP</div>
+          <a class="btn btn-primary" href="Contenido/Unidad%203/Clase%2012/TP%20Integrador%20-%20Ventas.xlsx" download><span aria-hidden="true">⬇</span> Descargar</a>
+        </div>
+
+        <div class="nota pensa">
+          <span class="nota-t">Qué tenés que hacer, en pocas palabras</span>
+          <ol>
+            <li><strong>Completar cada venta con su producto y su precio.</strong> Los datos están en la hoja <em>Productos</em>; Excel los busca solo.</li>
+            <li><strong>Calcular cuánto hay que cobrar.</strong> Cantidad por precio, con un 10% de descuento si la venta es de $20.000 o más.</li>
+            <li><strong>Calcular cuándo se entrega y si ya se entregó.</strong> La entrega es 7 días después de la venta. Si esa fecha ya pasó (comparada con la fecha de corte), dice “Entregado”; si no, “Pendiente”.</li>
+            <li><strong>Pintar de amarillo</strong> las ventas pendientes, para verlas rápido.</li>
+            <li><strong>Convertir la lista en tabla</strong>, sumar lo que hay que cobrar y ordenarla de la venta más grande a la más chica.</li>
+            <li><strong>Armar el resumen</strong> en la hoja <em>Resumen</em>: el promedio de las ventas, la venta más grande y cuántas están pendientes.</li>
+            <li><strong>Dejar la hoja lista para imprimir</strong> y guardarla en PDF.</li>
+          </ol>
+          <p style="margin:0.6rem 0 0;">Abajo, en la lista de control, cada punto tiene su paso a paso: en qué celda escribir y qué fórmula usar.</p>
+        </div>
+
+        <div class="nota meta">
+          <span class="nota-t">Antes de empezar</span>
+          <ul>
+            <li>El archivo tiene tres hojas: <strong>Ventas</strong> (los datos), <strong>Productos</strong> (el catálogo de 10 productos, ordenado por código) y <strong>Resumen</strong> (con los títulos ya escritos).</li>
+            <li><strong>Guardalo con otro nombre</strong> (por ejemplo, <strong>Apellido - TP Excel</strong>) y guardá cada tanto.</li>
+            <li>Escribí las fórmulas en español, con <code class="f">;</code> entre argumentos.</li>
+            <li>La fecha de corte ya está escrita en <strong>Resumen!B1</strong> (<strong>10/11/2026</strong>): así a todos les dan los mismos resultados.</li>
+          </ul>
+        </div>
+
+        <div class="actividad-block">
+          <p class="act-num">TP integrador · Ventas del mes</p>
+          <h3>Tu lista de control</h3>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="tpBar"><div id="tpFill"></div></div>
+          <p class="progress-label" id="tpLabel">0 de 7 pasos completados</p>
+
+          <ul class="chk-list" id="tpList">
+            <li><label><input type="checkbox" data-k="1"><span class="chk-txt"><strong>1. Traer el producto y el precio.</strong> En la hoja <strong>Ventas</strong>, <strong>E1</strong> <em>Producto</em> y <strong>F1</strong> <em>Precio unitario</em>. En <strong>E2</strong>: <code class="f">=BUSCAR($C2;Productos!$A$2:$A$11;Productos!$B$2:$B$11)</code>. En <strong>F2</strong> la misma, pero con el último rango en la columna <strong>C</strong>. Copialas hasta la fila 21.<small>Fila 2: Resma papel A4 y $9.800. Funciona porque los códigos del catálogo están ordenados de menor a mayor.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="2"><span class="chk-txt"><strong>2. Total, descuento y total a cobrar.</strong> <strong>G1</strong> <em>Total</em>, <strong>H1</strong> <em>Descuento</em>, <strong>I1</strong> <em>Total a cobrar</em>. En <strong>G2</strong>: <code class="f">=D2*F2</code>. En <strong>H2</strong>: <code class="f">=SI(G2&gt;=20000;10%;0)</code> (las ventas de $20.000 o más tienen 10% de descuento). En <strong>I2</strong>: <code class="f">=G2-G2*H2</code>. Copiá hasta la fila 21.<small>Fila 2: $19.600, 0% y $19.600 (no llega a $20.000). Fila 3: $24.000, 10% y $21.600. En total, 10 ventas tienen descuento.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="3"><span class="chk-txt"><strong>3. Fecha de entrega y estado.</strong> <strong>J1</strong> <em>Entrega</em>, <strong>K1</strong> <em>Estado</em>. La entrega se hace <strong>7 días después</strong> de la venta: en <strong>J2</strong> <code class="f">=B2+7</code> (formato fecha). En <strong>K2</strong>: <code class="f">=SI(J2&lt;=Resumen!$B$1;"Entregado";"Pendiente")</code>. Copiá hasta la fila 21.<small>Tiene que haber 12 “Entregado” y 8 “Pendiente”. El <strong>$</strong> de Resumen!$B$1 es lo que permite copiar la fórmula sin que se corra.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="4"><span class="chk-txt"><strong>4. Pintar los pendientes.</strong> Seleccioná <strong>K2:K21</strong> y andá a <strong>Inicio → Formato condicional → Resaltar reglas de celdas → Es igual a…</strong>. Escribí <em>Pendiente</em> y elegí un relleno amarillo.<small>Quedan 8 celdas amarillas, de la fila 14 a la 21.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="5"><span class="chk-txt"><strong>5. Tabla, totales y orden.</strong> Seleccioná <strong>A1:K21</strong> y apretá <kbd>Ctrl</kbd>+<kbd>T</kbd> (con encabezados). Tildá <strong>Fila de totales</strong> y elegí <strong>Suma</strong> en <em>Total a cobrar</em>. Después ordená la tabla por <strong>Total a cobrar</strong>, de mayor a menor.<small>Total a cobrar: $460.060. La primera fila es la venta 17, con $46.980. El amarillo acompaña a cada fila al ordenar.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="6"><span class="chk-txt"><strong>6. Armar el Resumen.</strong> En la hoja <strong>Resumen</strong>, columna B: <strong>B3</strong> <code class="f">=PROMEDIO(Ventas!I2:I21)</code>; <strong>B4</strong> <code class="f">=MAX(Ventas!I2:I21)</code>; <strong>B5</strong> <code class="f">=CONTAR.SI(Ventas!K2:K21;"Pendiente")</code>.<small>Promedio $23.003; venta mayor $46.980; 8 ventas pendientes.</small></span></label></li>
+            <li><label><input type="checkbox" data-k="7"><span class="chk-txt"><strong>7. Imprimir y entregar.</strong> En <strong>Ventas</strong>: área de impresión <strong>A1:K22</strong> (la tabla con su fila de totales), <strong>Imprimir títulos</strong> con <code class="f">$1:$1</code>, orientación <strong>horizontal</strong> y <strong>Ancho: 1 página</strong>. Mirá la vista previa y exportá a <strong>PDF</strong>. Entregá el Excel y el PDF como te indique tu docente.<small>Lo que importa: ninguna columna cortada y los títulos arriba.</small></span></label></li>
+          </ul>
+
+          <p class="card-example"><strong>Si terminás antes:</strong> 1) hacé un gráfico de columnas con las ventas de cada producto; 2) insertá un segmentador por <strong>Estado</strong> en la tabla; 3) creá un hipervínculo de la hoja Ventas a la hoja Resumen y otro de vuelta.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>¿Qué parte de la unidad usa cada paso?</summary>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead><tr><th>Paso</th><th>Qué usás</th><th>Dónde lo viste</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Función BUSCAR y referencias absolutas ($)</td><td><a href="#buscar">Clase 12</a> y <a href="u3-clase9.html#absoluta">Clase 9</a></td></tr>
+                <tr><td>2</td><td>Fórmulas, porcentajes y función SI</td><td><a href="u3-clase8.html">Clase 8</a> y <a href="u3-clase9.html">Clase 9</a></td></tr>
+                <tr><td>3</td><td>Operaciones con fechas y SI con otra hoja</td><td><a href="u3-clase9.html">Clase 9</a> y <a href="u3-clase11.html">Clase 11</a></td></tr>
+                <tr><td>4</td><td>Formato condicional</td><td><a href="u3-clase10.html">Clase 10</a> y <a href="u3-clase11.html">Clase 11</a></td></tr>
+                <tr><td>5</td><td>Formato de tabla, fila de totales y ordenar</td><td><a href="u3-clase10.html">Clase 10</a></td></tr>
+                <tr><td>6</td><td>PROMEDIO, MAX y CONTAR.SI</td><td><a href="u3-clase10.html">Clase 10</a> y <a href="u3-clase11.html">Clase 11</a></td></tr>
+                <tr><td>7</td><td>Configurar la impresión y exportar a PDF</td><td><a href="#imprimir">Clase 12</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Para verificar: resultados esperados</summary>
+          <p><strong>Primeras tres ventas</strong> (antes de ordenar la tabla):</p>
+          <div class="table-card" style="margin:0.5rem 0 0.9rem;">
+            <table>
+              <thead><tr><th>Nº</th><th>Producto</th><th>Total</th><th>Descuento</th><th>Total a cobrar</th><th>Entrega</th><th>Estado</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Resma papel A4</td><td>$19.600</td><td>0%</td><td>$19.600</td><td>27/10/2026</td><td>Entregado</td></tr>
+                <tr><td>2</td><td>Cuaderno A4 rayado</td><td>$24.000</td><td>10%</td><td>$21.600</td><td>28/10/2026</td><td>Entregado</td></tr>
+                <tr><td>3</td><td>Calculadora científica</td><td>$18.900</td><td>0%</td><td>$18.900</td><td>29/10/2026</td><td>Entregado</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Totales generales:</strong> total a cobrar $460.060 (fila de totales de la tabla), 10 ventas con descuento, 12 entregadas y 8 pendientes. En el Resumen: promedio $23.003, venta mayor $46.980 y 8 pendientes.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Si algo no sale: los problemas más comunes</summary>
+          <ul>
+            <li><strong>Aparece #N/D en Producto o Precio:</strong> revisá que el rango sea <code class="f">Productos!$A$2:$A$11</code> y que el valor buscado sea <code class="f">$C2</code>.</li>
+            <li><strong>Todo dice “Pendiente” (o todo “Entregado”):</strong> te falta el <strong>$</strong> en <code class="f">Resumen!$B$1</code> y la referencia se corrió al copiar.</li>
+            <li><strong>Nadie tiene descuento:</strong> comparaste con el precio unitario en vez de con el <strong>total</strong> (<strong>G2</strong>).</li>
+            <li><strong>No aparece la fila de totales:</strong> hacé clic dentro de la tabla y tildá <strong>Fila de totales</strong> en la pestaña <strong>Diseño de tabla</strong>.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Dudas típicas</p>
+          <h2>Preguntas Frecuentes</h2>
+        </div>
+
+        <div class="lectura">
+          <p>Estas son las dudas que más aparecen en esta clase. Si algo no sale como esperabas, antes de preguntar buscá tu caso acá: casi siempre es un rango sin ordenar, un <code class="f">$</code> que falta o una celda fuera de la tabla.</p>
+        </div>
+
+        <details class="faq-item">
+          <summary>BUSCAR me muestra un dato que no corresponde al ítem.</summary>
+          <p>Casi seguro la columna donde busca (la de ITEM) <strong>no está ordenada de menor a mayor</strong>. Ordená la tabla por <strong>ITEM</strong> y probá de nuevo. Otra causa: el ítem que escribiste no existe y BUSCAR te trae el más cercano hacia abajo.</p>
+        </details>
+        <details class="faq-item">
+          <summary>BUSCAR me da #N/D.</summary>
+          <p>El valor buscado es <strong>menor que todos</strong> los de la lista (por ejemplo, 0), o la celda tiene un texto que no coincide (un número escrito como texto, o un espacio de más). Revisá que lo que escribiste sea del mismo tipo que lo de la lista.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Le puse el ítem 70 y no me da error.</summary>
+          <p>Es el comportamiento normal de BUSCAR: cuando el valor no existe, trae el dato anterior más cercano (en este caso, el ítem 61). Para evitarlo hay búsquedas exactas (BUSCARX, o BUSCARV con <code class="f">FALSO</code> al final) que verás más adelante.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Al copiar la fórmula de BUSCAR, los resultados se corren o dan error.</summary>
+          <p>Faltan los <code class="f">$</code>. Los rangos tienen que escribirse como <code class="f">$A$2:$A$62</code>. Con la fórmula en edición, apretá <kbd>F4</kbd> con el rango seleccionado para ponerlos.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Mi fórmula de BUSCAR cambió sola y ahora dice algo como Tabla1[ITEM].</summary>
+          <p>Puede pasar al convertir los datos en tabla: Excel reemplaza los rangos por el <strong>nombre de la columna de la tabla</strong>. Funciona igual (y es incluso más cómodo, porque se agranda con la tabla).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Al hacer clic en una celda con vínculo me lleva a otro lado.</summary>
+          <p>Es lo que hace un vínculo. Para seleccionar la celda sin abrirlo, hacé clic en una celda vecina y movete con las <strong>flechas</strong>, o mantené apretado el clic un segundo y soltá.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El vínculo a otra hoja dice “La referencia no es válida”.</summary>
+          <p>Seguramente la hoja cambió de nombre o se borró después de crear el vínculo. Clic derecho → <strong>Editar hipervínculo</strong> y elegí de nuevo la hoja.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El vínculo a un archivo no abre en la computadora de mi compañero.</summary>
+          <p>Los vínculos a archivos guardan la <strong>ruta</strong> de tu computadora. En otra computadora esa ruta no existe. Para compartir, usá vínculos dentro del libro o direcciones web.</p>
+        </details>
+        <details class="faq-item">
+          <summary>“Segmentación de datos” está en gris.</summary>
+          <p>Estás parado fuera de una tabla, o los datos no tienen formato de tabla. Hacé clic en una celda de los datos y apretá <kbd>Ctrl</kbd>+<kbd>T</kbd> si todavía no es tabla.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Al filtrar con un segmentador, el cuadro se achica o se mueve.</summary>
+          <p>Puede pasar porque el objeto está ligado a las celdas y estas cambian de alto cuando se ocultan filas. Clic derecho sobre el segmentador → <strong>Tamaño y propiedades</strong> → <strong>Propiedades</strong> y elegí <strong>No mover ni cambiar tamaño con las celdas</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Mi vínculo o mi buscador desaparecen cuando filtro.</summary>
+          <p>Los filtros ocultan <strong>filas enteras</strong>. Lo que hayas puesto al lado de la tabla, en las mismas filas, se oculta con ellas. Poné esos elementos en la <strong>fila 1</strong> (que no se filtra) o en otra hoja.</p>
+        </details>
+        <details class="faq-item">
+          <summary>El total de la fila de totales no cambia al filtrar.</summary>
+          <p>Revisá que la función elegida sea <strong>Suma</strong> desde la lista desplegable de esa celda de la fila de totales (que usa <code class="f">SUBTOTALES</code>) y no una <code class="f">SUMA</code> escrita a mano sobre el rango.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Al imprimir, una columna sale sola en otra hoja.</summary>
+          <p>En <strong>Disposición de página → Ajustar área de impresión</strong> poné <strong>Ancho: 1 página</strong>, o pasá la orientación a <strong>Horizontal</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Las páginas siguientes no tienen los títulos.</summary>
+          <p>Falta configurar <strong>Disposición de página → Imprimir títulos → Repetir filas en extremo superior</strong> con la fila de encabezados (<code class="f">$1:$1</code>).</p>
+        </details>
+        <details class="faq-item">
+          <summary>Imprimí y me faltan filas.</summary>
+          <p>Hay dos causas posibles: un <strong>filtro activo</strong> (las filas ocultas no se imprimen) o un <strong>área de impresión</strong> que no cubre toda la tabla. Borrá los filtros y revisá el área en <strong>Disposición de página → Área de impresión</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>No encuentro “Microsoft Print to PDF”.</summary>
+          <p>Usá <strong>Archivo → Exportar → Crear documento PDF/XPS</strong>, que no depende de la impresora instalada.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section alt" id="resumen">
+      <div class="wrap plain">
+        <div class="section-head">
+          <p class="eyebrow">Cierre de clase</p>
+          <h2>Resumen de la Clase</h2>
+        </div>
+
+        <div class="lectura">
+          <p>Antes de terminar, repasemos lo esencial. Cada herramienta responde a una pregunta: <strong>BUSCAR</strong> encuentra un dato en una lista ordenada y trae otro de la misma fila; los <strong>hipervínculos</strong> te llevan con un clic a otra hoja, archivo, web o correo; la <strong>segmentación</strong> filtra una tabla con botones y los totales acompañan el filtro; y la <strong>configuración de impresión</strong> define qué se imprime, cómo se acomoda y qué títulos se repiten.</p>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Herramienta</th><th>Sirve para</th><th>Cómo se usa</th><th>Cuidado con</th></tr></thead>
+            <tbody>
+              <tr><td><strong>BUSCAR</strong></td><td>Traer un dato a partir de otro.</td><td><code class="f">=BUSCAR(valor;vector_comparación;vector_resultado)</code></td><td>Lista <strong>ordenada</strong>; valor que no existe.</td></tr>
+              <tr><td><strong>Hipervínculos</strong></td><td>Ir a otro lugar con un clic.</td><td><kbd>Ctrl</kbd>+<kbd>K</kbd>, o clic derecho → Vínculo.</td><td>Renombrar hojas, mover archivos.</td></tr>
+              <tr><td><strong>Segmentación</strong></td><td>Filtrar con botones.</td><td>Tabla (<kbd>Ctrl</kbd>+<kbd>T</kbd>) → Insertar → Segmentación de datos.</td><td>Columnas con demasiados valores; filas ocultas.</td></tr>
+              <tr><td><strong>Imprimir</strong></td><td>Llevar la planilla a papel o PDF.</td><td>Vista previa, saltos de página, área, títulos, ajuste.</td><td>Filtros activos; imprimir sin mirar la vista previa.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul>
+          <li><strong>BUSCAR:</strong> <code class="f">=BUSCAR($B$3;Elementos!$A$2:$A$62;Elementos!$C$2:$C$62)</code>. Tres piezas: valor buscado (uno), vector de comparación (lista <strong>ordenada de menor a mayor</strong>) y vector de resultado (opcional). Si el valor no existe, trae el más cercano hacia abajo.</li>
+          <li><strong>Clave de búsqueda:</strong> conviene buscar por una columna <strong>sin repetidos</strong> y ordenada (en la actividad, ITEM).</li>
+          <li><strong>Vínculos:</strong> destinos posibles: archivo o página web, lugar de este documento, documento nuevo y correo. Funcionan en celdas y en formas. Editar y quitar con clic derecho.</li>
+          <li><strong>Segmentadores:</strong> necesitan una <strong>tabla</strong>; un botón por valor distinto; <kbd>Ctrl</kbd>+clic para sumar valores; combinan columnas distintas; la <strong>fila de totales</strong> suma solo lo visible.</li>
+          <li><strong>Impresión:</strong> <strong>Ctrl+P</strong> para mirar; <strong>Ver salto de página</strong> para acomodar; <strong>Área de impresión</strong>; <strong>Imprimir títulos</strong> (<code class="f">$1:$1</code>); <strong>Ancho: 1 página</strong>; <strong>PDF</strong> con Microsoft Print to PDF o Exportar.</li>
+          <li><strong>Lo que se combina:</strong> referencias absolutas (BUSCAR), SI anidado (categoría), tablas y filtros (segmentación) y todo junto en un informe impreso.</li>
+        </ul>
+
+        <h3>Vocabulario de la clase</h3>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Palabra</th><th>Qué quiere decir</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Valor buscado</strong></td><td>El dato que querés encontrar con BUSCAR (uno solo).</td></tr>
+              <tr><td><strong>Vector</strong></td><td>Una lista de datos en una sola columna o fila.</td></tr>
+              <tr><td><strong>Vector de comparación</strong></td><td>La columna donde BUSCAR mira si existe el valor. Debe estar ordenada de menor a mayor.</td></tr>
+              <tr><td><strong>Vector de resultado</strong></td><td>La columna de donde BUSCAR trae la respuesta, de la fila encontrada.</td></tr>
+              <tr><td><strong>Clave</strong></td><td>La columna por la que se busca. Una buena clave no se repite (como ITEM).</td></tr>
+              <tr><td><strong>#N/D</strong></td><td>Error que significa “no disponible”: lo que buscás no está o es menor que todo lo de la lista.</td></tr>
+              <tr><td><strong>Hipervínculo (vínculo)</strong></td><td>Un enlace en una celda o un dibujo que lleva a otro lugar.</td></tr>
+              <tr><td><strong>Segmentador</strong></td><td>Un cuadro con botones que filtra una tabla por los valores de una columna.</td></tr>
+              <tr><td><strong>Fila de totales</strong></td><td>Una fila al pie de la tabla con totales que respetan el filtro (usa SUBTOTALES).</td></tr>
+              <tr><td><strong>Salto de página</strong></td><td>El lugar donde Excel corta la hoja para pasar a la página siguiente.</td></tr>
+              <tr><td><strong>Área de impresión</strong></td><td>La parte de la hoja que va a salir en papel.</td></tr>
+              <tr><td><strong>Imprimir títulos</strong></td><td>La opción que repite las filas de encabezado en todas las páginas.</td></tr>
+              <tr><td><strong>PDF</strong></td><td>Un archivo que se ve igual en cualquier computadora, útil para enviar lo que se iba a imprimir.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Antes de irte: un chequeo final</h3>
+        <p>Intentá responder sin mirar. Si alguna no te sale, volvé a ese tema.</p>
+        <details class="faq-item">
+          <summary>1. ¿Por qué BUSCAR necesita la lista ordenada?</summary>
+          <p>Porque compara el valor con la lista “abriendo por el medio”, como en una guía telefónica. Si no está ordenada, ese método no es confiable y puede traer una fila equivocada sin avisar.</p>
+        </details>
+        <details class="faq-item">
+          <summary>2. ¿Qué tienen en común un vínculo en una celda y uno en una forma?</summary>
+          <p>Los dos se crean con el mismo cuadro (<kbd>Ctrl</kbd>+<kbd>K</kbd> o clic derecho → Vínculo) y permiten los mismos destinos. Cambia solo el aspecto: la celda se pone azul y subrayada; la forma queda como estaba.</p>
+        </details>
+        <details class="faq-item">
+          <summary>3. ¿Qué dos requisitos tienen que cumplirse para que un segmentador sea útil?</summary>
+          <p>Los datos tienen que ser una <strong>tabla</strong> y la columna tiene que tener <strong>pocos valores distintos</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>4. ¿Qué tres cosas revisás antes de imprimir una tabla larga y ancha?</summary>
+          <p>La <strong>vista previa</strong> (para ver qué está mal), el <strong>área de impresión</strong> y los <strong>títulos repetidos</strong>; y, si hace falta, la <strong>orientación</strong> y el <strong>ajuste al ancho</strong>.</p>
+        </details>
+        <details class="faq-item">
+          <summary>5. ¿Cuál de las cuatro herramientas te resultó más útil y cuál te costó más?</summary>
+          <p>No hay una respuesta correcta: es para que te conozcas como aprendiz. Lo que más te costó es lo que conviene volver a practicar, y es un muy buen tema para el foro.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section" id="videos">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recursos multimedia</p>
+          <h2>Video de la clase</h2>
+          <p>
+            Un video de <strong>El Inge Francisco</strong>, con enlaces al minuto donde se explica cada tema. Es el <strong>capítulo 5</strong> de su curso básico de Excel.
+            Usa ejemplos distintos a los de la actividad (una lista de nombres con deudas para BUSCAR, una venta de autos para los segmentadores) y una versión de Excel con los menús un poco distintos, pero los pasos son los mismos.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-wrapper">
+              <a class="video-thumb-link" href="https://youtu.be/cfsih0Gn1Jc" target="_blank" rel="noopener noreferrer">
+                <img class="video-thumb-img" src="https://i.ytimg.com/vi/cfsih0Gn1Jc/hqdefault.jpg" alt="Miniatura del video Curso básico de Excel, capítulo cinco" loading="lazy">
+                <span class="video-thumb-play"><span></span></span>
+              </a>
+            </div>
+            <div style="padding: 0.9rem 1.1rem 1.1rem;">
+              <p style="margin:0; font-weight:700; color:var(--text); font-size:0.95rem;">Curso básico de Excel · Capítulo 5</p>
+              <p style="margin:0.2rem 0 0; color:var(--muted); font-size:0.82rem;">El Inge Francisco · 29 min · Ver en YouTube ↗</p>
+              <p style="margin:0.6rem 0 0;font-size:0.8rem;color:var(--muted);line-height:1.8;">
+                <strong>Temas:</strong>
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=0s" target="_blank" rel="noopener noreferrer">Presentación y temario 0:00</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=154s" target="_blank" rel="noopener noreferrer">Función BUSCAR 2:34</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=185s" target="_blank" rel="noopener noreferrer">Los tres parámetros 3:05</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=398s" target="_blank" rel="noopener noreferrer">La lista debe estar ordenada 6:38</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=488s" target="_blank" rel="noopener noreferrer">El vector de resultado 8:08</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=695s" target="_blank" rel="noopener noreferrer">Hipervínculos 11:35</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=749s" target="_blank" rel="noopener noreferrer">Vínculo en una forma 12:29</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=795s" target="_blank" rel="noopener noreferrer">A un archivo 13:15</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=868s" target="_blank" rel="noopener noreferrer">A una página web 14:28</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=904s" target="_blank" rel="noopener noreferrer">A otra hoja 15:04</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=947s" target="_blank" rel="noopener noreferrer">A un correo 15:47</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=980s" target="_blank" rel="noopener noreferrer">Vínculo en una celda 16:20</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1021s" target="_blank" rel="noopener noreferrer">Segmentación de datos 17:01</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1103s" target="_blank" rel="noopener noreferrer">Insertar segmentación 18:23</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1228s" target="_blank" rel="noopener noreferrer">Fila de totales 20:28</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1263s" target="_blank" rel="noopener noreferrer">Dos segmentaciones 21:03</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1378s" target="_blank" rel="noopener noreferrer">Imprimir 22:58</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1463s" target="_blank" rel="noopener noreferrer">Ver salto de página 24:23</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1522s" target="_blank" rel="noopener noreferrer">Imprimir títulos 25:22</a> ·
+                <a href="https://www.youtube.com/watch?v=cfsih0Gn1Jc&t=1665s" target="_blank" rel="noopener noreferrer">Guardar como PDF 27:45</a>
+              </p>
+              <p style="margin:0.6rem 0 0;font-size:0.85rem;color:var(--muted);line-height:1.6;">
+                <strong>Ojo:</strong> en el video, el vínculo y el botón se crean sobre una hoja de “Temario”; en la actividad, el destino es la hoja <strong>Contenido</strong>. Los pasos son idénticos.
+                Además, el video prepara la planilla para imprimir con los saltos de página y el área de impresión; en esta página agregamos las opciones de orientación y de ajuste al ancho.
+              </p>
+              <p class="video-ask"><b>Consigna:</b> ¿qué tres datos necesita la función BUSCAR y cuál de ellos tiene que estar ordenado? ¿Qué tipos de destino puede tener un hipervínculo? ¿Qué es la segmentación de datos y qué hay que hacer antes de insertarla? ¿Qué dos herramientas del video evitan que una tabla larga se imprima cortada y sin títulos?</p>
+              <details class="video-ans"><summary>Ver respuesta</summary><p>BUSCAR necesita el <strong>valor buscado</strong>, el <strong>vector de comparación</strong> (el que tiene que estar <strong>ordenado de menor a mayor</strong>) y, opcionalmente, el <strong>vector de resultado</strong>. Un hipervínculo puede llevar a un <strong>archivo</strong>, una <strong>página web</strong>, <strong>otra hoja o lugar del mismo documento</strong> o un <strong>correo electrónico</strong>, y se puede aplicar a un texto o a una forma. La segmentación de datos es un filtro con botones que muestra la información por categorías; antes hay que <strong>dar formato de tabla</strong> a los datos. Para imprimir bien, se usan <strong>Ver salto de página</strong> (arrastrando la línea azul para acomodar las páginas y fijando el área de impresión) e <strong>Imprimir títulos</strong> (repetir las filas del encabezado en cada página).</p></details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="class-nav" aria-label="Navegación entre clases">
+    <div class="wrap class-nav-content">
+      <a class="class-nav-link prev" href="u3-clase11.html">
+        <span class="class-nav-label">Clase anterior</span>
+        <span class="class-nav-title">Unidad 3 · Clase 11 · Fechas, alertas y macros</span>
+      </a>
+      <span class="class-nav-link next disabled" aria-disabled="true">
+        <span class="class-nav-label">Próxima clase</span>
+        <span class="class-nav-title">Próximamente</span>
+      </span>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>Informática Aplicada</strong> · C1-21-10 · Todas las comisiones · Unidad 3 · Clase 12</p>
+      <p><a href="https://www.ignaciodlopez.com/" target="_blank" rel="noopener noreferrer">Ignacio D. López</a></p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="../darkmode.js"></script>
+  <script>
+    /* ===== Navegación superior arrastrable ===== */
+    const nav = document.querySelector('.topbar-nav');
+    let isDown = false, startX, scrollLeft;
+
+    nav.addEventListener('mousedown', e => {
+      isDown = true;
+      nav.classList.add('dragging');
+      startX = e.pageX - nav.offsetLeft;
+      scrollLeft = nav.scrollLeft;
+    });
+    nav.addEventListener('mouseleave', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mouseup', () => { isDown = false; nav.classList.remove('dragging'); });
+    nav.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX) * 1.5;
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = nav.getBoundingClientRect();
+        nav.scrollBy({
+          left: linkRect.left + linkRect.width / 2 - (navRect.left + navRect.width / 2),
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    /* ===== Lista de control de la actividad ===== */
+    function initChecklist(KEY, listId, fillId, barId, labelId, doneMsg) {
+      const boxes = document.querySelectorAll('#' + listId + ' input[type="checkbox"]');
+      const fill = document.getElementById(fillId);
+      const bar = document.getElementById(barId);
+      const label = document.getElementById(labelId);
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+
+      function update() {
+        let done = 0;
+        boxes.forEach(b => { if (b.checked) done++; });
+        const pct = Math.round(done / boxes.length * 100);
+        fill.style.width = pct + '%';
+        bar.setAttribute('aria-valuenow', pct);
+        label.textContent = done === boxes.length
+          ? '🎉 ¡Completaste los ' + boxes.length + ' pasos! ' + doneMsg
+          : done + ' de ' + boxes.length + ' pasos completados';
+      }
+      boxes.forEach(b => {
+        b.checked = !!saved[b.dataset.k];
+        b.addEventListener('change', () => {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+          update();
+        });
+      });
+      update();
+    }
+    initChecklist('c1-clase12-checklist-v1', 'chkList', 'chkFill', 'chkBar', 'chkLabel', 'Contá tu experiencia en el Foro.');
+    initChecklist('c1-clase12-tp-v1', 'tpList', 'tpFill', 'tpBar', 'tpLabel', 'Exportá el PDF y entregá tu trabajo.');
+  </script>
+</body>
+</html>
